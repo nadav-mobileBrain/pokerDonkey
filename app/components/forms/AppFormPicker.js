@@ -20,8 +20,8 @@ function AppFormPicker({
         items={items}
         numberOfColumns={numberOfColumns}
         onSelectItem={(item) => setFieldValue(name, item)}
-        placeholder={placeholder}
         PickerItemComponent={PickerItemComponent}
+        placeholder={placeholder}
         selectedItem={values[name]}
         width={width}
       />
