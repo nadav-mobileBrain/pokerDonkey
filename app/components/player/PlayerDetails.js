@@ -2,6 +2,7 @@ import React from "react";
 import { Image, View, StyleSheet, TouchableHighlight } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler"; // Import GestureHandlerRootView
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import AppText from "../AppText";
 import colors from "../../config/colors";
@@ -22,11 +23,20 @@ function PlayerDetails({
             {IconComponent}
             {image && <Image style={styles.image} source={image} />}
             <View style={styles.detailsContainer}>
-              <AppText style={styles.title}>{title}</AppText>
+              <AppText style={styles.title} numberOfLines={1}>
+                {title}
+              </AppText>
               {subTitle && (
-                <AppText style={styles.subTitle}>{subTitle}</AppText>
+                <AppText style={styles.subTitle} numberOfLines={2}>
+                  {subTitle}
+                </AppText>
               )}
             </View>
+            <MaterialCommunityIcons
+              name="chevron-right"
+              size={25}
+              color={colors.medium}
+            />
           </View>
         </TouchableHighlight>
       </Swipeable>
@@ -39,8 +49,10 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
     padding: 15,
     backgroundColor: colors.white,
+    alignItems: "center",
   },
   detailsContainer: {
+    flex: 1,
     marginRight: 10,
     justifyContent: "center",
   },

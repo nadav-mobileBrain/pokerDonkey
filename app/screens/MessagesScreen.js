@@ -51,26 +51,26 @@ function MessagesScreen(props) {
             renderRightActions={() => (
               <PlayerDetailsDeleteActions onPress={() => handleDelete(item)} />
             )}
-            refreshing={refreshing}
-            onRefresh={() => {
-              console.log("refreshing");
-              setMessages([
-                {
-                  id: 3,
-                  title: "T3",
-                  description: "D3",
-                  image: require("../assets/bibsDonkey.png"),
-                },
-              ]);
-            }}
           />
         )}
         ItemSeparatorComponent={ListitemSeperator}
+        refreshing={refreshing}
+        onRefresh={() => {
+          console.log("refreshing");
+          setRefreshing(true);
+          setMessages([
+            {
+              id: 3,
+              title: "T3",
+              description: "D3",
+              image: require("../assets/bibsDonkey.png"),
+            },
+          ]);
+          setRefreshing(false);
+        }}
       />
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({});
 
 export default MessagesScreen;
