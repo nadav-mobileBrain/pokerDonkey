@@ -26,31 +26,31 @@ const menuItems = [
 function AccountScreen() {
   return (
     <Screen style={styles.screen}>
-      {/* <View style={styles.container}> */}
-      <PlayerDetails
-        title="Bibs"
-        subTitle="Joined at 2019-09-09"
-        image={require("../assets/bibsDonkey.png")}
-      />
-      {/* </View> */}
-      {/* <View style={styles.container}> */}
-      <FlatList
-        data={menuItems}
-        keyExtractor={(menuItem) => menuItem.title}
-        renderItem={({ item }) => (
-          <PlayerDetails
-            title={item.title}
-            IconComponent={
-              <Icon
-                name={item.icon.name}
-                backgroundColor={item.icon.backgroundColor}
-              />
-            }
-            ItemsSeperatorComponent={ListitemSeperator}
-          />
-        )}
-      />
-      {/* </View> */}
+      <View style={styles.container}>
+        <PlayerDetails
+          title="Bibs"
+          subTitle="Joined at 2019-09-09"
+          image={require("../assets/bibsDonkey.png")}
+        />
+      </View>
+      <View style={styles.container}>
+        <FlatList
+          data={menuItems}
+          keyExtractor={(menuItem) => menuItem.title}
+          renderItem={({ item }) => (
+            <PlayerDetails
+              title={item.title}
+              IconComponent={
+                <Icon
+                  name={item.icon.name}
+                  backgroundColor={item.icon.backgroundColor}
+                />
+              }
+              ItemsSeperatorComponent={ListitemSeperator}
+            />
+          )}
+        />
+      </View>
       <PlayerDetails
         title="Log Out"
         IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
@@ -62,6 +62,7 @@ function AccountScreen() {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 20,
+    flex: 1,
   },
   screen: {
     backgroundColor: colors.light,
