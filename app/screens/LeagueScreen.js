@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 
 import Card from "../components/Card";
 import Screen from "../components/Screen";
@@ -9,20 +9,20 @@ const leagues = [
   {
     id: 1,
     name: "League 1",
-    leagueNuber: 1,
+    number: 1,
     leagueManager: "Manager 1",
     image: require("../assets/leagueLogo.jpg"),
   },
   {
     id: 2,
     name: "League 2",
-    leagueNuber: 2,
+    number: 2,
     leagueManager: "Manager 2",
     image: require("../assets/leagueLogo.jpg"),
   },
 ];
 
-function LeagueScreen(props) {
+function LeagueScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <FlatList
@@ -33,6 +33,7 @@ function LeagueScreen(props) {
             title={item.name}
             subTitle={item.leagueNuber}
             image={item.image}
+            onPress={() => navigation.navigate("LeagueDetails", item)}
           />
         )}
       />

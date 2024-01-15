@@ -5,16 +5,16 @@ import AppText from "../components/AppText";
 import colors from "../config/colors";
 import PlayerDetails from "../components/player/PlayerDetails";
 
-function LeagueDetailsScreen() {
+function LeagueDetailsScreen({ route }) {
+  const league = route.params;
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={require("../assets/leagueLogo.jpg")}
-      />
+      <Image style={styles.image} source={league.image} />
       <View style={styles.detailsContainer}>
-        <AppText style={styles.title}>League Name : Poker @ Vasil</AppText>
-        <AppText style={styles.leagueNumber}>League Number : 5572</AppText>
+        <AppText style={styles.title}>League Name : {league.name}</AppText>
+        <AppText style={styles.leagueNumber}>
+          League Number : {league.number}
+        </AppText>
         <View style={styles.playerContainer}>
           <PlayerDetails
             title="Bibs"
