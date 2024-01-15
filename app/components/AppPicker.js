@@ -59,7 +59,7 @@ function AppPicker({
             keyExtractor={(item) => item.value.toString()}
             numColumns={numberOfColumns}
             renderItem={({ item }) => (
-              <PickerItemComponent
+              <PickerItem
                 item={item}
                 label={item.label}
                 onPress={() => {
