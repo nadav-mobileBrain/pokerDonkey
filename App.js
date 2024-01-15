@@ -5,6 +5,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Screen from "./app/components/Screen";
+import AuthNavigator from "./app/navigation/AuthNavigator";
+import AppNavigator from "./app/navigation/AppNavigator";
+import navigationTheme from "./app/navigation/navigationTheme";
 
 const Stack = createStackNavigator();
 
@@ -60,8 +63,8 @@ const TabNavigator = () => (
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <TabNavigator />
+    <NavigationContainer theme={navigationTheme}>
+      <AppNavigator />
     </NavigationContainer>
   );
 }
