@@ -2,8 +2,9 @@ import React from "react";
 import { StyleSheet, FlatList } from "react-native";
 
 import Card from "../components/Card";
-import Screen from "../components/Screen";
 import colors from "../config/colors";
+import routes from "../navigation/routes";
+import Screen from "../components/Screen";
 
 const leagues = [
   {
@@ -33,7 +34,7 @@ function LeagueScreen({ navigation }) {
             title={item.name}
             subTitle={item.leagueNuber}
             image={item.image}
-            onPress={() => navigation.navigate("LeagueDetails", item)}
+            onPress={() => navigation.navigate(routes.LEAGUE_DETAILS, item)}
           />
         )}
       />
