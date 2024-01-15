@@ -21,7 +21,7 @@ function LeagueScreen({ navigation }) {
     loading,
     request: loadMyLeagues,
   } = useApi(leaguesApi.getLeagues);
-  console.log(myLeagues.user[0].userLeagues);
+
   useEffect(() => {
     loadMyLeagues();
   }, []);
