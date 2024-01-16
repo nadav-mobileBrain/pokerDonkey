@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, FlatList } from "react-native";
+import { StyleSheet, FlatList, Text } from "react-native";
 
 import ActivityIndicator from "../components/ActivityIndicator";
 import AppText from "../components/AppText";
@@ -21,6 +21,8 @@ function LeagueScreen({ navigation }) {
     loading,
     request: loadMyLeagues,
   } = useApi(leaguesApi.getLeagues);
+  console.log("🚀 ~ LeagueScreen ~ myLeagues:", myLeagues);
+  // console.log("🚀 ~ LeagueScreen ~ data:", data);
 
   useEffect(() => {
     loadMyLeagues();
@@ -36,7 +38,8 @@ function LeagueScreen({ navigation }) {
       )}
       <ActivityIndicator visible={loading} />
 
-      {myLeagues?.user[0].userLeagues.length > 0 && (
+      <Text>Fixxxxxx</Text>
+      {/* {myLeagues?.user[0].userLeagues.length > 0 && (
         <FlatList
           data={myLeagues?.user[0].userLeagues}
           keyExtractor={(myLeague) => myLeague.id.toString()}
@@ -49,7 +52,7 @@ function LeagueScreen({ navigation }) {
             />
           )}
         />
-      )}
+      )} */}
     </Screen>
   );
 }
