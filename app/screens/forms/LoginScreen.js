@@ -1,8 +1,16 @@
+import React, { useState } from "react";
 import { Image, StyleSheet } from "react-native";
 import * as Yup from "yup";
+import jwtDecode from "jwt-decode";
 
 import Screen from "../../components/Screen";
-import { AppForm, AppFormField, SubmitButton } from "../../components/forms";
+import {
+  AppForm,
+  AppFormField,
+  ErrorMessage,
+  SubmitButton,
+} from "../../components/forms";
+import authApi from "../../api/auth";
 
 const vaslidationSchema = Yup.object().shape({
   nickName: Yup.string().required().min(2).label("Nick Name"),
@@ -10,14 +18,29 @@ const vaslidationSchema = Yup.object().shape({
 });
 
 function LoginScreen() {
+  const [loginFailed, setLoginFailed] = useState(false);
+
+  const handleSubmit = async ({ nickName, password }) => {
+    const result = await authApi.login(nickName, password);
+
+    if (!result.ok) return setLoginFailed(true);
+    setLoginFailed(false);
+    const user = jwtDecode(result.data.token);
+    console.log("🚀 ~ handleSubmit ~ user:", user);
+    // Additional logic with the decoded user
+  };
   return (
     <Screen style={styles.container}>
       <Image style={styles.logo} source={require("../../assets/appLogo.png")} />
       <AppForm
         initialValues={{ nickName: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={vaslidationSchema}
       >
+        <ErrorMessage
+          error="Invalid Nick Name or Password"
+          visible={loginFailed}
+        />
         <AppFormField
           name="nickName"
           placeholder="Nick Name"
