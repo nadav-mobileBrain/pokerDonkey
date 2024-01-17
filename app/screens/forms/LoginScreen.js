@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Image, StyleSheet } from "react-native";
 import * as Yup from "yup";
-import jwtDecode from "jwt-decode";
 
 import Screen from "../../components/Screen";
 import {
@@ -11,8 +10,7 @@ import {
   SubmitButton,
 } from "../../components/forms";
 import authApi from "../../api/auth";
-import AuthContext from "../../auth/context";
-import authStorage from "../../auth/storage";
+import useAuth from "../../auth/useAuth";
 
 const vaslidationSchema = Yup.object().shape({
   nickName: Yup.string().required().min(2).label("Nick Name"),
@@ -20,7 +18,7 @@ const vaslidationSchema = Yup.object().shape({
 });
 
 function LoginScreen() {
-  const authContext = useContext(AuthContext);
+  const { logIn } = useAuth();
   const [loginFailed, setLoginFailed] = useState(false);
 
   const handleSubmit = async ({ nickName, password }) => {
@@ -28,9 +26,7 @@ function LoginScreen() {
 
     if (!result.ok) return setLoginFailed(true);
     setLoginFailed(false);
-    const user = jwtDecode(result.data.token);
-    authContext.setUser(user);
-    authStorage.storeToken(result.data.token);
+    logIn(result.data);
   };
   return (
     <Screen style={styles.container}>
