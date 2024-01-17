@@ -12,6 +12,7 @@ import {
 } from "../../components/forms";
 import authApi from "../../api/auth";
 import AuthContext from "../../auth/context";
+import authStorage from "../../auth/storage";
 
 const vaslidationSchema = Yup.object().shape({
   nickName: Yup.string().required().min(2).label("Nick Name"),
@@ -29,6 +30,7 @@ function LoginScreen() {
     setLoginFailed(false);
     const user = jwtDecode(result.data.token);
     authContext.setUser(user);
+    authStorage.storeToken(result.data.token);
   };
   return (
     <Screen style={styles.container}>

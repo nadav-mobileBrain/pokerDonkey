@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
+
 import Screen from "../components/Screen";
 import PlayerDetails from "../components/player/PlayerDetails";
 import ListitemSeperator from "../components/ListitemSeperator";
 import Icon from "../components/Icon";
 import colors from "../config/colors";
+import AuthContext from "../auth/context";
+import authStorage from "../auth/storage";
 
 const menuItems = [
   {
@@ -25,11 +28,18 @@ const menuItems = [
 ];
 
 function AccountScreen({ navigation }) {
+  const { user, setUser } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    setUser(null);
+    authStorage.removeToken();
+  };
+
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
         <PlayerDetails
-          title="Bibs"
+          title={user.nickName}
           subTitle="Joined at 2019-09-09"
           image={require("../assets/bibsDonkey.png")}
         />
@@ -56,6 +66,7 @@ function AccountScreen({ navigation }) {
       <PlayerDetails
         title="Log Out"
         IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+        onPress={handleLogout}
       />
     </Screen>
   );
