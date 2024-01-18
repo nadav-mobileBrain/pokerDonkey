@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 const AppNavigator = () => (
   <Tab.Navigator>
     <Tab.Screen
-      name="Feed"
+      name="My Leagues"
       component={FeedNavigator}
       options={{
         tabBarIcon: ({ color, size }) => (

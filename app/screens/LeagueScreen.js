@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, FlatList, Text } from "react-native";
+import { StyleSheet, FlatList, View } from "react-native";
 
 import ActivityIndicator from "../components/ActivityIndicator";
 import AppText from "../components/AppText";
@@ -11,12 +11,13 @@ import leaguesApi from "../api/leagues";
 import routes from "../navigation/routes";
 import Screen from "../components/Screen";
 import useApi from "../hooks/useApi";
+import HeaderText from "../components/HeaderText";
+import NoLeagues from "../components/leagues/NoLeagues";
 
 const serverUrl = apiClient.getBaseURL();
 
 function LeagueScreen({ navigation }) {
   const getLeaguesApi = useApi(leaguesApi.getLeagues);
-  console.log("🚀 ~ LeagueScreen ~ getLeaguesApi:", getLeaguesApi.data);
 
   useEffect(() => {
     setTimeout(() => {
@@ -35,10 +36,8 @@ function LeagueScreen({ navigation }) {
           </>
         )}
         {getLeaguesApi.data?.leagues?.length == 0 && (
-          <Text>No leagues found</Text>
+          <NoLeagues navigation={navigation} />
         )}
-
-        {/* <Text>Fixxxxxx</Text> */}
         {/* {myLeagues?.user[0].userLeagues.length > 0 && (
         <FlatList
           data={myLeagues?.user[0].userLeagues}
