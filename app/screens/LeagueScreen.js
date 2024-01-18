@@ -15,31 +15,31 @@ import useApi from "../hooks/useApi";
 const serverUrl = apiClient.getBaseURL();
 
 function LeagueScreen({ navigation }) {
-  const {
-    data: myLeagues,
-    error,
-    loading,
-    request: loadMyLeagues,
-  } = useApi(leaguesApi.getLeagues);
-  console.log("🚀 ~ LeagueScreen ~ myLeagues:", myLeagues);
-  // console.log("🚀 ~ LeagueScreen ~ data:", data);
+  const getLeaguesApi = useApi(leaguesApi.getLeagues);
+  console.log("🚀 ~ LeagueScreen ~ getLeaguesApi:", getLeaguesApi.data);
 
   useEffect(() => {
-    loadMyLeagues();
+    setTimeout(() => {
+      getLeaguesApi.request();
+    }, 1000);
   }, []);
 
   return (
-    <Screen style={styles.screen}>
-      {error && (
-        <>
-          <AppText>Couldn't retrieve the leagues.</AppText>
-          <AppButton title="Retry" onPress={loadMyLeagues} />
-        </>
-      )}
-      <ActivityIndicator visible={loading} />
+    <>
+      <ActivityIndicator visible={getLeaguesApi.loading} />
+      <Screen style={styles.screen}>
+        {getLeaguesApi.error && (
+          <>
+            <AppText>Couldn't retrieve the leagues.</AppText>
+            <AppButton title="Retry" onPress={getLeaguesApi.request} />
+          </>
+        )}
+        {getLeaguesApi.data?.leagues?.length == 0 && (
+          <Text>No leagues found</Text>
+        )}
 
-      <Text>Fixxxxxx</Text>
-      {/* {myLeagues?.user[0].userLeagues.length > 0 && (
+        {/* <Text>Fixxxxxx</Text> */}
+        {/* {myLeagues?.user[0].userLeagues.length > 0 && (
         <FlatList
           data={myLeagues?.user[0].userLeagues}
           keyExtractor={(myLeague) => myLeague.id.toString()}
@@ -53,7 +53,8 @@ function LeagueScreen({ navigation }) {
           )}
         />
       )} */}
-    </Screen>
+      </Screen>
+    </>
   );
 }
 
