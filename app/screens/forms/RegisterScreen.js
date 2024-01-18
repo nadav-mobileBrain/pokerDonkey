@@ -82,7 +82,7 @@ function RegisterScreen() {
               *You can add your image later
             </AppText>
           </View>
-          <SubmitButton title="Register" />
+          <SubmitButton title="Register" icon="account-plus" />
         </AppForm>
       </Screen>
     </>

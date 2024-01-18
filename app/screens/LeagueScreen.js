@@ -13,11 +13,13 @@ import Screen from "../components/Screen";
 import useApi from "../hooks/useApi";
 import HeaderText from "../components/HeaderText";
 import NoLeagues from "../components/leagues/NoLeagues";
+import PlayerAvatar from "../components/player/PlayerAvatar";
 
 const serverUrl = apiClient.getBaseURL();
 
-function LeagueScreen({ navigation }) {
+function LeagueScreen({ navigation, user }) {
   const getLeaguesApi = useApi(leaguesApi.getLeagues);
+  ///get user
 
   useEffect(() => {
     setTimeout(() => {
@@ -29,6 +31,7 @@ function LeagueScreen({ navigation }) {
     <>
       <ActivityIndicator visible={getLeaguesApi.loading} />
       <Screen style={styles.screen}>
+        <PlayerAvatar />
         {getLeaguesApi.error && (
           <>
             <AppText>Couldn't retrieve the leagues.</AppText>

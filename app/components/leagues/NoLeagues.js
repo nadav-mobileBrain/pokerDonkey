@@ -37,6 +37,9 @@ const styles = StyleSheet.create({
   image: {
     marginBottom: 20,
     borderRadius: 15,
+    width: "80%",
+    height: "50%",
+    resizeMode: "contain",
   },
 });
 

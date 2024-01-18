@@ -19,11 +19,13 @@ function WelcomeScreen({ navigation }) {
           title="Login"
           onPress={() => navigation.navigate("Login")}
           color="LightSkyBlue"
+          icon="login"
         />
         <AppButton
           title="Register"
           color="AccentPurple"
           onPress={() => navigation.navigate("Register")}
+          icon="account-plus"
         />
       </View>
     </ImageBackground>
