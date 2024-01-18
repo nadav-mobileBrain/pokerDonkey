@@ -1,7 +1,9 @@
 import client from "./client";
 
-const login = (nickName, password) =>
-  client.post("/api/users/login", { nickName, password });
+const login = (userInfo) => {
+  client.headers["Content-Type"] = "application/json";
+  return client.post("api/users/login", userInfo);
+};
 
 export default {
   login,

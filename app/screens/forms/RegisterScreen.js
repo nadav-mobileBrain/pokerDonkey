@@ -1,19 +1,23 @@
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import * as Yup from "yup";
 
 import Screen from "../../components/Screen";
 import { AppForm, AppFormField, SubmitButton } from "../../components/forms";
+import AppText from "../../components/AppText";
+import ImageInput from "../../components/forms/ImageInput";
 import ActivityIndicator from "../../components/ActivityIndicator";
 import ErrorMessage from "../../components/forms/ErrorMessage";
 import authApi from "../../api/auth";
 import usersApi from "../../api/users";
 import useApi from "../../hooks/useApi";
 import useAuth from "../../auth/useAuth";
+import colors from "../../config/colors";
 
 const validationSchema = Yup.object().shape({
   nickName: Yup.string().required().label("Nick Name"),
   password: Yup.string().required().min(4).label("Password"),
+  image: Yup.string().label("Image"),
 });
 
 function RegisterScreen() {
@@ -21,9 +25,16 @@ function RegisterScreen() {
   const loginApi = useApi(authApi.login);
   const auth = useAuth();
   const [error, setError] = useState();
+  const [imageUri, setImageUri] = useState(null); // New state for image URI
 
   const handleSubmit = async (userInfo) => {
-    const result = await registerApi.request(userInfo);
+    const completeUserInfo = {
+      ...userInfo,
+      image: imageUri,
+    };
+
+    const result = await registerApi.request(completeUserInfo);
+
     if (!result.ok) {
       if (result.data) setError(result.data.error);
       else {
@@ -33,10 +44,7 @@ function RegisterScreen() {
       return;
     }
 
-    const { data: authToken } = await loginApi.request(
-      userInfo.nickName,
-      userInfo.password
-    );
+    const { data: authToken } = await loginApi.request(userInfo);
     auth.logIn(authToken);
   };
 
@@ -65,6 +73,15 @@ function RegisterScreen() {
             secureTextEntry
             textContentType="password"
           />
+          <View style={{ alignItems: "flex-end" }}>
+            <ImageInput
+              imageUri={imageUri}
+              onChangeImage={(uri) => setImageUri(uri)}
+            />
+            <AppText style={{ color: colors.AccentPurple }}>
+              *You can add your image later
+            </AppText>
+          </View>
           <SubmitButton title="Register" />
         </AppForm>
       </Screen>
