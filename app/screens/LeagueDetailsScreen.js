@@ -1,12 +1,12 @@
 import React from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, ScrollView } from "react-native";
 
 import apiClient from "../api/client";
 import AppText from "../components/AppText";
 import colors from "../config/colors";
-import PlayerDetails from "../components/player/PlayerDetails";
 import PlayerAvatar from "../components/player/PlayerAvatar";
-import PlayerInfo from "../components/player/PlayerInfo";
+import PlayerInfo from "../components/player/PlayerInfo"; // Add this import statement
+import AppButton from "../components/AppButton";
 
 function LeagueDetailsScreen({ route }) {
   const league = route.params.item.league;
@@ -19,23 +19,33 @@ function LeagueDetailsScreen({ route }) {
   return (
     <View style={styles.container}>
       <PlayerAvatar />
-      <Image
-        style={styles.image}
-        source={{ uri: `${serverUrl}${league.league_image}` }}
-      />
-      <View style={styles.detailsContainer}>
-        <AppText style={styles.title}>
-          League Name : {league.league_name}
-        </AppText>
-        <AppText style={styles.leagueNumber}>
-          League Number : {league.league_number}
-        </AppText>
-        <AppText style={styles.admin}>
-          Admin : {league.leagueAdmin.nickName}
-        </AppText>
+      <View style={styles.playerContainer}>
+        <Image
+          style={styles.image}
+          source={{ uri: `${serverUrl}${league.league_image}` }}
+        />
+        <View style={styles.detailsContainer}>
+          <AppText style={styles.title}>
+            League Name : {league.league_name}
+          </AppText>
+          <AppText style={styles.leagueNumber}>
+            League Number : {league.league_number}
+          </AppText>
+          <AppText style={styles.admin}>
+            Admin : {league.leagueAdmin.nickName}
+          </AppText>
+        </View>
+        <View style={styles.buttonContainer}>
+          <AppButton title="League Stats" icon="chart-box-outline" />
+          <AppButton
+            title="Start a new game"
+            color="LimeGreen"
+            icon="cards-playing-spade-multiple-outline"
+          />
+        </View>
+        {/* <PlayerInfo leaguePlayers={leaguePlayers} /> */}
+        <AppText style={styles.created}>Created At: {formattedDate}</AppText>
       </View>
-      <PlayerInfo leaguePlayers={leaguePlayers} />
-      <AppText style={styles.created}>Created At: {formattedDate}</AppText>
     </View>
   );
 }
@@ -45,7 +55,9 @@ const styles = StyleSheet.create({
     color: colors.AccentPurple,
     fontWeight: "bold",
     fontSize: 20,
-    marginVertical: 10,
+  },
+  buttonContainer: {
+    padding: 20,
   },
   created: {
     color: colors.black,
@@ -53,15 +65,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginVertical: 10,
   },
+  container: {
+    backgroundColor: colors.light,
+    // borderRadius: 15,
+    // overflow: "hidden",
+  },
   detailsContainer: {
     padding: 20,
   },
   image: {
     width: "100%",
-    height: 200,
+    height: 120,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
-
     marginBottom: 10,
   },
   leagueNumber: {
@@ -76,7 +92,8 @@ const styles = StyleSheet.create({
     marginBottom: 7,
   },
   playerContainer: {
-    marginVertical: 40,
+    margin: 10,
+    backgroundColor: colors.white,
   },
 });
 

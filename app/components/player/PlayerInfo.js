@@ -14,7 +14,6 @@ import colors from "../../config/colors";
 const serverUrl = apiClient.getBaseURL();
 
 function PlayerInfo({ leaguePlayers }) {
-  console.log("🚀 ~ PlayerInfo ~ leaguePlayers:", leaguePlayers);
   return (
     <View style={styles.container}>
       <FlatList
