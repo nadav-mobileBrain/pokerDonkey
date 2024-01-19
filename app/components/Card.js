@@ -34,11 +34,13 @@ const styles = StyleSheet.create({
     height: 200,
   },
   subTitle: {
-    color: colors.LightSkyBlue,
+    color: colors.pink,
     fontWeight: "bold",
   },
   title: {
     marginBottom: 7,
+    fontWeight: "bold",
+    textDecorationLine: "underline",
   },
 });
 

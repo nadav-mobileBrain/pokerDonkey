@@ -19,7 +19,7 @@ const serverUrl = apiClient.getBaseURL();
 
 function LeagueScreen({ navigation, user }) {
   const getLeaguesApi = useApi(leaguesApi.getLeagues);
-  ///get user
+  console.log("🚀 ~ LeagueScreen ~ getLeaguesApi:", getLeaguesApi);
 
   useEffect(() => {
     setTimeout(() => {
@@ -32,6 +32,7 @@ function LeagueScreen({ navigation, user }) {
       <ActivityIndicator visible={getLeaguesApi.loading} />
       <Screen style={styles.screen}>
         <PlayerAvatar />
+        <HeaderText> MY Leagues</HeaderText>
         {getLeaguesApi.error && (
           <>
             <AppText>Couldn't retrieve the leagues.</AppText>
@@ -41,20 +42,20 @@ function LeagueScreen({ navigation, user }) {
         {getLeaguesApi.data?.leagues?.length == 0 && (
           <NoLeagues navigation={navigation} />
         )}
-        {/* {myLeagues?.user[0].userLeagues.length > 0 && (
-        <FlatList
-          data={myLeagues?.user[0].userLeagues}
-          keyExtractor={(myLeague) => myLeague.id.toString()}
-          renderItem={({ item }) => (
-            <Card
-              title={item.league.league_name}
-              subTitle={item.league.league_number}
-              imageUrl={serverUrl + item.league.league_image}
-              onPress={() => navigation.navigate(routes.LEAGUE_DETAILS, item)}
-            />
-          )}
-        />
-      )} */}
+        {getLeaguesApi.data?.leagues?.length > 0 && (
+          <FlatList
+            data={getLeaguesApi.data.leagues}
+            keyExtractor={(league) => league.id.toString()}
+            renderItem={({ item }) => (
+              <Card
+                title={item.league.league_name}
+                subTitle={`League Number: ${item.league.league_number}`}
+                imageUrl={`${serverUrl}${item.league.league_image}`}
+                onPress={() => navigation.navigate(routes.LEAGUE_DETAILS, item)}
+              />
+            )}
+          />
+        )}
       </Screen>
     </>
   );
