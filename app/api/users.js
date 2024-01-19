@@ -21,9 +21,9 @@ const register = (userInfo) => {
     });
     client.headers["Content-Type"] = "multipart/form-data";
 
-    return client.post("api/users/signup", data);
+    return client.post(`${endpoint}/signup`, data);
   } else {
-    return client.post("api/users/signup", userInfo);
+    return client.post(`${endpoint}/signup`, userInfo);
   }
 };
 export default {

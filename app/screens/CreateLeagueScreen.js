@@ -2,58 +2,82 @@ import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 
+import ActivityIndicator from "../components/ActivityIndicator";
 import AppText from "../components/AppText";
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import colors from "../config/colors";
 import ErrorMessage from "../components/forms/ErrorMessage";
 import HeaderText from "../components/HeaderText";
 import ImageInput from "../components/forms/ImageInput";
+import leaguesApi from "../api/leagues";
 import Screen from "../components/Screen";
+import useAuth from "../auth/useAuth";
+import useApi from "../hooks/useApi";
 
 const validationSchema = Yup.object().shape({
   leagueName: Yup.string().min(2).required().label("League Name"),
   image: Yup.string().label("Image"),
 });
 
-function CreateLeagueScreen(props) {
+function CreateLeagueScreen({ navigation }) {
   const [error, setError] = useState();
   const [imageUri, setImageUri] = useState(null); // New state for image URI
+  const { user } = useAuth();
+  const createLeagueApi = useApi(leaguesApi.createLeague);
 
   const handleSubmit = async (leagueInfo) => {
     const completeLeagueInfo = {
       ...leagueInfo,
       image: imageUri,
+      userId: user.userId,
     };
-    console.log("🚀 ~ handleSubmit ~ completeLeagueInfo:", completeLeagueInfo);
+
+    const result = await createLeagueApi.request(completeLeagueInfo);
+    if (!result.ok) {
+      if (result.data) setError(result.data.error);
+      else {
+        setError("An unexpected error occurred.");
+        console.log(result);
+      }
+      return;
+    }
+    console.log("🚀 ~ CreateLeagueScreen ~ result:", result.data.league);
+    navigation.navigate("Leagues", {
+      league: result.data.league,
+    });
   };
 
   return (
-    <Screen style={styles.container}>
-      <HeaderText>Create League</HeaderText>
-      <AppForm
-        initialValues={{ leagueName: "" }}
-        onSubmit={handleSubmit}
-        validationSchema={validationSchema}
-      >
-        <ErrorMessage error={error} visible={error} />
+    <>
+      <ActivityIndicator visible={createLeagueApi.loading} />
 
-        <AppFormField
-          autoCapitalize="none"
-          autoCorrect={false}
-          icon="account"
-          name="leagueName"
-          placeholder="League Name"
-        />
-        <ImageInput
-          imageUri={imageUri}
-          onChangeImage={(uri) => setImageUri(uri)}
-        />
-        <SubmitButton title="Create League" />
-        <AppText style={styles.remark}>
-          Note: You will be the admin of this league.
-        </AppText>
-      </AppForm>
-    </Screen>
+      <Screen style={styles.container}>
+        <HeaderText>Create League</HeaderText>
+        <AppForm
+          initialValues={{ leagueName: "" }}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+        >
+          <ErrorMessage error={error} visible={error} />
+
+          <AppFormField
+            autoCapitalize="none"
+            autoCorrect={false}
+            icon="account"
+            name="leagueName"
+            placeholder="League Name"
+          />
+          <ImageInput
+            imageUri={imageUri}
+            onChangeImage={(uri) => setImageUri(uri)}
+          />
+          <SubmitButton title="Create League" />
+          <AppText style={styles.remark}>
+            Note: You will be the admin of this league.
+          </AppText>
+        </AppForm>
+      </Screen>
+    </>
   );
 }
 
