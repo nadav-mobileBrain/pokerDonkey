@@ -5,16 +5,20 @@ import apiClient from "../api/client";
 import AppText from "../components/AppText";
 import colors from "../config/colors";
 import PlayerDetails from "../components/player/PlayerDetails";
+import PlayerAvatar from "../components/player/PlayerAvatar";
+import PlayerInfo from "../components/player/PlayerInfo";
 
 function LeagueDetailsScreen({ route }) {
   const league = route.params.item.league;
-  console.log("🚀 ~ LeagueDetailsScreen ~ league:", route.params.data);
+  const leaguePlayers = route.params.data.leaguePlayers;
+
   const serverUrl = apiClient.getBaseURL();
   const createdAtDate = new Date(league.created_at);
   const formattedDate = createdAtDate.toLocaleDateString("en-GB");
 
   return (
     <View style={styles.container}>
+      <PlayerAvatar />
       <Image
         style={styles.image}
         source={{ uri: `${serverUrl}${league.league_image}` }}
@@ -29,15 +33,8 @@ function LeagueDetailsScreen({ route }) {
         <AppText style={styles.admin}>
           Admin : {league.leagueAdmin.nickName}
         </AppText>
-        <View style={styles.playerContainer}>
-          <PlayerDetails
-            title="Bibs"
-            subTitle="1200"
-            image={require("../assets/bibsDonkey.png")}
-          />
-        </View>
       </View>
-
+      <PlayerInfo leaguePlayers={leaguePlayers} />
       <AppText style={styles.created}>Created At: {formattedDate}</AppText>
     </View>
   );

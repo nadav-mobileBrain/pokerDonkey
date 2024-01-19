@@ -1,6 +1,6 @@
 import client from "./client";
 
-const endpoint = "api/users/";
+const endpoint = "api/users";
 
 const register = (userInfo) => {
   if (userInfo.image) {

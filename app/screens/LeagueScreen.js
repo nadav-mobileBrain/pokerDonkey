@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, FlatList, View, Text } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 
 import ActivityIndicator from "../components/ActivityIndicator";
 import AppText from "../components/AppText";
@@ -14,11 +14,11 @@ import useApi from "../hooks/useApi";
 import HeaderText from "../components/HeaderText";
 import NoLeagues from "../components/leagues/NoLeagues";
 import PlayerAvatar from "../components/player/PlayerAvatar";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 const serverUrl = apiClient.getBaseURL();
 
 function LeagueScreen({ navigation, user }) {
+  const [refreshing, setRefreshing] = useState(false);
   const getLeaguesApi = useApi(leaguesApi.getLeagues);
 
   useEffect(() => {
@@ -59,6 +59,12 @@ function LeagueScreen({ navigation, user }) {
                 }
               />
             )}
+            refreshing={refreshing}
+            onRefresh={() => {
+              setRefreshing(true);
+              getLeaguesApi.request();
+              setRefreshing(false);
+            }}
           />
         )}
       </Screen>
