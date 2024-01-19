@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, FlatList, View } from "react-native";
+import { StyleSheet, FlatList, View, Text } from "react-native";
 
 import ActivityIndicator from "../components/ActivityIndicator";
 import AppText from "../components/AppText";
@@ -14,12 +14,12 @@ import useApi from "../hooks/useApi";
 import HeaderText from "../components/HeaderText";
 import NoLeagues from "../components/leagues/NoLeagues";
 import PlayerAvatar from "../components/player/PlayerAvatar";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 const serverUrl = apiClient.getBaseURL();
 
 function LeagueScreen({ navigation, user }) {
   const getLeaguesApi = useApi(leaguesApi.getLeagues);
-  console.log("🚀 ~ LeagueScreen ~ getLeaguesApi:", getLeaguesApi);
 
   useEffect(() => {
     setTimeout(() => {
@@ -51,7 +51,12 @@ function LeagueScreen({ navigation, user }) {
                 title={item.league.league_name}
                 subTitle={`League Number: ${item.league.league_number}`}
                 imageUrl={`${serverUrl}${item.league.league_image}`}
-                onPress={() => navigation.navigate(routes.LEAGUE_DETAILS, item)}
+                onPress={() =>
+                  navigation.navigate(routes.LEAGUE_DETAILS, {
+                    item,
+                    data: getLeaguesApi.data,
+                  })
+                }
               />
             )}
           />
