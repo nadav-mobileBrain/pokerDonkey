@@ -5,8 +5,8 @@ import colors from "../../config/colors";
 import useAuth from "../../auth/useAuth";
 import apiClient from "../../api/client";
 
-function PlayerAvatar({ imageUrl }) {
-  const { user, logOut } = useAuth();
+function PlayerAvatar() {
+  const { user } = useAuth();
   let serverUrl = apiClient.getBaseURL();
   serverUrl = serverUrl.substring(0, serverUrl.length - 1);
   const url = serverUrl + "/" + user.image;
