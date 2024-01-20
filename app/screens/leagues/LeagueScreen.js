@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, FlatList } from "react-native";
 
-import ActivityIndicator from "../components/ActivityIndicator";
-import AppText from "../components/AppText";
-import AppButton from "../components/AppButton";
-import apiClient from "../api/client";
-import Card from "../components/Card";
-import colors from "../config/colors";
-import leaguesApi from "../api/leagues";
-import routes from "../navigation/routes";
-import Screen from "../components/Screen";
-import useApi from "../hooks/useApi";
-import HeaderText from "../components/HeaderText";
-import NoLeagues from "../components/leagues/NoLeagues";
-import PlayerAvatar from "../components/player/PlayerAvatar";
+import ActivityIndicator from "../../components/ActivityIndicator";
+import AppText from "../../components/AppText";
+import AppButton from "../../components/AppButton";
+import apiClient from "../../api/client";
+import Card from "../../components/Card";
+import colors from "../../config/colors";
+import leaguesApi from "../../api/leagues";
+import routes from "../../navigation/routes";
+import Screen from "../../components/Screen";
+import useApi from "../../hooks/useApi";
+import HeaderText from "../../components/HeaderText";
+import NoLeagues from "../../components/leagues/NoLeagues";
+import PlayerAvatar from "../../components/player/PlayerAvatar";
 
 const serverUrl = apiClient.getBaseURL();
 
@@ -74,7 +74,7 @@ function LeagueScreen({ navigation, user }) {
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 20,
+    padding: 15,
     backgroundColor: colors.light,
   },
 });

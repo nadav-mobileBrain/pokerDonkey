@@ -1,12 +1,13 @@
 import React from "react";
 import { View, StyleSheet, Image, ScrollView } from "react-native";
 
-import apiClient from "../api/client";
-import AppText from "../components/AppText";
-import colors from "../config/colors";
-import PlayerAvatar from "../components/player/PlayerAvatar";
-import PlayerInfo from "../components/player/PlayerInfo"; // Add this import statement
-import AppButton from "../components/AppButton";
+import apiClient from "../../api/client";
+import AppText from "../../components/AppText";
+import colors from "../../config/colors";
+import PlayerAvatar from "../../components/player/PlayerAvatar";
+import PlayerInfo from "../../components/player/PlayerInfo"; // Add this import statement
+import AppButton from "../../components/AppButton";
+import Screen from "../../components/Screen";
 
 function LeagueDetailsScreen({ route }) {
   const league = route.params.item.league;
@@ -17,7 +18,7 @@ function LeagueDetailsScreen({ route }) {
   const formattedDate = createdAtDate.toLocaleDateString("en-GB");
 
   return (
-    <View style={styles.container}>
+    <Screen style={styles.container}>
       <PlayerAvatar />
       <View style={styles.playerContainer}>
         <Image
@@ -46,7 +47,7 @@ function LeagueDetailsScreen({ route }) {
         {/* <PlayerInfo leaguePlayers={leaguePlayers} /> */}
         <AppText style={styles.created}>Created At: {formattedDate}</AppText>
       </View>
-    </View>
+    </Screen>
   );
 }
 
@@ -67,8 +68,6 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: colors.light,
-    // borderRadius: 15,
-    // overflow: "hidden",
   },
   detailsContainer: {
     padding: 20,
@@ -89,7 +88,6 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "500",
     fontSize: 24,
-    marginBottom: 7,
   },
   playerContainer: {
     margin: 10,

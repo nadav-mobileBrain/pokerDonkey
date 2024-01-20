@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 
-import ActivityIndicator from "../components/ActivityIndicator";
-import AppText from "../components/AppText";
-import { AppForm, AppFormField, SubmitButton } from "../components/forms";
-import colors from "../config/colors";
-import ErrorMessage from "../components/forms/ErrorMessage";
-import HeaderText from "../components/HeaderText";
-import ImageInput from "../components/forms/ImageInput";
-import leaguesApi from "../api/leagues";
-import Screen from "../components/Screen";
-import useAuth from "../auth/useAuth";
-import useApi from "../hooks/useApi";
+import ActivityIndicator from "../../components/ActivityIndicator";
+import AppText from "../../components/AppText";
+import { AppForm, AppFormField, SubmitButton } from "../../components/forms";
+import colors from "../../config/colors";
+import ErrorMessage from "../../components/forms/ErrorMessage";
+import HeaderText from "../../components/HeaderText";
+import ImageInput from "../../components/forms/ImageInput";
+import leaguesApi from "../../api/leagues";
+import Screen from "../../components/Screen";
+import useAuth from "../../auth/useAuth";
+import useApi from "../../hooks/useApi";
 
 const validationSchema = Yup.object().shape({
   leagueName: Yup.string().min(2).required().label("League Name"),

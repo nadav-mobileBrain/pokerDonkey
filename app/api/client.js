@@ -6,7 +6,7 @@ const workIp = "192.168.1.66";
 const meirIp = "192.168.1.152";
 
 const apiClient = create({
-  baseURL: `http://${meirIp}:3030/`,
+  baseURL: `http://${homeIp}:3030/`,
 });
 
 apiClient.addAsyncRequestTransform(async (request) => {
