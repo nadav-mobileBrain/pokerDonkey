@@ -7,13 +7,13 @@ import AppButton from "../../components/AppButton";
 import apiClient from "../../api/client";
 import Card from "../../components/Card";
 import colors from "../../config/colors";
+import HeaderText from "../../components/HeaderText";
 import leaguesApi from "../../api/leagues";
+import NoLeagues from "../../components/leagues/NoLeagues";
+import PlayerAvatar from "../../components/player/PlayerAvatar";
 import routes from "../../navigation/routes";
 import Screen from "../../components/Screen";
 import useApi from "../../hooks/useApi";
-import HeaderText from "../../components/HeaderText";
-import NoLeagues from "../../components/leagues/NoLeagues";
-import PlayerAvatar from "../../components/player/PlayerAvatar";
 
 const serverUrl = apiClient.getBaseURL();
 

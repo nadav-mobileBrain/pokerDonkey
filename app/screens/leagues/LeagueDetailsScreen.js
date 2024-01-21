@@ -12,12 +12,12 @@ import routes from "../../navigation/routes";
 
 function LeagueDetailsScreen({ route, navigation }) {
   const league = route.params.item.league;
-  console.log("🚀 ~ LeagueDetailsScreen ~ league:", league);
+  // console.log("🚀 ~ LeagueDetailsScreen ~ league:", league);
   const leaguePlayers = route.params.data.leaguePlayers;
-  console.log("🚀 ~ LeagueDetailsScreen ~ leaguePlayers:", leaguePlayers);
-  const leagueAdmin = leaguePlayers.filter(
-    (player) => player.is_admin === true
-  );
+  // console.log("🚀 ~ LeagueDetailsScreen ~ leaguePlayers:", leaguePlayers);
+  // const leagueAdmin = leaguePlayers.filter(
+  //   (player) => player.is_admin === true
+  // );
 
   const serverUrl = apiClient.getBaseURL();
   const createdAtDate = new Date(league.created_at);
@@ -50,7 +50,10 @@ function LeagueDetailsScreen({ route, navigation }) {
             color="LimeGreen"
             icon="cards-playing-spade-multiple-outline"
             onPress={() =>
-              navigation.navigate(routes.SELECT_PLAYERS, leaguePlayers)
+              navigation.navigate(routes.SELECT_PLAYERS, {
+                leaguePlayers,
+                league,
+              })
             }
           />
         </View>

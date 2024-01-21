@@ -13,7 +13,14 @@ import colors from "../../config/colors";
 
 const serverUrl = apiClient.getBaseURL();
 
-function PlayerInfo({ leaguePlayers, onPress }) {
+function PlayerInfo({
+  leaguePlayers,
+
+  onPress,
+  width = 30,
+  height = 30,
+  borderColor = "AccentPurple",
+}) {
   return (
     <View style={styles.container}>
       <FlatList
@@ -26,7 +33,10 @@ function PlayerInfo({ leaguePlayers, onPress }) {
             style={styles.playerContainer}
           >
             <Image
-              style={styles.image}
+              style={[
+                styles.image,
+                { width, height, borderColor: colors[borderColor] },
+              ]}
               source={{ uri: `${serverUrl}${item.User.image}` }}
             />
             <AppText style={styles.playerName}>{item.User.nickName}</AppText>
