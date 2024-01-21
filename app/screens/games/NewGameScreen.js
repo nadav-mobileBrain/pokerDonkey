@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, FlatList } from "react-native";
+import React, { useState } from "react";
+import { Button, Modal, StyleSheet, FlatList } from "react-native";
 import Screen from "../../components/Screen";
 
 import HeaderText from "../../components/HeaderText";
@@ -7,12 +7,16 @@ import HeaderText from "../../components/HeaderText";
 import PlayerGameDetails from "../../components/games/PlayerGameDetails";
 import ListitemSeperator from "../../components/ListitemSeperator";
 import GameDetails from "../../components/games/GameDetails";
+import PickerItem from "../../components/PickerItem";
+import AppText from "../../components/AppText";
 
 function NewGame({ route, navigation }) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedPlayer, setSelectedPlayer] = useState();
   const game = route.params.game;
   const league = route.params.league;
-  console.log("🚀 ~ NewGame ~ league:", league);
   const gameDetails = route.params.gameDetails;
+  console.log("🚀 ~ NewGame ~ gameDetails:", gameDetails);
 
   return (
     <Screen style={styles.container}>
@@ -26,11 +30,23 @@ function NewGame({ route, navigation }) {
           <PlayerGameDetails
             image={item.user.image}
             nickName={item.user.nickName}
-            onPress={() => console.log("Player selected", item)}
+            onPress={() => {
+              setModalVisible(true);
+              setSelectedPlayer(item);
+            }}
           />
         )}
         ItemSeparatorComponent={ListitemSeperator}
       />
+      <Modal visible={modalVisible} animationType="slide">
+        <Screen>
+          <Button title="Close" onPress={() => setModalVisible(false)} />
+          <AppText>Player Details</AppText>
+          {selectedPlayer && (
+            <AppText>Player {selectedPlayer.user.nickName} </AppText>
+          )}
+        </Screen>
+      </Modal>
     </Screen>
   );
 }

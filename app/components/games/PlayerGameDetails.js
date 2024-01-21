@@ -9,7 +9,6 @@ import { TouchableHighlight } from "react-native-gesture-handler";
 
 function PlayerGameDetails({ image, nickName, onPress }) {
   const serverUrl = apiClient.getBaseURL();
-  console.log("🚀 ~ PlayerGameDetails ~ serverUrl:", serverUrl);
   return (
     <TouchableHighlight
       underlayColor={colors.light}
@@ -25,9 +24,7 @@ function PlayerGameDetails({ image, nickName, onPress }) {
             />
           )}
 
-          <AppText style={styles.title} numberOfLines={1}>
-            {nickName}
-          </AppText>
+          <AppText style={styles.title}>{nickName}</AppText>
         </View>
         <MaterialCommunityIcons
           name="chevron-right"
