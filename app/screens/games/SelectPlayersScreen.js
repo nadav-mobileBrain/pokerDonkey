@@ -10,8 +10,7 @@ import AppButton from "../../components/AppButton";
 import gameApi from "../../api/game";
 import useApi from "../../hooks/useApi";
 
-function SelectPlayersScreen({ route }) {
-  // console.log("🚀 ~ SelectPlayersScreen ~ props:", props);
+function SelectPlayersScreen({ route, navigation }) {
   const leaguePlayers = route.params.leaguePlayers;
   const league = route.params.league;
 
@@ -34,6 +33,7 @@ function SelectPlayersScreen({ route }) {
       selectedPlayers,
       leagueId: league.id,
     });
+
     if (!result.ok) {
       if (result.data) setError(result.data.error);
       else {
@@ -42,7 +42,12 @@ function SelectPlayersScreen({ route }) {
       }
       return;
     }
-    console.log("🚀 ~ CreateLeagueScreen ~ result:", result.data);
+
+    navigation.navigate("NewGame", {
+      game: result.data.game,
+      gameDetails: result.data.gameDetails,
+      league,
+    });
   };
   return (
     <Screen style={styles.container}>

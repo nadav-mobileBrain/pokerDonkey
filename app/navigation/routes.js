@@ -3,4 +3,5 @@ export default Object.freeze({
   CREATE_LEAGUE: "CreateLeague",
   JOIN_LEAGUE: "JoinLeague",
   SELECT_PLAYERS: "SelectPlayers",
+  NEW_GAME: "NewGame",
 });
