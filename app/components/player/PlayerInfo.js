@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Image,
   View,
@@ -13,15 +13,16 @@ import colors from "../../config/colors";
 
 const serverUrl = apiClient.getBaseURL();
 
-function PlayerInfo({ leaguePlayers }) {
+function PlayerInfo({ leaguePlayers, onPress }) {
   return (
     <View style={styles.container}>
       <FlatList
         data={leaguePlayers}
+        horizontal={true}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => console.log("Pressed")}
+            onPress={() => onPress(item)}
             style={styles.playerContainer}
           >
             <Image
@@ -38,23 +39,26 @@ function PlayerInfo({ leaguePlayers }) {
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    alignItems: "center",
+    padding: 5,
+    // flex: 1,
+    //alignItems: "center",
   },
   image: {
     borderRadius: 50,
-    height: 50,
-    width: 50,
+    height: 30,
+    width: 30,
     borderColor: colors.AccentPurple,
     borderWidth: 2,
   },
   playerContainer: {
     alignItems: "center",
+    justifyContent: "center",
+    padding: 5,
   },
   playerName: {
     color: colors.AccentPurple,
-    fontWeight: "bold",
-    fontSize: 20,
+    // fontWeight: "bold",
+    fontSize: 8,
     justifyContent: "center",
     alignItems: "center",
   },

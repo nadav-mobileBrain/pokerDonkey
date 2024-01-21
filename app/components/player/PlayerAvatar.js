@@ -20,13 +20,13 @@ function PlayerAvatar() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.light,
-    borderRadius: 50,
-    height: 50,
-    width: 50,
+    borderRadius: 20,
+    height: 40,
+    width: 40,
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 10,
+    margin: 10,
   },
   image: {
     height: "100%",

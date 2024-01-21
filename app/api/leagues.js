@@ -23,7 +23,15 @@ const createLeague = (leagueData) => {
 
   return client.post(`${endpoint}/createLeague`, data);
 };
+
+const joinLeague = (leagueData) => {
+  const leagueNUmber = leagueData.leagueNumber;
+  const userId = leagueData.userId;
+  return client.put(`${endpoint}/joinLeague/${leagueNUmber}/${userId}`);
+};
+
 export default {
   getLeagues,
   createLeague,
+  joinLeague,
 };

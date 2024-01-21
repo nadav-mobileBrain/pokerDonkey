@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import ActivityIndicator from "../../components/ActivityIndicator";
@@ -67,10 +67,12 @@ function CreateLeagueScreen({ navigation }) {
             name="leagueName"
             placeholder="League Name"
           />
-          <ImageInput
-            imageUri={imageUri}
-            onChangeImage={(uri) => setImageUri(uri)}
-          />
+          <View style={{ alignItems: "flex-end" }}>
+            <ImageInput
+              imageUri={imageUri}
+              onChangeImage={(uri) => setImageUri(uri)}
+            />
+          </View>
           <SubmitButton title="Create League" />
           <AppText style={styles.remark}>
             Note: You will be the admin of this league.

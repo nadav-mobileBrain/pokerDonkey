@@ -17,7 +17,7 @@ import PlayerAvatar from "../../components/player/PlayerAvatar";
 
 const serverUrl = apiClient.getBaseURL();
 
-function LeagueScreen({ navigation, user }) {
+function LeagueScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const getLeaguesApi = useApi(leaguesApi.getLeagues);
 
