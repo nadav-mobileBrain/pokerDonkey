@@ -15,6 +15,7 @@ function PlayerDetails({
   onPress,
   renderRightActions,
 }) {
+  console.log("🚀 ~ image:", image);
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Swipeable renderRightActions={renderRightActions}>
