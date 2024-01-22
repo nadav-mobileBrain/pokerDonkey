@@ -47,6 +47,7 @@ function SelectPlayersScreen({ route, navigation }) {
       game: result.data.game,
       gameDetails: result.data.gameDetails,
       league,
+      userGames: result.data.userGames,
     });
   };
   return (

@@ -4,19 +4,29 @@ import Screen from "../../components/Screen";
 
 import HeaderText from "../../components/HeaderText";
 
-import PlayerGameDetails from "../../components/games/PlayerGameDetails";
 import ListitemSeperator from "../../components/ListitemSeperator";
 import GameDetails from "../../components/games/GameDetails";
-import PickerItem from "../../components/PickerItem";
-import AppText from "../../components/AppText";
+import GameHeader from "../../components/games/GameHeader";
+import PlayerGameDetails from "../../components/games/PlayerGameDetails";
+import PlayerGameCardModal from "../../components/games/PlayerGameCardModal";
 
 function NewGame({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState();
+  const [userGamesData, setUserGamesData] = useState(route.params.userGames);
+  // console.log("🚀 ~ NewGame ~ userGamesData:", userGamesData);
   const game = route.params.game;
   const league = route.params.league;
-  const gameDetails = route.params.gameDetails;
-  console.log("🚀 ~ NewGame ~ gameDetails:", gameDetails);
+  // const gameDetails = route.params.gameDetails;
+  // const userGames = route.params.userGames;
+
+  const onAddBuyIn = (amount, userId) => {
+    const updatedUserGames = [...userGamesData];
+    const playerIndex = updatedUserGames.findIndex((p) => p.user_id === userId);
+    updatedUserGames[playerIndex].buy_ins_amount += amount;
+    updatedUserGames[playerIndex].buy_ins_number += 1;
+    setUserGamesData(updatedUserGames);
+  };
 
   return (
     <Screen style={styles.container}>
@@ -24,12 +34,13 @@ function NewGame({ route, navigation }) {
       <GameDetails game={game} league={league} />
 
       <FlatList
-        data={gameDetails}
+        data={userGamesData}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <PlayerGameDetails
             image={item.user.image}
             nickName={item.user.nickName}
+            playerData={item}
             onPress={() => {
               setModalVisible(true);
               setSelectedPlayer(item);
@@ -37,13 +48,19 @@ function NewGame({ route, navigation }) {
           />
         )}
         ItemSeparatorComponent={ListitemSeperator}
+        ListHeaderComponent={() => <GameHeader />}
       />
       <Modal visible={modalVisible} animationType="slide">
         <Screen>
-          <Button title="Close" onPress={() => setModalVisible(false)} />
-          <AppText>Player Details</AppText>
+          <Button title="Cancel" onPress={() => setModalVisible(false)} />
           {selectedPlayer && (
-            <AppText>Player {selectedPlayer.user.nickName} </AppText>
+            <PlayerGameCardModal
+              playerData={selectedPlayer}
+              onClose={() => setModalVisible(false)}
+              onAddBuyIn={(amount, userId) => {
+                onAddBuyIn(amount, userId);
+              }}
+            />
           )}
         </Screen>
       </Modal>

@@ -7,7 +7,8 @@ import colors from "../../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
-function PlayerGameDetails({ image, nickName, onPress }) {
+function PlayerGameDetails({ image, nickName, onPress, playerData }) {
+  console.log("🚀 ~ PlayerGameDetails ~ playerData:", playerData);
   const serverUrl = apiClient.getBaseURL();
   return (
     <TouchableHighlight
@@ -26,11 +27,15 @@ function PlayerGameDetails({ image, nickName, onPress }) {
 
           <AppText style={styles.title}>{nickName}</AppText>
         </View>
-        <MaterialCommunityIcons
-          name="chevron-right"
-          size={25}
-          color={colors.medium}
-        />
+        <View style={styles.detailsContainer}>
+          <AppText>{playerData.buy_ins_amount}</AppText>
+          <MaterialCommunityIcons
+            name="chevron-right"
+            size={25}
+            color={colors.medium}
+            style={{ marginRight: 30 }}
+          />
+        </View>
       </View>
     </TouchableHighlight>
   );
@@ -43,6 +48,9 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: colors.white,
     alignItems: "center",
+  },
+  detailsContainer: {
+    flexDirection: "row-reverse",
   },
   innerContainer: {
     flexDirection: "row-reverse",
