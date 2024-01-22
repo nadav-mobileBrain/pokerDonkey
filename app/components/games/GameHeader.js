@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 import AppText from "../AppText";
 import colors from "../../config/colors";
 
-function GameHeader(props) {
+function GameHeader() {
   return (
     <View style={styles.container}>
       <AppText style={styles.title}>Player</AppText>
@@ -18,11 +18,14 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
     width: "100%",
     justifyContent: "space-around",
+    marginTop: 10,
   },
   title: {
     fontWeight: "bold",
     fontSize: 20,
     color: colors.PrimaryBlue,
+    textDecorationColor: colors.PrimaryBlue,
+    textDecorationLine: "underline",
   },
 });
 

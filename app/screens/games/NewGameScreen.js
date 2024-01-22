@@ -6,8 +6,8 @@ import HeaderText from "../../components/HeaderText";
 
 import ListitemSeperator from "../../components/ListitemSeperator";
 import GameDetails from "../../components/games/GameDetails";
-import GameHeader from "../../components/games/GameHeader";
 import PlayerGameDetails from "../../components/games/PlayerGameDetails";
+import GameHeader from "../../components/games/GameHeader";
 import PlayerGameCardModal from "../../components/games/PlayerGameCardModal";
 
 function NewGame({ route, navigation }) {

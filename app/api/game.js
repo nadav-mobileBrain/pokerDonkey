@@ -15,7 +15,16 @@ const addBuyIn = (gameId, playerId, buyInAmount, leagueId) => {
   });
 };
 
+const cashOutPlayer = (gameId, userId, cashOutAmount) => {
+  return client.put(`${endpoint}/cashOutPlayer`, {
+    gameId,
+    userId,
+    cashOutAmount,
+  });
+};
+
 export default {
   newGame,
   addBuyIn,
+  cashOutPlayer,
 };

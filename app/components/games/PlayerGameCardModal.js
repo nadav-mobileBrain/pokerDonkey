@@ -7,6 +7,12 @@ import colors from "../../config/colors";
 import AppButton from "../AppButton";
 import useApi from "../../hooks/useApi";
 import gameApi from "../../api/game";
+import { AppForm, AppFormField, ErrorMessage, SubmitButton } from "../forms";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object().shape({
+  cashOutAmount: Yup.number().required().label("Cash Out Amount"),
+});
 
 function PlayerGameCardModal({ playerData, onClose, onAddBuyIn }) {
   const serverUrl = apiClient.getBaseURL();
@@ -14,6 +20,7 @@ function PlayerGameCardModal({ playerData, onClose, onAddBuyIn }) {
   const [buyInNumber, setBuyInNumber] = useState(playerData.buy_ins_number);
   console.log("🚀 ~ PlayerGameCardModal ~ buyInAmount:", buyInAmount);
   const addBuyInToPlayer = useApi(gameApi.addBuyIn);
+  const cashOutPlayer = useApi(gameApi.cashOutPlayer);
 
   const addBuyIn = async (amount) => {
     setBuyInAmount(buyInAmount + amount);
@@ -25,7 +32,7 @@ function PlayerGameCardModal({ playerData, onClose, onAddBuyIn }) {
       playerData.league_id
     );
     if (!result.ok) {
-      console.log("🚀 ~ addBuyIn ~ result", result);
+      console.log("🚀 ~ addBuyIn ~ result", result.data);
       return;
     }
     onAddBuyIn(amount, playerData.user_id);
@@ -33,25 +40,40 @@ function PlayerGameCardModal({ playerData, onClose, onAddBuyIn }) {
     onClose();
   };
 
+  const handleSubmit = async (values) => {
+    console.log(
+      "🚀 ~ handleSubmit ~ values",
+      typeof values.cashOutAmount,
+      values.cashOutAmount
+    );
+    const result = await cashOutPlayer.request(
+      playerData.game_id,
+      playerData.user_id,
+      values.cashOutAmount,
+      playerData.league_id
+    );
+    console.log("🚀 ~ handleSubmit ~ result:", result.data);
+  };
+
   return (
     <View style={styles.container}>
       <HeaderText>Player Details</HeaderText>
       <View style={styles.imageContainer}>
         <Image
-          source={{ uri: `${serverUrl}${playerData.user.image}` }}
+          source={{ uri: `${serverUrl}${playerData?.user?.image}` }}
           style={styles.image}
         />
-        <AppText style={styles.nickName}>{playerData.user.nickName}</AppText>
+        <AppText style={styles.nickName}>{playerData?.user?.nickName}</AppText>
       </View>
       <View style={styles.form}>
         <AppButton
-          title="Buy in 50"
+          title="Add Buy in 50"
           icon="cash"
           color="LimeGreen"
           onPress={() => addBuyIn(50)}
         />
         <AppButton
-          title="Buy in 100"
+          title="Add Buy in 100"
           icon="cash"
           onPress={() => addBuyIn(100)}
         />
@@ -59,8 +81,27 @@ function PlayerGameCardModal({ playerData, onClose, onAddBuyIn }) {
       <View style={styles.detailsContainer} />
       <AppText>Buy in amount: {buyInAmount}</AppText>
       <AppText>Buy in number: {buyInNumber}</AppText>
-      <AppText>Amount of cash in hand: {playerData.cash_in_hand}</AppText>
-      <AppText>Profit: {playerData.profit}</AppText>
+      <AppForm
+        initialValues={{ cashOutAmount: "" }}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+      >
+        <ErrorMessage
+          error={addBuyInToPlayer.error}
+          visible={addBuyInToPlayer.error}
+        />
+        <AppFormField
+          name="cashOutAmount"
+          icon="cash"
+          placeholder="Cash Out Amount"
+          keyboardType="number-pad"
+          width={250}
+        />
+        <View style={styles.form}>
+          <SubmitButton title="Cash Out Player" icon="cash" color="pink" />
+        </View>
+      </AppForm>
+      <View style={styles.form}></View>
     </View>
   );
 }
@@ -73,7 +114,7 @@ const styles = StyleSheet.create({
   },
   form: {
     marginVertical: 20,
-    width: "50%",
+    width: "75%",
   },
   imageContainer: {
     alignItems: "center",
