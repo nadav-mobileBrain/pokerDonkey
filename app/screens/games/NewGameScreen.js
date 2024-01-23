@@ -14,7 +14,7 @@ function NewGame({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState();
   const [userGamesData, setUserGamesData] = useState(route.params.userGames);
-  // console.log("🚀 ~ NewGame ~ userGamesData:", userGamesData);
+  console.log("🚀 ~ NewGame ~ userGamesData 17777:", userGamesData);
   const game = route.params.game;
   const league = route.params.league;
   // const gameDetails = route.params.gameDetails;
@@ -59,6 +59,16 @@ function NewGame({ route, navigation }) {
               onClose={() => setModalVisible(false)}
               onAddBuyIn={(amount, userId) => {
                 onAddBuyIn(amount, userId);
+              }}
+              onCashOut={(amount, userId) => {
+                const updatedUserGames = [...userGamesData];
+                const playerIndex = updatedUserGames.findIndex(
+                  (p) => p.user_id === userId
+                );
+                updatedUserGames[playerIndex].cash_out_amount = amount;
+                updatedUserGames[playerIndex].is_cashed_out = true;
+
+                setUserGamesData(updatedUserGames);
               }}
             />
           )}

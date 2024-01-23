@@ -8,7 +8,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
 function PlayerGameDetails({ image, nickName, onPress, playerData }) {
-  console.log("🚀 ~ PlayerGameDetails ~ playerData:", playerData);
   const serverUrl = apiClient.getBaseURL();
   return (
     <TouchableHighlight
@@ -26,6 +25,9 @@ function PlayerGameDetails({ image, nickName, onPress, playerData }) {
           )}
 
           <AppText style={styles.title}>{nickName}</AppText>
+          {playerData.is_cashed_out && (
+            <AppText style={styles.cashOutPlayer}>cashed out</AppText>
+          )}
         </View>
         <View style={styles.detailsContainer}>
           <AppText>{playerData.buy_ins_amount}</AppText>
@@ -48,6 +50,12 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: colors.white,
     alignItems: "center",
+  },
+  cashOutPlayer: {
+    color: colors.danger,
+    fontWeight: "bold",
+    fontSize: 20,
+    marginRight: 15,
   },
   detailsContainer: {
     flexDirection: "row-reverse",
