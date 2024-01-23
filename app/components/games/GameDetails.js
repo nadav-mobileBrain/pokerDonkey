@@ -21,9 +21,7 @@ function GameDetails({ league, game }) {
         logoUrl={league.league_image}
         leagueName={league.league_name}
       />
-      <AppText style={styles.gameDate}>
-        {formattedTime}-{formattedUpdatedTime}
-      </AppText>
+      <AppText style={styles.gameDate}>Started At: {formattedTime}</AppText>
     </View>
   );
 }

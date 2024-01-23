@@ -9,6 +9,7 @@ import GameDetails from "../../components/games/GameDetails";
 import PlayerGameDetails from "../../components/games/PlayerGameDetails";
 import GameHeader from "../../components/games/GameHeader";
 import PlayerGameCardModal from "../../components/games/PlayerGameCardModal";
+import AppButton from "../../components/AppButton";
 
 function NewGame({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -49,6 +50,13 @@ function NewGame({ route, navigation }) {
         )}
         ItemSeparatorComponent={ListitemSeperator}
         ListHeaderComponent={() => <GameHeader />}
+        contentContainerStyle={{ flexGrow: 1 }}
+      />
+      <AppButton
+        title="End Game"
+        onPress={() =>
+          console.log("End Game" + userGamesData + game.id + league.id)
+        }
       />
       <Modal visible={modalVisible} animationType="slide">
         <Screen>
