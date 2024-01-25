@@ -44,7 +44,11 @@ function LeagueDetailsScreen({ route, navigation }) {
         </View>
         <PlayerInfo leaguePlayers={leaguePlayers} />
         <View style={styles.buttonContainer}>
-          <AppButton title="League Stats" icon="chart-box-outline" />
+          <AppButton
+            title="League Stats"
+            icon="chart-box-outline"
+            onPress={() => navigation.navigate(routes.STATS, { league })}
+          />
           <AppButton
             title="Start a new game"
             color="LimeGreen"

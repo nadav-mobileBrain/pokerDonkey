@@ -12,12 +12,14 @@ import PlayerGameCardModal from "../../components/games/PlayerGameCardModal";
 import AppButton from "../../components/AppButton";
 import useApi from "../../hooks/useApi";
 import gameApi from "../../api/game";
+
 function NewGame({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState();
   const [userGamesData, setUserGamesData] = useState(route.params.userGames);
   const game = route.params.game;
   const league = route.params.league;
+  console.log("🚀 ~ NewGame ~ league:", league);
   const endGameApi = useApi(gameApi.endGame);
   // const gameDetails = route.params.gameDetails;
   // const userGames = route.params.userGames;
@@ -31,7 +33,6 @@ function NewGame({ route, navigation }) {
   };
 
   const endGame = async () => {
-    console.log("End Gamessss", userGamesData);
     const isAllCashedOut = checkIfAllPlayersCashedOut();
     if (!isAllCashedOut) {
       alert("Not all players cashed out");
@@ -47,7 +48,7 @@ function NewGame({ route, navigation }) {
       }
       return;
     }
-    navigation.navigate("Stats");
+    navigation.navigate("Stats", { league });
   };
 
   const checkIfAllPlayersCashedOut = () => {
