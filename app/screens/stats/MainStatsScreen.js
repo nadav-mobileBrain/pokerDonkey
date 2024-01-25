@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
 
 import PlayerAvatar from "../../components/player/PlayerAvatar";
@@ -7,6 +7,7 @@ import LeagueStatsCard from "../../components/stats/LeagueStatsCard";
 import colors from "../../config/colors";
 import blockBackButton from "../../hooks/disableBack";
 import AppLogo from "../../components/AppLogo";
+import PlayerStatsCard from "./PlayerStatsCard";
 
 const MainStatsScreen = ({ route }) => {
   const { league } = route.params;
@@ -16,7 +17,7 @@ const MainStatsScreen = ({ route }) => {
       <PlayerAvatar />
       <AppLogo />
       <LeagueStatsCard league={league} />
-      <Text>MainStatsScreen</Text>
+      <PlayerStatsCard league={league} />
     </Screen>
   );
 };

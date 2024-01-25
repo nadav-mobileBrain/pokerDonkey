@@ -7,11 +7,9 @@ import useApi from "../../hooks/useApi";
 import statsApi from "../../api/stats";
 
 const LeagueStatsCard = ({ league }) => {
-  console.log("🚀 ~ LeagueStatsCard ~ league:", league);
   const serverUrl = apiClient.getBaseURL();
   const getLeagueStatsApi = useApi(statsApi.getLeagueStats);
   const [leagueStats, setLeagueStats] = useState([]);
-  console.log("🚀 ~ LeagueStatsCard ~ leagueStats:", leagueStats);
 
   const getLeagueStats = async () => {
     const result = await getLeagueStatsApi.request(league.id);
