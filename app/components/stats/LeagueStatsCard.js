@@ -31,7 +31,7 @@ const LeagueStatsCard = ({ league }) => {
           source={{ uri: `${serverUrl}${league.league_image}` }}
           style={styles.image}
         />
-        <AppText style={styles.stat}>{league.league_name}</AppText>
+        <AppText style={styles.leagueName}>{league.league_name}</AppText>
         <AppText style={styles.number}>
           League Number:{league.league_number}
         </AppText>
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: "row-reverse",
     alignItems: "center",
-    backgroundColor: colors.PrimaryBlue,
+    backgroundColor: colors.LightSkyBlue,
     overflow: "hidden",
   },
   image: {
@@ -74,6 +74,10 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     overflow: "hidden",
   },
+  leagueName: {
+    color: colors.AccentPurple,
+    fontWeight: "bold",
+  },
 
   number: {
     fontSize: 10,
@@ -81,11 +85,12 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   stat: {
-    fontSize: 15,
-    color: colors.light,
+    fontSize: 14,
+    color: colors.black,
+    fontWeight: "bold",
   },
   statPink: {
-    fontSize: 15,
+    fontSize: 14,
     color: colors.pink,
     fontWeight: "bold",
   },
