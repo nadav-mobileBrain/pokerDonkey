@@ -33,6 +33,7 @@ function SelectPlayersScreen({ route, navigation }) {
       selectedPlayers,
       leagueId: league.id,
     });
+    console.log("🚀 ~ startNewGame ~ result:", result);
 
     if (!result.ok) {
       if (result.data) setError(result.data.error);

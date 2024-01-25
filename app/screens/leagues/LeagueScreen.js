@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, FlatList } from "react-native";
+import { StyleSheet, FlatList, TouchableOpacity } from "react-native";
 
 import ActivityIndicator from "../../components/ActivityIndicator";
 import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
 import apiClient from "../../api/client";
 import Card from "../../components/Card";
+import CreatejoinLeagues from "../../components/leagues/CreatejoinLeagues";
 import colors from "../../config/colors";
 import HeaderText from "../../components/HeaderText";
 import leaguesApi from "../../api/leagues";
@@ -39,9 +40,12 @@ function LeagueScreen({ navigation }) {
             <AppButton title="Retry" onPress={getLeaguesApi.request} />
           </>
         )}
+
         {getLeaguesApi.data?.leagues?.length == 0 && (
           <NoLeagues navigation={navigation} />
         )}
+
+        <CreatejoinLeagues />
         {getLeaguesApi.data?.leagues?.length > 0 && (
           <FlatList
             data={getLeaguesApi.data.leagues}

@@ -23,8 +23,13 @@ const cashOutPlayer = (gameId, userId, cashOutAmount) => {
   });
 };
 
+const endGame = (gameId, userGamesData) => {
+  return client.put(`${endpoint}/endGame`, { gameId, userGamesData });
+};
+
 export default {
   newGame,
   addBuyIn,
   cashOutPlayer,
+  endGame,
 };

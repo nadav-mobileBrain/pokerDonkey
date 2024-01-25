@@ -7,6 +7,7 @@ import CreateLeagueScreen from "../screens/leagues/CreateLeagueScreen";
 import JoinLeagueScreen from "../screens/leagues/JoinLeagueScreen";
 import SelectPlayersScreen from "../screens/games/SelectPlayersScreen";
 import NewGameScreen from "../screens/games/NewGameScreen";
+import MainStatsScreen from "../screens/stats/MainStatsScreen";
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ const FeedNavigator = () => (
     <Stack.Screen name="JoinLeague" component={JoinLeagueScreen} />
     <Stack.Screen name="SelectPlayers" component={SelectPlayersScreen} />
     <Stack.Screen name="NewGame" component={NewGameScreen} />
+    <Stack.Screen name="Stats" component={MainStatsScreen} />
   </Stack.Navigator>
 );
 

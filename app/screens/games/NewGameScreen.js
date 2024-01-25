@@ -10,14 +10,15 @@ import PlayerGameDetails from "../../components/games/PlayerGameDetails";
 import GameHeader from "../../components/games/GameHeader";
 import PlayerGameCardModal from "../../components/games/PlayerGameCardModal";
 import AppButton from "../../components/AppButton";
-
+import useApi from "../../hooks/useApi";
+import gameApi from "../../api/game";
 function NewGame({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState();
   const [userGamesData, setUserGamesData] = useState(route.params.userGames);
-  console.log("🚀 ~ NewGame ~ userGamesData 17777:", userGamesData);
   const game = route.params.game;
   const league = route.params.league;
+  const endGameApi = useApi(gameApi.endGame);
   // const gameDetails = route.params.gameDetails;
   // const userGames = route.params.userGames;
 
@@ -27,6 +28,34 @@ function NewGame({ route, navigation }) {
     updatedUserGames[playerIndex].buy_ins_amount += amount;
     updatedUserGames[playerIndex].buy_ins_number += 1;
     setUserGamesData(updatedUserGames);
+  };
+
+  const endGame = async () => {
+    console.log("End Gamessss", userGamesData);
+    const isAllCashedOut = checkIfAllPlayersCashedOut();
+    if (!isAllCashedOut) {
+      alert("Not all players cashed out");
+      return;
+    }
+
+    const result = await endGameApi.request(game.id, userGamesData);
+    if (!result.ok) {
+      if (result.data) setError(result.data.error);
+      else {
+        setError("An unexpected error occurred.");
+        console.log(result);
+      }
+      return;
+    }
+    navigation.navigate("Stats");
+  };
+
+  const checkIfAllPlayersCashedOut = () => {
+    const allPlayersCashedOut = userGamesData.every((player) => {
+      return player.is_cashed_out === true;
+    });
+
+    return allPlayersCashedOut;
   };
 
   return (
@@ -52,12 +81,7 @@ function NewGame({ route, navigation }) {
         ListHeaderComponent={() => <GameHeader />}
         contentContainerStyle={{ flexGrow: 1 }}
       />
-      <AppButton
-        title="End Game"
-        onPress={() =>
-          console.log("End Game" + userGamesData + game.id + league.id)
-        }
-      />
+      <AppButton title="End Game" onPress={() => endGame()} />
       <Modal visible={modalVisible} animationType="slide">
         <Screen>
           <Button title="Cancel" onPress={() => setModalVisible(false)} />

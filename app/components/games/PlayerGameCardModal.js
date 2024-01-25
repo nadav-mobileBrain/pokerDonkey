@@ -112,7 +112,9 @@ function PlayerGameCardModal({ playerData, onClose, onAddBuyIn, onCashOut }) {
         <AppFormField
           name="cashOutAmount"
           icon="cash"
-          placeholder={cashOutAmount ? cashOutAmount.toString() : "Cash Out"}
+          placeholder={
+            cashOutAmount ? cashOutAmount.toString() : "Cash Out Amount"
+          }
           keyboardType="number-pad"
           width={250}
         />
