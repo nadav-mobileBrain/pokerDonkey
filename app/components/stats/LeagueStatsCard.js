@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   stat: {
     fontSize: 14,
-    color: colors.black,
+    color: colors.white,
     fontWeight: "bold",
   },
   statPink: {

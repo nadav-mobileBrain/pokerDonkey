@@ -6,7 +6,6 @@ import AppText from "./AppText";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 function Card({ title, subTitle, imageUrl, onPress, height = 200, ...args }) {
-  console.log("🚀 ~ Card ~ args:", args);
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>

@@ -18,12 +18,12 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   image: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
   },
   title: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     color: colors.pink,
     textDecorationLine: "underline",
