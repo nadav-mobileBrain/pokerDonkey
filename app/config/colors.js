@@ -4,6 +4,7 @@ export default {
   AccentPurple: "#7209b7",
   LimeGreen: "#1fe01f",
   LightSkyBlue: "#4cc9f0",
+  neonGReen: "#00ffbf",
 
   ForestGreen: "#228B22",
   pink: "#f72585",

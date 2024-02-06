@@ -3,6 +3,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
+  View,
+  Alert,
 } from "react-native";
 import React from "react";
 import AppText from "../../components/AppText";
@@ -11,35 +13,43 @@ import colors from "../../config/colors";
 const StatsCard = ({ data }) => {
   console.log("🚀 ~ StatsCard ~ data:", data);
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={() => Alert.alert("dfdfd")}>
       <ImageBackground
-        source={require("../../assets/bgExample.png")}
-        blurRadius={40}
-        imageStyle={{ borderRadius: 15 }}
+        source={require("../../assets/background.png")}
         style={styles.background}
       >
-        <Image source={require("../../assets/bg.jpeg")} style={styles.image} />
+        <Image
+          source={require("../../assets/bibsDonkey.png")}
+          style={styles.image}
+        />
+      </ImageBackground>
+      <View style={styles.bottomDetails}>
         <AppText style={styles.title}>{data.title}</AppText>
         <AppText style={styles.title}>Player 1</AppText>
-        <AppText style={styles.subTitle}> 1344</AppText>
-        <AppText style={styles.secondTitle}>{data.subTitle}: 13</AppText>
-        <AppText style={styles.secondTitle}>{data.subTitle2}: 887</AppText>
-      </ImageBackground>
+        <AppText style={styles.title}> 1344</AppText>
+        <AppText style={styles.subTitle}>{data.subTitle}: 13</AppText>
+        <AppText style={styles.subTitle}>{data.subTitle2}: 887</AppText>
+      </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   background: {
-    width: "100%",
-    height: "100%",
     alignItems: "center",
   },
+  bottomDetails: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.white,
+    flex: 1,
+  },
   card: {
-    borderRadius: 10,
-    shadowRadius: 4,
-    padding: 5,
-    marginTop: 5,
+    borderRadius: 25,
+    overflow: "hidden",
+    borderColor: colors.AccentPurple,
+    borderWidth: 2,
+    marginTop: 10,
     width: 350,
     height: 300,
   },
@@ -53,17 +63,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 25,
     fontWeight: "bold",
-    color: colors.pink,
+    color: colors.AccentPurple,
   },
-  secondTitle: {
-    color: colors.black,
-    fontWeight: "bold",
-    fontSize: 15,
-  },
+
   subTitle: {
-    color: colors.dark,
+    color: colors.pink,
     fontWeight: "bold",
     fontSize: 22,
+    paddingBottom: 5,
   },
 });
 export default StatsCard;
