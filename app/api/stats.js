@@ -8,7 +8,11 @@ const getLeagueStats = (leagueId) =>
 const getPlayerStats = (leagueId) =>
   client.get(`${endpoint}/getPlayersStats/${leagueId}`);
 
+const getMainCardsStats = (leagueId) =>
+  client.get(`${endpoint}/getMainCardsStats/${leagueId}`);
+
 export default {
   getLeagueStats,
   getPlayerStats,
+  getMainCardsStats,
 };

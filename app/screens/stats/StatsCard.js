@@ -10,8 +10,11 @@ import React from "react";
 import AppText from "../../components/AppText";
 import colors from "../../config/colors";
 
+import apiClient from "../../api/client";
+
 const StatsCard = ({ data }) => {
   console.log("🚀 ~ StatsCard ~ data:", data);
+  const serverUrl = apiClient.getBaseURL();
   return (
     <TouchableOpacity style={styles.card} onPress={() => Alert.alert("dfdfd")}>
       <ImageBackground
@@ -19,16 +22,20 @@ const StatsCard = ({ data }) => {
         style={styles.background}
       >
         <Image
-          source={require("../../assets/bibsDonkey.png")}
+          source={{ uri: `${serverUrl}${data?.values?.image}` }}
           style={styles.image}
         />
       </ImageBackground>
       <View style={styles.bottomDetails}>
         <AppText style={styles.title}>{data.title}</AppText>
-        <AppText style={styles.title}>Player 1</AppText>
-        <AppText style={styles.title}> 1344</AppText>
-        <AppText style={styles.subTitle}>{data.subTitle}: 13</AppText>
-        <AppText style={styles.subTitle}>{data.subTitle2}: 887</AppText>
+        <AppText style={styles.titleValue}>{data?.values?.nickName}</AppText>
+        <AppText style={styles.titleValue}>{data?.values?.titleValue}</AppText>
+        <AppText style={styles.subTitle}>
+          {data.subTitle}: {data?.values?.subTitleValue}
+        </AppText>
+        <AppText style={styles.subTitle}>
+          {data.subTitle2}: {data?.values?.subTitle2Value}
+        </AppText>
       </View>
     </TouchableOpacity>
   );
@@ -62,6 +69,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
+    fontWeight: "bold",
+    color: colors.AccentPurple,
+    textDecorationLine: "underline",
+  },
+  titleValue: {
+    fontSize: 22,
     fontWeight: "bold",
     color: colors.AccentPurple,
   },
