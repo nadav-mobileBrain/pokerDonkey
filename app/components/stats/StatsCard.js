@@ -7,13 +7,12 @@ import {
   Alert,
 } from "react-native";
 import React from "react";
-import AppText from "../../components/AppText";
+
+import AppText from "../AppText";
+import apiClient from "../../api/client";
 import colors from "../../config/colors";
 
-import apiClient from "../../api/client";
-
 const StatsCard = ({ data }) => {
-  console.log("🚀 ~ StatsCard ~ data:", data);
   const serverUrl = apiClient.getBaseURL();
   return (
     <TouchableOpacity style={styles.card} onPress={() => Alert.alert("dfdfd")}>
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginTop: 10,
     width: 350,
-    height: 300,
+    height: 270,
   },
 
   image: {
@@ -74,15 +73,13 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   titleValue: {
-    fontSize: 22,
-    fontWeight: "bold",
+    fontSize: 20,
     color: colors.AccentPurple,
   },
 
   subTitle: {
     color: colors.pink,
-    fontWeight: "bold",
-    fontSize: 22,
+    fontSize: 20,
     paddingBottom: 5,
   },
 });

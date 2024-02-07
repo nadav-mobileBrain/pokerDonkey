@@ -62,9 +62,9 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   image: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
     marginLeft: 10,
   },
   imageContainer: {
@@ -83,12 +83,12 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   stat: {
-    fontSize: 14,
+    fontSize: 12,
     color: colors.white,
     fontWeight: "bold",
   },
   statPink: {
-    fontSize: 14,
+    fontSize: 12,
     color: colors.pink,
     fontWeight: "bold",
   },
