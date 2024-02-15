@@ -9,6 +9,7 @@ import PlayerAvatar from "../../components/player/PlayerAvatar";
 import PlayerInfo from "../../components/player/PlayerInfo"; // Add this import statement
 import Screen from "../../components/Screen";
 import routes from "../../navigation/routes";
+import AppLogo from "../../components/AppLogo";
 
 function LeagueDetailsScreen({ route, navigation }) {
   const league = route.params.item.league;
@@ -26,6 +27,7 @@ function LeagueDetailsScreen({ route, navigation }) {
   return (
     <Screen style={styles.container}>
       <PlayerAvatar />
+      <AppLogo />
       <View style={styles.playerContainer}>
         <Image
           style={styles.image}

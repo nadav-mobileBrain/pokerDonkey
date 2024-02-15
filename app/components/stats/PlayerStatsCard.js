@@ -24,7 +24,9 @@ const PlayerStatsCard = ({ league }) => {
       <FlatList
         data={cardsData}
         keyExtractor={(card) => card.id.toString()}
-        renderItem={({ item }) => <StatsCard data={item} />}
+        renderItem={({ item }) => (
+          <StatsCard data={item} leagueId={league?.id} />
+        )}
 
         // refreshing={true}
         // onRefresh={() => console.log("refreshing")}

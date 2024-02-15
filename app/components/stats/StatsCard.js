@@ -4,18 +4,25 @@ import {
   TouchableOpacity,
   ImageBackground,
   View,
-  Alert,
 } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 import AppText from "../AppText";
 import apiClient from "../../api/client";
 import colors from "../../config/colors";
 
-const StatsCard = ({ data }) => {
+const StatsCard = ({ data, leagueId }) => {
   const serverUrl = apiClient.getBaseURL();
+  const navigation = useNavigation(); // Add this line
+
   return (
-    <TouchableOpacity style={styles.card} onPress={() => Alert.alert("dfdfd")}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() =>
+        navigation.navigate("CardStats", { data: data, leagueId: leagueId })
+      }
+    >
       <ImageBackground
         source={require("../../assets/background.png")}
         style={styles.background}

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   text: {
-    color: colors.LightSkyBlue,
+    color: colors.PrimaryBlue,
     fontSize: 20,
     fontWeight: "bold",
     margin: 10,

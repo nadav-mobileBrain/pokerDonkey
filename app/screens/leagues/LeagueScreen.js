@@ -15,6 +15,7 @@ import PlayerAvatar from "../../components/player/PlayerAvatar";
 import routes from "../../navigation/routes";
 import Screen from "../../components/Screen";
 import useApi from "../../hooks/useApi";
+import AppLogo from "../../components/AppLogo";
 
 const serverUrl = apiClient.getBaseURL();
 
@@ -33,6 +34,7 @@ function LeagueScreen({ navigation }) {
       <ActivityIndicator visible={getLeaguesApi.loading} />
       <Screen style={styles.screen}>
         <PlayerAvatar />
+        <AppLogo />
         <HeaderText> MY Leagues</HeaderText>
         {getLeaguesApi.error && (
           <>

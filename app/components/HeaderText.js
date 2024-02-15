@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: Platform.OS === "android" ? "InterVariable" : "Avenir",
     fontWeight: "bold",
-    color: colors.PrimaryBlue,
+    color: colors.AccentPurple,
     textAlign: "center",
     marginTop: 10,
     textTransform: "uppercase",
