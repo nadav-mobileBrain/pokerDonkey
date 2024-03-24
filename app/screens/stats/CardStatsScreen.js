@@ -6,10 +6,12 @@ import PlayersList from "../../components/stats/PlayerList";
 
 import useApi from "../../hooks/useApi";
 import statsApi from "../../api/stats";
+import ActivityIndicator from "../../components/ActivityIndicator";
 
 const CardStatsScreen = ({ route }) => {
   const [cardPlayers, setCardPlayers] = useState([]);
   const [leader, setLeader] = useState({});
+  const [loading, setLoading] = useState(false);
   const { data, leagueId } = route.params;
 
   const apiRoute = data.apiRoute;
@@ -20,6 +22,7 @@ const CardStatsScreen = ({ route }) => {
   }, []);
 
   const getStatsForCard = async () => {
+    setLoading(true);
     const result = await getStats.request(apiRoute, leagueId);
     if (!result.ok) return;
     ///get the first element of the array
@@ -28,10 +31,12 @@ const CardStatsScreen = ({ route }) => {
     result.data.shift();
 
     setCardPlayers(result.data);
+    setLoading(false);
   };
 
   return (
     <Screen style={styles.screen}>
+      <ActivityIndicator visible={loading} />
       <LeaderStatsHeader leader={leader} />
       <PlayersList players={cardPlayers} />
     </Screen>

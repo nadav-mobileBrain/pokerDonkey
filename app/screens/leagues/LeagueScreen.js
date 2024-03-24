@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 
 import ActivityIndicator from "../../components/ActivityIndicator";
 import AppText from "../../components/AppText";
@@ -19,7 +19,7 @@ import AppLogo from "../../components/AppLogo";
 
 const serverUrl = apiClient.getBaseURL();
 
-function LeagueScreen({ navigation }) {
+const LeagueScreen = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const getLeaguesApi = useApi(leaguesApi.getLeagues);
 
@@ -35,7 +35,7 @@ function LeagueScreen({ navigation }) {
       <Screen style={styles.screen}>
         <PlayerAvatar />
         <AppLogo />
-        <HeaderText> MY Leagues</HeaderText>
+        <HeaderText> My Leagues</HeaderText>
         {getLeaguesApi.error && (
           <>
             <AppText>Couldn't retrieve the leagues.</AppText>
@@ -76,7 +76,7 @@ function LeagueScreen({ navigation }) {
       </Screen>
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   screen: {

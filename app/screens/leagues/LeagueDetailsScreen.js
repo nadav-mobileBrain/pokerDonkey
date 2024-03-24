@@ -13,12 +13,7 @@ import AppLogo from "../../components/AppLogo";
 
 function LeagueDetailsScreen({ route, navigation }) {
   const league = route.params.item.league;
-  // console.log("🚀 ~ LeagueDetailsScreen ~ league:", league);
   const leaguePlayers = route.params.data.leaguePlayers;
-  // console.log("🚀 ~ LeagueDetailsScreen ~ leaguePlayers:", leaguePlayers);
-  // const leagueAdmin = leaguePlayers.filter(
-  //   (player) => player.is_admin === true
-  // );
 
   const serverUrl = apiClient.getBaseURL();
   const createdAtDate = new Date(league.created_at);
@@ -41,7 +36,7 @@ function LeagueDetailsScreen({ route, navigation }) {
             League Number : {league.league_number}
           </AppText>
           <AppText style={styles.admin}>
-            Admin : {league.leagueAdmin.nickName}
+            Admin : {league.leagueAdmin?.nickName}
           </AppText>
         </View>
         <PlayerInfo leaguePlayers={leaguePlayers} />

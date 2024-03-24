@@ -21,7 +21,7 @@ const LeaderStatsHeader = ({ leader }) => {
       <Text style={styles.leaderStats}>Profit: {leader.title}</Text>
       <Text style={styles.leaderStats}>Total Games: {leader.subTitle}</Text>
       <Text style={styles.leaderStats}>
-        Winn/Loss Ratio: {leader.subTitle2}
+        Winn/Loss Ratio: {leader.subTitle2}%
       </Text>
     </ImageBackground>
   );
@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   headerContainer: {
     alignItems: "center",
     padding: 10,
-    backgroundColor: colors.PrimaryBlue,
   },
   leaderImage: {
     width: 100,

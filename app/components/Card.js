@@ -1,11 +1,12 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
+import { Platform } from "react-native";
 
 import colors from "../config/colors";
 import AppText from "./AppText";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-function Card({ title, subTitle, imageUrl, onPress, height = 200, ...args }) {
+function Card({ title, subTitle, imageUrl, onPress, height = 200 }) {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>
@@ -37,14 +38,13 @@ const styles = StyleSheet.create({
     height: 200,
   },
   subTitle: {
-    color: colors.pink,
-    fontWeight: "bold",
+    fontFamily: Platform.OS === "android" ? "Montserrat-SemiBold" : "Avenir",
   },
   title: {
-    marginBottom: 7,
-    fontWeight: "bold",
+    marginBottom: 5,
     textDecorationLine: "underline",
     color: colors.PrimaryBlue,
+    fontFamily: Platform.OS === "android" ? "Montserrat-Light" : "Avenir",
   },
 });
 

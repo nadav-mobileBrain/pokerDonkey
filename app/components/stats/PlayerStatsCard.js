@@ -2,18 +2,22 @@ import { View, FlatList, StyleSheet, Text } from "react-native";
 import React, { useState, useEffect } from "react";
 
 import useApi from "../../hooks/useApi";
+import ActivityIndicator from "../ActivityIndicator";
 import statsApi from "../../api/stats";
 import StatsCard from "./StatsCard";
 
 const PlayerStatsCard = ({ league }) => {
   const getCardsInfo = useApi(statsApi.getMainCardsStats);
   const [cardsData, setCardsData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getCardsInfoApi = async () => {
+    setLoading(true);
     const result = await getCardsInfo.request(league.id);
     if (!result.ok) return;
 
     setCardsData(result.data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -21,6 +25,7 @@ const PlayerStatsCard = ({ league }) => {
   }, []);
   return (
     <View style={styles.container}>
+      <ActivityIndicator visible={loading} />
       <FlatList
         data={cardsData}
         keyExtractor={(card) => card.id.toString()}

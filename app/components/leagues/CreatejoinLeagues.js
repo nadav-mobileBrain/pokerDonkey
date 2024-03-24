@@ -10,8 +10,7 @@ function CreatejoinLeagues() {
         <AppText style={styles.text}>Join Leagues</AppText>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate(routes.CREATE_LEAGUE)}
-      >
+        onPress={() => navigation.navigate(routes.CREATE_LEAGUE)}>
         <AppText style={styles.text}>Create New League</AppText>
       </TouchableOpacity>
     </View>
@@ -24,9 +23,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   text: {
-    color: colors.PrimaryBlue,
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 15,
+    fontFamily: "Montserrat-SemiBold",
     margin: 10,
     textDecorationLine: "underline",
   },

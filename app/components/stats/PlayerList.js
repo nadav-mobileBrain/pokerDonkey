@@ -46,10 +46,9 @@ const PlayersList = ({ players }) => {
 const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row-reverse",
-    padding: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 5,
     alignItems: "center",
-    // flex: 1,
-    // Add more styling as needed
   },
 
   header: {
@@ -57,15 +56,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 10,
     backgroundColor: colors.LightSkyBlue,
-    // flex: 1,
   },
   imageContainer: {
     flexDirection: "row-reverse",
     alignItems: "center",
-    // justifyContent: "space-between",
 
-    // paddingHorizontal: 10,
-    // flex: 1,
     width: 70,
   },
 
@@ -73,28 +68,21 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    // Add more styling as needed
   },
   playerDetails: {
-    // marginLeft: 10,
     justifyContent: "space-around",
     flexDirection: "row-reverse",
     flex: 1,
-    paddingStart: 15,
-    // Add more styling as needed
   },
   playerName: {
     fontSize: 12,
     paddingLeft: 5,
-    // Add more styling as needed
+    fontWeight: "bold",
   },
   playerStats: {
     fontSize: 14,
     width: 50,
-    alignItems: "center",
-    alignContent: "center",
-    alignSelf: "center",
-    justifyContent: "center",
+    textAlign: "center",
   },
   title: {
     fontSize: 10,

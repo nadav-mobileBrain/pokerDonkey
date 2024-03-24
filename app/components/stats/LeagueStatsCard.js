@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 import apiClient from "../../api/client";
 import AppText from "../AppText";
 import colors from "../../config/colors";
@@ -23,7 +23,11 @@ const LeagueStatsCard = ({ league }) => {
   }, []);
 
   return (
-    <View style={styles.card}>
+    <ImageBackground
+      style={styles.card}
+      source={require("../../assets/bg55.jpeg")}
+    >
+      <View style={styles.overlay} />
       <View style={styles.imageContainer}>
         <Image
           source={{ uri: `${serverUrl}${league.league_image}` }}
@@ -48,7 +52,7 @@ const LeagueStatsCard = ({ league }) => {
           Last Game: {leagueStats?.lastGame?.created_at}
         </Text>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -58,7 +62,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: "row-reverse",
     alignItems: "center",
-    backgroundColor: colors.LightSkyBlue,
+    // backgroundColor: colors.LightSkyBlue,
     overflow: "hidden",
   },
   image: {
@@ -73,7 +77,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   leagueName: {
-    color: colors.AccentPurple,
+    color: colors.pink,
     fontWeight: "bold",
   },
 
@@ -83,14 +87,19 @@ const styles = StyleSheet.create({
     color: colors.white,
   },
   stat: {
-    fontSize: 12,
+    fontSize: 14,
     color: colors.white,
     fontWeight: "bold",
   },
   statPink: {
-    fontSize: 12,
-    color: colors.pink,
+    fontSize: 14,
+    color: colors.LightSkyBlue,
     fontWeight: "bold",
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: colors.black,
+    opacity: 0.6,
   },
 });
 
