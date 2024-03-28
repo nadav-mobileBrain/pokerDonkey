@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Image, ScrollView } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 
 import apiClient from "../../api/client";
 import AppButton from "../../components/AppButton";
@@ -29,26 +29,21 @@ function LeagueDetailsScreen({ route, navigation }) {
           source={{ uri: `${serverUrl}${league.league_image}` }}
         />
         <View style={styles.detailsContainer}>
-          <AppText style={styles.title}>
-            League Name : {league.league_name}
-          </AppText>
-          <AppText style={styles.leagueNumber}>
-            League Number : {league.league_number}
-          </AppText>
-          <AppText style={styles.admin}>
-            Admin : {league.leagueAdmin?.nickName}
-          </AppText>
+          <AppText>League Name : {league.league_name}</AppText>
+          <AppText>League Number : {league.league_number}</AppText>
+          <AppText>Admin : {league.leagueAdmin?.nickName}</AppText>
         </View>
         <PlayerInfo leaguePlayers={leaguePlayers} />
         <View style={styles.buttonContainer}>
           <AppButton
             title="League Stats"
             icon="chart-box-outline"
+            color="AccentPurple"
             onPress={() => navigation.navigate(routes.STATS, { league })}
           />
           <AppButton
             title="Start a new game"
-            color="LimeGreen"
+            color="LightSkyBlue"
             icon="cards-playing-spade-multiple-outline"
             onPress={() =>
               navigation.navigate(routes.SELECT_PLAYERS, {
@@ -65,18 +60,12 @@ function LeagueDetailsScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  admin: {
-    color: colors.AccentPurple,
-    fontWeight: "bold",
-    fontSize: 20,
-  },
   buttonContainer: {
     paddingHorizontal: 20,
   },
   created: {
-    color: colors.black,
     paddingHorizontal: 20,
-    fontSize: 20,
+    fontSize: 10,
     marginVertical: 10,
   },
   container: {
@@ -92,16 +81,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
     marginBottom: 10,
   },
-  leagueNumber: {
-    color: colors.pink,
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  title: {
-    color: colors.PrimaryBlue,
-    fontWeight: "500",
-    fontSize: 24,
-  },
+
   playerContainer: {
     marginHorizontal: 10,
     backgroundColor: colors.white,

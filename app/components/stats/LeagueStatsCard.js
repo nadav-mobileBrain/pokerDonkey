@@ -25,8 +25,7 @@ const LeagueStatsCard = ({ league }) => {
   return (
     <ImageBackground
       style={styles.card}
-      source={require("../../assets/bg55.jpeg")}
-    >
+      source={require("../../assets/bg55.jpeg")}>
       <View style={styles.overlay} />
       <View style={styles.imageContainer}>
         <Image
@@ -45,10 +44,10 @@ const LeagueStatsCard = ({ league }) => {
         <Text style={styles.stat}>
           Total Hours Played: {leagueStats?.totalHours} hours
         </Text>
-        <Text style={styles.statPink}>
+        <Text style={styles.subTitle}>
           Total Games: {leagueStats?.gamesCount}
         </Text>
-        <Text style={styles.statPink}>
+        <Text style={styles.subTitle}>
           Last Game: {leagueStats?.lastGame?.created_at}
         </Text>
       </View>
@@ -62,7 +61,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: "row-reverse",
     alignItems: "center",
-    // backgroundColor: colors.LightSkyBlue,
     overflow: "hidden",
   },
   image: {
@@ -77,24 +75,20 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   leagueName: {
-    color: colors.pink,
-    fontWeight: "bold",
+    color: colors.white,
   },
 
   number: {
     fontSize: 10,
-    fontWeight: "bold",
     color: colors.white,
   },
   stat: {
     fontSize: 14,
     color: colors.white,
-    fontWeight: "bold",
   },
-  statPink: {
+  subTitle: {
     fontSize: 14,
     color: colors.LightSkyBlue,
-    fontWeight: "bold",
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,

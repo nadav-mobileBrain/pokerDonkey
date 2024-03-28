@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 5,
     textDecorationLine: "underline",
-    color: colors.PrimaryBlue,
+    color: colors.AccentPurple,
     fontFamily: Platform.OS === "android" ? "Montserrat-Light" : "Avenir",
   },
 });

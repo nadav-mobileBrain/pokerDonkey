@@ -27,8 +27,7 @@ const MainStatsScreen = ({ route }) => {
 
       <AppText
         style={styles.allGames}
-        onPress={() => navigation.navigate("AllGames", { league })}
-      >
+        onPress={() => navigation.navigate("AllGames", { league })}>
         All Games
       </AppText>
     </Screen>
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
   },
   remark: {
     color: colors.medium,
-    fontSize: 12,
+    fontSize: 10,
     textAlign: "center",
   },
 });

@@ -3,7 +3,7 @@ export default {
   darkblue: "#0f4c75",
   AccentPurple: "#7209b7",
   lightPurple: "#a268ff",
-  LimeGreen: "#1fe01f",
+  LimeGreen: "#23dd3e",
   LightSkyBlue: "#4cc9f0",
   neonGReen: "#00ffbf",
 
@@ -16,4 +16,5 @@ export default {
   light: "#f8f4f4",
   danger: "#ff5252",
   dark: "#0c0c0c",
+  green: "#42ddbe",
 };

@@ -21,12 +21,10 @@ const StatsCard = ({ data, leagueId }) => {
       style={styles.card}
       onPress={() =>
         navigation.navigate("CardStats", { data: data, leagueId: leagueId })
-      }
-    >
+      }>
       <ImageBackground
         source={require("../../assets/background.png")}
-        style={styles.background}
-      >
+        style={styles.background}>
         <Image
           source={{ uri: `${serverUrl}${data?.values?.image}` }}
           style={styles.image}
@@ -34,12 +32,12 @@ const StatsCard = ({ data, leagueId }) => {
       </ImageBackground>
       <View style={styles.bottomDetails}>
         <AppText style={styles.title}>{data.title}</AppText>
-        <AppText style={styles.titleValue}>{data?.values?.nickName}</AppText>
-        <AppText style={styles.titleValue}>{data?.values?.titleValue}</AppText>
-        <AppText style={styles.subTitle}>
+        <AppText>{data?.values?.nickName}</AppText>
+        <AppText>{data?.values?.titleValue}</AppText>
+        <AppText>
           {data.subTitle}: {data?.values?.subTitleValue}
         </AppText>
-        <AppText style={styles.subTitle}>
+        <AppText>
           {data.subTitle2}: {data?.values?.subTitle2Value}
         </AppText>
       </View>
@@ -75,19 +73,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    fontWeight: "bold",
-    color: colors.AccentPurple,
     textDecorationLine: "underline",
-  },
-  titleValue: {
-    fontSize: 20,
     color: colors.AccentPurple,
-  },
-
-  subTitle: {
-    color: colors.pink,
-    fontSize: 20,
-    paddingBottom: 5,
   },
 });
 export default StatsCard;

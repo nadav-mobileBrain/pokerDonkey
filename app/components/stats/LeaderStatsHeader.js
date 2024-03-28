@@ -5,12 +5,11 @@ import colors from "../../config/colors";
 import apiClient from "../../api/client";
 
 const serverUrl = apiClient.getBaseURL();
-const LeaderStatsHeader = ({ leader }) => {
+const LeaderStatsHeader = ({ leader, titles }) => {
   return (
     <ImageBackground
       source={require("../../assets/blue_chip3.webp")}
-      style={styles.headerContainer}
-    >
+      style={styles.headerContainer}>
       <View style={styles.overlay} />
 
       <Image
@@ -18,10 +17,15 @@ const LeaderStatsHeader = ({ leader }) => {
         style={styles.leaderImage}
       />
       <Text style={styles.leaderName}>{leader.nickName}</Text>
-      <Text style={styles.leaderStats}>Profit: {leader.title}</Text>
-      <Text style={styles.leaderStats}>Total Games: {leader.subTitle}</Text>
       <Text style={styles.leaderStats}>
-        Winn/Loss Ratio: {leader.subTitle2}%
+        {titles.title} :{leader.title}
+      </Text>
+      <Text style={styles.leaderStats}>
+        {" "}
+        {titles.subTitle}: {leader.subTitle}
+      </Text>
+      <Text style={styles.leaderStats}>
+        {titles.subTitle2}: {leader.subTitle2}
       </Text>
     </ImageBackground>
   );
@@ -39,13 +43,11 @@ const styles = StyleSheet.create({
   },
   leaderName: {
     fontSize: 24,
-    fontWeight: "bold",
     color: colors.LightSkyBlue,
   },
   leaderStats: {
     fontSize: 16,
-    color: colors.lightPink,
-    fontWeight: "bold",
+    color: colors.white,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,

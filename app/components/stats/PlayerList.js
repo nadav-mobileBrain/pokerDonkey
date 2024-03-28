@@ -7,8 +7,9 @@ import apiClient from "../../api/client";
 
 const serverUrl = apiClient.getBaseURL();
 
-const PlayerItem = ({ player }) => (
+const PlayerItem = ({ player, index }) => (
   <View style={styles.itemContainer}>
+    <AppText style={styles.position}>{index}</AppText>
     <View style={styles.imageContainer}>
       <Image
         source={{ uri: `${serverUrl}${player.image}` }}
@@ -24,19 +25,21 @@ const PlayerItem = ({ player }) => (
   </View>
 );
 
-const PlayersList = ({ players }) => {
+const PlayersList = ({ players, titles }) => {
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.header}>
         <AppText style={styles.playerTitle}>Player</AppText>
-        <AppText style={styles.title}>Profit</AppText>
-        <AppText style={styles.title}>Total Games</AppText>
-        <AppText style={styles.title}>Win/Loss Ratio</AppText>
+        <AppText style={styles.title}>{titles.title}</AppText>
+        <AppText style={styles.title}>{titles.subTitle}</AppText>
+        <AppText style={styles.title}>{titles.subTitle2}</AppText>
       </View>
       <FlatList
         data={players}
-        renderItem={({ item }) => <PlayerItem player={item} />}
-        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item, index }) => (
+          <PlayerItem player={item} index={index + 2} />
+        )}
+        keyExtractor={(item) => `${item.id}_${item.title}`}
         ItemSeparatorComponent={ListitemSeperator}
       />
     </View>
@@ -46,21 +49,21 @@ const PlayersList = ({ players }) => {
 const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row-reverse",
-    paddingVertical: 15,
-    paddingHorizontal: 5,
+    // justifyContent: "space-between",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     alignItems: "center",
   },
 
   header: {
     flexDirection: "row-reverse",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     padding: 10,
-    backgroundColor: colors.LightSkyBlue,
+    backgroundColor: colors.AccentPurple,
   },
   imageContainer: {
     flexDirection: "row-reverse",
     alignItems: "center",
-
     width: 70,
   },
 
@@ -75,25 +78,29 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   playerName: {
-    fontSize: 12,
+    fontSize: 10,
+    color: colors.AccentPurple,
     paddingLeft: 5,
-    fontWeight: "bold",
   },
   playerStats: {
-    fontSize: 14,
-    width: 50,
+    fontSize: 12,
+    width: 60,
     textAlign: "center",
+  },
+  position: {
+    fontSize: 13,
+    paddingEnd: 5,
+    width: 22,
   },
   title: {
     fontSize: 10,
-    fontWeight: "bold",
-    color: colors.pink,
+    width: 45,
+    color: colors.white,
   },
   playerTitle: {
     fontSize: 10,
-    fontWeight: "bold",
     width: 50,
-    color: colors.pink,
+    color: colors.white,
   },
 });
 
