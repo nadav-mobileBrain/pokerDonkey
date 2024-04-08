@@ -87,8 +87,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   position: {
-    fontSize: 11,
-    width: 20,
+    fontSize: 10,
+    width: 16,
+    textDecorationLine: "underline",
   },
   title: {
     fontSize: 10,
