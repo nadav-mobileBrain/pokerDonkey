@@ -2,7 +2,7 @@ export default {
   PrimaryBlue: "#498fff",
   darkblue: "#0f4c75",
   AccentPurple: "#7209b7",
-  lightPurple: "#a268ff",
+  lightPurple: "#a981ea",
   LimeGreen: "#23dd3e",
   LightSkyBlue: "#4cc9f0",
   neonGReen: "#00ffbf",

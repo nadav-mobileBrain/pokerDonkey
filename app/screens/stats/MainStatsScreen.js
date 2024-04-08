@@ -4,7 +4,6 @@ import { useNavigation } from "@react-navigation/native";
 
 import AppLogo from "../../components/AppLogo";
 import AppText from "../../components/AppText";
-import blockBackButton from "../../hooks/disableBack";
 import colors from "../../config/colors";
 import LeagueStatsCard from "../../components/stats/LeagueStatsCard";
 import PlayerAvatar from "../../components/player/PlayerAvatar";
@@ -14,12 +13,11 @@ import Screen from "../../components/Screen";
 const MainStatsScreen = ({ route }) => {
   const { league } = route.params;
   const navigation = useNavigation();
-  blockBackButton();
+
   return (
     <Screen style={styles.container}>
       <PlayerAvatar />
       <AppLogo />
-      <LeagueStatsCard league={league} />
       <AppText style={styles.remark}>
         * press on a card to see full stats
       </AppText>
@@ -40,9 +38,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   container: {
-    padding: 10,
+    padding: 5,
     backgroundColor: colors.light,
-    flex: 1,
   },
   remark: {
     color: colors.medium,

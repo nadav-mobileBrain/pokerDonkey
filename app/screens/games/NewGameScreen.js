@@ -13,16 +13,14 @@ import AppButton from "../../components/AppButton";
 import useApi from "../../hooks/useApi";
 import gameApi from "../../api/game";
 
-function NewGame({ route, navigation }) {
+const NewGame = ({ route, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState();
   const [userGamesData, setUserGamesData] = useState(route.params.userGames);
   const game = route.params.game;
   const league = route.params.league;
-  console.log("🚀 ~ NewGame ~ league:", league);
+
   const endGameApi = useApi(gameApi.endGame);
-  // const gameDetails = route.params.gameDetails;
-  // const userGames = route.params.userGames;
 
   const onAddBuyIn = (amount, userId) => {
     const updatedUserGames = [...userGamesData];
@@ -109,7 +107,7 @@ function NewGame({ route, navigation }) {
       </Modal>
     </Screen>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

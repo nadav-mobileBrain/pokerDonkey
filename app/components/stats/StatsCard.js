@@ -14,7 +14,7 @@ import colors from "../../config/colors";
 
 const StatsCard = ({ data, leagueId }) => {
   const serverUrl = apiClient.getBaseURL();
-  const navigation = useNavigation(); // Add this line
+  const navigation = useNavigation();
 
   return (
     <TouchableOpacity
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   bottomDetails: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.white,
+    backgroundColor: colors.lightPurple,
     flex: 1,
   },
   card: {
@@ -61,8 +61,9 @@ const styles = StyleSheet.create({
     borderColor: colors.AccentPurple,
     borderWidth: 2,
     marginTop: 10,
-    width: 350,
-    height: 270,
+    width: 300,
+    height: 250,
+    alignSelf: "center",
   },
 
   image: {
@@ -72,9 +73,9 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   title: {
-    fontSize: 25,
+    fontSize: 22,
     textDecorationLine: "underline",
-    color: colors.AccentPurple,
+    color: colors.white,
   },
 });
 export default StatsCard;

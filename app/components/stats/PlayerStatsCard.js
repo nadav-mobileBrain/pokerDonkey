@@ -5,6 +5,7 @@ import useApi from "../../hooks/useApi";
 import ActivityIndicator from "../ActivityIndicator";
 import statsApi from "../../api/stats";
 import StatsCard from "./StatsCard";
+import LeagueStatsCard from "./LeagueStatsCard";
 
 const PlayerStatsCard = ({ league }) => {
   const getCardsInfo = useApi(statsApi.getMainCardsStats);
@@ -32,7 +33,7 @@ const PlayerStatsCard = ({ league }) => {
         renderItem={({ item }) => (
           <StatsCard data={item} leagueId={league?.id} />
         )}
-
+        ListHeaderComponent={() => <LeagueStatsCard league={league} />}
         // refreshing={true}
         // onRefresh={() => console.log("refreshing")}
       />

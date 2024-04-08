@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
 
   number: {
-    fontSize: 10,
+    fontSize: 12,
     color: colors.white,
   },
   stat: {

@@ -15,7 +15,7 @@ const AppLogo = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    marginBottom: 15,
+    marginBottom: 5,
   },
   image: {
     width: 60,
