@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.AccentPurple,
   },
   imageContainer: {
-    flexDirection: "row-reverse",
+    flexDirection: "column",
     alignItems: "center",
     width: 70,
   },
@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
   playerName: {
     fontSize: 10,
     color: colors.AccentPurple,
-    paddingLeft: 5,
   },
   playerStats: {
     fontSize: 12,
@@ -88,9 +87,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   position: {
-    fontSize: 13,
-    paddingEnd: 5,
-    width: 22,
+    fontSize: 11,
+    width: 20,
   },
   title: {
     fontSize: 10,

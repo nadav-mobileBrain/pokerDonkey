@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   bottomDetails: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.lightPurple,
+    backgroundColor: colors.LightSkyBlue,
     flex: 1,
   },
   card: {
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     borderColor: colors.AccentPurple,
     borderWidth: 2,
     marginTop: 10,
-    width: 300,
+    width: 290,
     height: 250,
     alignSelf: "center",
   },
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     textDecorationLine: "underline",
-    color: colors.white,
+    color: colors.AccentPurple,
   },
 });
 export default StatsCard;

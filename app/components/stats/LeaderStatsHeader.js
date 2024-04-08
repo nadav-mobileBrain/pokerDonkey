@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   leaderName: {
-    fontSize: 24,
+    fontSize: 28,
     color: colors.LightSkyBlue,
   },
   leaderStats: {
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
-    opacity: 0.7,
+    opacity: 0.6,
   },
 });
 
