@@ -19,14 +19,11 @@ const validationSchema = Yup.object().shape({
   leagueNumber: Yup.string().required().min(4).max(5).label("League Number"),
 });
 
-function JoinLeagueScreen({ navigation }) {
+const JoinLeagueScreen = ({ navigation }) => {
   const [error, setError] = useState();
   const { user } = useAuth();
-  console.log("🚀 ~ JoinLeagueScreen ~ user:", user);
-  console.log("🚀 ~ JoinLeagueScreen ~ navigation:", navigation);
 
   const handleSubmit = async ({ leagueNumber }) => {
-    console.log("🚀 ~ JoinLeagueScreen ~ leagueNumber:", leagueNumber);
     const completeLeagueInfo = {
       leagueNumber,
       userId: user.userId,
@@ -59,8 +56,7 @@ function JoinLeagueScreen({ navigation }) {
         <AppForm
           initialValues={{ leagueNumber: "" }}
           onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-        >
+          validationSchema={validationSchema}>
           <ErrorMessage error={error} visible={error} />
           <AppFormField
             name="leagueNumber"
@@ -75,7 +71,7 @@ function JoinLeagueScreen({ navigation }) {
       </Screen>
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

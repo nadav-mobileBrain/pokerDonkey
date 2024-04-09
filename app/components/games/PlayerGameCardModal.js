@@ -15,19 +15,47 @@ const validationSchema = Yup.object().shape({
   cashOutAmount: Yup.number().required().label("Cash Out Amount"),
 });
 
-function PlayerGameCardModal({ playerData, onClose, onAddBuyIn, onCashOut }) {
-  console.log("🚀 ~ PlayerGameCardModal ~ playerData:", playerData);
+const PlayerGameCardModal = ({
+  playerData,
+  onClose,
+  onAddBuyIn,
+  onRemoveBuyIn,
+  onCashOut,
+}) => {
   const serverUrl = apiClient.getBaseURL();
   const [buyInAmount, setBuyInAmount] = useState(playerData.buy_ins_amount);
   const [buyInNumber, setBuyInNumber] = useState(playerData.buy_ins_number);
   const [cashOutAmount, setCashOutAmount] = useState(
     playerData.cash_out_amount
   );
-  console.log("🚀 ~ PlayerGameCardModal ~ cashOutAmount:", cashOutAmount);
+
   const [isLoading, setIsLoading] = useState(false);
   const addBuyInToPlayer = useApi(gameApi.addBuyIn);
+  const removeLastBuyInToPlayer = useApi(gameApi.removeLastBuyIn);
   const cashOutPlayer = useApi(gameApi.cashOutPlayer);
 
+  const removeLastBuyIn = async () => {
+    if (buyInNumber < 1) {
+      alert("No buy ins to remove");
+      return;
+    }
+    const result = await removeLastBuyInToPlayer.request(
+      playerData.game_id,
+      playerData.user_id,
+      -50,
+      playerData.league_id
+    );
+
+    if (!result.ok) {
+      console.log("🚀 ~ removeLastBuyIn ~ rjhgjhgjhgesult", result.data);
+      return;
+    }
+    setBuyInAmount(buyInAmount - result.data[1]);
+    setBuyInNumber(buyInNumber - 1);
+    onRemoveBuyIn(result.data[1], playerData.user_id);
+    // Call the callback function to close the modal
+    onClose();
+  };
   const addBuyIn = async (amount) => {
     setBuyInAmount(buyInAmount + amount);
     setBuyInNumber(buyInNumber + 1);
@@ -47,6 +75,10 @@ function PlayerGameCardModal({ playerData, onClose, onAddBuyIn, onCashOut }) {
   };
 
   const handleSubmit = async (values) => {
+    if (buyInAmount < 1) {
+      alert("Buy In amount must be greater than 0");
+      return;
+    }
     setIsLoading(true);
     setCashOutAmount(values.cashOutAmount);
     const result = await cashOutPlayer.request(
@@ -66,7 +98,6 @@ function PlayerGameCardModal({ playerData, onClose, onAddBuyIn, onCashOut }) {
     setIsLoading(false);
     onClose();
     onCashOut(values.cashOutAmount, playerData.user_id);
-    console.log("🚀 ~ handleSubmit ~ result:", result.data);
   };
 
   return (
@@ -93,18 +124,22 @@ function PlayerGameCardModal({ playerData, onClose, onAddBuyIn, onCashOut }) {
           color="AccentPurple"
           onPress={() => addBuyIn(100)}
         />
+        <AppButton
+          title="Cancel last buy in"
+          icon="cash-remove"
+          color="danger"
+          onPress={() => removeLastBuyIn()}
+        />
       </View>
       <View />
       <AppText>Buy in amount: {buyInAmount}</AppText>
-      <AppText>Buy in number: {buyInNumber}</AppText>
       {cashOutAmount > 0 && (
         <AppText>Profit: {cashOutAmount - buyInAmount}</AppText>
       )}
       <AppForm
-        initialValues={{ cashOutAmount: cashOutAmount }}
+        initialValues={{ cashOutAmount }}
         onSubmit={handleSubmit}
-        validationSchema={validationSchema}
-      >
+        validationSchema={validationSchema}>
         <ErrorMessage
           error={addBuyInToPlayer.error}
           visible={addBuyInToPlayer.error}
@@ -118,14 +153,26 @@ function PlayerGameCardModal({ playerData, onClose, onAddBuyIn, onCashOut }) {
           keyboardType="number-pad"
           width={250}
         />
-        <View style={styles.form}>
-          <SubmitButton title="Cash Out Player" icon="cash" />
-        </View>
+        {!playerData?.is_cashed_out && (
+          <View style={styles.form}>
+            <SubmitButton title="Cash Out Player" icon="cash" />
+          </View>
+        )}
+        {playerData?.is_cashed_out && (
+          <>
+            <AppText>Player Cashed Out Already</AppText>
+            <AppText>Cash Out Amount: {cashOutAmount}</AppText>
+            <AppText style={{ color: "red" }}>Cash Out Again?</AppText>
+            <View style={styles.form}>
+              <SubmitButton title="Update Cash Out" icon="cash" />
+            </View>
+          </>
+        )}
       </AppForm>
       <View style={styles.form}></View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

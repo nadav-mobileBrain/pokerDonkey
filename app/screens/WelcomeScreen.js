@@ -3,13 +3,12 @@ import { View, StyleSheet, ImageBackground, Image, Text } from "react-native";
 
 import AppButton from "../components/AppButton";
 
-function WelcomeScreen({ navigation }) {
+const WelcomeScreen = ({ navigation }) => {
   return (
     <ImageBackground
       style={styles.container}
       source={require("../assets/background.jpeg")}
-      blurRadius={10}
-    >
+      blurRadius={10}>
       <View style={styles.logoContainer}>
         <Image style={styles.logo} source={require("../assets/appLogo.png")} />
         <Text style={styles.tagLine}>Manage Your Home Poker Games</Text>
@@ -30,7 +29,7 @@ function WelcomeScreen({ navigation }) {
       </View>
     </ImageBackground>
   );
-}
+};
 
 const styles = StyleSheet.create({
   buttonContainer: {

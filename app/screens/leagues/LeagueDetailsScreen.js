@@ -11,7 +11,7 @@ import Screen from "../../components/Screen";
 import routes from "../../navigation/routes";
 import AppLogo from "../../components/AppLogo";
 
-function LeagueDetailsScreen({ route, navigation }) {
+const LeagueDetailsScreen = ({ route, navigation }) => {
   const league = route.params.item.league;
   const leaguePlayers = route.params.data.leaguePlayers;
 
@@ -57,7 +57,7 @@ function LeagueDetailsScreen({ route, navigation }) {
       </View>
     </Screen>
   );
-}
+};
 
 const styles = StyleSheet.create({
   buttonContainer: {

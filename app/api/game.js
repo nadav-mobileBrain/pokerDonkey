@@ -15,6 +15,15 @@ const addBuyIn = (gameId, playerId, buyInAmount, leagueId) => {
   });
 };
 
+const removeLastBuyIn = (gameId, playerId, buyInAmount, leagueId) => {
+  return client.post(`${endpoint}/removeLastBuyInToPlayer`, {
+    gameId,
+    playerId,
+    buyInAmount,
+    leagueId,
+  });
+};
+
 const cashOutPlayer = (gameId, userId, cashOutAmount) => {
   return client.put(`${endpoint}/cashOutPlayer`, {
     gameId,
@@ -32,4 +41,5 @@ export default {
   addBuyIn,
   cashOutPlayer,
   endGame,
+  removeLastBuyIn,
 };

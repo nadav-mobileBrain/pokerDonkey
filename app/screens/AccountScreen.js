@@ -26,7 +26,7 @@ const menuItems = [
   },
 ];
 
-function AccountScreen({ navigation }) {
+const AccountScreen = ({ navigation }) => {
   const { user, logOut } = useAuth();
 
   return (
@@ -64,7 +64,7 @@ function AccountScreen({ navigation }) {
       />
     </Screen>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

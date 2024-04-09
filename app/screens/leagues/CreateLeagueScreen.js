@@ -19,7 +19,7 @@ const validationSchema = Yup.object().shape({
   image: Yup.string().label("Image"),
 });
 
-function CreateLeagueScreen({ navigation }) {
+const CreateLeagueScreen = ({ navigation }) => {
   const [error, setError] = useState();
   const [imageUri, setImageUri] = useState(null); // New state for image URI
   const { user } = useAuth();
@@ -56,8 +56,7 @@ function CreateLeagueScreen({ navigation }) {
         <AppForm
           initialValues={{ leagueName: "" }}
           onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-        >
+          validationSchema={validationSchema}>
           <ErrorMessage error={error} visible={error} />
 
           <AppFormField
@@ -81,7 +80,7 @@ function CreateLeagueScreen({ navigation }) {
       </Screen>
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

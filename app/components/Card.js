@@ -26,7 +26,7 @@ function Card({ title, subTitle, imageUrl, onPress, height = 200 }) {
 const styles = StyleSheet.create({
   card: {
     borderRadius: 15,
-    backgroundColor: colors.white,
+    backgroundColor: colors.lightPurple,
     marginBottom: 20,
     overflow: "hidden",
   },
@@ -43,8 +43,9 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 5,
     textDecorationLine: "underline",
-    color: colors.AccentPurple,
-    fontFamily: Platform.OS === "android" ? "Montserrat-Light" : "Avenir",
+    color: colors.white,
+    fontSize: 25,
+    fontFamily: Platform.OS === "android" ? "Montserrat-SemiBold" : "Avenir",
   },
 });
 

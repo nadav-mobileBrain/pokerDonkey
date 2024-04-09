@@ -30,6 +30,14 @@ const NewGame = ({ route, navigation }) => {
     setUserGamesData(updatedUserGames);
   };
 
+  const onRemoveBuyIn = (amount, userId) => {
+    const updatedUserGames = [...userGamesData];
+    const playerIndex = updatedUserGames.findIndex((p) => p.user_id === userId);
+    updatedUserGames[playerIndex].buy_ins_amount -= amount;
+    updatedUserGames[playerIndex].buy_ins_number -= 1;
+    setUserGamesData(updatedUserGames);
+  };
+
   const endGame = async () => {
     const isAllCashedOut = checkIfAllPlayersCashedOut();
     if (!isAllCashedOut) {
@@ -82,14 +90,17 @@ const NewGame = ({ route, navigation }) => {
       />
       <AppButton title="End Game" onPress={() => endGame()} />
       <Modal visible={modalVisible} animationType="slide">
+        <Button title="Cancel" onPress={() => setModalVisible(false)} />
         <Screen>
-          <Button title="Cancel" onPress={() => setModalVisible(false)} />
           {selectedPlayer && (
             <PlayerGameCardModal
               playerData={selectedPlayer}
               onClose={() => setModalVisible(false)}
               onAddBuyIn={(amount, userId) => {
                 onAddBuyIn(amount, userId);
+              }}
+              onRemoveBuyIn={(amount, userId) => {
+                onRemoveBuyIn(amount, userId);
               }}
               onCashOut={(amount, userId) => {
                 const updatedUserGames = [...userGamesData];

@@ -7,14 +7,13 @@ import colors from "../../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
-function PlayerGameDetails({ image, nickName, onPress, playerData }) {
+const PlayerGameDetails = ({ image, nickName, onPress, playerData }) => {
   const serverUrl = apiClient.getBaseURL();
   return (
     <TouchableHighlight
       underlayColor={colors.light}
       onPress={onPress}
-      style={{ flex: 1 }}
-    >
+      style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.innerContainer}>
           {image && (
@@ -41,7 +40,7 @@ function PlayerGameDetails({ image, nickName, onPress, playerData }) {
       </View>
     </TouchableHighlight>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
   cashOutPlayer: {
     color: colors.danger,
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 10,
     marginRight: 15,
   },
   detailsContainer: {

@@ -10,21 +10,24 @@ import AppButton from "../../components/AppButton";
 import gameApi from "../../api/game";
 import useApi from "../../hooks/useApi";
 
-function SelectPlayersScreen({ route, navigation }) {
+const SelectPlayersScreen = ({ route, navigation }) => {
   const leaguePlayers = route.params.leaguePlayers;
   const league = route.params.league;
 
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [unselectedPlayers, setUnselectedPlayers] = useState(leaguePlayers);
   const createNewGameApi = useApi(gameApi.newGame);
 
   const onSelectedPlayer = (player) => {
     const playerIndex = selectedPlayers.findIndex((p) => p.id === player.id);
     if (playerIndex === -1) {
       setSelectedPlayers([...selectedPlayers, player]);
+      setUnselectedPlayers(unselectedPlayers.filter((p) => p.id !== player.id));
     } else {
       const updatedPlayers = [...selectedPlayers];
       updatedPlayers.splice(playerIndex, 1);
       setSelectedPlayers(updatedPlayers);
+      setUnselectedPlayers([...unselectedPlayers, player]);
     }
   };
 
@@ -33,7 +36,6 @@ function SelectPlayersScreen({ route, navigation }) {
       selectedPlayers,
       leagueId: league.id,
     });
-    console.log("🚀 ~ startNewGame ~ result:", result);
 
     if (!result.ok) {
       if (result.data) setError(result.data.error);
@@ -55,8 +57,11 @@ function SelectPlayersScreen({ route, navigation }) {
     <Screen style={styles.container}>
       <View style={styles.selectContainer}>
         <HeaderText> Select Players </HeaderText>
+        <AppText style={styles.addRemove}>
+          *Press on a player to add to the game
+        </AppText>
         <PlayerInfo
-          leaguePlayers={leaguePlayers}
+          leaguePlayers={unselectedPlayers}
           onPress={onSelectedPlayer}
           width={40}
           height={40}
@@ -65,6 +70,10 @@ function SelectPlayersScreen({ route, navigation }) {
         {selectedPlayers.length > 0 && (
           <View style={styles.selectedPlayersContainer}>
             <AppText style={styles.inTheGame}> In The Game </AppText>
+            <AppText style={styles.addRemove}>
+              *Press on a player to remove from the game
+            </AppText>
+            <AppText>{selectedPlayers.length} Players</AppText>
             <PlayerInfo
               leaguePlayers={selectedPlayers}
               onPress={onSelectedPlayer}
@@ -72,6 +81,7 @@ function SelectPlayersScreen({ route, navigation }) {
               height={40}
               borderColor="LimeGreen"
             />
+
             <AppButton
               title="Start Game"
               color="LimeGreen"
@@ -89,9 +99,12 @@ function SelectPlayersScreen({ route, navigation }) {
       </View>
     </Screen>
   );
-}
+};
 
 const styles = StyleSheet.create({
+  addRemove: {
+    fontSize: 10,
+  },
   container: {
     backgroundColor: colors.light,
   },

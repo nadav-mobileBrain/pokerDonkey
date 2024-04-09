@@ -13,14 +13,14 @@ import colors from "../../config/colors";
 
 const serverUrl = apiClient.getBaseURL();
 
-function PlayerInfo({
+const PlayerInfo = ({
   leaguePlayers,
 
   onPress,
   width = 30,
   height = 30,
   borderColor = "AccentPurple",
-}) {
+}) => {
   return (
     <View style={styles.container}>
       <FlatList
@@ -30,8 +30,7 @@ function PlayerInfo({
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => onPress(item)}
-            style={styles.playerContainer}
-          >
+            style={styles.playerContainer}>
             <Image
               style={[
                 styles.image,
@@ -45,13 +44,11 @@ function PlayerInfo({
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     padding: 5,
-    // flex: 1,
-    //alignItems: "center",
   },
   image: {
     borderRadius: 50,
