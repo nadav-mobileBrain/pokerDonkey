@@ -10,6 +10,7 @@ import gameApi from "../../api/game";
 import { AppForm, AppFormField, ErrorMessage, SubmitButton } from "../forms";
 import * as Yup from "yup";
 import ActivityIndicator from "../ActivityIndicator";
+import { removeLastBuyIn, addBuyIn } from "../../utils/gameUtils";
 
 const validationSchema = Yup.object().shape({
   cashOutAmount: Yup.number().required().label("Cash Out Amount"),
@@ -34,44 +35,31 @@ const PlayerGameCardModal = ({
   const removeLastBuyInToPlayer = useApi(gameApi.removeLastBuyIn);
   const cashOutPlayer = useApi(gameApi.cashOutPlayer);
 
-  const removeLastBuyIn = async () => {
-    if (buyInNumber < 1) {
-      alert("No buy ins to remove");
-      return;
-    }
-    const result = await removeLastBuyInToPlayer.request(
-      playerData.game_id,
-      playerData.user_id,
-      -50,
-      playerData.league_id
+  const handleRemoveLastBuyIn = () => {
+    removeLastBuyIn(
+      buyInNumber,
+      buyInAmount,
+      removeLastBuyInToPlayer,
+      playerData,
+      setBuyInAmount,
+      setBuyInNumber,
+      onRemoveBuyIn,
+      onClose
     );
-
-    if (!result.ok) {
-      console.log("🚀 ~ removeLastBuyIn ~ rjhgjhgjhgesult", result.data);
-      return;
-    }
-    setBuyInAmount(buyInAmount - result.data[1]);
-    setBuyInNumber(buyInNumber - 1);
-    onRemoveBuyIn(result.data[1], playerData.user_id);
-    // Call the callback function to close the modal
-    onClose();
   };
-  const addBuyIn = async (amount) => {
-    setBuyInAmount(buyInAmount + amount);
-    setBuyInNumber(buyInNumber + 1);
-    const result = await addBuyInToPlayer.request(
-      playerData.game_id,
-      playerData.user_id,
+
+  const handleAddBuyIn = (amount) => {
+    addBuyIn(
       amount,
-      playerData.league_id
+      setBuyInAmount,
+      setBuyInNumber,
+      addBuyInToPlayer,
+      playerData,
+      onAddBuyIn,
+      buyInAmount,
+      buyInNumber,
+      onClose
     );
-    if (!result.ok) {
-      console.log("🚀 ~ addBuyIn ~ result", result.data);
-      return;
-    }
-    onAddBuyIn(amount, playerData.user_id);
-    // Call the callback function to close the modal
-    onClose();
   };
 
   const handleSubmit = async (values) => {
@@ -116,19 +104,19 @@ const PlayerGameCardModal = ({
           title="Add Buy in 50"
           icon="cash"
           color="LimeGreen"
-          onPress={() => addBuyIn(50)}
+          onPress={() => handleAddBuyIn(50)}
         />
         <AppButton
           title="Add Buy in 100"
           icon="cash"
           color="AccentPurple"
-          onPress={() => addBuyIn(100)}
+          onPress={() => handleAddBuyIn(100)}
         />
         <AppButton
           title="Cancel last buy in"
           icon="cash-remove"
           color="danger"
-          onPress={() => removeLastBuyIn()}
+          onPress={() => handleRemoveLastBuyIn()}
         />
       </View>
       <View />
