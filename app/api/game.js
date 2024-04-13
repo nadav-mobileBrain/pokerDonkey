@@ -36,10 +36,19 @@ const endGame = (gameId, userGamesData) => {
   return client.put(`${endpoint}/endGame`, { gameId, userGamesData });
 };
 
+const getAllGamesForLeague = (leagueId, continuationToken = 0) => {
+  // Include the continuationToken in the API request
+  // Default the continuationToken to 0 to get the first page if not provided
+  return client.get(
+    `${endpoint}/getAllGamesForLeague?leagueId=${leagueId}&continuationToken=${continuationToken}`
+  );
+};
+
 export default {
   newGame,
   addBuyIn,
   cashOutPlayer,
   endGame,
   removeLastBuyIn,
+  getAllGamesForLeague,
 };

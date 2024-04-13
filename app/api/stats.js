@@ -12,7 +12,6 @@ const getMainCardsStats = (leagueId) =>
   client.get(`${endpoint}/getMainCardsStats/${leagueId}`);
 
 const getStatsForCard = (cardName, leagueId) =>
-  console.log("cardName", `${endpoint}/${cardName}/${leagueId}`) ||
   client.get(`${endpoint}/${cardName}/${leagueId}`);
 
 export default {

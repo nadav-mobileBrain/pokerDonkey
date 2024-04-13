@@ -7,6 +7,7 @@ import PlayersList from "../../components/stats/PlayerList";
 import useApi from "../../hooks/useApi";
 import statsApi from "../../api/stats";
 import ActivityIndicator from "../../components/ActivityIndicator";
+import AppLogo from "../../components/AppLogo";
 
 const CardStatsScreen = ({ route }) => {
   const [cardPlayers, setCardPlayers] = useState([]);
@@ -37,6 +38,7 @@ const CardStatsScreen = ({ route }) => {
   return (
     <Screen style={styles.screen}>
       <ActivityIndicator visible={loading} />
+      <AppLogo />
       <LeaderStatsHeader leader={leader} titles={data} />
       <PlayersList players={cardPlayers} titles={data} />
     </Screen>

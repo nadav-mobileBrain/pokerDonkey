@@ -37,16 +37,16 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   leaderImage: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     borderRadius: 50,
   },
   leaderName: {
-    fontSize: 28,
+    fontSize: 25,
     color: colors.LightSkyBlue,
   },
   leaderStats: {
-    fontSize: 16,
+    fontSize: 14,
     color: colors.white,
   },
   overlay: {
