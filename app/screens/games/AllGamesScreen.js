@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  ActivityIndicator,
-  StyleSheet,
-} from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
+
+import ActivityIndicator from "../../components/ActivityIndicator";
+import AllGamesCard from "../../components/games/AllGamesCard";
+import AppLogo from "../../components/AppLogo";
 import gameApi from "../../api/game";
+import HeaderText from "../../components/HeaderText";
 
 const AllGamesScreen = ({ route }) => {
   const leagueId = route.params.league.id;
+  const league = route.params.league;
+  console.log("🚀 ~ AllGamesScreen ~ league:", league);
   const [games, setGames] = useState([]);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true); // Initially true to load the first page
+  const [isLoading, setIsLoading] = useState(true); // Initially true to load the first page
   const [continuationToken, setContinuationToken] = useState(0);
 
   const fetchGames = async () => {
@@ -22,13 +23,13 @@ const AllGamesScreen = ({ route }) => {
     );
     if (!result.ok) {
       setError("Failed to load games");
-      setLoading(false);
+      setIsLoading(false);
       return;
     }
     // Append new games to the existing games
     setGames((prevGames) => [...prevGames, ...result.data.games]);
     setContinuationToken(result.data.nextContinuationToken); // Update the continuation token
-    setLoading(false);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -37,19 +38,16 @@ const AllGamesScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
+      {isLoading && <ActivityIndicator visible={isLoading} />}
+      <AppLogo />
+      {games.length === 0 ? () => <Text>No games found</Text> : null}
+      <HeaderText>{league?.league_name}</HeaderText>
       <FlatList
         data={games}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <Text style={styles.gameText}>
-            {item.id}: {new Date(item.created_at).toLocaleString()}
-          </Text>
-        )}
-        ListFooterComponent={
-          loading ? <ActivityIndicator size="large" color="#0000ff" /> : null
-        }
+        renderItem={({ item }) => <AllGamesCard game={item} />}
         onEndReached={() => {
-          if (!loading && continuationToken) {
+          if (!isLoading && continuationToken) {
             // Only load more if not currently loading and there's a token
             fetchGames();
           }

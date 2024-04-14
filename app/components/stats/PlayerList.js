@@ -49,7 +49,6 @@ const PlayersList = ({ players, titles }) => {
 const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row-reverse",
-    // justifyContent: "space-between",
     paddingVertical: 10,
     paddingHorizontal: 15,
     alignItems: "center",

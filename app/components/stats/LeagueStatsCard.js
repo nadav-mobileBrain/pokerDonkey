@@ -25,7 +25,7 @@ const LeagueStatsCard = ({ league }) => {
   return (
     <ImageBackground
       style={styles.card}
-      source={require("../../assets/bg55.jpeg")}>
+      source={require("../../assets/blue_chip.webp")}>
       <View style={styles.overlay} />
       <View style={styles.imageContainer}>
         <Image
@@ -88,12 +88,12 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 14,
-    color: colors.LightSkyBlue,
+    color: colors.white,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
-    opacity: 0.6,
+    opacity: 0.5,
   },
 });
 

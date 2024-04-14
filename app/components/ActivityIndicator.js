@@ -1,8 +1,8 @@
 import React from "react";
 import LottieView from "lottie-react-native";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 
-function ActivityIndicator({ visible = false }) {
+const ActivityIndicator = ({ visible = false }) => {
   if (!visible) return null;
 
   return (
@@ -14,7 +14,7 @@ function ActivityIndicator({ visible = false }) {
       />
     </View>
   );
-}
+};
 const styles = StyleSheet.create({
   overlay: {
     height: "100%",
