@@ -75,8 +75,8 @@ const NewGame = ({ route, navigation }) => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <PlayerGameDetails
-            image={item.user.image}
-            nickName={item.user.nickName}
+            image={item.User.image}
+            nickName={item.User.nickName}
             playerData={item}
             onPress={() => {
               setModalVisible(true);

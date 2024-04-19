@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Image, View, StyleSheet, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Image, View, StyleSheet } from "react-native";
 
 import HeaderText from "../../components/HeaderText";
 import Screen from "../../components/Screen";
@@ -9,14 +9,34 @@ import colors from "../../config/colors";
 import AppButton from "../../components/AppButton";
 import gameApi from "../../api/game";
 import useApi from "../../hooks/useApi";
+import useAuth from "../../auth/useAuth";
 
 const SelectPlayersScreen = ({ route, navigation }) => {
   const leaguePlayers = route.params.leaguePlayers;
   const league = route.params.league;
-
+  const { user } = useAuth();
+  const gameAdminId = user.userId;
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [unselectedPlayers, setUnselectedPlayers] = useState(leaguePlayers);
+  const checkIfOpenGameExist = useApi(gameApi.checkIfOpenGameExist);
   const createNewGameApi = useApi(gameApi.newGame);
+
+  useEffect(() => {
+    const checkIfOpenGames = async () => {
+      const result = await checkIfOpenGameExist.request(league.id);
+      if (result.ok) {
+        if (result.data) {
+          navigation.navigate("NewGame", {
+            game: result.data.game,
+            gameDetails: result.data.gameDetails,
+            league,
+            userGames: result.data.userGames,
+          });
+        }
+      }
+    };
+    checkIfOpenGames();
+  }, []);
 
   const onSelectedPlayer = (player) => {
     const playerIndex = selectedPlayers.findIndex((p) => p.id === player.id);
@@ -35,6 +55,7 @@ const SelectPlayersScreen = ({ route, navigation }) => {
     const result = await createNewGameApi.request({
       selectedPlayers,
       leagueId: league.id,
+      gameAdminId,
     });
 
     if (!result.ok) {

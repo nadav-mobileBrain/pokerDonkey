@@ -2,8 +2,12 @@ import client from "./client";
 
 const endpoint = "/api/games";
 
-const newGame = ({ selectedPlayers, leagueId }) => {
-  return client.post(`${endpoint}/newGame`, { selectedPlayers, leagueId });
+const newGame = ({ selectedPlayers, leagueId, gameAdminId }) => {
+  return client.post(`${endpoint}/newGame`, {
+    selectedPlayers,
+    leagueId,
+    gameAdminId,
+  });
 };
 
 const addBuyIn = (gameId, playerId, buyInAmount, leagueId) => {
@@ -44,6 +48,10 @@ const getAllGamesForLeague = (leagueId, continuationToken = 0) => {
   );
 };
 
+const checkIfOpenGameExist = (leagueId) => {
+  return client.get(`${endpoint}/checkIfOpenGameExist?leagueId=${leagueId}`);
+};
+
 export default {
   newGame,
   addBuyIn,
@@ -51,4 +59,5 @@ export default {
   endGame,
   removeLastBuyIn,
   getAllGamesForLeague,
+  checkIfOpenGameExist,
 };

@@ -7,7 +7,7 @@ import apiClient from "../../api/client";
 
 const serverUrl = apiClient.getBaseURL();
 
-const PlayerItem = ({ player, index }) => (
+const PlayerItem = ({ player, index, title }) => (
   <View style={styles.itemContainer}>
     <AppText style={styles.position}>{index}</AppText>
     <View style={styles.imageContainer}>
@@ -18,7 +18,19 @@ const PlayerItem = ({ player, index }) => (
       <Text style={styles.playerName}>{player.nickName}</Text>
     </View>
     <View style={styles.playerDetails}>
-      <Text style={styles.playerStats}>{player.title}</Text>
+      <Text
+        style={[
+          styles.playerStats,
+          player.title > 0 &&
+            title === "totalProfit" && { color: "green", fontWeight: "bold" },
+          player.title < 0 &&
+            title === "totalProfit" && {
+              color: "red",
+              fontWeight: "bold",
+            },
+        ]}>
+        {player.title}
+      </Text>
       <Text style={styles.playerStats}> {player.subTitle}</Text>
       <Text style={styles.playerStats}> {player.subTitle2}</Text>
     </View>
@@ -37,7 +49,7 @@ const PlayersList = ({ players, titles }) => {
       <FlatList
         data={players}
         renderItem={({ item, index }) => (
-          <PlayerItem player={item} index={index + 2} />
+          <PlayerItem player={item} index={index + 2} title={titles.apiRoute} />
         )}
         keyExtractor={(item) => `${item.id}_${item.title}`}
         ItemSeparatorComponent={ListitemSeperator}

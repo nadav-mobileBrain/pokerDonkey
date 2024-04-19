@@ -3,25 +3,22 @@ import { View, StyleSheet } from "react-native";
 import colors from "../../config/colors";
 import AppText from "../AppText";
 import LeagueLogo from "../leagues/LeagueLogo";
+import dayjs from "dayjs";
 
 function GameDetails({ league, game }) {
-  const timeFormat = { hour: "2-digit", minute: "2-digit", second: "2-digit" };
-
-  const startDate = new Date(game.created_at);
-  const updatedAtDate = new Date(game.updated_at);
-  const formattedTime = startDate.toLocaleTimeString(undefined, timeFormat);
-  const formattedUpdatedTime = updatedAtDate.toLocaleTimeString(
-    undefined,
-    timeFormat
-  );
-
+  console.log("🚀 ~ GameDetails ~ game:", game);
   return (
     <View style={styles.gameDetailsContainer}>
       <LeagueLogo
         logoUrl={league.league_image}
         leagueName={league.league_name}
       />
-      <AppText style={styles.gameDate}>Started At: {formattedTime}</AppText>
+      <AppText style={styles.gameDate}>
+        Started At: {dayjs(game.created_at).format("DD/MM/YYYY hh:mm:ss")}
+      </AppText>
+      <AppText style={styles.gameDate}>
+        Updated At: {dayjs(game.updated_at).format("DD/MM/YYYY hh:mm:ss")}
+      </AppText>
     </View>
   );
 }
@@ -34,6 +31,7 @@ const styles = StyleSheet.create({
   },
   gameDate: {
     color: colors.AccentPurple,
+    fontSize: 14,
   },
 });
 

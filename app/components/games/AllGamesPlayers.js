@@ -3,7 +3,6 @@ import React from "react";
 import AppText from "../AppText";
 
 const AllGamesPlayers = ({ player }) => {
-  console.log("🚀 ~ AllGamesPlayers ~ player:", player);
   const playerDetails = player?.User;
   return (
     <View style={styles.container}>

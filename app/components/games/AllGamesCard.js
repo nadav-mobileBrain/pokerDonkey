@@ -21,11 +21,15 @@ const AllGamesCard = ({ game }) => {
           {dayjs(game.created_at).format("HH:mm")}-
           {dayjs(game.updated_at).format("HH:mm")}
         </AppText>
+        <AppText style={styles.gameManager}>
+          Game Manager:
+          {game?.game_manager?.nickName}
+        </AppText>
       </ImageBackground>
       <FlatList
         data={game.userGames}
         keyExtractor={(item) => item.user_id.toString()}
-        ListHeaderComponent={() => <AllGamesCardHeader />}
+        ListHeaderComponent={<AllGamesCardHeader />}
         renderItem={({ item }) => <AllGamesPlayers player={item} />}
         ItemSeparatorComponent={ListitemSeperator}
       />
@@ -44,7 +48,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 5,
     color: colors.white,
-    height: 60,
+    height: 40,
+  },
+  gameManager: {
+    width: "100%",
+    textAlign: "center",
+    color: colors.white,
   },
 
   overlay: {
