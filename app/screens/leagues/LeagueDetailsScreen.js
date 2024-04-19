@@ -1,28 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image } from "react-native";
+import dayjs from "dayjs";
 
 import apiClient from "../../api/client";
+import ActivityIndicator from "../../components/ActivityIndicator";
 import AppButton from "../../components/AppButton";
+import AppLogo from "../../components/AppLogo";
 import AppText from "../../components/AppText";
 import colors from "../../config/colors";
 import PlayerAvatar from "../../components/player/PlayerAvatar";
 import PlayerInfo from "../../components/player/PlayerInfo"; // Add this import statement
 import Screen from "../../components/Screen";
 import routes from "../../navigation/routes";
-import AppLogo from "../../components/AppLogo";
+import useApi from "../../hooks/useApi";
+import getLeaguePlayers from "../../api/leagues";
 
 const LeagueDetailsScreen = ({ route, navigation }) => {
   const league = route.params.item.league;
-  const leaguePlayers = route.params.data.leaguePlayers;
+  const [leaguePlayers, setLeaguePlayers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const getLeaguePlayersApi = useApi(getLeaguePlayers.getLeaguePlayers);
 
   const serverUrl = apiClient.getBaseURL();
-  const createdAtDate = new Date(league.created_at);
-  const formattedDate = createdAtDate.toLocaleDateString("en-GB");
+
+  useEffect(() => {
+    const getLeaguePlayers = async () => {
+      setLoading(true);
+      const result = await getLeaguePlayersApi.request(league.id);
+      if (!result.ok) {
+        setLoading(false);
+        return;
+      }
+      setLoading(false);
+      setLeaguePlayers(result.data?.leaguePlayers);
+    };
+    getLeaguePlayers();
+  }, []);
 
   return (
     <Screen style={styles.container}>
       <PlayerAvatar />
       <AppLogo />
+      <ActivityIndicator visible={loading} />
       <View style={styles.playerContainer}>
         <Image
           style={styles.image}
@@ -53,7 +72,9 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
             }
           />
         </View>
-        <AppText style={styles.created}>Created At: {formattedDate}</AppText>
+        <AppText style={styles.created}>
+          Created At: {dayjs(league?.created_at).format("DD/MM/YYYY")}
+        </AppText>
       </View>
     </Screen>
   );

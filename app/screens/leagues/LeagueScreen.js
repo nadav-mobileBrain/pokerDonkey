@@ -24,9 +24,7 @@ const LeagueScreen = ({ navigation }) => {
   const getLeaguesApi = useApi(leaguesApi.getLeagues);
 
   useEffect(() => {
-    // setTimeout(() => {
     getLeaguesApi.request();
-    // }, 1000);
   }, []);
 
   return (
@@ -47,7 +45,7 @@ const LeagueScreen = ({ navigation }) => {
           <NoLeagues navigation={navigation} />
         )}
 
-        <CreatejoinLeagues />
+        <CreatejoinLeagues navigation={navigation} />
         {getLeaguesApi.data?.leagues?.length > 0 && (
           <FlatList
             data={getLeaguesApi.data.leagues}

@@ -1,9 +1,9 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import AppText from "../AppText";
-import colors from "../../config/colors";
+import routes from "../../navigation/routes";
 
-function CreatejoinLeagues() {
+const CreatejoinLeagues = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate(routes.JOIN_LEAGUE)}>
@@ -15,7 +15,7 @@ function CreatejoinLeagues() {
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

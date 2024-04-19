@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import Screen from "../../components/Screen";
 import LeaderStatsHeader from "../../components/stats/LeaderStatsHeader";

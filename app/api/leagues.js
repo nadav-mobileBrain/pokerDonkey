@@ -30,8 +30,12 @@ const joinLeague = (leagueData) => {
   return client.put(`${endpoint}/joinLeague/${leagueNUmber}/${userId}`);
 };
 
+const getLeaguePlayers = (leagueId) =>
+  client.get(`${endpoint}/getLeaguePlayersByLeagueId/${leagueId}`);
+
 export default {
   getLeagues,
   createLeague,
   joinLeague,
+  getLeaguePlayers,
 };
