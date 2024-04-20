@@ -14,13 +14,15 @@ import Screen from "../../components/Screen";
 import routes from "../../navigation/routes";
 import useApi from "../../hooks/useApi";
 import getLeaguePlayers from "../../api/leagues";
+import gameApi from "../../api/game";
 
 const LeagueDetailsScreen = ({ route, navigation }) => {
   const league = route.params.item.league;
   const [leaguePlayers, setLeaguePlayers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isLiveGameOn, setIsLiveGameOn] = useState(false);
   const getLeaguePlayersApi = useApi(getLeaguePlayers.getLeaguePlayers);
-
+  const checkIfOpenGameExist = useApi(gameApi.checkIfOpenGameExist);
   const serverUrl = apiClient.getBaseURL();
 
   useEffect(() => {
@@ -34,6 +36,15 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
       setLoading(false);
       setLeaguePlayers(result.data?.leaguePlayers);
     };
+    const checkIfOpenGames = async () => {
+      const result = await checkIfOpenGameExist.request(league.id);
+      if (result.ok) {
+        if (result.data) {
+          setIsLiveGameOn(true);
+        }
+      }
+    };
+    checkIfOpenGames();
     getLeaguePlayers();
   }, []);
 
@@ -61,7 +72,7 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
             onPress={() => navigation.navigate(routes.STATS, { league })}
           />
           <AppButton
-            title="Start a new game"
+            title={isLiveGameOn ? "Join Live Game" : "Start A New Game"}
             color="LightSkyBlue"
             icon="cards-playing-spade-multiple-outline"
             onPress={() =>
@@ -91,6 +102,7 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: colors.light,
+    padding: 10,
   },
   detailsContainer: {
     paddingHorizontal: 20,

@@ -25,6 +25,7 @@ const AllGamesCard = ({ game }) => {
           Game Manager:
           {game?.game_manager?.nickName}
         </AppText>
+        {game.isOpen && <AppText style={styles.isOpen}>Live Game</AppText>}
       </ImageBackground>
       <FlatList
         data={game.userGames}
@@ -42,6 +43,16 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     margin: 10,
+  },
+  isOpen: {
+    width: "100%",
+    textAlign: "center",
+    padding: 5,
+    //flickering neon green
+    color: colors.neonGReen,
+    textShadowColor: colors.neonGReen,
+    textShadowRadius: 1,
+    textShadowOffset: { width: 1, height: 1 },
   },
   gameDetails: {
     width: "100%",

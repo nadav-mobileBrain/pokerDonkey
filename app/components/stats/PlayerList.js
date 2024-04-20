@@ -61,15 +61,15 @@ const PlayersList = ({ players, titles }) => {
 const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row-reverse",
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
     alignItems: "center",
   },
 
   header: {
     flexDirection: "row-reverse",
     justifyContent: "space-around",
-    padding: 10,
+    padding: 8,
     backgroundColor: colors.AccentPurple,
   },
   imageContainer: {
@@ -79,9 +79,9 @@ const styles = StyleSheet.create({
   },
 
   playerImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 35,
+    height: 35,
+    borderRadius: 17,
   },
   playerDetails: {
     justifyContent: "space-around",
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   playerName: {
-    fontSize: 10,
+    fontSize: 8,
     color: colors.AccentPurple,
   },
   playerStats: {

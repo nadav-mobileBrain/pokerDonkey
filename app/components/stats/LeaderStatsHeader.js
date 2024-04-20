@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
-import colors from "../../config/colors";
 
+import colors from "../../config/colors";
 import apiClient from "../../api/client";
 
 const serverUrl = apiClient.getBaseURL();
+
 const LeaderStatsHeader = ({ leader, titles }) => {
   return (
     <ImageBackground
@@ -34,7 +35,7 @@ const LeaderStatsHeader = ({ leader, titles }) => {
 const styles = StyleSheet.create({
   headerContainer: {
     alignItems: "center",
-    padding: 10,
+    padding: 5,
   },
   leaderImage: {
     width: 80,
@@ -42,11 +43,11 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   leaderName: {
-    fontSize: 25,
+    fontSize: 17,
     color: colors.LightSkyBlue,
   },
   leaderStats: {
-    fontSize: 14,
+    fontSize: 12,
     color: colors.white,
   },
   overlay: {
