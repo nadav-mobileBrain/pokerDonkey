@@ -11,6 +11,11 @@ const createLeague = (leagueData) => {
   const data = new FormData();
   data.append("leagueName", leagueData.leagueName);
   data.append("userId", leagueData.userId);
+  if (!leagueData.image) {
+    client.headers["Content-Type"] = "multipart/form-data";
+
+    return client.post(`${endpoint}/createLeague`, data);
+  }
   data.append("image", {
     name: leagueData.leagueName + getFileExtension(leagueData.image), /// Add the extension to the file name
     type: "image/jpeg",

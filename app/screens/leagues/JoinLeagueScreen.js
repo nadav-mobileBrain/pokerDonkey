@@ -31,7 +31,8 @@ const JoinLeagueScreen = ({ navigation }) => {
     const result = await leaguesApi.joinLeague(completeLeagueInfo);
 
     if (!result.ok) {
-      if (result.data) setError(result.data.error);
+      if (result.data.message) setError(result.data.message);
+      if (result.data.error) setError(result.data.error);
       else {
         setError("An unexpected error occurred.");
         console.log(result);

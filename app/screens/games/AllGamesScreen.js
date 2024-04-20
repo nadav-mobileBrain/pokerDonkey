@@ -40,7 +40,11 @@ const AllGamesScreen = ({ route }) => {
     <View style={styles.container}>
       {isLoading && <ActivityIndicator visible={isLoading} />}
       <AppLogo />
-      {games.length === 0 ? () => <Text>No games found</Text> : null}
+      {games.length === 0 ? (
+        <Text style={styles.noGames}>
+          No games found! start a game to see stats
+        </Text>
+      ) : null}
       <HeaderText>{league?.league_name}</HeaderText>
       <FlatList
         data={games}
@@ -71,6 +75,12 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1,
     padding: 100,
+  },
+  noGames: {
+    fontSize: 15,
+    color: "black",
+    textAlign: "center",
+    marginVertical: 20,
   },
 });
 

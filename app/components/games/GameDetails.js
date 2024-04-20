@@ -6,7 +6,6 @@ import LeagueLogo from "../leagues/LeagueLogo";
 import dayjs from "dayjs";
 
 function GameDetails({ league, game }) {
-  console.log("🚀 ~ GameDetails ~ game:", game);
   return (
     <View style={styles.gameDetailsContainer}>
       <LeagueLogo
@@ -16,9 +15,9 @@ function GameDetails({ league, game }) {
       <AppText style={styles.gameDate}>
         Started At: {dayjs(game.created_at).format("DD/MM/YYYY hh:mm:ss")}
       </AppText>
-      <AppText style={styles.gameDate}>
+      {/* <AppText style={styles.gameDate}>
         Updated At: {dayjs(game.updated_at).format("DD/MM/YYYY hh:mm:ss")}
-      </AppText>
+      </AppText> */}
     </View>
   );
 }

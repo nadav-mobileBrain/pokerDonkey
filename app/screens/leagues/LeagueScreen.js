@@ -24,7 +24,9 @@ const LeagueScreen = ({ navigation }) => {
   const getLeaguesApi = useApi(leaguesApi.getLeagues);
 
   useEffect(() => {
-    getLeaguesApi.request();
+    setTimeout(() => {
+      getLeaguesApi.request(), 1000;
+    });
   }, []);
 
   return (

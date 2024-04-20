@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, FlatList, Image } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import AppText from "../AppText";
 
 import apiClient from "../../api/client";

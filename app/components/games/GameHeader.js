@@ -3,14 +3,14 @@ import { View, StyleSheet } from "react-native";
 import AppText from "../AppText";
 import colors from "../../config/colors";
 
-function GameHeader() {
+const GameHeader = () => {
   return (
     <View style={styles.container}>
       <AppText style={styles.title}>Player</AppText>
       <AppText style={styles.title}>Buy In</AppText>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -41,7 +41,6 @@ const CreateLeagueScreen = ({ navigation }) => {
       }
       return;
     }
-    console.log("🚀 ~ CreateLeagueScreen ~ result:", result.data.league);
     navigation.navigate("Leagues", {
       league: result.data.league,
     });

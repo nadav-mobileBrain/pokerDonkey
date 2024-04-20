@@ -45,7 +45,7 @@ const NewGame = ({ route, navigation }) => {
       return;
     }
 
-    const result = await endGameApi.request(game.id, userGamesData);
+    const result = await endGameApi.request(game.id, userGamesData, league);
     if (!result.ok) {
       if (result.data) setError(result.data.error);
       else {

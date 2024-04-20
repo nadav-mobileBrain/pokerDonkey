@@ -36,8 +36,8 @@ const cashOutPlayer = (gameId, userId, cashOutAmount) => {
   });
 };
 
-const endGame = (gameId, userGamesData) => {
-  return client.put(`${endpoint}/endGame`, { gameId, userGamesData });
+const endGame = (gameId, userGamesData, league) => {
+  return client.put(`${endpoint}/endGame`, { gameId, userGamesData, league });
 };
 
 const getAllGamesForLeague = (leagueId, continuationToken = 0) => {
