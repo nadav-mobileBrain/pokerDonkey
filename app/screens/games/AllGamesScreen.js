@@ -10,7 +10,6 @@ import HeaderText from "../../components/HeaderText";
 const AllGamesScreen = ({ route }) => {
   const leagueId = route.params.league.id;
   const league = route.params.league;
-  console.log("🚀 ~ AllGamesScreen ~ league:", league);
   const [games, setGames] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true); // Initially true to load the first page

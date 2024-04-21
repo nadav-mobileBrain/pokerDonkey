@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 
 import AppText from "../AppText";
 import apiClient from "../../api/client";
@@ -30,17 +31,23 @@ const StatsCard = ({ data, leagueId }) => {
           style={styles.image}
         />
       </ImageBackground>
-      <View style={styles.bottomDetails}>
+      <LinearGradient
+        colors={[colors.LightSkyBlue, colors.white]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+        style={styles.bottomDetails}>
         <AppText style={styles.title}>{data.title}</AppText>
         <AppText>{data?.values?.nickName}</AppText>
-        <AppText>{data?.values?.titleValue}</AppText>
+        <AppText>
+          {data?.cardTitle}: {data?.values?.titleValue}
+        </AppText>
         <AppText>
           {data.subTitle}: {data?.values?.subTitleValue}
         </AppText>
         <AppText>
           {data.subTitle2}: {data?.values?.subTitle2Value}
         </AppText>
-      </View>
+      </LinearGradient>
     </TouchableOpacity>
   );
 };

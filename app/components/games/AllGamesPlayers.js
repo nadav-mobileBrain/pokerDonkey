@@ -8,7 +8,13 @@ const AllGamesPlayers = ({ player }) => {
     <View style={styles.container}>
       <AppText style={styles.playerData}>{player.game_rank}</AppText>
       <AppText style={styles.playerData}>{playerDetails.nickName}</AppText>
-      <AppText style={styles.playerData}>{player.profit}</AppText>
+      <AppText
+        style={[
+          styles.playerData,
+          { color: player.profit > 0 ? "green" : "red" },
+        ]}>
+        {player.profit}
+      </AppText>
       <AppText style={styles.playerData}>{player.buy_ins_amount}</AppText>
     </View>
   );

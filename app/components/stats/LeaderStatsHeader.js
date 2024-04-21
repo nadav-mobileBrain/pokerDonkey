@@ -43,11 +43,11 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   leaderName: {
-    fontSize: 17,
+    fontSize: 20,
     color: colors.LightSkyBlue,
   },
   leaderStats: {
-    fontSize: 12,
+    fontSize: 16,
     color: colors.white,
   },
   overlay: {
