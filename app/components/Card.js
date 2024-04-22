@@ -6,7 +6,7 @@ import colors from "../config/colors";
 import AppText from "./AppText";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-function Card({ title, subTitle, imageUrl, onPress, height = 200 }) {
+const Card = ({ title, subTitle, imageUrl, onPress, height = 200 }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>
@@ -21,7 +21,7 @@ function Card({ title, subTitle, imageUrl, onPress, height = 200 }) {
       </View>
     </TouchableWithoutFeedback>
   );
-}
+};
 
 const styles = StyleSheet.create({
   card: {
