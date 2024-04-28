@@ -5,7 +5,7 @@ import AppText from "../AppText";
 import AppButton from "../AppButton";
 import routes from "../../navigation/routes";
 
-function NoLeagues({ navigation }) {
+const NoLeagues = ({ navigation }) => {
   return (
     <View style={styles.noLeaguesContainer}>
       <Image
@@ -28,7 +28,7 @@ function NoLeagues({ navigation }) {
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   noLeaguesContainer: {

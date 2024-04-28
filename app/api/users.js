@@ -26,6 +26,11 @@ const register = (userInfo) => {
     return client.post(`${endpoint}/signup`, userInfo);
   }
 };
+
+const getPersonalStats = (userId) => {
+  return client.get(`${endpoint}/personalStats/${userId}`);
+};
 export default {
   register,
+  getPersonalStats,
 };

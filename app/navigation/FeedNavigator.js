@@ -10,6 +10,7 @@ import NewGameScreen from "../screens/games/NewGameScreen";
 import MainStatsScreen from "../screens/stats/MainStatsScreen";
 import AllGamesScreen from "../screens/games/AllGamesScreen";
 import CardStatsScreen from "../screens/stats/CardStatsScreen";
+import PersonalStatsScreen from "../screens/stats/PersonalStatsScreen";
 const Stack = createStackNavigator();
 
 const FeedNavigator = () => (
@@ -30,8 +31,8 @@ const FeedNavigator = () => (
       options={{ headerShown: false }}
     />
     <Stack.Screen name="CardStats" component={CardStatsScreen} />
-
     <Stack.Screen name="AllGames" component={AllGamesScreen} />
+    <Stack.Screen name="PersonalStats" component={PersonalStatsScreen} />
   </Stack.Navigator>
 );
 

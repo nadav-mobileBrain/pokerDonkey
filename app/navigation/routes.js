@@ -5,4 +5,5 @@ export default Object.freeze({
   SELECT_PLAYERS: "SelectPlayers",
   NEW_GAME: "NewGame",
   STATS: "Stats",
+  PERSONAL_STATS: "PersonalStats",
 });

@@ -1,21 +1,27 @@
 import React from "react";
-import { Image, View, StyleSheet } from "react-native";
+import { Image, TouchableOpacity, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import colors from "../../config/colors";
 import useAuth from "../../auth/useAuth";
 import apiClient from "../../api/client";
+import routes from "../../navigation/routes";
 
-function PlayerAvatar() {
+const PlayerAvatar = () => {
   const { user } = useAuth();
   let serverUrl = apiClient.getBaseURL();
   serverUrl = serverUrl.substring(0, serverUrl.length - 1);
   const url = serverUrl + "/" + user.image;
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate(routes.PERSONAL_STATS)}>
       <Image style={styles.image} source={{ uri: url }} />
-    </View>
+    </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

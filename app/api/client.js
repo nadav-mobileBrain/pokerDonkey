@@ -2,7 +2,7 @@ import { create } from "apisauce";
 import authStorage from "../auth/storage";
 
 const homeIp = "10.0.0.8";
-const workIp = "192.168.1.66";
+const workIp = "192.168.1.29";
 const meirIp = "192.168.1.152";
 
 const apiClient = create({

@@ -94,7 +94,7 @@ const PlayerGameCardModal = ({
       <HeaderText>Player Details</HeaderText>
       <View style={styles.imageContainer}>
         <Image
-          source={{ uri: `${serverUrl}${playerData?.user?.image}` }}
+          source={{ uri: `${serverUrl}${playerData?.User?.image}` }}
           style={styles.image}
         />
         <AppText style={styles.nickName}>{playerData?.user?.nickName}</AppText>

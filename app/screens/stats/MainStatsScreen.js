@@ -1,11 +1,11 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import AppLogo from "../../components/AppLogo";
 import AppText from "../../components/AppText";
 import colors from "../../config/colors";
-import LeagueStatsCard from "../../components/stats/LeagueStatsCard";
+// import LeagueStatsCard from "../../components/stats/LeagueStatsCard";
 import PlayerAvatar from "../../components/player/PlayerAvatar";
 import PlayerStatsCard from "../../components/stats/PlayerStatsCard";
 import Screen from "../../components/Screen";
