@@ -1,16 +1,23 @@
-import { View, Image, StyleSheet, ImageBackground } from "react-native";
+import {
+  View,
+  Image,
+  StyleSheet,
+  ImageBackground,
+  FlatList,
+} from "react-native";
 import React, { useState, useEffect } from "react";
-import { Platform } from "react-native";
 
 import AppText from "../../components/AppText";
 import ActivityIndicator from "../../components/ActivityIndicator";
 import apiClient from "../../api/client";
 import colors from "../../config/colors";
+import ListitemSeperator from "../../components/ListitemSeperator";
 import useAuth from "../../auth/useAuth";
 import useApi from "../../hooks/useApi";
 import usersApi from "../../api/users";
+import PersonalStatsGamesDetails from "../../components/stats/PersonalStatsGamesDetails";
+import PersonalStatsGamesHeader from "../../components/stats/PersonalStatsGamesHeader";
 import Screen from "../../components/Screen";
-import App from "../../../App";
 
 const PersonalStatsScreen = () => {
   const { user } = useAuth();
@@ -79,6 +86,15 @@ const PersonalStatsScreen = () => {
               <AppText style={styles.totalStats}>
                 Success Rate % : {personalStats?.totalStats[0]?.successRate}
               </AppText>
+              <AppText style={styles.totalStats}>
+                Max Winn : {personalStats?.totalStats[0]?.maxProfit}
+              </AppText>
+              <AppText style={styles.totalStats}>
+                Max Loss: {personalStats?.totalStats[0]?.minProfit}
+              </AppText>
+              <AppText style={styles.totalStats}>
+                Best League Rank: {personalStats?.totalStats[0]?.maxSeasonRank}
+              </AppText>
             </>
           )}
         </View>
@@ -93,15 +109,34 @@ const PersonalStatsScreen = () => {
                 Avg Buy Ins: {personalStats?.avgStats[0]?.avgBuyInsAmount}
               </AppText>
               <AppText style={styles.avgStats}>
-                Avg Cash In The End: {personalStats?.avgStats[0]?.avgCashInHand}
+                Avg Cash In Hand: {personalStats?.avgStats[0]?.avgCashInHand}
               </AppText>
               <AppText style={styles.avgStats}>
                 Avg Hours Played: {personalStats?.avgStats[0]?.avgHoursPlayed}
+              </AppText>
+              <AppText style={styles.avgStats}>
+                Avg Game Rank: {personalStats?.avgStats[0]?.avgGameRank}
+              </AppText>
+              <AppText style={styles.avgStats}>
+                Avg Season Rank: {personalStats?.avgStats[0]?.avgSeasonRank}
               </AppText>
             </>
           )}
         </View>
       </ImageBackground>
+      <AppText style={styles.rank}>G.rank = rank in this game</AppText>
+      <AppText style={styles.rank}>
+        S.rank = total season rank on this date
+      </AppText>
+      <PersonalStatsGamesHeader />
+      <FlatList
+        data={personalStats.games}
+        keyExtractor={(game) => game.id.toString()}
+        renderItem={({ item, index }) => (
+          <PersonalStatsGamesDetails game={item} index={index} />
+        )}
+        ItemSeparatorComponent={ListitemSeperator}
+      />
     </Screen>
   );
 };
@@ -110,8 +145,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 15,
     backgroundColor: colors.lightPurple,
-    // marginBottom: 20,
-    height: 450,
+    height: 400,
     overflow: "hidden",
   },
   detailsContainer: {
@@ -122,10 +156,10 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   imageContainer: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     alignSelf: "center",
-    borderRadius: 50,
+    borderRadius: 40,
     overflow: "hidden",
     borderWidth: 2,
     marginTop: 10,
@@ -136,7 +170,6 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     color: colors.white,
     fontSize: 25,
-    fontFamily: Platform.OS === "android" ? "Montserrat-SemiBold" : "Avenir",
   },
   screen: {
     padding: 5,
@@ -161,6 +194,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     textAlignVertical: "center",
     flexWrap: "wrap",
+  },
+  rank: {
+    fontSize: 10,
+    color: colors.PrimaryBlue,
+    textAlign: "center",
+    margin: 3,
   },
 });
 
