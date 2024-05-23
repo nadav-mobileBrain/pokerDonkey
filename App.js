@@ -32,6 +32,9 @@ export default function App() {
     loadFonts();
   }, []);
 
+  // const updateUser = (newUser) => {
+  //   setUser(newUser);
+  // };
   if (!fontsLoaded) {
     return <ActivityIndicator visible={true} />;
   }

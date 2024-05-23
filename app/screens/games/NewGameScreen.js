@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Button, Modal, StyleSheet, FlatList } from "react-native";
+
 import Screen from "../../components/Screen";
-
 import HeaderText from "../../components/HeaderText";
-
 import ListitemSeperator from "../../components/ListitemSeperator";
 import GameDetails from "../../components/games/GameDetails";
 import PlayerGameDetails from "../../components/games/PlayerGameDetails";

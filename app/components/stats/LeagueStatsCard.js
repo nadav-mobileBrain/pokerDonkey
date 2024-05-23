@@ -25,7 +25,7 @@ const LeagueStatsCard = ({ league }) => {
   return (
     <ImageBackground
       style={styles.card}
-      source={require("../../assets/blue_chip.webp")}>
+      source={require("../../assets/bg56.webp")}>
       <View style={styles.overlay} />
       <View style={styles.imageContainer}>
         <Image
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   card: {
     padding: 10,
     borderRadius: 10,
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     alignItems: "center",
     overflow: "hidden",
   },
@@ -67,11 +67,11 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    marginLeft: 10,
+    marginRight: 10,
   },
   imageContainer: {
     alignItems: "center",
-    marginLeft: 15,
+    marginRight: 15,
     overflow: "hidden",
   },
   leagueName: {

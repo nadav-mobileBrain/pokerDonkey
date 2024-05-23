@@ -1,40 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import * as Yup from "yup";
 
-import Screen from "../../components/Screen";
 import { AppForm, AppFormField, SubmitButton } from "../../components/forms";
-import AppText from "../../components/AppText";
-import AppLogo from "../../components/AppLogo";
-import ImageInput from "../../components/forms/ImageInput";
 import ActivityIndicator from "../../components/ActivityIndicator";
-import ErrorMessage from "../../components/forms/ErrorMessage";
 import authApi from "../../api/auth";
 import usersApi from "../../api/users";
 import useApi from "../../hooks/useApi";
+import apiClient from "../../api/client";
 import useAuth from "../../auth/useAuth";
-import colors from "../../config/colors";
+import authStorage from "../../auth/storage";
+import AuthContext from "../../auth/context";
+import ErrorMessage from "../../components/forms/ErrorMessage";
+import ImageInput from "../../components/forms/ImageInput";
+import routes from "../../navigation/routes";
+import Screen from "../../components/Screen";
 
 const validationSchema = Yup.object().shape({
   nickName: Yup.string().required().label("Nick Name"),
-  password: Yup.string().required().min(4).label("Password"),
   image: Yup.string().label("Image"),
 });
+const EditProfileScreen = ({ navigation }) => {
+  console.log("🚀 ~ EditProfileScreen ~ navigation:", navigation);
+  const { setUser } = useContext(AuthContext);
+  const restoreUser = async () => {
+    const user = await authStorage.getUser();
+    console.log("🚀 ~ restoreUser ~ user:", user);
+    if (user) setUser(user);
+  };
 
-const RegisterScreen = () => {
   const registerApi = useApi(usersApi.register);
   const loginApi = useApi(authApi.login);
+  const updatePersonaldetailsApi = useApi(usersApi.updatePersonaldetails);
+
   const auth = useAuth();
+  const { user } = useAuth();
+  const serverUrl = apiClient.getBaseURL();
   const [error, setError] = useState();
-  const [imageUri, setImageUri] = useState(null); // New state for image URI
+  const [imageUri, setImageUri] = useState(`${serverUrl}${user.image}`); // New state for image URI
 
   const handleSubmit = async (userInfo) => {
     const completeUserInfo = {
       ...userInfo,
       image: imageUri,
+      userId: user.userId,
     };
 
-    const result = await registerApi.request(completeUserInfo);
+    const result = await updatePersonaldetailsApi.request(completeUserInfo);
+    console.log("🚀 ~ handleSubmit ~ result:", result);
 
     if (!result.ok) {
       if (result.data) setError(result.data.error);
@@ -45,17 +58,20 @@ const RegisterScreen = () => {
       return;
     }
 
-    const { data: authToken } = await loginApi.request(userInfo);
+    const token = result.data.token;
+    let authToken = { token: token };
     auth.logIn(authToken);
+
+    restoreUser();
+    navigation.navigate(routes.PERSONAL_STATS);
   };
 
   return (
     <>
       <ActivityIndicator visible={registerApi.loading || loginApi.loading} />
       <Screen style={styles.container}>
-        <AppLogo />
         <AppForm
-          initialValues={{ nickName: "", password: "" }}
+          initialValues={{ nickName: user.nickName }}
           onSubmit={handleSubmit}
           validationSchema={validationSchema}>
           <ErrorMessage error={error} visible={error} />
@@ -63,27 +79,16 @@ const RegisterScreen = () => {
             autoCorrect={false}
             icon="account"
             name="nickName"
-            placeholder="Nick Name"
+            placeholder={user.nickName}
           />
-          <AppFormField
-            autoCapitalize="none"
-            autoCorrect={false}
-            icon="lock"
-            name="password"
-            placeholder="Password"
-            secureTextEntry
-            textContentType="password"
-          />
+
           <View style={{ alignItems: "flex-end" }}>
             <ImageInput
               imageUri={imageUri}
               onChangeImage={(uri) => setImageUri(uri)}
             />
-            <AppText style={{ color: colors.AccentPurple }}>
-              *You can add your image later
-            </AppText>
           </View>
-          <SubmitButton title="Register" icon="account-plus" />
+          <SubmitButton title="Edit Details" icon="account-edit" />
         </AppForm>
       </Screen>
     </>
@@ -96,4 +101,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
+export default EditProfileScreen;

@@ -18,7 +18,7 @@ const PersonalStatsGamesHeader = () => {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     justifyContent: "space-between",
     marginVertical: 10,
     backgroundColor: colors.LightSkyBlue,

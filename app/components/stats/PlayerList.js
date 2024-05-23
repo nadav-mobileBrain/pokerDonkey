@@ -60,14 +60,14 @@ const PlayersList = ({ players, titles }) => {
 
 const styles = StyleSheet.create({
   itemContainer: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     paddingVertical: 5,
     paddingHorizontal: 10,
     alignItems: "center",
   },
 
   header: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     justifyContent: "space-around",
     padding: 8,
     backgroundColor: colors.AccentPurple,
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   playerDetails: {
     justifyContent: "space-around",
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     flex: 1,
   },
   playerName: {

@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
   allGames: {
     color: colors.PrimaryBlue,
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 25,
+    paddingTop: 10,
   },
   container: {
     padding: 5,

@@ -5,7 +5,6 @@ import AppText from "../AppText";
 import colors from "../../config/colors";
 
 const PersonalStatsGamesDetails = ({ game, index }) => {
-  console.log("🚀 ~ PersonalStatsGamesDetails ~ game:", game);
   const formattedDate = dayjs(game.created_at).format("DD/MM");
   const isOddLine = index % 2 !== 0; // Check if the line is odd based on the index
 
@@ -27,7 +26,7 @@ const PersonalStatsGamesDetails = ({ game, index }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     justifyContent: "space-between",
     paddingVertical: 10,
   },

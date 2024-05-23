@@ -19,7 +19,7 @@ const CreatejoinLeagues = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     justifyContent: "space-evenly",
   },
   text: {

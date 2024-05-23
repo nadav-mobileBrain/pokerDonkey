@@ -15,7 +15,7 @@ const GameHeader = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     width: "100%",
     justifyContent: "space-around",
     marginTop: 10,

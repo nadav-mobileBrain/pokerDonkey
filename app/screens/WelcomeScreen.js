@@ -2,15 +2,17 @@ import React from "react";
 import { View, StyleSheet, ImageBackground, Image, Text } from "react-native";
 
 import AppButton from "../components/AppButton";
+import colors from "../config/colors";
+import AppLogo from "../components/AppLogo";
 
 const WelcomeScreen = ({ navigation }) => {
   return (
     <ImageBackground
       style={styles.container}
-      source={require("../assets/background.jpeg")}
-      blurRadius={10}>
+      source={require("../assets/appLogo.png")}
+      blurRadius={5}>
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require("../assets/appLogo.png")} />
+        <AppLogo />
         <Text style={styles.tagLine}>Manage Your Home Poker Games</Text>
       </View>
       <View style={styles.buttonContainer}>
@@ -42,11 +44,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  logo: {
-    width: 100,
-    height: 100,
-    alignSelf: "center",
-  },
   logoContainer: {
     position: "absolute",
     top: 70,
@@ -56,6 +53,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "600",
     paddingVertical: 20,
+    color: colors.light,
   },
 });
 

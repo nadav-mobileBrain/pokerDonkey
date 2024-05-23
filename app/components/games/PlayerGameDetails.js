@@ -44,7 +44,7 @@ const PlayerGameDetails = ({ image, nickName, onPress, playerData }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     justifyContent: "space-between",
     padding: 10,
     backgroundColor: colors.white,
@@ -57,10 +57,10 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   detailsContainer: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
   },
   innerContainer: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     alignItems: "center",
   },
   image: {

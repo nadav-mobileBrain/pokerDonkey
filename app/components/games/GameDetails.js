@@ -5,7 +5,7 @@ import AppText from "../AppText";
 import LeagueLogo from "../leagues/LeagueLogo";
 import dayjs from "dayjs";
 
-function GameDetails({ league, game }) {
+const GameDetails = ({ league, game }) => {
   return (
     <View style={styles.gameDetailsContainer}>
       <LeagueLogo
@@ -20,7 +20,7 @@ function GameDetails({ league, game }) {
       </AppText> */}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   gameDetailsContainer: {

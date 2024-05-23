@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import Screen from "../../components/Screen";
@@ -11,18 +11,20 @@ import {
 } from "../../components/forms";
 import authApi from "../../api/auth";
 import useAuth from "../../auth/useAuth";
+import AppLogo from "../../components/AppLogo";
 
 const vaslidationSchema = Yup.object().shape({
   nickName: Yup.string().required().min(2).label("Nick Name"),
   password: Yup.string().required().min(4).label("Password"),
 });
 
-function LoginScreen() {
+const LoginScreen = () => {
   const { logIn } = useAuth();
   const [loginFailed, setLoginFailed] = useState(false);
 
   const handleSubmit = async ({ nickName, password }) => {
     const result = await authApi.login({ nickName, password });
+    console.log("🚀 ~ handleSubmit ~ result:", result.data);
 
     if (!result.ok) return setLoginFailed(true);
     setLoginFailed(false);
@@ -30,12 +32,11 @@ function LoginScreen() {
   };
   return (
     <Screen style={styles.container}>
-      <Image style={styles.logo} source={require("../../assets/appLogo.png")} />
+      <AppLogo />
       <AppForm
         initialValues={{ nickName: "", password: "" }}
         onSubmit={handleSubmit}
-        validationSchema={vaslidationSchema}
-      >
+        validationSchema={vaslidationSchema}>
         <ErrorMessage
           error="Invalid Nick Name or Password"
           visible={loginFailed}
@@ -61,7 +62,7 @@ function LoginScreen() {
       </AppForm>
     </Screen>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

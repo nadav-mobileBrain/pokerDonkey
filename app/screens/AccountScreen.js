@@ -7,17 +7,27 @@ import ListitemSeperator from "../components/ListitemSeperator";
 import Icon from "../components/Icon";
 import colors from "../config/colors";
 import useAuth from "../auth/useAuth";
+import apiClient from "../api/client";
+import routes from "../navigation/routes";
 
 const menuItems = [
   {
-    title: "My Leagues",
+    title: "Edit Profile",
     icon: {
-      name: "format-list-bulleted",
+      name: "account",
       backgroundColor: colors.PrimaryBlue,
     },
+    targetScreen: "EditProfile",
   },
+  // {
+  //   title: "My Leagues",
+  //   icon: {
+  //     name: "format-list-bulleted",
+  //     backgroundColor: colors.PrimaryBlue,
+  //   },
+  // },
   {
-    title: "My Messages",
+    title: "My Messages-Coming soon...",
     icon: {
       name: "email",
       backgroundColor: colors.AccentPurple,
@@ -25,6 +35,8 @@ const menuItems = [
     targetScreen: "Messages",
   },
 ];
+
+const serverUrl = apiClient.getBaseURL();
 
 const AccountScreen = ({ navigation }) => {
   const { user, logOut } = useAuth();
@@ -34,8 +46,10 @@ const AccountScreen = ({ navigation }) => {
       <View style={styles.container}>
         <PlayerDetails
           title={user.nickName}
-          subTitle="Joined at 2019-09-09"
-          image={require("../assets/bibsDonkey.png")}
+          subTitle="Go To Personal Stats"
+          //subTitle="Joined at 2019-09-09"
+          image={{ uri: `${serverUrl}${user.image}` }}
+          onPress={() => navigation.navigate(routes.PERSONAL_STATS)}
         />
       </View>
       <View style={styles.container}>
@@ -51,7 +65,9 @@ const AccountScreen = ({ navigation }) => {
                   backgroundColor={item.icon.backgroundColor}
                 />
               }
-              onPress={() => navigation.navigate(item.targetScreen)}
+              onPress={() =>
+                navigation.navigate(item.targetScreen, { user, navigation })
+              }
               ItemsSeperatorComponent={ListitemSeperator}
             />
           )}

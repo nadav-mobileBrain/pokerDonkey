@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: 2,
     borderRadius: 10,
-    margin: 10,
+    marginVertical: 10,
   },
   isOpen: {
     width: "100%",
