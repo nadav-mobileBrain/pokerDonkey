@@ -29,7 +29,10 @@ const JoinLeagueScreen = ({ navigation }) => {
       userId: user.userId,
     };
     const result = await leaguesApi.joinLeague(completeLeagueInfo);
-
+    if (result.status === 404) {
+      setError(result.data?.message);
+      return;
+    }
     if (!result.ok) {
       if (result.data.message) setError(result.data.message);
       if (result.data.error) setError(result.data.error);

@@ -20,10 +20,19 @@ import AppLogo from "../../components/AppLogo";
 const LeagueScreen = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const getLeaguesApi = useApi(leaguesApi.getLeagues);
+  const [leagues, setLeagues] = useState([]);
 
   useEffect(() => {
-    getLeaguesApi.request();
-  }, []);
+    const fetchLeagues = async () => {
+      const userLeagues = await getLeaguesApi.request();
+      setLeagues(userLeagues?.data?.leaguePlayers);
+    };
+    console.log("🚀 ~ fetchLeagues ~ getLeaguesApi:", getLeaguesApi);
+
+    setTimeout(() => {
+      fetchLeagues();
+    }, 1000);
+  }, [leagues]);
 
   return (
     <>
