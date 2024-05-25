@@ -8,7 +8,7 @@ import config from "../../config/config";
 const LeaderStatsHeader = ({ leader, titles }) => {
   return (
     <ImageBackground
-      source={require("../../assets/blue_chip3.webp")}
+      source={require("../../assets/cardstats.jpg")}
       style={styles.headerContainer}>
       <View style={styles.overlay} />
 
@@ -40,6 +40,8 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 50,
+    borderWidth: 2,
+    borderColor: colors.AccentPurple,
   },
   leaderName: {
     fontSize: 20,
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
-    opacity: 0.6,
+    opacity: 0.65,
   },
 });
 
