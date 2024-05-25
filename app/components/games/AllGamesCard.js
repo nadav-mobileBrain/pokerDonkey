@@ -28,7 +28,7 @@ const AllGamesCard = ({ game }) => {
         {game.isOpen && <AppText style={styles.isOpen}>Live Game</AppText>}
       </ImageBackground>
       <FlatList
-        data={game.userGames}
+        data={game.user_games}
         keyExtractor={(item) => item.user_id.toString()}
         ListHeaderComponent={<AllGamesCardHeader />}
         renderItem={({ item }) => <AllGamesPlayers player={item} />}

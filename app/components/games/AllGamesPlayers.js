@@ -1,10 +1,8 @@
 import { View, StyleSheet, Image } from "react-native";
 import React from "react";
 import AppText from "../AppText";
-import apiClient from "../../api/client";
 import colors from "../../config/colors";
-
-const serverUrl = apiClient.getBaseURL();
+import config from "../../config/config";
 
 const AllGamesPlayers = ({ player }) => {
   const playerDetails = player?.User;
@@ -16,7 +14,7 @@ const AllGamesPlayers = ({ player }) => {
       </AppText>
       <View style={[styles.imageContainer, styles.player]}>
         <Image
-          source={{ uri: `${serverUrl}${playerDetails?.image}` }}
+          source={{ uri: `${config.s3.baseUrl}${playerDetails?.image}` }}
           style={styles.playerImage}
         />
         <AppText style={styles.playerName}>{playerDetails.nickName}</AppText>

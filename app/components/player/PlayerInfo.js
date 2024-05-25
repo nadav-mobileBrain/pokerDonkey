@@ -8,10 +8,8 @@ import {
 } from "react-native";
 
 import AppText from "../AppText";
-import apiClient from "../../api/client";
 import colors from "../../config/colors";
-
-const serverUrl = apiClient.getBaseURL();
+import config from "../../config/config";
 
 const PlayerInfo = ({
   leaguePlayers,
@@ -36,7 +34,7 @@ const PlayerInfo = ({
                 styles.image,
                 { width, height, borderColor: colors[borderColor] },
               ]}
-              source={{ uri: `${serverUrl}${item.User.image}` }}
+              source={{ uri: `${config.s3.baseUrl}${item.User.image}` }}
             />
             <AppText style={styles.playerName}>{item.User.nickName}</AppText>
           </TouchableOpacity>

@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import dayjs from "dayjs";
 
-import apiClient from "../../api/client";
 import ActivityIndicator from "../../components/ActivityIndicator";
 import AppButton from "../../components/AppButton";
 import AppLogo from "../../components/AppLogo";
 import AppText from "../../components/AppText";
 import colors from "../../config/colors";
+import config from "../../config/config";
+import gameApi from "../../api/game";
+import getLeaguePlayers from "../../api/leagues";
 import PlayerAvatar from "../../components/player/PlayerAvatar";
 import PlayerInfo from "../../components/player/PlayerInfo"; // Add this import statement
 import Screen from "../../components/Screen";
 import routes from "../../navigation/routes";
 import useApi from "../../hooks/useApi";
-import getLeaguePlayers from "../../api/leagues";
-import gameApi from "../../api/game";
 
 const LeagueDetailsScreen = ({ route, navigation }) => {
   const league = route.params.item.league;
@@ -23,7 +23,6 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
   const [isLiveGameOn, setIsLiveGameOn] = useState(false);
   const getLeaguePlayersApi = useApi(getLeaguePlayers.getLeaguePlayers);
   const checkIfOpenGameExist = useApi(gameApi.checkIfOpenGameExist);
-  const serverUrl = apiClient.getBaseURL();
 
   useEffect(() => {
     const getLeaguePlayers = async () => {
@@ -56,7 +55,7 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
       <View style={styles.playerContainer}>
         <Image
           style={styles.image}
-          source={{ uri: `${serverUrl}${league.league_image}` }}
+          source={{ uri: `${config.s3.baseUrl}${league.league_image}` }}
         />
         <View style={styles.detailsContainer}>
           <AppText>League Name : {league.league_name}</AppText>

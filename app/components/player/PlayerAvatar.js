@@ -1,17 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Image, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import colors from "../../config/colors";
 import useAuth from "../../auth/useAuth";
-import apiClient from "../../api/client";
 import routes from "../../navigation/routes";
+import config from "../../config/config";
 
 const PlayerAvatar = () => {
   const { user } = useAuth();
-  let serverUrl = apiClient.getBaseURL();
-  serverUrl = serverUrl.substring(0, serverUrl.length - 1);
-  const url = serverUrl + "/" + user.image;
+  const url = config.s3.baseUrl + user.image;
   const navigation = useNavigation();
 
   return (

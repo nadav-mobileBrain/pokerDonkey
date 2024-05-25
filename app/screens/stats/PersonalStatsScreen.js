@@ -9,8 +9,8 @@ import React, { useState, useEffect } from "react";
 
 import AppText from "../../components/AppText";
 import ActivityIndicator from "../../components/ActivityIndicator";
-import apiClient from "../../api/client";
 import colors from "../../config/colors";
+import config from "../../config/config";
 import ListitemSeperator from "../../components/ListitemSeperator";
 import useAuth from "../../auth/useAuth";
 import useApi from "../../hooks/useApi";
@@ -21,12 +21,12 @@ import Screen from "../../components/Screen";
 
 const PersonalStatsScreen = () => {
   const { user } = useAuth();
-  let serverUrl = apiClient.getBaseURL();
-  serverUrl = serverUrl.substring(0, serverUrl.length - 1);
-  const url = serverUrl + "/" + user.image;
+
+  const url = config.s3.baseUrl + user.image;
   const getPersonalStatsApi = useApi(usersApi.getPersonalStats);
   const [refreshing, setRefreshing] = useState(false);
   const [personalStats, setPersonalStats] = useState([]);
+  console.log("🚀 ~ PersonalStatsScreen ~ personalStats:", personalStats);
 
   const [loading, setLoading] = useState(false);
 
@@ -57,6 +57,9 @@ const PersonalStatsScreen = () => {
           <Image style={styles.image} source={{ uri: url }} />
         </View>
         <AppText style={styles.name}>{user.nickName} </AppText>
+        {personalStats.length < 1 && (
+          <AppText style={styles.noGames}>No Games Played Yet</AppText>
+        )}
         <View style={styles.totalStatsContainer}>
           {personalStats?.totalStats && (
             <>
@@ -98,10 +101,10 @@ const PersonalStatsScreen = () => {
             </>
           )}
         </View>
-        <AppText style={styles.name}>Avg Stats</AppText>
-        <View style={styles.totalStatsContainer}>
-          {personalStats?.avgStats && (
-            <>
+        {personalStats?.avgStats && (
+          <>
+            <AppText style={styles.name}>Avg Stats</AppText>
+            <View style={styles.totalStatsContainer}>
               <AppText style={styles.avgStats}>
                 Avg Profit: {personalStats?.avgStats[0]?.avgProfit}
               </AppText>
@@ -120,9 +123,9 @@ const PersonalStatsScreen = () => {
               <AppText style={styles.avgStats}>
                 Avg Season Rank: {personalStats?.avgStats[0]?.avgSeasonRank}
               </AppText>
-            </>
-          )}
-        </View>
+            </View>
+          </>
+        )}
       </ImageBackground>
       <AppText style={styles.rank}>G.rank = rank in this game</AppText>
       <AppText style={styles.rank}>
@@ -164,6 +167,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginTop: 10,
   },
+  noGames: {
+    color: colors.white,
+    textAlign: "center",
+    fontSize: 22,
+  },
+
   name: {
     marginBottom: 5,
     textAlign: "center",

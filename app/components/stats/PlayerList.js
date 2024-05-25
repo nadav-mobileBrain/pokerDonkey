@@ -3,16 +3,14 @@ import { View, FlatList, Image, Text, StyleSheet } from "react-native";
 import ListitemSeperator from "../ListitemSeperator";
 import AppText from "../AppText";
 import colors from "../../config/colors";
-import apiClient from "../../api/client";
-
-const serverUrl = apiClient.getBaseURL();
+import config from "../../config/config";
 
 const PlayerItem = ({ player, index, title }) => (
   <View style={styles.itemContainer}>
     <AppText style={styles.position}>{index}</AppText>
     <View style={styles.imageContainer}>
       <Image
-        source={{ uri: `${serverUrl}${player.image}` }}
+        source={{ uri: `${config.s3.baseUrl}${player.image}` }}
         style={styles.playerImage}
       />
       <Text style={styles.playerName}>{player.nickName}</Text>

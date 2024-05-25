@@ -3,8 +3,7 @@ import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 
 import colors from "../../config/colors";
 import apiClient from "../../api/client";
-
-const serverUrl = apiClient.getBaseURL();
+import config from "../../config/config";
 
 const LeaderStatsHeader = ({ leader, titles }) => {
   return (
@@ -14,7 +13,7 @@ const LeaderStatsHeader = ({ leader, titles }) => {
       <View style={styles.overlay} />
 
       <Image
-        source={{ uri: `${serverUrl}${leader.image}` }}
+        source={{ uri: `${config.s3.baseUrl}${leader.image}` }}
         style={styles.leaderImage}
       />
       <Text style={styles.leaderName}>{leader.nickName}</Text>

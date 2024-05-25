@@ -1,14 +1,13 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 import AppText from "../AppText";
-
-import apiClient from "../../api/client";
-import colors from "../../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableHighlight } from "react-native-gesture-handler";
 
+import config from "../../config/config";
+import colors from "../../config/colors";
+
 const PlayerGameDetails = ({ image, nickName, onPress, playerData }) => {
-  const serverUrl = apiClient.getBaseURL();
   return (
     <TouchableHighlight
       underlayColor={colors.light}
@@ -19,7 +18,7 @@ const PlayerGameDetails = ({ image, nickName, onPress, playerData }) => {
           {image && (
             <Image
               style={styles.image}
-              source={{ uri: `${serverUrl}${image}` }}
+              source={{ uri: `${config.s3.baseUrl}${image}` }}
             />
           )}
 

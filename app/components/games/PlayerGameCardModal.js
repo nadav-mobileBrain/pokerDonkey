@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import AppText from "../AppText";
 import HeaderText from "../HeaderText";
-import apiClient from "../../api/client";
 import colors from "../../config/colors";
+import config from "../../config/config";
 import AppButton from "../AppButton";
 import useApi from "../../hooks/useApi";
 import gameApi from "../../api/game";
@@ -23,7 +23,6 @@ const PlayerGameCardModal = ({
   onRemoveBuyIn,
   onCashOut,
 }) => {
-  const serverUrl = apiClient.getBaseURL();
   const [buyInAmount, setBuyInAmount] = useState(playerData.buy_ins_amount);
   const [buyInNumber, setBuyInNumber] = useState(playerData.buy_ins_number);
   const [cashOutAmount, setCashOutAmount] = useState(
@@ -94,7 +93,7 @@ const PlayerGameCardModal = ({
       <HeaderText>Player Details</HeaderText>
       <View style={styles.imageContainer}>
         <Image
-          source={{ uri: `${serverUrl}${playerData?.User?.image}` }}
+          source={{ uri: `${config.s3.baseUrl}${playerData?.User?.image}` }}
           style={styles.image}
         />
         <AppText style={styles.nickName}>{playerData?.user?.nickName}</AppText>

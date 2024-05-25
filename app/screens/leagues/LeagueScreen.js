@@ -4,7 +4,7 @@ import { StyleSheet, FlatList } from "react-native";
 import ActivityIndicator from "../../components/ActivityIndicator";
 import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
-import apiClient from "../../api/client";
+import config from "../../config/config";
 import Card from "../../components/Card";
 import CreatejoinLeagues from "../../components/leagues/CreatejoinLeagues";
 import colors from "../../config/colors";
@@ -17,16 +17,12 @@ import Screen from "../../components/Screen";
 import useApi from "../../hooks/useApi";
 import AppLogo from "../../components/AppLogo";
 
-const serverUrl = apiClient.getBaseURL();
-
 const LeagueScreen = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const getLeaguesApi = useApi(leaguesApi.getLeagues);
 
   useEffect(() => {
-    setTimeout(() => {
-      getLeaguesApi.request(), 1000;
-    });
+    getLeaguesApi.request();
   }, []);
 
   return (
@@ -56,7 +52,7 @@ const LeagueScreen = ({ navigation }) => {
               <Card
                 title={item.league.league_name}
                 subTitle={`League Number: ${item.league.league_number}`}
-                imageUrl={`${serverUrl}${item.league.league_image}`}
+                imageUrl={`${config.s3.baseUrl}${item.league.league_image}`}
                 onPress={() =>
                   navigation.navigate(routes.LEAGUE_DETAILS, {
                     item,

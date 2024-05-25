@@ -9,11 +9,10 @@ import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import AppText from "../AppText";
-import apiClient from "../../api/client";
 import colors from "../../config/colors";
+import config from "../../config/config";
 
 const StatsCard = ({ data, leagueId }) => {
-  const serverUrl = apiClient.getBaseURL();
   const navigation = useNavigation();
 
   return (
@@ -26,7 +25,7 @@ const StatsCard = ({ data, leagueId }) => {
         source={require("../../assets/background.png")}
         style={styles.background}>
         <Image
-          source={{ uri: `${serverUrl}${data?.values?.image}` }}
+          source={{ uri: `${config.s3.baseUrl}${data?.values?.image}` }}
           style={styles.image}
         />
       </ImageBackground>

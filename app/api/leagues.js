@@ -1,4 +1,5 @@
 import client from "./client";
+import { Platform } from "react-native";
 
 const endpoint = "/api/leagues";
 function getFileExtension(filePath) {

@@ -21,9 +21,7 @@ const NoLeagues = ({ navigation }) => {
       />
       <AppButton
         title="Create a new  league"
-        onPress={() =>
-          navigation.navigate(routes.CREATE_LEAGUE, { navigation })
-        }
+        onPress={() => navigation.navigate(routes.CREATE_LEAGUE)}
         icon="account-multiple-plus"
       />
     </View>

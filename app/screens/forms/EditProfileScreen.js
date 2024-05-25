@@ -7,7 +7,7 @@ import ActivityIndicator from "../../components/ActivityIndicator";
 import authApi from "../../api/auth";
 import usersApi from "../../api/users";
 import useApi from "../../hooks/useApi";
-import apiClient from "../../api/client";
+import config from "../../config/config";
 import useAuth from "../../auth/useAuth";
 import authStorage from "../../auth/storage";
 import AuthContext from "../../auth/context";
@@ -21,11 +21,9 @@ const validationSchema = Yup.object().shape({
   image: Yup.string().label("Image"),
 });
 const EditProfileScreen = ({ navigation }) => {
-  console.log("🚀 ~ EditProfileScreen ~ navigation:", navigation);
   const { setUser } = useContext(AuthContext);
   const restoreUser = async () => {
     const user = await authStorage.getUser();
-    console.log("🚀 ~ restoreUser ~ user:", user);
     if (user) setUser(user);
   };
 
@@ -35,9 +33,8 @@ const EditProfileScreen = ({ navigation }) => {
 
   const auth = useAuth();
   const { user } = useAuth();
-  const serverUrl = apiClient.getBaseURL();
   const [error, setError] = useState();
-  const [imageUri, setImageUri] = useState(`${serverUrl}${user.image}`); // New state for image URI
+  const [imageUri, setImageUri] = useState(`${config.s3.baseUrl}${user.image}`); // New state for image URI
 
   const handleSubmit = async (userInfo) => {
     const completeUserInfo = {

@@ -7,7 +7,7 @@ import ListitemSeperator from "../components/ListitemSeperator";
 import Icon from "../components/Icon";
 import colors from "../config/colors";
 import useAuth from "../auth/useAuth";
-import apiClient from "../api/client";
+import config from "../config/config";
 import routes from "../navigation/routes";
 
 const menuItems = [
@@ -36,8 +36,6 @@ const menuItems = [
   },
 ];
 
-const serverUrl = apiClient.getBaseURL();
-
 const AccountScreen = ({ navigation }) => {
   const { user, logOut } = useAuth();
 
@@ -48,7 +46,7 @@ const AccountScreen = ({ navigation }) => {
           title={user.nickName}
           subTitle="Go To Personal Stats"
           //subTitle="Joined at 2019-09-09"
-          image={{ uri: `${serverUrl}${user.image}` }}
+          image={{ uri: `${config.s3.baseUrl}${user.image}` }}
           onPress={() => navigation.navigate(routes.PERSONAL_STATS)}
         />
       </View>

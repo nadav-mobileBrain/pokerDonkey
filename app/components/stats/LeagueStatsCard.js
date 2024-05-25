@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
-import apiClient from "../../api/client";
 import AppText from "../AppText";
 import colors from "../../config/colors";
 import useApi from "../../hooks/useApi";
 import statsApi from "../../api/stats";
+import config from "../../config/config";
 
 const LeagueStatsCard = ({ league }) => {
-  const serverUrl = apiClient.getBaseURL();
   const getLeagueStatsApi = useApi(statsApi.getLeagueStats);
   const [leagueStats, setLeagueStats] = useState([]);
 
@@ -29,7 +28,7 @@ const LeagueStatsCard = ({ league }) => {
       <View style={styles.overlay} />
       <View style={styles.imageContainer}>
         <Image
-          source={{ uri: `${serverUrl}${league.league_image}` }}
+          source={{ uri: `${config.s3.baseUrl}${league.league_image}` }}
           style={styles.image}
         />
         <AppText style={styles.leagueName}>{league.league_name}</AppText>
