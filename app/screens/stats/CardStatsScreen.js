@@ -14,13 +14,19 @@ const CardStatsScreen = ({ route }) => {
   const [leader, setLeader] = useState({});
   const [loading, setLoading] = useState(false);
   const { data, leagueId } = route.params;
-
+  const [refreshing, setRefreshing] = useState(false);
   const apiRoute = data.apiRoute;
   const getStats = useApi(statsApi.getStatsForCard);
 
   useEffect(() => {
     getStatsForCard();
   }, []);
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await getStatsForCard();
+    setRefreshing(false);
+  };
 
   const getStatsForCard = async () => {
     setLoading(true);
@@ -38,9 +44,9 @@ const CardStatsScreen = ({ route }) => {
   return (
     <Screen style={styles.screen}>
       <ActivityIndicator visible={loading} />
-      <AppLogo />
       <LeaderStatsHeader leader={leader} titles={data} />
       <PlayersList players={cardPlayers} titles={data} />
+      <AppLogo />
     </Screen>
   );
 };

@@ -32,11 +32,12 @@ const LeagueScreen = ({ navigation }) => {
     setTimeout(() => {
       fetchLeagues();
     }, 1000);
-  }, [leagues]);
+  }, []);
 
   return (
     <>
       <ActivityIndicator visible={getLeaguesApi.loading} />
+
       <Screen style={styles.screen}>
         <PlayerAvatar />
         <AppLogo />

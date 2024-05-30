@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 50,
     borderWidth: 2,
-    borderColor: colors.AccentPurple,
+    borderColor: colors.lightPurple,
   },
   leaderName: {
     fontSize: 20,
