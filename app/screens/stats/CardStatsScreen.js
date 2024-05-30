@@ -46,7 +46,7 @@ const CardStatsScreen = ({ route }) => {
       <ActivityIndicator visible={loading} />
       <LeaderStatsHeader leader={leader} titles={data} />
       <PlayersList players={cardPlayers} titles={data} />
-      <AppLogo />
+      {/* <AppLogo /> */}
     </Screen>
   );
 };
