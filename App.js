@@ -8,6 +8,7 @@ import AppNavigator from "./app/navigation/AppNavigator";
 import navigationTheme from "./app/navigation/navigationTheme";
 import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
+import { navigationRef } from "./app/navigation/rootNavigation";
 
 // // This is an async function that loads the font
 
@@ -39,9 +40,11 @@ export default function App() {
     return <ActivityIndicator visible={true} />;
   }
 
+
+ 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      <NavigationContainer theme={navigationTheme}>
+      <NavigationContainer theme={navigationTheme} ref={navigationRef}>
         {user ? <AppNavigator /> : <AuthNavigator />}
       </NavigationContainer>
     </AuthContext.Provider>

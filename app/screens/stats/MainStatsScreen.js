@@ -11,9 +11,10 @@ import PlayerStatsCard from "../../components/stats/PlayerStatsCard";
 import Screen from "../../components/Screen";
 
 const MainStatsScreen = ({ route }) => {
+  
   const { league } = route.params;
   const navigation = useNavigation();
-
+ 
   return (
     <Screen style={styles.container}>
       <PlayerAvatar />

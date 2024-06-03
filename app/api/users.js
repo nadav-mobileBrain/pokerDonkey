@@ -55,11 +55,21 @@ const updatePersonaldetails = (userInfo) => {
   }
 };
 
+const updateExpoPushToken = (userId, expoPushToken) => {
+
+   return client.put(`${endpoint}/updateExpoPushToken/${userId}`, {
+     expoPushToken,
+   });
+
+}
+
+
 const getPersonalStats = (userId) => {
-  return client.get(`${endpoint}/personalStats/${userId}`);
+ client.get(`${endpoint}/personalStats/${userId}`);
 };
 export default {
   register,
   getPersonalStats,
   updatePersonaldetails,
+  updateExpoPushToken,
 };

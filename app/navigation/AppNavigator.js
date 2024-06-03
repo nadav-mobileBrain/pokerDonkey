@@ -8,9 +8,19 @@ import FeedNavigator from "./FeedNavigator";
 import AccountNavigator from "./AccountNavigator";
 import NewListingButton from "./NewListingButton";
 
+ 
+import useNotifications from "../hooks/useNotifications";
+
+
 const Tab = createBottomTabNavigator();
 
-const AppNavigator = () => (
+
+const AppNavigator = () =>{
+  
+useNotifications()
+ 
+
+  return (
   <Tab.Navigator>
     <Tab.Screen
       name="My Leagues"
@@ -50,5 +60,7 @@ const AppNavigator = () => (
     />
   </Tab.Navigator>
 );
+
+} 
 
 export default AppNavigator;
