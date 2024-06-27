@@ -57,3 +57,28 @@ export const addBuyIn = async (
   // Call the callback function to close the modal
   onClose();
 };
+
+
+export const  onAddBuyIn = (amount, userId,userGamesData,setUserGamesData) => {
+  const updatedUserGames = [...userGamesData];
+  const playerIndex = updatedUserGames.findIndex((p) => p.user_id === userId);
+  updatedUserGames[playerIndex].buy_ins_amount += amount;
+  updatedUserGames[playerIndex].buy_ins_number += 1;
+  setUserGamesData(updatedUserGames);
+};
+
+export const onRemoveBuyIn = (amount, userId,userGamesData,setUserGamesData) => {
+  const updatedUserGames = [...userGamesData];
+  const playerIndex = updatedUserGames.findIndex((p) => p.user_id === userId);
+  updatedUserGames[playerIndex].buy_ins_amount -= amount;
+  updatedUserGames[playerIndex].buy_ins_number -= 1;
+  setUserGamesData(updatedUserGames);
+};
+
+export const checkIfAllPlayersCashedOut = (userGamesData) => {
+  const allPlayersCashedOut = userGamesData.every((player) => {
+    return player.is_cashed_out === true;
+  });
+
+  return allPlayersCashedOut;
+};

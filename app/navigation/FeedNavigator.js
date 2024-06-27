@@ -12,6 +12,7 @@ import AllGamesScreen from "../screens/games/AllGamesScreen";
 import CardStatsScreen from "../screens/stats/CardStatsScreen";
 import PersonalStatsScreen from "../screens/stats/PersonalStatsScreen";
 import EditProfileScreen from "../screens/forms/EditProfileScreen";
+import AddRemovePlayers from "../screens/games/addRemovePlayers";
 
 
 const Stack = createStackNavigator();
@@ -28,6 +29,7 @@ const FeedNavigator = () => (
     <Stack.Screen name="JoinLeague" component={JoinLeagueScreen} />
     <Stack.Screen name="SelectPlayers" component={SelectPlayersScreen} />
     <Stack.Screen name="NewGame" component={NewGameScreen} />
+    <Stack.Screen name="AddRemovePlayers" component={AddRemovePlayers} />
     <Stack.Screen
       name="Stats"
       component={MainStatsScreen}

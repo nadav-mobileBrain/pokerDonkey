@@ -6,4 +6,5 @@ export default Object.freeze({
   NEW_GAME: "NewGame",
   STATS: "Stats",
   PERSONAL_STATS: "PersonalStats",
+  ADD_REMOVE_PLAYERS: "AddRemovePlayers",
 });

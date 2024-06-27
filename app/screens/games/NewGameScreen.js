@@ -1,44 +1,36 @@
 import React, { useState } from "react";
 import { Button, Modal, StyleSheet, FlatList } from "react-native";
 
-import Screen from "../../components/Screen";
+import AppText from "../../components/AppText";
+import AppButton from "../../components/AppButton";
+import gameApi from "../../api/game";
+import GameDetails from "../../components/games/GameDetails";
+import GameHeader from "../../components/games/GameHeader";
 import HeaderText from "../../components/HeaderText";
 import ListitemSeperator from "../../components/ListitemSeperator";
-import GameDetails from "../../components/games/GameDetails";
 import PlayerGameDetails from "../../components/games/PlayerGameDetails";
-import GameHeader from "../../components/games/GameHeader";
 import PlayerGameCardModal from "../../components/games/PlayerGameCardModal";
-import AppButton from "../../components/AppButton";
 import useApi from "../../hooks/useApi";
-import gameApi from "../../api/game";
+import Screen from "../../components/Screen";
+import { onAddBuyIn,onRemoveBuyIn ,checkIfAllPlayersCashedOut} from "../../utils/gameUtils";
+import routes from "../../navigation/routes";
+import getLeaguePlayers from "../../api/leagues";
+import ActivityIndicator from "../../components/ActivityIndicator";
 
 const NewGame = ({ route, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState();
+  const [loading, setLoading] = useState(false);
   const [userGamesData, setUserGamesData] = useState(route.params.userGames);
+  console.log("🚀 ~ NewGame ~ userGamesData:", userGamesData)
+  const getLeaguePlayersApi = useApi(getLeaguePlayers.getLeaguePlayers);
   const game = route.params.game;
   const league = route.params.league;
 
   const endGameApi = useApi(gameApi.endGame);
 
-  const onAddBuyIn = (amount, userId) => {
-    const updatedUserGames = [...userGamesData];
-    const playerIndex = updatedUserGames.findIndex((p) => p.user_id === userId);
-    updatedUserGames[playerIndex].buy_ins_amount += amount;
-    updatedUserGames[playerIndex].buy_ins_number += 1;
-    setUserGamesData(updatedUserGames);
-  };
-
-  const onRemoveBuyIn = (amount, userId) => {
-    const updatedUserGames = [...userGamesData];
-    const playerIndex = updatedUserGames.findIndex((p) => p.user_id === userId);
-    updatedUserGames[playerIndex].buy_ins_amount -= amount;
-    updatedUserGames[playerIndex].buy_ins_number -= 1;
-    setUserGamesData(updatedUserGames);
-  };
-
   const endGame = async () => {
-    const isAllCashedOut = checkIfAllPlayersCashedOut();
+    const isAllCashedOut = checkIfAllPlayersCashedOut(userGamesData);
     if (!isAllCashedOut) {
       alert("Not all players cashed out");
       return;
@@ -53,22 +45,34 @@ const NewGame = ({ route, navigation }) => {
       }
       return;
     }
-    navigation.navigate("Stats", { league });
+    navigation.navigate(routes.STATS, { league });
   };
 
-  const checkIfAllPlayersCashedOut = () => {
-    const allPlayersCashedOut = userGamesData.every((player) => {
-      return player.is_cashed_out === true;
+  const getDataForSelectPlayersScreen = async () => {
+    setLoading(true);
+      const result = await getLeaguePlayersApi.request(league.id);
+      if (!result.ok) {
+        setLoading(false);
+        return;
+        }
+        setLoading(false);
+        const leaguePlayers = result.data?.leaguePlayers;
+   
+    navigation.navigate(routes.ADD_REMOVE_PLAYERS, {
+      leaguePlayersFromApi: leaguePlayers,
+      league,
+      addRemovePlayers: true,
     });
+  
+  }
 
-    return allPlayersCashedOut;
-  };
-
+ 
   return (
     <Screen style={styles.container}>
       <HeaderText>New Game</HeaderText>
+      <ActivityIndicator visible={loading} />
+      <AppText style={styles.addRemove} onPress={()=>getDataForSelectPlayersScreen()}>+Add/Remove players from game</AppText>
       <GameDetails game={game} league={league} />
-
       <FlatList
         data={userGamesData}
         keyExtractor={(item) => item.id.toString()}
@@ -96,10 +100,10 @@ const NewGame = ({ route, navigation }) => {
               playerData={selectedPlayer}
               onClose={() => setModalVisible(false)}
               onAddBuyIn={(amount, userId) => {
-                onAddBuyIn(amount, userId);
+                onAddBuyIn(amount, userId,userGamesData,setUserGamesData);
               }}
               onRemoveBuyIn={(amount, userId) => {
-                onRemoveBuyIn(amount, userId);
+                onRemoveBuyIn(amount, userId,userGamesData,setUserGamesData);
               }}
               onCashOut={(amount, userId) => {
                 const updatedUserGames = [...userGamesData];
@@ -122,6 +126,12 @@ const NewGame = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
+  },
+  addRemove: {
+    color: "blue",
+    textAlign: "center",
+    fontSize: 13,
+    paddingVertical: 10,
   },
 });
 

@@ -52,6 +52,16 @@ const checkIfOpenGameExist = (leagueId) => {
   return client.get(`${endpoint}/checkIfOpenGameExist?leagueId=${leagueId}`);
 };
 
+
+const addREmovePlayersFromGame = (gameId, selectedPlayers, leagueId) => {
+  return client.put(`${endpoint}/addRemovePlayersFromGame`, {
+    gameId,
+    selectedPlayers,
+    leagueId,
+  });
+
+}
+
 export default {
   newGame,
   addBuyIn,
@@ -60,4 +70,5 @@ export default {
   removeLastBuyIn,
   getAllGamesForLeague,
   checkIfOpenGameExist,
+  addREmovePlayersFromGame
 };

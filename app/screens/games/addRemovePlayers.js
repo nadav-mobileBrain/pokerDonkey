@@ -12,44 +12,67 @@ import useApi from "../../hooks/useApi";
 import useAuth from "../../auth/useAuth";
 import routes from "../../navigation/routes";
 
-const SelectPlayersScreen = ({ route, navigation }) => {
-  const leaguePlayers = route.params.leaguePlayers;
-
+const AddRemovePlayers = ({ route, navigation }) => {
+  const leaguePlayers = route.params.leaguePlayersFromApi;
   const league = route.params.league;
   const { user } = useAuth();
-  const gameAdminId = user.userId;
+  // const gameAdminId = user.userId;
   const [selectedPlayers, setSelectedPlayers] = useState([]);
-  const [isOpenGame, setIsOpenGame] = useState(false);
-
-  const [unselectedPlayers, setUnselectedPlayers] = useState(leaguePlayers);
-  const [addRemovePlayers, setAddRemovePlayers] = useState(route.params.addRemovePlayers);
+  const [unselectedPlayers, setUnselectedPlayers] = useState([]);
   const checkIfOpenGameExist = useApi(gameApi.checkIfOpenGameExist);
-  const createNewGameApi = useApi(gameApi.newGame);
+  const updateGamePlayers = useApi(gameApi.addREmovePlayersFromGame);
+  const [gameData , setGameData] = useState();
 
-  useEffect(() => {
+useEffect(() => {
     const checkIfOpenGames = async () => {
       const result = await checkIfOpenGameExist.request(league.id);
       if (result.ok) {
         if (result.data) {
-          setIsOpenGame(true);
-          navigation.navigate(routes.NEW_GAME, {
-            game: result.data.game,
-            gameDetails: result.data.gameDetails,
-            league,
-            userGames: result.data.userGames,
-          });
+          setGameData(result.data)
+          setSelectedPlayers(result.data.userGames);
+          setUnselectedPlayers(leaguePlayers.filter((p) => !result.data.userGames.some((p2) => p2.User.id === p.User.id)));
         }
       }
     };
     checkIfOpenGames();
-  }, []);
+  
+}, []);
 
 
 
+const continueGame =  async () => {
+
+  const gameId = gameData.game.id;
+  const leagueId = league.id;
+
+  const result = await updateGamePlayers.request(gameId, selectedPlayers, leagueId);
+  const updatedGameData = result.data;
+  console.log("🚀 ~ continueGame ~ updatedGameData:", updatedGameData)
+
+  if (!result.ok) {
+    if (result.data) setError(result.data.error);
+    else {
+      setError("An unexpected error occurred.");
+      console.log(result);
+    }
+    return;
+  }
+
+
+navigation.navigate(routes.NEW_GAME, {
+          game: gameData.game,
+          gameDetails: updatedGameData.gameDetails,
+          league,
+          userGames:updatedGameData.userGames,
+        });
+    
+  
+}
   const onSelectedPlayer = (player) => {
     const playerIndex = selectedPlayers.findIndex((p) => p.id === player.id);
     if (playerIndex === -1) {
       setSelectedPlayers([...selectedPlayers, player]);
+      console.log("🚀 ~ AddRemovePlayers ~ selectedPlayers", selectedPlayers)
       setUnselectedPlayers(unselectedPlayers.filter((p) => p.id !== player.id));
     } else {
       const updatedPlayers = [...selectedPlayers];
@@ -59,36 +82,13 @@ const SelectPlayersScreen = ({ route, navigation }) => {
     }
   };
 
-  const startNewGame = async () => {
-    const result = await createNewGameApi.request({
-        selectedPlayers,
-        leagueId: league.id,
-        gameAdminId,
-      });
-  
-      if (!result.ok) {
-        if (result.data) setError(result.data.error);
-        else {
-          setError("An unexpected error occurred.");
-          console.log(result);
-        }
-        return;
-      }
-
-    navigation.navigate(routes.NEW_GAME, {
-      game: result.data.game,
-      gameDetails: result.data.gameDetails,
-      league,
-      userGames: result.data.userGames,
-    });
-  };
 
 
 
   return (
     <Screen style={styles.container}>
-      <View style={styles.selectContainer}>
-        <HeaderText> Select Players </HeaderText>
+        <View style={styles.selectContainer}>
+        <HeaderText>Add/Remove Players</HeaderText>
         <AppText style={styles.addRemove}>
           *Press on a player to add to the game
         </AppText>
@@ -99,7 +99,7 @@ const SelectPlayersScreen = ({ route, navigation }) => {
           height={40}
         />
 
-        {selectedPlayers.length > 0 && (
+{selectedPlayers.length > 0 && (
           <View style={styles.selectedPlayersContainer}>
             <AppText style={styles.inTheGame}> In The Game </AppText>
             <AppText style={styles.addRemove}>
@@ -114,24 +114,20 @@ const SelectPlayersScreen = ({ route, navigation }) => {
               borderColor="LimeGreen"
             />
 
-            <AppButton
-              title= "Start New Game"
-              color= "LimeGreen"
-              icon="cards-playing-club-multiple-outline"
-              onPress={() =>startNewGame()}
-            />
-
-
+           
 
           </View>
         )}
-        <View style={styles.imageContainer}>
-          <Image
-            source={require("../../assets/selectPlayers.png")}
-            style={styles.image}
-          />
-        </View>
-      </View>
+
+<AppButton
+              title= "Return To Game"
+              color= "LightSkyBlue"
+              icon="cards-playing-club-multiple-outline"
+              onPress={() =>continueGame()}
+            />
+
+
+          </View>
     </Screen>
   );
 };
@@ -174,4 +170,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SelectPlayersScreen;
+export default AddRemovePlayers;

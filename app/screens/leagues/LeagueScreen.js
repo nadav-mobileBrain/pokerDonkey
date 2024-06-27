@@ -27,7 +27,7 @@ const LeagueScreen = ({ navigation }) => {
       const userLeagues = await getLeaguesApi.request();
       setLeagues(userLeagues?.data?.leaguePlayers);
     };
-    console.log("🚀 ~ fetchLeagues ~ getLeaguesApi:", getLeaguesApi);
+ 
 
     setTimeout(() => {
       fetchLeagues();

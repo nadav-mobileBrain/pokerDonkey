@@ -8,8 +8,7 @@ import gameApi from "../../api/game";
 import HeaderText from "../../components/HeaderText";
 
 const AllGamesScreen = ({ route,leagueIdForPushNotifications = null }) => {
-  console.log("🚀 ~ AllGamesScreen ~ u:", route.params)
-  console.log("🚀 ~ AllGamesScreen ~ leagueIdForPushNotifications:", leagueIdForPushNotifications)
+
   const leagueId = route.params.league.id;
   const league = route.params.league;
   const [games, setGames] = useState([]);

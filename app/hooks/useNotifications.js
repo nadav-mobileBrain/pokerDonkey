@@ -30,9 +30,9 @@ export default useNotifications = (notificationListener) => {
             Notifications.addNotificationReceivedListener(notificationListener => {
               const league = notificationListener?.request?.content?.data
               console.log("🚀 ~ useEffect ~ league:", league)
-              if (league) {
-                  navigation.navigate('AllGames', { league });
-              }
+              // if (league) {
+              //     navigation.navigate('AllGames', { league });
+              // }
             //  console.log("🚀 ~ data:", notificationListener?.request?.content?.data);
             }
             )

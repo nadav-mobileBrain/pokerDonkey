@@ -6,7 +6,6 @@ import colors from "../../config/colors";
 import config from "../../config/config";
 
 const LeagueLogo = ({ logoUrl, leagueName }) => {
-  console.log("🚀 ~ LeagueLogo ~ logoUrl:", logoUrl);
 
   return (
     <View style={styles.container}>
