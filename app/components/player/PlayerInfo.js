@@ -10,25 +10,28 @@ import {
 import AppText from "../AppText";
 import colors from "../../config/colors";
 import config from "../../config/config";
+import { navigationRef } from "../../navigation/rootNavigation";
+import routes from "../../navigation/routes";
 
 const PlayerInfo = ({
   leaguePlayers,
-
   onPress,
   width = 30,
   height = 30,
   borderColor = "AccentPurple",
 }) => {
+  if(!onPress) onPress = (item) => navigationRef.current.navigate(routes.PERSONAL_STATS, { userDetails: item.User});
   return (
     <View style={styles.container}>
       <FlatList
         data={leaguePlayers}
-        horizontal={true}
         keyExtractor={(item) => item.id.toString()}
+        numColumns={6} // Adjust this number based on how many items you want per row
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => onPress(item)}
-            style={styles.playerContainer}>
+            style={styles.playerContainer}
+          >
             <Image
               style={[
                 styles.image,
@@ -46,10 +49,9 @@ const PlayerInfo = ({
 
 const styles = StyleSheet.create({
   container: {
-    padding: 5,
-
- 
-
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
   },
   image: {
     borderRadius: 50,
@@ -62,13 +64,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 5,
+    // margin: 5,
   },
   playerName: {
     color: colors.AccentPurple,
-    // fontWeight: "bold",
     fontSize: 8,
-    justifyContent: "center",
-    alignItems: "center",
+    textAlign: "center",
   },
 });
 

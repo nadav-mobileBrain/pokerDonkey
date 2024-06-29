@@ -15,52 +15,62 @@ import ListitemSeperator from "../../components/ListitemSeperator";
 import useAuth from "../../auth/useAuth";
 import useApi from "../../hooks/useApi";
 import usersApi from "../../api/users";
+ 
 import PersonalStatsGamesDetails from "../../components/stats/PersonalStatsGamesDetails";
 import PersonalStatsGamesHeader from "../../components/stats/PersonalStatsGamesHeader";
 import Screen from "../../components/Screen";
 
-const PersonalStatsScreen = () => {
-  const { user } = useAuth();
+const PersonalStatsScreen = ({route}) => {
+ 
+    let { user } = useAuth();
+    if (route?.params?.userDetails) {
+      user = route.params.userDetails;
+      user.userId = route.params.userDetails.id;
+    }
+ 
 
   const url = config.s3.baseUrl + user.image;
   const getPersonalStatsApi = useApi(usersApi.getPersonalStats);
   const [refreshing, setRefreshing] = useState(false);
   const [personalStats, setPersonalStats] = useState([]);
-  console.log("🚀 ~ PersonalStatsScreen ~ personalStats:", personalStats);
 
   const [loading, setLoading] = useState(false);
 
-  const getPersonalStats = async () => {
-    setLoading(true);
-    const result = await getPersonalStatsApi.request(user.userId);
-    if (!result.ok) {
-      setLoading(false);
-      return;
-    }
-
-    setPersonalStats(result.data);
-    setLoading(false);
-  };
-
+  
   useEffect(() => {
+    const getPersonalStats = async () => {
+      setLoading(true);
+        const result = await getPersonalStatsApi.request(user.userId);
+   
+        if (!result.ok) {
+          console.error('Failed to fetch personal stats:', result.problem);
+          // Maybe show an error message to the user
+          return;
+        }
+        
+        setPersonalStats(result.data);
+        setLoading(false);
+ 
+    };
+  
     getPersonalStats();
-  }, []);
+  }, [ ]);  
 
   return (
     <Screen style={styles.screen}>
-      <ActivityIndicator visible={loading} />
+       <ActivityIndicator visible={loading} />
       <ImageBackground
         source={require("../../assets/personalDonkey.jpeg")}
         style={styles.card}>
         <View style={styles.overlay} />
-        <View style={styles.imageContainer}>
+         <View style={styles.imageContainer}>
           <Image style={styles.image} source={{ uri: url }} />
         </View>
         <AppText style={styles.name}>{user.nickName} </AppText>
         {personalStats.length < 1 && (
           <AppText style={styles.noGames}>No Games Played Yet</AppText>
-        )}
-        <View style={styles.totalStatsContainer}>
+        )}  
+       <View style={styles.totalStatsContainer}>
           {personalStats?.totalStats && (
             <>
               <AppText style={styles.totalStats}>
@@ -125,21 +135,21 @@ const PersonalStatsScreen = () => {
               </AppText>
             </View>
           </>
-        )}
+        )} 
       </ImageBackground>
       <AppText style={styles.rank}>G.rank = rank in this game</AppText>
       <AppText style={styles.rank}>
         S.rank = total season rank on this date
       </AppText>
       <PersonalStatsGamesHeader />
-      <FlatList
+        <FlatList
         data={personalStats.games}
         keyExtractor={(game) => game.id.toString()}
         renderItem={({ item, index }) => (
           <PersonalStatsGamesDetails game={item} index={index} />
         )}
         ItemSeparatorComponent={ListitemSeperator}
-      />
+      />    
     </Screen>
   );
 };

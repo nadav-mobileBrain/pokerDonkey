@@ -14,6 +14,12 @@ const WelcomeScreen = ({ navigation }) => {
       <View style={styles.logoContainer}>
         <AppLogo />
         <Text style={styles.tagLine}>Manage Your Home Poker Games</Text>
+   
+      </View>
+      <View style={styles.info}>
+
+      <Text style={styles.infoTagLine}>Collect and display stats of your league's games</Text>
+      <Text style={styles.infoTagLine}>Who is the best player in your league???</Text>
       </View>
       <View style={styles.buttonContainer}>
         <AppButton
@@ -43,17 +49,33 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end", // aligns item to bottom of screen
     alignItems: "center",
   },
+  info: {
+    // position: "absolute",
+    // top: 200,
+    padding: 20,
+    alignItems: "center",
+    backgroundColor: colors.AccentPurple,
+  },
+  infoTagLine:{
 
+    color: colors.light,
+    fontSize: 15,
+    fontWeight: "bold",
+    textAlign: "center",
+    padding: 10,
+  },
   logoContainer: {
     position: "absolute",
     top: 70,
     alignItems: "center",
+ 
   },
   tagLine: {
-    fontSize: 22,
+    fontSize: 23,
     fontWeight: "600",
     paddingVertical: 20,
     color: colors.light,
+    
   },
 });
 

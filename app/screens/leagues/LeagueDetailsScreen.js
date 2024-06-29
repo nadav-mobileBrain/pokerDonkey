@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image,ScrollView } from "react-native";
 import dayjs from "dayjs";
 
 import ActivityIndicator from "../../components/ActivityIndicator";
@@ -27,6 +27,7 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
   useEffect(() => {
     const getLeaguePlayers = async () => {
       setLoading(true);
+      
       const result = await getLeaguePlayersApi.request(league.id);
       if (!result.ok) {
         setLoading(false);
@@ -49,6 +50,7 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
 
   return (
     <Screen style={styles.container}>
+    
       <PlayerAvatar />
       <AppLogo />
       <ActivityIndicator visible={loading} />
@@ -58,11 +60,11 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
           source={{ uri: `${config.s3.baseUrl}${league.league_image}` }}
         />
         <View style={styles.detailsContainer}>
-          <AppText>League Name : {league.league_name}</AppText>
-          <AppText>League Number : {league.league_number}</AppText>
-          <AppText>Admin : {league.leagueAdmin?.nickName}</AppText>
+          <AppText style={styles.leagueInfo}>League Name : {league.league_name}</AppText>
+          <AppText style={styles.leagueInfo}>League Number : {league.league_number}</AppText>
+          <AppText style={styles.leagueInfo}>Admin : {league.leagueAdmin?.nickName}</AppText>
         </View>
-        <PlayerInfo leaguePlayers={leaguePlayers} />
+        <PlayerInfo leaguePlayers={leaguePlayers} /> 
         <View style={styles.buttonContainer}>
           <AppButton
             title="League Stats"
@@ -86,6 +88,7 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
           Created At: {dayjs(league?.created_at).format("DD/MM/YYYY")}
         </AppText>
       </View>
+ 
     </Screen>
   );
 };
@@ -104,7 +107,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   detailsContainer: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
   },
   image: {
     width: "100%",
@@ -113,10 +116,16 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
     marginBottom: 10,
   },
-
+leagueInfo:{
+  fontSize:15
+},
   playerContainer: {
     marginHorizontal: 10,
     backgroundColor: colors.white,
+  },
+    scrollContainer: {
+    flexGrow: 1,
+    justifyContent: "center",
   },
 });
 
