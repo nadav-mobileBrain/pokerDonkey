@@ -28,7 +28,10 @@ const FeedNavigator = () => (
     <Stack.Screen name="CreateLeague" component={CreateLeagueScreen} />
     <Stack.Screen name="JoinLeague" component={JoinLeagueScreen} />
     <Stack.Screen name="SelectPlayers" component={SelectPlayersScreen} />
-    <Stack.Screen name="NewGame" component={NewGameScreen} />
+    <Stack.Screen name="NewGame" component={NewGameScreen} options={
+      { headerShown: false }
+    
+    } />
     <Stack.Screen name="AddRemovePlayers" component={AddRemovePlayers} />
     <Stack.Screen
       name="Stats"

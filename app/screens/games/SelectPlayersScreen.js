@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Image, View, StyleSheet } from "react-native";
+import { useIsFocused } from '@react-navigation/native';
 
 import HeaderText from "../../components/HeaderText";
 import Screen from "../../components/Screen";
@@ -20,29 +21,50 @@ const SelectPlayersScreen = ({ route, navigation }) => {
   const gameAdminId = user.userId;
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [isOpenGame, setIsOpenGame] = useState(false);
-
+  const isFocused = useIsFocused(); // Add this line
   const [unselectedPlayers, setUnselectedPlayers] = useState(leaguePlayers);
   const [addRemovePlayers, setAddRemovePlayers] = useState(route.params.addRemovePlayers);
   const checkIfOpenGameExist = useApi(gameApi.checkIfOpenGameExist);
   const createNewGameApi = useApi(gameApi.newGame);
 
+  // useEffect(() => {
+  //   const checkIfOpenGames = async () => {
+  //     const result = await checkIfOpenGameExist.request(league.id);
+  //     if (result.ok) {
+  //       if (result.data) {
+  //         setIsOpenGame(true);
+  //         navigation.navigate(routes.NEW_GAME, {
+  //           game: result.data.game,
+  //           gameDetails: result.data.gameDetails,
+  //           league,
+  //           userGames: result.data.userGames,
+  //         });
+  //       }
+  //     }
+  //   };
+  //   checkIfOpenGames();
+  // }, []);
+
   useEffect(() => {
-    const checkIfOpenGames = async () => {
-      const result = await checkIfOpenGameExist.request(league.id);
-      if (result.ok) {
-        if (result.data) {
-          setIsOpenGame(true);
-          navigation.navigate(routes.NEW_GAME, {
-            game: result.data.game,
-            gameDetails: result.data.gameDetails,
-            league,
-            userGames: result.data.userGames,
-          });
+    if (isFocused) {
+      const checkIfOpenGames = async () => {
+        const result = await checkIfOpenGameExist.request(league.id);
+        if (result.ok) {
+          if (result.data) {
+            setIsOpenGame(true);
+            navigation.navigate(routes.NEW_GAME, {
+              game: result.data.game,
+              gameDetails: result.data.gameDetails,
+              league,
+              userGames: result.data.userGames,
+            });
+          }
         }
-      }
-    };
-    checkIfOpenGames();
-  }, []);
+      };
+      checkIfOpenGames();
+    }
+  }, [isFocused]);
+
 
 
 

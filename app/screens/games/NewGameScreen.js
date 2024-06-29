@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal, StyleSheet, FlatList } from "react-native";
+import { useIsFocused } from '@react-navigation/native';
 
 import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
@@ -18,16 +19,25 @@ import getLeaguePlayers from "../../api/leagues";
 import ActivityIndicator from "../../components/ActivityIndicator";
 
 const NewGame = ({ route, navigation }) => {
+  const isFocused = useIsFocused(); // Add this line
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState();
   const [loading, setLoading] = useState(false);
   const [userGamesData, setUserGamesData] = useState(route.params.userGames);
-  console.log("🚀 ~ NewGame ~ userGamesData:", userGamesData)
+ 
   const getLeaguePlayersApi = useApi(getLeaguePlayers.getLeaguePlayers);
   const game = route.params.game;
   const league = route.params.league;
-
   const endGameApi = useApi(gameApi.endGame);
+ 
+ 
+  useEffect(() => {
+    if (isFocused) {
+      setUserGamesData(route.params.userGames); // Refresh data when the screen is focused
+    }
+  }, [isFocused]);
+
+ 
 
   const endGame = async () => {
     const isAllCashedOut = checkIfAllPlayersCashedOut(userGamesData);
@@ -61,7 +71,7 @@ const NewGame = ({ route, navigation }) => {
     navigation.navigate(routes.ADD_REMOVE_PLAYERS, {
       leaguePlayersFromApi: leaguePlayers,
       league,
-      addRemovePlayers: true,
+  
     });
   
   }
@@ -73,24 +83,32 @@ const NewGame = ({ route, navigation }) => {
       <ActivityIndicator visible={loading} />
       <AppText style={styles.addRemove} onPress={()=>getDataForSelectPlayersScreen()}>+Add/Remove players from game</AppText>
       <GameDetails game={game} league={league} />
-      <FlatList
-        data={userGamesData}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <PlayerGameDetails
-            image={item.User.image}
-            nickName={item.User.nickName}
-            playerData={item}
-            onPress={() => {
-              setModalVisible(true);
-              setSelectedPlayer(item);
-            }}
-          />
-        )}
-        ItemSeparatorComponent={ListitemSeperator}
-        ListHeaderComponent={() => <GameHeader />}
-        contentContainerStyle={{ flexGrow: 1 }}
-      />
+ 
+
+        <FlatList
+          data={userGamesData}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            item.User ? (
+
+              <PlayerGameDetails
+                image={item.User.image}
+                nickName={item.User.nickName}
+                playerData={item}
+                onPress={() => {
+                  setModalVisible(true);
+                  setSelectedPlayer(item);
+                }}
+              />
+
+
+            ):null
+          )}
+          ItemSeparatorComponent={ListitemSeperator}
+          ListHeaderComponent={() => <GameHeader />}
+          contentContainerStyle={{ flexGrow: 1 }}
+        />
+ 
       <AppButton title="End Game" onPress={() => endGame()} />
       <Modal visible={modalVisible} animationType="slide">
         <Button title="Cancel" onPress={() => setModalVisible(false)} />

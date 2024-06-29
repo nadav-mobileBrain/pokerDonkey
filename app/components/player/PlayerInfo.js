@@ -47,6 +47,9 @@ const PlayerInfo = ({
 const styles = StyleSheet.create({
   container: {
     padding: 5,
+
+ 
+
   },
   image: {
     borderRadius: 50,

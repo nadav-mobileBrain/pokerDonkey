@@ -49,7 +49,7 @@ const PlayersList = ({ players, titles }) => {
         renderItem={({ item, index }) => (
           <PlayerItem player={item} index={index + 2} title={titles.apiRoute} />
         )}
-        keyExtractor={(item) => `${item.id}_${item.title}`}
+        keyExtractor={(item) => `${item.id}_${item.title}_${item.subTitle}`}
         ItemSeparatorComponent={ListitemSeperator}
       />
     </View>

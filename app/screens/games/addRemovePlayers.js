@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Image, View, StyleSheet } from "react-native";
+import {  View, StyleSheet } from "react-native";
 
 import HeaderText from "../../components/HeaderText";
 import Screen from "../../components/Screen";
@@ -9,14 +9,12 @@ import colors from "../../config/colors";
 import AppButton from "../../components/AppButton";
 import gameApi from "../../api/game";
 import useApi from "../../hooks/useApi";
-import useAuth from "../../auth/useAuth";
 import routes from "../../navigation/routes";
 
 const AddRemovePlayers = ({ route, navigation }) => {
   const leaguePlayers = route.params.leaguePlayersFromApi;
   const league = route.params.league;
-  const { user } = useAuth();
-  // const gameAdminId = user.userId;
+ 
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [unselectedPlayers, setUnselectedPlayers] = useState([]);
   const checkIfOpenGameExist = useApi(gameApi.checkIfOpenGameExist);
@@ -47,7 +45,7 @@ const continueGame =  async () => {
 
   const result = await updateGamePlayers.request(gameId, selectedPlayers, leagueId);
   const updatedGameData = result.data;
-  console.log("🚀 ~ continueGame ~ updatedGameData:", updatedGameData)
+ 
 
   if (!result.ok) {
     if (result.data) setError(result.data.error);
@@ -61,9 +59,9 @@ const continueGame =  async () => {
 
 navigation.navigate(routes.NEW_GAME, {
           game: gameData.game,
-          gameDetails: updatedGameData.gameDetails,
+          gameDetails: updatedGameData.updatedGameDetails,
           league,
-          userGames:updatedGameData.userGames,
+          userGames:updatedGameData.updatedUserGames,
         });
     
   
@@ -72,7 +70,6 @@ navigation.navigate(routes.NEW_GAME, {
     const playerIndex = selectedPlayers.findIndex((p) => p.id === player.id);
     if (playerIndex === -1) {
       setSelectedPlayers([...selectedPlayers, player]);
-      console.log("🚀 ~ AddRemovePlayers ~ selectedPlayers", selectedPlayers)
       setUnselectedPlayers(unselectedPlayers.filter((p) => p.id !== player.id));
     } else {
       const updatedPlayers = [...selectedPlayers];

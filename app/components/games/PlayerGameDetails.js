@@ -52,21 +52,28 @@ const styles = StyleSheet.create({
   cashOutPlayer: {
     color: colors.danger,
     fontWeight: "bold",
-    fontSize: 10,
-    marginRight: 15,
+    fontSize: 12,
+    // marginRight: 15,
   },
   detailsContainer: {
     flexDirection: "row",
   },
   innerContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
+    width: 70,
+    textAlign: "center",
+
   },
   image: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    marginLeft: 10,
+    borderColor: colors.AccentPurple,
+    borderWidth: 2,
+  },
+  title: {
+    fontSize: 9,
   },
 });
 
