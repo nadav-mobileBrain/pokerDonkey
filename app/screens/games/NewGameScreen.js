@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, StyleSheet, FlatList } from "react-native";
+import { Button, Modal,View, StyleSheet, FlatList } from "react-native";
 import { useIsFocused } from '@react-navigation/native';
 
 import AppText from "../../components/AppText";
@@ -17,6 +17,7 @@ import { onAddBuyIn,onRemoveBuyIn ,checkIfAllPlayersCashedOut} from "../../utils
 import routes from "../../navigation/routes";
 import getLeaguePlayers from "../../api/leagues";
 import ActivityIndicator from "../../components/ActivityIndicator";
+import useAuth from "../../auth/useAuth";
 
 const NewGame = ({ route, navigation }) => {
   const isFocused = useIsFocused(); // Add this line
@@ -24,11 +25,13 @@ const NewGame = ({ route, navigation }) => {
   const [selectedPlayer, setSelectedPlayer] = useState();
   const [loading, setLoading] = useState(false);
   const [userGamesData, setUserGamesData] = useState(route.params.userGames);
+  const [error, setError] = useState();
  
   const getLeaguePlayersApi = useApi(getLeaguePlayers.getLeaguePlayers);
   const game = route.params.game;
   const league = route.params.league;
   const endGameApi = useApi(gameApi.endGame);
+  const { user } = useAuth();
  
  
   useEffect(() => {
@@ -76,21 +79,37 @@ const NewGame = ({ route, navigation }) => {
   
   }
 
+  const replaceGameAdmin = async (user) => {
+    console.log("🚀 ~ replaceGameAdmin ~ user:", user)
+    
+  }
+
  
   return (
     <Screen style={styles.container}>
       <HeaderText>New Game</HeaderText>
+      {error && <AppText>{error}</AppText>}
       <ActivityIndicator visible={loading} />
+      {game?.gameManager?.id === user.userId && (
       <AppText style={styles.addRemove} onPress={()=>getDataForSelectPlayersScreen()}>+Add/Remove players from game</AppText>
+      )}
       <GameDetails game={game} league={league} />
- 
+      {game?.gameManager?.id != user.userId && (
+        <View>
 
+          <AppText style={styles.noAdmin}>Only the game manager can control game's data</AppText>
+          <AppText style={styles.addRemove} onPress={()=>replaceGameAdmin(user)}>Take controll of the game and replace game admin?</AppText>
+        </View>
+ 
+      )}
+
+      {game?.gameManager?.id === user.userId && (
+<>
         <FlatList
           data={userGamesData}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
             item.User ? (
-
               <PlayerGameDetails
                 image={item.User.image}
                 nickName={item.User.nickName}
@@ -137,6 +156,10 @@ const NewGame = ({ route, navigation }) => {
           )}
         </Screen>
       </Modal>
+
+</>
+
+      )}
     </Screen>
   );
 };
@@ -147,6 +170,14 @@ const styles = StyleSheet.create({
   },
   addRemove: {
     color: "blue",
+    textAlign: "center",
+    fontSize: 13,
+    paddingVertical: 10,
+    ///underline
+    textDecorationLine: "underline",
+  },
+  noAdmin: {
+    color: "red",
     textAlign: "center",
     fontSize: 13,
     paddingVertical: 10,

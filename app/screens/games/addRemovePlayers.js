@@ -20,6 +20,7 @@ const AddRemovePlayers = ({ route, navigation }) => {
   const checkIfOpenGameExist = useApi(gameApi.checkIfOpenGameExist);
   const updateGamePlayers = useApi(gameApi.addREmovePlayersFromGame);
   const [gameData , setGameData] = useState();
+  const [error, setError] = useState();
 
 useEffect(() => {
     const checkIfOpenGames = async () => {
@@ -85,6 +86,7 @@ navigation.navigate(routes.NEW_GAME, {
   return (
     <Screen style={styles.container}>
         <View style={styles.selectContainer}>
+          {error && <AppText>{error}</AppText>}
         <HeaderText>Add/Remove Players</HeaderText>
         <AppText style={styles.addRemove}>
           *Press on a player to add to the game

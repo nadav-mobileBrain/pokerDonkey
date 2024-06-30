@@ -18,8 +18,8 @@ const WelcomeScreen = ({ navigation }) => {
       </View>
       <View style={styles.info}>
 
-      <Text style={styles.infoTagLine}>Collect and display stats of your league's games</Text>
-      <Text style={styles.infoTagLine}>Who is the best player in your league???</Text>
+      <Text style={styles.infoTagLine}>Collect and display stats of your league's games.</Text>
+      <Text style={styles.infoTagLine}>Who is the best player in your league?</Text>
       </View>
       <View style={styles.buttonContainer}>
         <AppButton
@@ -50,11 +50,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   info: {
-    // position: "absolute",
-    // top: 200,
+ 
     padding: 20,
     alignItems: "center",
     backgroundColor: colors.AccentPurple,
+    borderRadius: 20,
   },
   infoTagLine:{
 

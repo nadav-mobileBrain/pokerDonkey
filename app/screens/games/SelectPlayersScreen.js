@@ -12,6 +12,7 @@ import gameApi from "../../api/game";
 import useApi from "../../hooks/useApi";
 import useAuth from "../../auth/useAuth";
 import routes from "../../navigation/routes";
+ 
 
 const SelectPlayersScreen = ({ route, navigation }) => {
   const leaguePlayers = route.params.leaguePlayers;
@@ -20,30 +21,14 @@ const SelectPlayersScreen = ({ route, navigation }) => {
   const { user } = useAuth();
   const gameAdminId = user.userId;
   const [selectedPlayers, setSelectedPlayers] = useState([]);
-  const [isOpenGame, setIsOpenGame] = useState(false);
   const isFocused = useIsFocused(); // Add this line
+  const [error, setError] = useState();
   const [unselectedPlayers, setUnselectedPlayers] = useState(leaguePlayers);
-  const [addRemovePlayers, setAddRemovePlayers] = useState(route.params.addRemovePlayers);
+  // const [addRemovePlayers, setAddRemovePlayers] = useState(route.params.addRemovePlayers);
   const checkIfOpenGameExist = useApi(gameApi.checkIfOpenGameExist);
   const createNewGameApi = useApi(gameApi.newGame);
 
-  // useEffect(() => {
-  //   const checkIfOpenGames = async () => {
-  //     const result = await checkIfOpenGameExist.request(league.id);
-  //     if (result.ok) {
-  //       if (result.data) {
-  //         setIsOpenGame(true);
-  //         navigation.navigate(routes.NEW_GAME, {
-  //           game: result.data.game,
-  //           gameDetails: result.data.gameDetails,
-  //           league,
-  //           userGames: result.data.userGames,
-  //         });
-  //       }
-  //     }
-  //   };
-  //   checkIfOpenGames();
-  // }, []);
+ 
 
   useEffect(() => {
     if (isFocused) {
@@ -51,7 +36,7 @@ const SelectPlayersScreen = ({ route, navigation }) => {
         const result = await checkIfOpenGameExist.request(league.id);
         if (result.ok) {
           if (result.data) {
-            setIsOpenGame(true);
+     
             navigation.navigate(routes.NEW_GAME, {
               game: result.data.game,
               gameDetails: result.data.gameDetails,
@@ -82,11 +67,13 @@ const SelectPlayersScreen = ({ route, navigation }) => {
   };
 
   const startNewGame = async () => {
+ 
     const result = await createNewGameApi.request({
         selectedPlayers,
         leagueId: league.id,
         gameAdminId,
       });
+ 
   
       if (!result.ok) {
         if (result.data) setError(result.data.error);
@@ -111,6 +98,7 @@ const SelectPlayersScreen = ({ route, navigation }) => {
     <Screen style={styles.container}>
       <View style={styles.selectContainer}>
         <HeaderText> Select Players </HeaderText>
+        {error && <AppText>{error}</AppText>}
         <AppText style={styles.addRemove}>
           *Press on a player to add to the game
         </AppText>

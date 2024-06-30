@@ -12,6 +12,7 @@ const GameDetails = ({ league, game }) => {
         logoUrl={league.league_image}
         leagueName={league.league_name}
       />
+      <AppText >Game Admin:{game?.gameManager?.nickName}</AppText>
       <AppText style={styles.gameDate}>
         Started At: {dayjs(game.created_at).format("DD/MM/YYYY hh:mm:ss")}
       </AppText>

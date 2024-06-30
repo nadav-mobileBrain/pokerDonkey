@@ -25,6 +25,7 @@ const PlayerGameCardModal = ({
 }) => {
   const [buyInAmount, setBuyInAmount] = useState(playerData.buy_ins_amount);
   const [buyInNumber, setBuyInNumber] = useState(playerData.buy_ins_number);
+  const [error, setError] = useState();
   const [cashOutAmount, setCashOutAmount] = useState(
     playerData.cash_out_amount
   );
