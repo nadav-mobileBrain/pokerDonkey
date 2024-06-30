@@ -62,6 +62,13 @@ const addREmovePlayersFromGame = (gameId, selectedPlayers, leagueId) => {
 
 }
 
+const takeControllOfGame = (gameId,newAdminId) => {
+  return client.put(`${endpoint}/takeControllOfGame`, {
+    gameId,
+    newAdminId,
+  });
+};
+
 export default {
   newGame,
   addBuyIn,
@@ -70,5 +77,6 @@ export default {
   removeLastBuyIn,
   getAllGamesForLeague,
   checkIfOpenGameExist,
-  addREmovePlayersFromGame
+  addREmovePlayersFromGame,
+  takeControllOfGame
 };

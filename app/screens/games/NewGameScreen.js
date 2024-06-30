@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal,View, StyleSheet, FlatList } from "react-native";
 import { useIsFocused } from '@react-navigation/native';
+import Dialog from "react-native-dialog";
 
 import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
@@ -26,11 +27,14 @@ const NewGame = ({ route, navigation }) => {
   const [loading, setLoading] = useState(false);
   const [userGamesData, setUserGamesData] = useState(route.params.userGames);
   const [error, setError] = useState();
+  const [dialogVisible, setDialogVisible] = useState(false); 
  
   const getLeaguePlayersApi = useApi(getLeaguePlayers.getLeaguePlayers);
-  const game = route.params.game;
+  const [game, setGame] = useState(route.params.game);
+  console.log("🚀 ~ NewGame ~ game:", game)
   const league = route.params.league;
   const endGameApi = useApi(gameApi.endGame);
+  const takeControllOfGameApi = useApi(gameApi.takeControllOfGame);
   const { user } = useAuth();
  
  
@@ -61,7 +65,7 @@ const NewGame = ({ route, navigation }) => {
     navigation.navigate(routes.STATS, { league });
   };
 
-  const getDataForSelectPlayersScreen = async () => {
+  const addRemovePlayersFromGame = async () => {
     setLoading(true);
       const result = await getLeaguePlayersApi.request(league.id);
       if (!result.ok) {
@@ -78,27 +82,63 @@ const NewGame = ({ route, navigation }) => {
     });
   
   }
+  const takeControllOfGame = () => {
+    setDialogVisible(true); // Show the dialog when the button is pressed
+  };
 
-  const replaceGameAdmin = async (user) => {
-    console.log("🚀 ~ replaceGameAdmin ~ user:", user)
-    
-  }
+  const handleCancel = () => {
+    setDialogVisible(false);
+  };
+
+  const handleConfirm = async() => {
+    setLoading(true);
+   const replaceGameAdmin = await takeControllOfGameApi.request(game.id, user.userId);
+    console.log("🚀 ~ handleConfirm ~ replaceGameAdmin:", replaceGameAdmin.data)
+    if (!replaceGameAdmin.ok) {
+      if (replaceGameAdmin.data) setError(replaceGameAdmin.data.error);
+      else {
+        setError("An unexpected error occurred.");
+        console.log(replaceGameAdmin);
+      }
+      return;
+    }
+     setGame(replaceGameAdmin.data.updatedGame);
+     //refresh the component
+
+
+    setDialogVisible(false);
+    setLoading(false);
+    ///refresh the game data
+
+ 
+    // Handle the logic to take control of the game here
+  };
 
  
   return (
     <Screen style={styles.container}>
       <HeaderText>New Game</HeaderText>
+             <Dialog.Container visible={dialogVisible}>
+        <Dialog.Title>Take Control of Game</Dialog.Title>
+        <Dialog.Description>
+          Do you want to take control of the game and replace the game admin?
+        </Dialog.Description>
+        <Dialog.Button label="No" onPress={handleCancel} />
+        <Dialog.Button label="Yes" onPress={handleConfirm} />
+      </Dialog.Container> 
+
       {error && <AppText>{error}</AppText>}
       <ActivityIndicator visible={loading} />
       {game?.gameManager?.id === user.userId && (
-      <AppText style={styles.addRemove} onPress={()=>getDataForSelectPlayersScreen()}>+Add/Remove players from game</AppText>
+      <AppText style={styles.addRemove} onPress={()=>addRemovePlayersFromGame()}>+Add/Remove players from game</AppText>
       )}
+
       <GameDetails game={game} league={league} />
+
       {game?.gameManager?.id != user.userId && (
         <View>
-
           <AppText style={styles.noAdmin}>Only the game manager can control game's data</AppText>
-          <AppText style={styles.addRemove} onPress={()=>replaceGameAdmin(user)}>Take controll of the game and replace game admin?</AppText>
+          <AppText style={styles.addRemove} onPress={()=>takeControllOfGame( )}>Take controll of the game and replace game admin?</AppText>
         </View>
  
       )}
