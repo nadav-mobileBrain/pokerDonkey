@@ -91,13 +91,13 @@ const PlayerGameCardModal = ({
   return (
     <View style={styles.container}>
       {isLoading && <ActivityIndicator visible={isLoading} />}
-      <HeaderText>Player Details</HeaderText>
+      {/* <HeaderText>Player Details</HeaderText> */}
       <View style={styles.imageContainer}>
         <Image
           source={{ uri: `${config.s3.baseUrl}${playerData?.User?.image}` }}
           style={styles.image}
         />
-        <AppText style={styles.nickName}>{playerData?.user?.nickName}</AppText>
+        <AppText style={styles.nickName}>{playerData?.User?.nickName}</AppText>
       </View>
       <View style={styles.form}>
         <AppButton

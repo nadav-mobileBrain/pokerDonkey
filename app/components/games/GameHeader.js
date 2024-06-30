@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     width: "100%",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
     marginTop: 10,
   },
   title: {

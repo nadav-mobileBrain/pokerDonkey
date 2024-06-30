@@ -93,7 +93,6 @@ const NewGame = ({ route, navigation }) => {
   const handleConfirm = async() => {
     setLoading(true);
    const replaceGameAdmin = await takeControllOfGameApi.request(game.id, user.userId);
-    console.log("🚀 ~ handleConfirm ~ replaceGameAdmin:", replaceGameAdmin.data)
     if (!replaceGameAdmin.ok) {
       if (replaceGameAdmin.data) setError(replaceGameAdmin.data.error);
       else {
@@ -103,22 +102,18 @@ const NewGame = ({ route, navigation }) => {
       return;
     }
      setGame(replaceGameAdmin.data.updatedGame);
-     //refresh the component
-
+  
 
     setDialogVisible(false);
     setLoading(false);
-    ///refresh the game data
-
  
-    // Handle the logic to take control of the game here
   };
 
  
   return (
     <Screen style={styles.container}>
       <HeaderText>New Game</HeaderText>
-             <Dialog.Container visible={dialogVisible}>
+      <Dialog.Container visible={dialogVisible}>
         <Dialog.Title>Take Control of Game</Dialog.Title>
         <Dialog.Description>
           Do you want to take control of the game and replace the game admin?
@@ -169,6 +164,7 @@ const NewGame = ({ route, navigation }) => {
         />
  
       <AppButton title="End Game" onPress={() => endGame()} />
+        
       <Modal visible={modalVisible} animationType="slide">
         <Button title="Cancel" onPress={() => setModalVisible(false)} />
         <Screen>

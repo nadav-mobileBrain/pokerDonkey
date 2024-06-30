@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 10,
+    padding: 5,
     backgroundColor: colors.white,
     alignItems: "center",
   },
@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     color: colors.danger,
     fontWeight: "bold",
     fontSize: 12,
-    // marginRight: 15,
   },
   detailsContainer: {
     flexDirection: "row",
@@ -66,9 +65,9 @@ const styles = StyleSheet.create({
 
   },
   image: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
     borderColor: colors.AccentPurple,
     borderWidth: 2,
   },
