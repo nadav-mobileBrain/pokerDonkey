@@ -40,9 +40,15 @@ const AllGamesCard = ({ game }) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 2,
-    borderRadius: 10,
-    marginVertical: 10,
+    borderRadius: 15,
+    backgroundColor: colors.surface,
+    marginBottom: 20,
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
   },
   isOpen: {
     width: "100%",
@@ -70,7 +76,7 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
-    opacity: 0.5,
+    opacity: 0.4,
   },
 });
 

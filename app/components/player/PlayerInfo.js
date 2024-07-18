@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    padding: 5,
   },
   image: {
     borderRadius: 50,
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 5,
-    // margin: 5,
+    //  margin: 5,
   },
   playerName: {
     color: colors.AccentPurple,

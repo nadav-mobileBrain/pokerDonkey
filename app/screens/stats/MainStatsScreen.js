@@ -10,6 +10,7 @@ import Icon from "../../components/Icon";
 import PlayerAvatar from "../../components/player/PlayerAvatar";
 import PlayerStatsCard from "../../components/stats/PlayerStatsCard";
 import Screen from "../../components/Screen";
+import AppButton from "../../components/AppButton";
 
 const MainStatsScreen = ({ route }) => {
   
@@ -29,12 +30,7 @@ const MainStatsScreen = ({ route }) => {
       </AppText>
       <PlayerStatsCard league={league} />
       <View style={styles.allGamesContainer}>
-      <AppText
-        style={styles.allGames}
-        onPress={() => navigation.navigate("AllGames", { league })}>
-        All Games
-      </AppText>
-      <Icon name="arrow-right-bold" backgroundColor={colors.light}   size={45} iconColor={colors.PrimaryBlue} />
+        <AppButton title="All Games" color="gold" onPress={() => navigation.navigate("AllGames", { league })} />
       </View>
       </LinearGradient>
     </Screen>

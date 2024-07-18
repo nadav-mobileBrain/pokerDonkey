@@ -74,12 +74,12 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
           <AppButton
             title="League Stats"
             icon="chart-box-outline"
-            color="AccentPurple"
+            color="gold"
             onPress={() => navigation.navigate(routes.STATS, { league })}
           />
           <AppButton
             title={isLiveGameOn ? "Join Live Game" : "Start A New Game"}
-            color="LightSkyBlue"
+            color="secondary"
             icon="cards-playing-spade-multiple-outline"
             onPress={() =>
               navigation.navigate(routes.SELECT_PLAYERS, {
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   detailsContainer: {
-    paddingHorizontal: 10,
+    padding: 10,
   },
   image: {
     width: "100%",

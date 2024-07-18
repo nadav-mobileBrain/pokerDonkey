@@ -40,6 +40,9 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 5,
     justifyContent: "space-around",
+    backgroundColor: colors.white,
+    
+    
   },
   playerData: {
     fontSize: 14,

@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
 
+import { LinearGradient } from 'expo-linear-gradient';
 import ActivityIndicator from "../../components/ActivityIndicator";
 import AllGamesCard from "../../components/games/AllGamesCard";
 import AppLogo from "../../components/AppLogo";
+import colors from "../../config/colors";
 import gameApi from "../../api/game";
 import HeaderText from "../../components/HeaderText";
+import Screen from "../../components/Screen";
 
 const AllGamesScreen = ({ route,leagueIdForPushNotifications = null }) => {
 
@@ -37,8 +40,13 @@ const AllGamesScreen = ({ route,leagueIdForPushNotifications = null }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      {isLoading && <ActivityIndicator visible={isLoading} />}
+    <>
+    <ActivityIndicator visible={isLoading} />
+    <Screen style={styles.container}>
+    <LinearGradient
+          colors={colors.primaryGradientArray}
+          style={styles.background}
+        >
       <AppLogo />
       {games.length === 0 ? (
         <Text style={styles.noGames}>
@@ -59,15 +67,20 @@ const AllGamesScreen = ({ route,leagueIdForPushNotifications = null }) => {
         onEndReachedThreshold={0.1}
       />
       {error ? <Text>Error: {error}</Text> : null}
-    </View>
+      </LinearGradient>
+    </Screen>
+    </> 
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+
+  },
+  background: {
+    flex: 1,
+    padding: 20,
   },
   gameText: {
     fontSize: 16,
