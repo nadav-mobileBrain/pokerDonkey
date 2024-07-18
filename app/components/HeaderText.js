@@ -9,7 +9,7 @@ const HeaderText = ({ children }) => {
 const styles = StyleSheet.create({
   text: {
     fontSize: 30,
-    fontFamily: Platform.OS === "android" ? "Montserrat-SemiBold" : "Avenir",
+    fontFamily: Platform.OS === "android" ? "Roboto_500Medium" : "Avenir",
     color: colors.textOnPrimary,
     textAlign: "center",
     marginTop: 10,

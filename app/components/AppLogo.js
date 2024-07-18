@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontFamily: "Roboto_700Bold",
+  //  fontFamily: "Roboto_700Bold",
     color: colors.gold,
     textDecorationLine: "underline",
   },

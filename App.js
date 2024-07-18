@@ -9,7 +9,7 @@ import navigationTheme from "./app/navigation/navigationTheme";
 import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 import { navigationRef } from "./app/navigation/rootNavigation";
-import { useFonts, Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
+import { useFonts, Roboto_400Regular, Roboto_700Bold,Roboto_500Medium } from "@expo-google-fonts/roboto";
 
 // // This is an async function that loads the font
 
@@ -28,6 +28,7 @@ export default function App() {
       "Montserrat-SemiBold": require("./app/assets/fonts/Montserrat-SemiBold.ttf"),
       Roboto_400Regular,
       Roboto_700Bold,
+      Roboto_500Medium
     });
     setFontsLoaded(true);
   };

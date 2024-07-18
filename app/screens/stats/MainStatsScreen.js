@@ -2,6 +2,7 @@ import { StyleSheet ,View} from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
+import { LinearGradient } from 'expo-linear-gradient';
 import AppLogo from "../../components/AppLogo";
 import AppText from "../../components/AppText";
 import colors from "../../config/colors";
@@ -16,7 +17,11 @@ const MainStatsScreen = ({ route }) => {
   const navigation = useNavigation();
  
   return (
-    <Screen style={styles.container}>
+    <Screen>
+       <LinearGradient
+          colors={colors.primaryGradientArray}
+          style={styles.background}
+        >
       <PlayerAvatar />
       <AppLogo />
       <AppText style={styles.remark}>
@@ -31,6 +36,7 @@ const MainStatsScreen = ({ route }) => {
       </AppText>
       <Icon name="arrow-right-bold" backgroundColor={colors.light}   size={45} iconColor={colors.PrimaryBlue} />
       </View>
+      </LinearGradient>
     </Screen>
   );
 };
@@ -48,12 +54,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding:5,
   },
-  container: {
-    padding: 5,
-    backgroundColor: colors.light,
+  background: {
+    flex: 1,
+    padding: 20,
   },
+
   remark: {
-    color: colors.medium,
+    color: colors.light,
     fontSize: 10,
     textAlign: "center",
   },

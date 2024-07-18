@@ -3,6 +3,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ImageBackground,
+  View
 } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -29,11 +30,14 @@ const StatsCard = ({ data, leagueId }) => {
           style={styles.image}
         />
       </ImageBackground>
-      <LinearGradient
-        colors={[colors.LightSkyBlue, colors.white]}
+      {/* <LinearGradient
+       colors={[colors.white, colors.gold]}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
-        style={styles.bottomDetails}>
+        style={styles.bottomDetails}> */}
+        <View   style={styles.bottomDetails}>
+
+        
         <AppText style={styles.title}>{data.title}</AppText>
         <AppText>{data?.values?.nickName}</AppText>
         <AppText>
@@ -45,7 +49,8 @@ const StatsCard = ({ data, leagueId }) => {
         <AppText>
           {data.subTitle2}: {data?.values?.subTitle2Value}
         </AppText>
-      </LinearGradient>
+        </View>
+      {/* </LinearGradient> */}
     </TouchableOpacity>
   );
 };
@@ -57,13 +62,13 @@ const styles = StyleSheet.create({
   bottomDetails: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.LightSkyBlue,
+    backgroundColor: colors.light,
     flex: 1,
   },
   card: {
     borderRadius: 25,
     overflow: "hidden",
-    borderColor: colors.AccentPurple,
+    borderColor: colors.gold,
     borderWidth: 2,
     marginTop: 10,
     width: 290,

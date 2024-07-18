@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 11,
-    fontFamily: "Roboto_400Regular",
+   // fontFamily: "Roboto_400Regular",
     color: colors.light,
     marginTop: 5,
     textAlign: "center",

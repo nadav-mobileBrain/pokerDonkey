@@ -24,7 +24,9 @@ const FeedNavigator = () => (
       component={LeagueScreen}
       options={{ headerShown: false }}
     />
-    <Stack.Screen name="LeagueDetails" component={LeagueDetailsScreen} />
+    <Stack.Screen name="LeagueDetails" component={LeagueDetailsScreen} 
+    options={{ headerShown: false }}
+    />
     <Stack.Screen name="CreateLeague" component={CreateLeagueScreen} />
     <Stack.Screen name="JoinLeague" component={JoinLeagueScreen} />
     <Stack.Screen name="SelectPlayers" component={SelectPlayersScreen} />

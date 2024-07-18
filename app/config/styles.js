@@ -7,6 +7,6 @@ export default {
   text: {
     color: colors.dark,
     fontSize: 18,
-    fontFamily: Platform.OS === "android" ? "Montserrat-SemiBold" : "Avenir",
+    fontFamily: Platform.OS === "android" ? 'Roboto_500Medium' : "Avenir",
   },
 };

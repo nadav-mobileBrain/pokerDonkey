@@ -38,10 +38,10 @@ const LeagueStatsCard = ({ league }) => {
       </View>
       <View style={styles.info}>
         <Text style={styles.stat}>
-          Total Cash Played: ${leagueStats?.totalCashPlayed}
+          Total Cash Played: {leagueStats?.totalCashPlayed} $
         </Text>
         <Text style={styles.stat}>
-          Total Hours Played: {leagueStats?.totalHours} hours
+          Total Hours Played: {leagueStats?.totalHours} 
         </Text>
         <Text style={styles.subTitle}>
           Total Games: {leagueStats?.gamesCount}
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
-    opacity: 0.5,
+    opacity: 0.2,
   },
 });
 
