@@ -1,11 +1,12 @@
 import React from "react";
-import { Image, TouchableOpacity, StyleSheet } from "react-native";
+import { Image, TouchableOpacity, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import colors from "../../config/colors";
 import useAuth from "../../auth/useAuth";
 import routes from "../../navigation/routes";
 import config from "../../config/config";
+import AppText from "../AppText";
 
 const PlayerAvatar = () => {
   const { user } = useAuth();
@@ -15,25 +16,37 @@ const PlayerAvatar = () => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate(routes.PERSONAL_STATS)}>
-      <Image style={styles.image} source={{ uri: url }} />
+      onPress={() => navigation.navigate(routes.PERSONAL_STATS)}
+    >
+      <View style={styles.avatarContainer}>
+        <Image style={styles.image} source={{ uri: url }} />
+        <AppText style={styles.title}>{user?.nickName}</AppText>
+      </View>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.light,
-    borderRadius: 20,
-    height: 35,
-    width: 35,
-    overflow: "hidden",
-    justifyContent: "center",
+    margin: 10,
+    alignItems: "flex-start",
+  },
+  avatarContainer: {
     alignItems: "center",
   },
   image: {
-    height: "100%",
-    width: "100%",
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    borderColor: colors.white,
+    borderWidth: 2,
+  },
+  title: {
+    fontSize: 11,
+    fontFamily: "Roboto_400Regular",
+    color: colors.light,
+    marginTop: 5,
+    textAlign: "center",
   },
 });
 

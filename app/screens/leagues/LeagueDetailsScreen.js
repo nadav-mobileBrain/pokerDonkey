@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image,ScrollView } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import dayjs from "dayjs";
 
 import ActivityIndicator from "../../components/ActivityIndicator";
+import { LinearGradient } from 'expo-linear-gradient';
 import AppButton from "../../components/AppButton";
 import AppLogo from "../../components/AppLogo";
 import AppText from "../../components/AppText";
@@ -49,11 +50,15 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
   }, []);
 
   return (
+    <>
+    <ActivityIndicator visible={getLeaguePlayersApi.loading || loading} />
     <Screen style={styles.container}>
-    
+    <LinearGradient
+          colors={colors.primaryGradientArray}
+          style={styles.background}
+        >
       <PlayerAvatar />
       <AppLogo />
-      <ActivityIndicator visible={loading} />
       <View style={styles.playerContainer}>
         <Image
           style={styles.image}
@@ -88,8 +93,9 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
           Created At: {dayjs(league?.created_at).format("DD/MM/YYYY")}
         </AppText>
       </View>
- 
+ </LinearGradient>
     </Screen>
+    </>
   );
 };
 
@@ -97,14 +103,16 @@ const styles = StyleSheet.create({
   buttonContainer: {
     paddingHorizontal: 20,
   },
+  background: {
+    flex: 1,
+    padding: 20,
+  },
   created: {
     paddingHorizontal: 20,
     fontSize: 10,
-    marginVertical: 10,
   },
   container: {
-    backgroundColor: colors.light,
-    padding: 10,
+    flex: 1,
   },
   detailsContainer: {
     paddingHorizontal: 10,
@@ -114,18 +122,27 @@ const styles = StyleSheet.create({
     height: 120,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
-    marginBottom: 10,
+    marginBottom: 3,
   },
 leagueInfo:{
   fontSize:15
 },
   playerContainer: {
-    marginHorizontal: 10,
-    backgroundColor: colors.white,
+    borderRadius: 15,
+    backgroundColor: colors.surface,
+    marginBottom: 20,
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
+    paddingBottom: 20,  // Add paddingBottom here
   },
     scrollContainer: {
     flexGrow: 1,
     justifyContent: "center",
+    paddingBottom: 30,  // Add paddingBottom here
   },
 });
 

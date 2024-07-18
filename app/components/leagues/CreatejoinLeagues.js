@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import AppText from "../AppText";
 import routes from "../../navigation/routes";
+import colors from "../../config/colors";
 
 const CreatejoinLeagues = ({ navigation }) => {
   return (
@@ -24,8 +25,9 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
-    fontFamily: "Montserrat-SemiBold",
+    fontFamily: "Roboto_700Bold",
     margin: 10,
+    color:colors.gold,
     textDecorationLine: "underline",
   },
 });

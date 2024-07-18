@@ -18,4 +18,19 @@ export default {
   danger: "#ff5252",
   dark: "#0c0c0c",
   green: "#42ddbe",
+
+  primaryGradientArray:['#8E2DE2', '#4A00E0'],
+
+
+  primary: "#6200ea",
+  secondary: "#03dac6",
+  background: "#f5f5f5",
+  surface: "#ffffff",
+  error: "#b00020",
+  textPrimary: "#000000",
+  textSecondary: "#757575",
+  textOnPrimary: "#ffffff",
+  textOnSecondary: "#000000",
+  border: "#e0e0e0",
+  gold: "#ffd700",
 };

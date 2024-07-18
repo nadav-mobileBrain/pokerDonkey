@@ -1,10 +1,8 @@
 import React from "react";
-import { View, StyleSheet, Image } from "react-native";
-import { Platform } from "react-native";
-
+import { View, StyleSheet, Image, Platform } from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import colors from "../config/colors";
 import AppText from "./AppText";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const Card = ({ title, subTitle, imageUrl, onPress, height = 200 }) => {
   return (
@@ -26,26 +24,33 @@ const Card = ({ title, subTitle, imageUrl, onPress, height = 200 }) => {
 const styles = StyleSheet.create({
   card: {
     borderRadius: 15,
-    backgroundColor: colors.lightPurple,
+    backgroundColor: colors.surface,
     marginBottom: 20,
     overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
   },
   detailsContainer: {
-    padding: 10,
+    padding: 15,
   },
   image: {
     width: "100%",
     height: 200,
   },
   subTitle: {
-    fontFamily: Platform.OS === "android" ? "Montserrat-SemiBold" : "Avenir",
+    color: colors.textSecondary,
+    fontSize: 15,
+    marginVertical: 5,
+    fontFamily: "Roboto_400Regular",
   },
   title: {
-    marginBottom: 5,
-    textDecorationLine: "underline",
-    color: colors.white,
-    fontSize: 25,
-    fontFamily: Platform.OS === "android" ? "Montserrat-SemiBold" : "Avenir",
+    marginBottom: 7,
+    color: colors.textPrimary,
+    fontSize: 20,
+    fontFamily: "Roboto_700Bold",
   },
 });
 

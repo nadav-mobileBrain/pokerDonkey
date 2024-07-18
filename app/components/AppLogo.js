@@ -24,13 +24,13 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
-    borderColor: colors.AccentPurple,
+    borderColor: colors.gold,
     borderWidth: 2,
   },
   title: {
     fontSize: 16,
-    fontFamily: "Montserrat-SemiBold",
-    color: colors.AccentPurple,
+    fontFamily: "Roboto_700Bold",
+    color: colors.gold,
     textDecorationLine: "underline",
   },
 });

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 30,
     fontFamily: Platform.OS === "android" ? "Montserrat-SemiBold" : "Avenir",
-    color: colors.AccentPurple,
+    color: colors.textOnPrimary,
     textAlign: "center",
     marginTop: 10,
     textTransform: "capitalize",

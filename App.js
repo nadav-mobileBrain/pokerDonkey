@@ -9,6 +9,7 @@ import navigationTheme from "./app/navigation/navigationTheme";
 import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 import { navigationRef } from "./app/navigation/rootNavigation";
+import { useFonts, Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 
 // // This is an async function that loads the font
 
@@ -25,6 +26,8 @@ export default function App() {
       "Montserrat-Regular": require("./app/assets/fonts/Montserrat-VariableFont_wght.ttf"),
       "Montserrat-Light": require("./app/assets/fonts/Montserrat-Light.ttf"),
       "Montserrat-SemiBold": require("./app/assets/fonts/Montserrat-SemiBold.ttf"),
+      Roboto_400Regular,
+      Roboto_700Bold,
     });
     setFontsLoaded(true);
   };
