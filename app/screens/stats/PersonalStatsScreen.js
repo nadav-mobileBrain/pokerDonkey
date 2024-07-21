@@ -6,6 +6,7 @@ import {
   FlatList,
 } from "react-native";
 import React, { useState, useEffect } from "react";
+import { LinearGradient } from 'expo-linear-gradient';
 
 import AppText from "../../components/AppText";
 import ActivityIndicator from "../../components/ActivityIndicator";
@@ -33,6 +34,7 @@ const PersonalStatsScreen = ({route}) => {
   const getPersonalStatsApi = useApi(usersApi.getPersonalStats);
   const [refreshing, setRefreshing] = useState(false);
   const [personalStats, setPersonalStats] = useState([]);
+  console.log("🚀 ~ PersonalStatsScreen ~ personalStats:", personalStats)
 
   const [loading, setLoading] = useState(false);
 
@@ -57,8 +59,14 @@ const PersonalStatsScreen = ({route}) => {
   }, [ ]);  
 
   return (
+    <>
+      <ActivityIndicator visible={getPersonalStatsApi.loading} />
     <Screen style={styles.screen}>
-       <ActivityIndicator visible={loading} />
+    <LinearGradient
+          colors={colors.primaryGradientArray}
+          style={styles.background}
+        >
+     
       <ImageBackground
         source={require("../../assets/personalDonkey.jpeg")}
         style={styles.card}>
@@ -67,9 +75,15 @@ const PersonalStatsScreen = ({route}) => {
           <Image style={styles.image} source={{ uri: url }} />
         </View>
         <AppText style={styles.name}>{user.nickName} </AppText>
-        {personalStats.length < 1 && (
-          <AppText style={styles.noGames}>No Games Played Yet</AppText>
+        {personalStats?.games?.length < 1 && (
+          <View>
+            <AppText style={styles.noGames}>No Games Played Yet</AppText>
+            <AppText style={styles.noGames}>Play a game to see your stats</AppText>
+
+          </View>
         )}  
+
+
        <View style={styles.totalStatsContainer}>
           {personalStats?.totalStats && (
             <>
@@ -137,27 +151,37 @@ const PersonalStatsScreen = ({route}) => {
           </>
         )} 
       </ImageBackground>
-      <AppText style={styles.rank}>G.rank = rank in this game</AppText>
-      <AppText style={styles.rank}>
-        S.rank = total season rank on this date
-      </AppText>
-      <PersonalStatsGamesHeader />
-        <FlatList
-        data={personalStats.games}
-        keyExtractor={(game) => game.id.toString()}
-        renderItem={({ item, index }) => (
-          <PersonalStatsGamesDetails game={item} index={index} />
-        )}
-        ItemSeparatorComponent={ListitemSeperator}
-      />    
+      {personalStats?.games?.length > 0  && (
+            <>
+            <AppText style={styles.rank}>G.rank = rank in this game</AppText>
+            <AppText style={styles.rank}>
+              S.rank = total season rank on this date
+            </AppText>
+            <PersonalStatsGamesHeader />
+              <FlatList
+              data={personalStats.games}
+              keyExtractor={(game) => game.id.toString()}
+              renderItem={({ item, index }) => (
+                <PersonalStatsGamesDetails game={item} index={index} />
+              )}
+              ItemSeparatorComponent={ListitemSeperator}
+            />  
+          </>
+      )}
+      </LinearGradient>  
     </Screen>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    padding: 20,
+  },
+  
   card: {
     borderRadius: 15,
-    backgroundColor: colors.lightPurple,
     height: 400,
     overflow: "hidden",
   },
@@ -191,21 +215,20 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   screen: {
-    padding: 5,
-    backgroundColor: colors.light,
+ flex:1
   },
   totalStats: {
-    color: colors.light,
+    color: colors.white,
     fontSize: 15,
   },
   avgStats: {
-    color: colors.light,
+    color: colors.white,
     fontSize: 12,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
-    opacity: 0.5,
+    opacity: 0.4,
   },
   totalStatsContainer: {
     flexDirection: "row",
@@ -216,7 +239,7 @@ const styles = StyleSheet.create({
   },
   rank: {
     fontSize: 10,
-    color: colors.PrimaryBlue,
+    color: colors.gold,
     textAlign: "center",
     margin: 3,
   },

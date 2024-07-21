@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import * as Yup from "yup";
+import { LinearGradient } from "expo-linear-gradient";
 
 import { AppForm, AppFormField, SubmitButton } from "../../components/forms";
 import ActivityIndicator from "../../components/ActivityIndicator";
@@ -8,6 +9,7 @@ import authApi from "../../api/auth";
 import usersApi from "../../api/users";
 import useApi from "../../hooks/useApi";
 import config from "../../config/config";
+import colors from "../../config/colors";
 import useAuth from "../../auth/useAuth";
 import authStorage from "../../auth/storage";
 import AuthContext from "../../auth/context";
@@ -67,6 +69,10 @@ const EditProfileScreen = ({ navigation }) => {
     <>
       <ActivityIndicator visible={registerApi.loading || loginApi.loading} />
       <Screen style={styles.container}>
+      <LinearGradient
+          colors={colors.primaryGradientArray}
+          style={styles.background}
+        >
         <AppForm
           initialValues={{ nickName: user.nickName }}
           onSubmit={handleSubmit}
@@ -79,14 +85,15 @@ const EditProfileScreen = ({ navigation }) => {
             placeholder={user.nickName}
           />
 
-          <View style={{ alignItems: "flex-end" }}>
+          <View style={{ alignItems: "flex-start" }}>
             <ImageInput
               imageUri={imageUri}
               onChangeImage={(uri) => setImageUri(uri)}
             />
           </View>
-          <SubmitButton title="Edit Details" icon="account-edit" />
+          <SubmitButton title="Edit Details" icon="account-edit" color="gold" />
         </AppForm>
+      </LinearGradient>
       </Screen>
     </>
   );
@@ -94,7 +101,11 @@ const EditProfileScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    flex: 1,
+  },
+  background: {
+    flex: 1,
+    padding: 20,
   },
 });
 

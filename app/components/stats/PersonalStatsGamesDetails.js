@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingVertical: 10,
+    paddingVertical: 5,
+    backgroundColor: colors.white,
   },
   oddLine: {
     backgroundColor: colors.lightGrey,

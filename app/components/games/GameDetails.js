@@ -27,10 +27,19 @@ const styles = StyleSheet.create({
   gameDetailsContainer: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.light,
+    borderTopRightRadius:15,
+    borderTopLeftRadius:15,
+    backgroundColor: colors.surface,
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
+    padding: 10,
   },
   gameDate: {
-    color: colors.AccentPurple,
+    // color: colors.primary,
     fontSize: 14,
   },
 });

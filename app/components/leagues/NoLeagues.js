@@ -3,6 +3,7 @@ import { Image, View, StyleSheet } from "react-native";
 
 import AppText from "../AppText";
 import AppButton from "../AppButton";
+import colors from "../../config/colors";
 import routes from "../../navigation/routes";
 
 const NoLeagues = ({ navigation }) => {
@@ -12,17 +13,18 @@ const NoLeagues = ({ navigation }) => {
         source={require("../../assets/noLeagues.png")}
         style={styles.image}
       />
-      <AppText>You have no leagues yet...😳</AppText>
+      <AppText style={{color:colors.gold}}>You dont belong to any leagues yet...😳</AppText>
       <AppButton
         title="Join private league"
         onPress={() => navigation.navigate(routes.JOIN_LEAGUE)}
-        color="AccentPurple"
+        color="secondary"
         icon="account-group"
       />
       <AppButton
         title="Create a new  league"
         onPress={() => navigation.navigate(routes.CREATE_LEAGUE)}
         icon="account-multiple-plus"
+        color="gold"
       />
     </View>
   );

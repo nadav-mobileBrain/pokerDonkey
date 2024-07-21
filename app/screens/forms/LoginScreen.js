@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import * as Yup from "yup";
+import { LinearGradient } from "expo-linear-gradient";
 
 import Screen from "../../components/Screen";
 import {
@@ -12,6 +13,7 @@ import {
 import authApi from "../../api/auth";
 import useAuth from "../../auth/useAuth";
 import AppLogo from "../../components/AppLogo";
+import colors from "../../config/colors";
 
 const vaslidationSchema = Yup.object().shape({
   nickName: Yup.string().required().min(2).label("Nick Name"),
@@ -31,6 +33,10 @@ const LoginScreen = () => {
   };
   return (
     <Screen style={styles.container}>
+       <LinearGradient
+          colors={colors.primaryGradientArray}
+          style={styles.background}
+        >
       <AppLogo />
       <AppForm
         initialValues={{ nickName: "", password: "" }}
@@ -57,14 +63,19 @@ const LoginScreen = () => {
           secureTextEntry
           name="password"
         />
-        <SubmitButton title="Login" />
+        <SubmitButton title="Login" color="gold" />
       </AppForm>
+      </LinearGradient>
     </Screen>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  background: {
+    flex: 1,
     padding: 20,
   },
   logo: {

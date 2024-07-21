@@ -20,6 +20,7 @@ export default {
   green: "#42ddbe",
 
   primaryGradientArray:['#8E2DE2', '#4A00E0'],
+  secondaryGradientArray:['#d3b939', '#ffd700'],
 
 
   primary: "#6200ea",

@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal,View, StyleSheet, FlatList } from "react-native";
 import { useIsFocused } from '@react-navigation/native';
 import Dialog from "react-native-dialog";
+import { LinearGradient } from 'expo-linear-gradient';
 
 import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
+import colors from "../../config/colors";
 import gameApi from "../../api/game";
 import GameDetails from "../../components/games/GameDetails";
 import GameHeader from "../../components/games/GameHeader";
@@ -111,7 +113,13 @@ const NewGame = ({ route, navigation }) => {
 
  
   return (
+    <>
+    <ActivityIndicator visible={!isFocused} />
     <Screen style={styles.container}>
+    <LinearGradient
+          colors={colors.primaryGradientArray}
+          style={styles.background}
+        >
       <HeaderText>New Game</HeaderText>
       <Dialog.Container visible={dialogVisible}>
         <Dialog.Title>Take Control of Game</Dialog.Title>
@@ -129,7 +137,6 @@ const NewGame = ({ route, navigation }) => {
       )}
 
       <GameDetails game={game} league={league} />
-
       {game?.gameManager?.id != user.userId && (
         <View>
           <AppText style={styles.noAdmin}>Only the game manager can control game's data</AppText>
@@ -160,10 +167,10 @@ const NewGame = ({ route, navigation }) => {
           )}
           ItemSeparatorComponent={ListitemSeperator}
           ListHeaderComponent={() => <GameHeader />}
-          contentContainerStyle={{ flexGrow: 1 }}
+          // contentContainerStyle={{ flexGrow: 1 }}
         />
  
-      <AppButton title="End Game" onPress={() => endGame()} />
+      <AppButton title="End Game" color="gold" onPress={() => endGame()} />
         
       <Modal visible={modalVisible} animationType="slide">
         <Button title="Cancel" onPress={() => setModalVisible(false)} />
@@ -190,26 +197,32 @@ const NewGame = ({ route, navigation }) => {
               }}
             />
           )}
+
         </Screen>
       </Modal>
 
 </>
-
       )}
+      </LinearGradient>
     </Screen>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 10,
+  flex : 1,
   },
+  background: {
+    flex: 1,
+    padding: 20,
+  },
+
   addRemove: {
-    color: "blue",
+    color: colors.gold,
     textAlign: "center",
     fontSize: 13,
     paddingVertical: 10,
-    ///underline
     textDecorationLine: "underline",
   },
   noAdmin: {

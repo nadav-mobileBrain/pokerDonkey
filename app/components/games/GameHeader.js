@@ -18,8 +18,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     justifyContent: "space-between",
-    paddingHorizontal: 20,
-    marginTop: 10,
+    padding: 10,
+    backgroundColor: colors.white,
+
   },
   title: {
     fontWeight: "bold",

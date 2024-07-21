@@ -10,14 +10,13 @@ const WelcomeScreen = ({ navigation }) => {
     <ImageBackground
       style={styles.container}
       source={require("../assets/appLogo.png")}
-      blurRadius={5}>
+      blurRadius={6}>
       <View style={styles.logoContainer}>
         <AppLogo />
         <Text style={styles.tagLine}>Manage Your Home Poker Games</Text>
    
       </View>
       <View style={styles.info}>
-
       <Text style={styles.infoTagLine}>Collect and display stats of your league's games.</Text>
       <Text style={styles.infoTagLine}>Who is the best player in your league?</Text>
       </View>
@@ -25,12 +24,12 @@ const WelcomeScreen = ({ navigation }) => {
         <AppButton
           title="Login"
           onPress={() => navigation.navigate("Login")}
-          color="LightSkyBlue"
+          color="secondary"
           icon="login"
         />
         <AppButton
           title="Register"
-          color="AccentPurple"
+          color="gold"
           onPress={() => navigation.navigate("Register")}
           icon="account-plus"
         />
@@ -53,12 +52,10 @@ const styles = StyleSheet.create({
  
     padding: 20,
     alignItems: "center",
-    backgroundColor: colors.AccentPurple,
+    backgroundColor: colors.gold,
     borderRadius: 20,
   },
   infoTagLine:{
-
-    color: colors.light,
     fontSize: 15,
     fontWeight: "bold",
     textAlign: "center",
@@ -74,7 +71,7 @@ const styles = StyleSheet.create({
     fontSize: 23,
     fontWeight: "600",
     paddingVertical: 20,
-    color: colors.light,
+    color: colors.white,
     
   },
 });

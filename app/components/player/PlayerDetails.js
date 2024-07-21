@@ -50,6 +50,8 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: colors.white,
     alignItems: "center",
+    borderRadius: 15,
+    marginVertical: 10,
   },
   detailsContainer: {
     flex: 1,

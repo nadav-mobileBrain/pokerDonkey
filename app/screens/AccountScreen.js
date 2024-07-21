@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, View, FlatList } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
+import ActivityIndicator from "../components/ActivityIndicator";
 import Screen from "../components/Screen";
 import PlayerDetails from "../components/player/PlayerDetails";
 import ListitemSeperator from "../components/ListitemSeperator";
@@ -40,7 +42,13 @@ const AccountScreen = ({ navigation }) => {
   const { user, logOut } = useAuth();
 
   return (
+    <>
+    <ActivityIndicator visible={!user} />
     <Screen style={styles.screen}>
+    <LinearGradient
+          colors={colors.secondaryGradientArray}
+          style={styles.background}
+        >
       <View style={styles.container}>
         <PlayerDetails
           title={user.nickName}
@@ -76,7 +84,9 @@ const AccountScreen = ({ navigation }) => {
         IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
         onPress={() => logOut()}
       />
+      </LinearGradient>
     </Screen>
+    </>
   );
 };
 
@@ -85,8 +95,12 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     flex: 1,
   },
+  background: {
+    flex: 1,
+    padding: 20,
+  },
   screen: {
-    backgroundColor: colors.light,
+flex:1
   },
 });
 

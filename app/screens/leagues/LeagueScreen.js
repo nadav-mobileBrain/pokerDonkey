@@ -21,6 +21,7 @@ const LeagueScreen = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const getLeaguesApi = useApi(leaguesApi.getLeagues);
   const [leagues, setLeagues] = useState([]);
+  console.log("🚀 ~ LeagueScreen ~ leagues:", getLeaguesApi.data?.leagues)
 
   useEffect(() => {
     const fetchLeagues = async () => {
@@ -55,7 +56,11 @@ const LeagueScreen = ({ navigation }) => {
           {getLeaguesApi.data?.leagues?.length === 0 && (
             <NoLeagues navigation={navigation} />
           )}
-          <CreatejoinLeagues navigation={navigation} />
+
+            {getLeaguesApi.data?.leagues?.length > 0 && (
+              <CreatejoinLeagues navigation={navigation} />
+            )}
+
           {getLeaguesApi.data?.leagues?.length > 0 && (
             <FlatList
               data={getLeaguesApi.data.leagues}

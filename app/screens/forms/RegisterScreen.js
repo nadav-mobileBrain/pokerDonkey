@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import * as Yup from "yup";
+import { LinearGradient } from "expo-linear-gradient";
 
 import Screen from "../../components/Screen";
 import { AppForm, AppFormField, SubmitButton } from "../../components/forms";
@@ -53,6 +54,10 @@ const RegisterScreen = () => {
     <>
       <ActivityIndicator visible={registerApi.loading || loginApi.loading} />
       <Screen style={styles.container}>
+      <LinearGradient
+          colors={colors.primaryGradientArray}
+          style={styles.background}
+        >
         <AppLogo />
         <AppForm
           initialValues={{ nickName: "", password: "" }}
@@ -74,17 +79,18 @@ const RegisterScreen = () => {
             secureTextEntry
             textContentType="password"
           />
-          <View style={{ alignItems: "flex-end" }}>
+          <View style={{ alignItems: "flex-start" }}>
             <ImageInput
               imageUri={imageUri}
               onChangeImage={(uri) => setImageUri(uri)}
             />
-            <AppText style={{ color: colors.AccentPurple }}>
-              *You can add your image later
+            <AppText style={{ color: colors.gold }}>
+              *You can add/change your image later
             </AppText>
           </View>
-          <SubmitButton title="Register" icon="account-plus" />
+          <SubmitButton title="Register" icon="account-plus" color="gold"/>
         </AppForm>
+      </LinearGradient>
       </Screen>
     </>
   );
@@ -92,7 +98,11 @@ const RegisterScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+   flex: 1, 
+  },
+  background: {
+    flex: 1,
+    padding: 20,
   },
 });
 

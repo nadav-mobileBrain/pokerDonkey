@@ -8,6 +8,7 @@ import StatsCard from "./StatsCard";
 import LeagueStatsCard from "./LeagueStatsCard";
 import HeaderText from "../HeaderText";
 import AppText from "../AppText";
+import colors from "../../config/colors";
 
 const PlayerStatsCard = ({ league }) => {
   const getCardsInfo = useApi(statsApi.getMainCardsStats);
@@ -38,7 +39,7 @@ const PlayerStatsCard = ({ league }) => {
       {noGames && (
         <>
           <HeaderText>No games played yet</HeaderText>
-          <AppText>Go to league screen to start a new game</AppText>
+          <AppText style={{color:colors.gold}}>Go to league screen to start a new game</AppText>
         </>
       )}
 

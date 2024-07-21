@@ -30,11 +30,7 @@ const StatsCard = ({ data, leagueId }) => {
           style={styles.image}
         />
       </ImageBackground>
-      {/* <LinearGradient
-       colors={[colors.white, colors.gold]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
-        style={styles.bottomDetails}> */}
+   
         <View   style={styles.bottomDetails}>
 
         
@@ -50,7 +46,7 @@ const StatsCard = ({ data, leagueId }) => {
           {data.subTitle2}: {data?.values?.subTitle2Value}
         </AppText>
         </View>
-      {/* </LinearGradient> */}
+      
     </TouchableOpacity>
   );
 };

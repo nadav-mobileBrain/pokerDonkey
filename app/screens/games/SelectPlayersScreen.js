@@ -148,7 +148,7 @@ const SelectPlayersScreen = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   addRemove: {
-    fontSize: 10,
+    fontSize: 15,
   },
   container: {
     backgroundColor: colors.light,

@@ -43,10 +43,10 @@ const LeagueStatsCard = ({ league }) => {
         <Text style={styles.stat}>
           Total Hours Played: {leagueStats?.totalHours} 
         </Text>
-        <Text style={styles.subTitle}>
+        <Text style={styles.stat}>
           Total Games: {leagueStats?.gamesCount}
         </Text>
-        <Text style={styles.subTitle}>
+        <Text style={styles.stat}>
           Last Game: {leagueStats?.lastGame?.created_at}
         </Text>
       </View>
@@ -84,11 +84,9 @@ const styles = StyleSheet.create({
   stat: {
     fontSize: 14,
     color: colors.white,
+    fontFamily:'Roboto_700Bold'
   },
-  subTitle: {
-    fontSize: 14,
-    color: colors.white,
-  },
+
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,

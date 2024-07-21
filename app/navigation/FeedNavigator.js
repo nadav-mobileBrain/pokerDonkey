@@ -40,7 +40,13 @@ const FeedNavigator = () => (
       component={MainStatsScreen}
       options={{ headerShown: false }}
     />
-    <Stack.Screen name="CardStats" component={CardStatsScreen} />
+    <Stack.Screen name="CardStats" component={CardStatsScreen}
+    //change header title
+    options={({ route }) => ({
+      title:'Stats for '+ route.params.data.title
+    })}
+    
+    />
     <Stack.Screen name="AllGames" component={AllGamesScreen} />
     <Stack.Screen name="PersonalStats" component={PersonalStatsScreen} />
     <Stack.Screen name="EditProfile" component={EditProfileScreen} />

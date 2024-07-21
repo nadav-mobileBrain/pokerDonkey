@@ -103,7 +103,7 @@ const PlayerGameCardModal = ({
         <AppButton
           title="Add Buy in 50"
           icon="cash"
-          color="LimeGreen"
+          color="secondary"
           onPress={() => handleAddBuyIn(50)}
         />
         <AppButton
@@ -143,7 +143,7 @@ const PlayerGameCardModal = ({
         />
         {!playerData?.is_cashed_out && (
           <View style={styles.form}>
-            <SubmitButton title="Cash Out Player" icon="cash" />
+            <SubmitButton title="Cash Out Player" icon="cash" color="gold" />
           </View>
         )}
         {playerData?.is_cashed_out && (
