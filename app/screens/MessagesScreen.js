@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, FlatList, View } from "react-native";
+import { FlatList } from "react-native";
 
 import PlayerDetails from "../components/player/PlayerDetails";
 import Screen from "../components/Screen";
@@ -26,7 +26,7 @@ const initialMessages = [
   },
 ];
 
-function MessagesScreen(props) {
+const MessagesScreen = () => {
   const [messages, setMessages] = useState(initialMessages);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -71,6 +71,6 @@ function MessagesScreen(props) {
       />
     </Screen>
   );
-}
+};
 
 export default MessagesScreen;

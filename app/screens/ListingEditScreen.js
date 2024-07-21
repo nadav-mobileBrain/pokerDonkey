@@ -78,7 +78,7 @@ const categories = [
   },
 ];
 
-function ListingEditScreen() {
+const ListingEditScreen = () => {
   const location = useLocation();
   return (
     <Screen style={styles.container}>
@@ -91,8 +91,7 @@ function ListingEditScreen() {
           images: [],
         }}
         onSubmit={(values) => console.log(values)}
-        validationSchema={validationSchema}
-      >
+        validationSchema={validationSchema}>
         <FormImagePicker name="images" />
         <FormField maxLength={255} name="title" placeholder="Title" />
         <FormField
@@ -121,7 +120,7 @@ function ListingEditScreen() {
       </Form>
     </Screen>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -1,21 +1,35 @@
 import React from "react";
 import { StyleSheet, View, FlatList } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+
+import ActivityIndicator from "../components/ActivityIndicator";
 import Screen from "../components/Screen";
 import PlayerDetails from "../components/player/PlayerDetails";
 import ListitemSeperator from "../components/ListitemSeperator";
 import Icon from "../components/Icon";
 import colors from "../config/colors";
+import useAuth from "../auth/useAuth";
+import config from "../config/config";
+import routes from "../navigation/routes";
 
 const menuItems = [
   {
-    title: "My Leagues",
+    title: "Edit Profile",
     icon: {
-      name: "format-list-bulleted",
+      name: "account",
       backgroundColor: colors.PrimaryBlue,
     },
+    targetScreen: "EditProfile",
   },
+  // {
+  //   title: "My Leagues",
+  //   icon: {
+  //     name: "format-list-bulleted",
+  //     backgroundColor: colors.PrimaryBlue,
+  //   },
+  // },
   {
-    title: "My Messages",
+    title: "My Messages-Coming soon...",
     icon: {
       name: "email",
       backgroundColor: colors.AccentPurple,
@@ -24,14 +38,24 @@ const menuItems = [
   },
 ];
 
-function AccountScreen({ navigation }) {
+const AccountScreen = ({ navigation }) => {
+  const { user, logOut } = useAuth();
+
   return (
+    <>
+    <ActivityIndicator visible={!user} />
     <Screen style={styles.screen}>
+    <LinearGradient
+          colors={colors.secondaryGradientArray}
+          style={styles.background}
+        >
       <View style={styles.container}>
         <PlayerDetails
-          title="Bibs"
-          subTitle="Joined at 2019-09-09"
-          image={require("../assets/bibsDonkey.png")}
+          title={user.nickName}
+          subTitle="Go To Personal Stats"
+          //subTitle="Joined at 2019-09-09"
+          image={{ uri: `${config.s3.baseUrl}${user.image}` }}
+          onPress={() => navigation.navigate(routes.PERSONAL_STATS)}
         />
       </View>
       <View style={styles.container}>
@@ -47,7 +71,9 @@ function AccountScreen({ navigation }) {
                   backgroundColor={item.icon.backgroundColor}
                 />
               }
-              onPress={() => navigation.navigate(item.targetScreen)}
+              onPress={() =>
+                navigation.navigate(item.targetScreen, { user, navigation })
+              }
               ItemsSeperatorComponent={ListitemSeperator}
             />
           )}
@@ -56,18 +82,25 @@ function AccountScreen({ navigation }) {
       <PlayerDetails
         title="Log Out"
         IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+        onPress={() => logOut()}
       />
+      </LinearGradient>
     </Screen>
+    </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     marginVertical: 20,
     flex: 1,
   },
+  background: {
+    flex: 1,
+    padding: 20,
+  },
   screen: {
-    backgroundColor: colors.light,
+flex:1
   },
 });
 

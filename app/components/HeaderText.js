@@ -1,15 +1,20 @@
 import React from "react";
-import { View, StyleSheet, Text, Platform } from "react-native";
+import { StyleSheet, Text, Platform } from "react-native";
+import colors from "../config/colors";
 
-function HeaderText({ children }) {
+const HeaderText = ({ children }) => {
   return <Text style={styles.text}>{children}</Text>;
-}
+};
 
 const styles = StyleSheet.create({
   text: {
     fontSize: 30,
-    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
-    fontWeight: "bold",
+    fontFamily: Platform.OS === "android" ? "Roboto_500Medium" : "Avenir",
+    color: colors.textOnPrimary,
+    textAlign: "center",
+    marginTop: 10,
+    textTransform: "capitalize",
+    textDecorationLine: "underline",
   },
 });
 

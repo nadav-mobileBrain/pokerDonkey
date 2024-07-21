@@ -1,23 +1,51 @@
-import { Image, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 import * as Yup from "yup";
+import { LinearGradient } from "expo-linear-gradient";
 
 import Screen from "../../components/Screen";
-import { AppForm, AppFormField, SubmitButton } from "../../components/forms";
+import {
+  AppForm,
+  AppFormField,
+  ErrorMessage,
+  SubmitButton,
+} from "../../components/forms";
+import authApi from "../../api/auth";
+import useAuth from "../../auth/useAuth";
+import AppLogo from "../../components/AppLogo";
+import colors from "../../config/colors";
 
 const vaslidationSchema = Yup.object().shape({
   nickName: Yup.string().required().min(2).label("Nick Name"),
   password: Yup.string().required().min(4).label("Password"),
 });
 
-function LoginScreen() {
+const LoginScreen = () => {
+  const { logIn } = useAuth();
+  const [loginFailed, setLoginFailed] = useState(false);
+
+  const handleSubmit = async ({ nickName, password }) => {
+    const result = await authApi.login({ nickName, password });
+
+    if (!result.ok) return setLoginFailed(true);
+    setLoginFailed(false);
+    logIn(result.data);
+  };
   return (
     <Screen style={styles.container}>
-      <Image style={styles.logo} source={require("../../assets/appLogo.png")} />
+       <LinearGradient
+          colors={colors.primaryGradientArray}
+          style={styles.background}
+        >
+      <AppLogo />
       <AppForm
         initialValues={{ nickName: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
-        validationSchema={vaslidationSchema}
-      >
+        onSubmit={handleSubmit}
+        validationSchema={vaslidationSchema}>
+        <ErrorMessage
+          error="Invalid Nick Name or Password"
+          visible={loginFailed}
+        />
         <AppFormField
           name="nickName"
           placeholder="Nick Name"
@@ -35,14 +63,19 @@ function LoginScreen() {
           secureTextEntry
           name="password"
         />
-        <SubmitButton title="Login" />
+        <SubmitButton title="Login" color="gold" />
       </AppForm>
+      </LinearGradient>
     </Screen>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  background: {
+    flex: 1,
     padding: 20,
   },
   logo: {

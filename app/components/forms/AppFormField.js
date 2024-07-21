@@ -11,6 +11,7 @@ function AppFormField({ name, width, ...otherProps }) {
   return (
     <>
       <AppTextInput
+        style={styles.container}
         {...otherProps}
         onBlur={() => setFieldTouched(name)}
         onChangeText={handleChange(name)}
@@ -22,7 +23,9 @@ function AppFormField({ name, width, ...otherProps }) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flexDirection: "row",
+  },
 });
 
 export default AppFormField;

@@ -11,24 +11,32 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nadavg.pokerdonkey"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.nadavg.pokerdonkey"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./app//assets/favicon.png"
     },
     "extra": {
       "eas": {
         "projectId": "0ebf019a-7956-4454-b254-c8aa62144cb4"
       }
     },
-    "owner": "nadavg"
+    "owner": "nadavg",
+    "plugins": [
+      "expo-font",
+      "expo-secure-store"
+    ]
   }
 }

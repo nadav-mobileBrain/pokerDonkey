@@ -2,33 +2,41 @@ import React from "react";
 import { View, StyleSheet, ImageBackground, Image, Text } from "react-native";
 
 import AppButton from "../components/AppButton";
+import colors from "../config/colors";
+import AppLogo from "../components/AppLogo";
 
-function WelcomeScreen({ navigation }) {
+const WelcomeScreen = ({ navigation }) => {
   return (
     <ImageBackground
       style={styles.container}
-      source={require("../assets/background.jpeg")}
-      blurRadius={10}
-    >
+      source={require("../assets/appLogo.png")}
+      blurRadius={6}>
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require("../assets/appLogo.png")} />
+        <AppLogo />
         <Text style={styles.tagLine}>Manage Your Home Poker Games</Text>
+   
+      </View>
+      <View style={styles.info}>
+      <Text style={styles.infoTagLine}>Collect and display stats of your league's games.</Text>
+      <Text style={styles.infoTagLine}>Who is the best player in your league?</Text>
       </View>
       <View style={styles.buttonContainer}>
         <AppButton
           title="Login"
           onPress={() => navigation.navigate("Login")}
-          color="LightSkyBlue"
+          color="secondary"
+          icon="login"
         />
         <AppButton
           title="Register"
-          color="AccentPurple"
+          color="gold"
           onPress={() => navigation.navigate("Register")}
+          icon="account-plus"
         />
       </View>
     </ImageBackground>
   );
-}
+};
 
 const styles = StyleSheet.create({
   buttonContainer: {
@@ -40,21 +48,31 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end", // aligns item to bottom of screen
     alignItems: "center",
   },
-
-  logo: {
-    width: 100,
-    height: 100,
-    alignSelf: "center",
+  info: {
+ 
+    padding: 20,
+    alignItems: "center",
+    backgroundColor: colors.gold,
+    borderRadius: 20,
+  },
+  infoTagLine:{
+    fontSize: 15,
+    fontWeight: "bold",
+    textAlign: "center",
+    padding: 10,
   },
   logoContainer: {
     position: "absolute",
     top: 70,
     alignItems: "center",
+ 
   },
   tagLine: {
-    fontSize: 22,
+    fontSize: 23,
     fontWeight: "600",
     paddingVertical: 20,
+    color: colors.white,
+    
   },
 });
 
