@@ -8,4 +8,5 @@ export default Object.freeze({
   STATS: "Stats",
   PERSONAL_STATS: "PersonalStats",
   ADD_REMOVE_PLAYERS: "AddRemovePlayers",
+  EDIT_PROFILE: "EditProfile", 
 });

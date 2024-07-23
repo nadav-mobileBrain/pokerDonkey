@@ -1,5 +1,4 @@
 import React from "react";
-
 import { createStackNavigator } from "@react-navigation/stack";
 import LeagueScreen from "../screens/leagues/LeagueScreen";
 import LeagueDetailsScreen from "../screens/leagues/LeagueDetailsScreen";
@@ -15,7 +14,6 @@ import PersonalStatsScreen from "../screens/stats/PersonalStatsScreen";
 import EditProfileScreen from "../screens/forms/EditProfileScreen";
 import AddRemovePlayers from "../screens/games/addRemovePlayers";
 
-
 const Stack = createStackNavigator();
 
 const FeedNavigator = () => (
@@ -25,34 +23,36 @@ const FeedNavigator = () => (
       component={LeagueScreen}
       options={{ headerShown: false }}
     />
-    <Stack.Screen name="LeagueDetails" component={LeagueDetailsScreen} 
-    options={{ headerShown: false }}
+    <Stack.Screen
+      name="LeagueDetails"
+      component={LeagueDetailsScreen}
+      options={{ headerShown: false }}
     />
     <Stack.Screen name="CreateLeague" component={CreateLeagueScreen} />
     <Stack.Screen name="EditLeague" component={EditLeagueScreen} />
     <Stack.Screen name="JoinLeague" component={JoinLeagueScreen} />
     <Stack.Screen name="SelectPlayers" component={SelectPlayersScreen} />
-    <Stack.Screen name="NewGame" component={NewGameScreen} options={
-      { headerShown: false }
-    
-    } />
+    <Stack.Screen
+      name="NewGame"
+      component={NewGameScreen}
+      options={{ headerShown: false }}
+    />
     <Stack.Screen name="AddRemovePlayers" component={AddRemovePlayers} />
     <Stack.Screen
       name="Stats"
       component={MainStatsScreen}
       options={{ headerShown: false }}
     />
-    <Stack.Screen name="CardStats" component={CardStatsScreen}
-    //change header title
-    options={({ route }) => ({
-      title:'Stats for '+ route.params.data.title
-    })}
-    
+    <Stack.Screen
+      name="CardStats"
+      component={CardStatsScreen}
+      options={({ route }) => ({
+        title: "Stats for " + route.params.data.title,
+      })}
     />
     <Stack.Screen name="AllGames" component={AllGamesScreen} />
     <Stack.Screen name="PersonalStats" component={PersonalStatsScreen} />
     <Stack.Screen name="EditProfile" component={EditProfileScreen} />
-
   </Stack.Navigator>
 );
 
