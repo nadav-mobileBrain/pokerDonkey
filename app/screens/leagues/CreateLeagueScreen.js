@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
+import { LinearGradient } from 'expo-linear-gradient';
 import ActivityIndicator from "../../components/ActivityIndicator";
 import AppText from "../../components/AppText";
+import AppLogo from "../../components/AppLogo";
 import { AppForm, AppFormField, SubmitButton } from "../../components/forms";
 import colors from "../../config/colors";
 import ErrorMessage from "../../components/forms/ErrorMessage";
@@ -43,16 +45,24 @@ const CreateLeagueScreen = ({ navigation }) => {
       }
       return;
     }
-    navigation.navigate("Leagues", {
-      league: result.data.league,
-    });
+
+
+        navigation.navigate("Leagues", {
+          league: result.data.league,
+          message: "League created successfully.",
+        });
+
   };
 
   return (
     <>
       <ActivityIndicator visible={createLeagueApi.loading} />
-
-      <Screen style={styles.container}>
+      <Screen style={styles.screen}>
+      <LinearGradient
+          colors={colors.primaryGradientArray}
+          style={styles.background}
+        >
+          <AppLogo/>  
         <HeaderText>Create League</HeaderText>
         <AppForm
           initialValues={{ leagueName: "" }}
@@ -77,18 +87,27 @@ const CreateLeagueScreen = ({ navigation }) => {
           <AppText style={styles.remark}>
             Note: You will be the admin of this league.
           </AppText>
+          <AppText style={styles.remark}>
+          * An anonymos player will be added to the league automaticly. you can remove it later or use it if you have occasional players. 
+          </AppText>
         </AppForm>
+        </LinearGradient>
       </Screen>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 10,
+  screen: {
+    flex: 1,
   },
+  background: {
+    flex: 1,
+    padding: 20,
+  },
+
   remark: {
-    color: colors.AccentPurple,
+    color: colors.gold,
     fontSize: 15,
 
     marginTop: 10,

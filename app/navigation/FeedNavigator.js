@@ -5,6 +5,7 @@ import LeagueScreen from "../screens/leagues/LeagueScreen";
 import LeagueDetailsScreen from "../screens/leagues/LeagueDetailsScreen";
 import CreateLeagueScreen from "../screens/leagues/CreateLeagueScreen";
 import JoinLeagueScreen from "../screens/leagues/JoinLeagueScreen";
+import EditLeagueScreen from "../screens/leagues/EditLeagueScreen";
 import SelectPlayersScreen from "../screens/games/SelectPlayersScreen";
 import NewGameScreen from "../screens/games/NewGameScreen";
 import MainStatsScreen from "../screens/stats/MainStatsScreen";
@@ -28,6 +29,7 @@ const FeedNavigator = () => (
     options={{ headerShown: false }}
     />
     <Stack.Screen name="CreateLeague" component={CreateLeagueScreen} />
+    <Stack.Screen name="EditLeague" component={EditLeagueScreen} />
     <Stack.Screen name="JoinLeague" component={JoinLeagueScreen} />
     <Stack.Screen name="SelectPlayers" component={SelectPlayersScreen} />
     <Stack.Screen name="NewGame" component={NewGameScreen} options={

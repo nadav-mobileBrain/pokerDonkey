@@ -11,7 +11,7 @@ const register = (userInfo) => {
     }
 
     data.append("nickName", userInfo.nickName);
-    data.append("password", userInfo.password);
+  //  data.append("password", userInfo.password);
     data.append("image", {
       name: userInfo.nickName + getFileExtension(userInfo.image), /// Add the extension to the file name
       type: "image/jpeg",

@@ -17,7 +17,7 @@ import colors from "../../config/colors";
 
 const vaslidationSchema = Yup.object().shape({
   nickName: Yup.string().required().min(2).label("Nick Name"),
-  password: Yup.string().required().min(4).label("Password"),
+  //password: Yup.string().required().min(4).label("Password"),
 });
 
 const LoginScreen = () => {
@@ -52,16 +52,6 @@ const LoginScreen = () => {
           icon="account"
           autoCapitalize="none"
           autoCorrect={false}
-        />
-
-        <AppFormField
-          placeholder="Password"
-          icon="lock"
-          autoCapitalize="none"
-          autoCorrect={false}
-          textContentType="password"
-          secureTextEntry
-          name="password"
         />
         <SubmitButton title="Login" color="gold" />
       </AppForm>
