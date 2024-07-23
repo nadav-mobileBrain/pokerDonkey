@@ -1,3 +1,5 @@
+import logger from "../utility/logger";
+
 export const removeLastBuyIn = async (
   buyInNumber,
   buyInAmount,
@@ -20,7 +22,7 @@ export const removeLastBuyIn = async (
   );
 
   if (!result.ok) {
-    console.log("🚀 ~ removeLastBuyIn ~ rjhgjhgjhgesult", result.data);
+    logger.log("🚀 ~ removeLastBuyIn ~ rjhgjhgjhgesult", result.data);
     return;
   }
   setBuyInAmount(buyInAmount - result.data[1]);
@@ -50,7 +52,7 @@ export const addBuyIn = async (
     playerData.league_id
   );
   if (!result.ok) {
-    console.log("🚀 ~ addBuyIn ~ result", result.data);
+    logger.log("🚀 ~ addBuyIn ~ result", result.data);
     return;
   }
   onAddBuyIn(amount, playerData.user_id);

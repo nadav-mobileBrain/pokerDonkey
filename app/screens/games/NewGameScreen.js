@@ -21,6 +21,7 @@ import routes from "../../navigation/routes";
 import getLeaguePlayers from "../../api/leagues";
 import ActivityIndicator from "../../components/ActivityIndicator";
 import useAuth from "../../auth/useAuth";
+import logger from "../../utility/logger";
 
 const NewGame = ({ route, navigation }) => {
   const isFocused = useIsFocused(); // Add this line
@@ -33,7 +34,7 @@ const NewGame = ({ route, navigation }) => {
  
   const getLeaguePlayersApi = useApi(getLeaguePlayers.getLeaguePlayers);
   const [game, setGame] = useState(route.params.game);
-  console.log("🚀 ~ NewGame ~ game:", game)
+ 
   const league = route.params.league;
   const endGameApi = useApi(gameApi.endGame);
   const takeControllOfGameApi = useApi(gameApi.takeControllOfGame);
@@ -60,7 +61,7 @@ const NewGame = ({ route, navigation }) => {
       if (result.data) setError(result.data.error);
       else {
         setError("An unexpected error occurred.");
-        console.log(result);
+        logger.log(result);
       }
       return;
     }
@@ -99,7 +100,7 @@ const NewGame = ({ route, navigation }) => {
       if (replaceGameAdmin.data) setError(replaceGameAdmin.data.error);
       else {
         setError("An unexpected error occurred.");
-        console.log(replaceGameAdmin);
+        logger.log(replaceGameAdmin);
       }
       return;
     }

@@ -15,6 +15,7 @@ import usersApi from "../../api/users";
 import useApi from "../../hooks/useApi";
 import useAuth from "../../auth/useAuth";
 import colors from "../../config/colors";
+import logger from "../../utility/logger";
 
 const validationSchema = Yup.object().shape({
   nickName: Yup.string().required().label("Nick Name"),
@@ -41,7 +42,7 @@ const RegisterScreen = () => {
       if (result.data) setError(result.data.error);
       else {
         setError("An unexpected error occurred.");
-        console.log(result);
+        logger.log(result);
       }
       return;
     }

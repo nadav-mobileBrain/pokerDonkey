@@ -13,6 +13,8 @@ import leaguesApi from "../../api/leagues";
 import Screen from "../../components/Screen";
 import useAuth from "../../auth/useAuth";
 import useApi from "../../hooks/useApi";
+import logger from "../../utility/logger";
+
 
 const validationSchema = Yup.object().shape({
   leagueName: Yup.string().min(2).required().label("League Name"),
@@ -37,7 +39,7 @@ const CreateLeagueScreen = ({ navigation }) => {
       if (result.data) setError(result.data.error);
       else {
         setError("An unexpected error occurred.");
-        console.log(result);
+        logger.log(result);
       }
       return;
     }

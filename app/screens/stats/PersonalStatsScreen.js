@@ -32,9 +32,9 @@ const PersonalStatsScreen = ({route}) => {
 
   const url = config.s3.baseUrl + user.image;
   const getPersonalStatsApi = useApi(usersApi.getPersonalStats);
-  const [refreshing, setRefreshing] = useState(false);
+ // const [refreshing, setRefreshing] = useState(false);
   const [personalStats, setPersonalStats] = useState([]);
-  console.log("🚀 ~ PersonalStatsScreen ~ personalStats:", personalStats)
+ 
 
   const [loading, setLoading] = useState(false);
 

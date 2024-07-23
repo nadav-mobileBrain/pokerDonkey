@@ -21,7 +21,6 @@ const LeagueScreen = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const getLeaguesApi = useApi(leaguesApi.getLeagues);
   const [leagues, setLeagues] = useState([]);
-  console.log("🚀 ~ LeagueScreen ~ leagues:", getLeaguesApi.data?.leagues)
 
   useEffect(() => {
     const fetchLeagues = async () => {

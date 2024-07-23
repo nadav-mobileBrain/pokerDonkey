@@ -13,6 +13,7 @@ import colors from "../../config/colors";
 import useAuth from "../../auth/useAuth";
 import authStorage from "../../auth/storage";
 import AuthContext from "../../auth/context";
+import logger from "../../utility/logger";
 import ErrorMessage from "../../components/forms/ErrorMessage";
 import ImageInput from "../../components/forms/ImageInput";
 import routes from "../../navigation/routes";
@@ -46,13 +47,13 @@ const EditProfileScreen = ({ navigation }) => {
     };
 
     const result = await updatePersonaldetailsApi.request(completeUserInfo);
-    console.log("🚀 ~ handleSubmit ~ result:", result);
+   
 
     if (!result.ok) {
       if (result.data) setError(result.data.error);
       else {
         setError("An unexpected error occurred.");
-        console.log(result);
+        logger.log(result);
       }
       return;
     }

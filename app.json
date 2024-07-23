@@ -4,7 +4,7 @@
     "slug": "pokerdonkey",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./app/assets/icon.png",
+    "icon": "./app/assets/appLogo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./app/assets/splash.png",
@@ -23,7 +23,8 @@
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.nadavg.pokerdonkey"
+      "package": "com.nadavg.pokerdonkey",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./app//assets/favicon.png"
@@ -31,12 +32,22 @@
     "extra": {
       "eas": {
         "projectId": "0ebf019a-7956-4454-b254-c8aa62144cb4"
+      },
+      "bugsnag": {
+        "apiKey": "62021bda5a532116d0e251352fba9ed0"
       }
     },
     "owner": "nadavg",
     "plugins": [
       "expo-font",
-      "expo-secure-store"
-    ]
+      "expo-secure-store",
+      "@bugsnag/plugin-expo-eas-sourcemaps"
+    ],
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/0ebf019a-7956-4454-b254-c8aa62144cb4"
+    }
   }
 }

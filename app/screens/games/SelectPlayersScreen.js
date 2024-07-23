@@ -12,7 +12,7 @@ import gameApi from "../../api/game";
 import useApi from "../../hooks/useApi";
 import useAuth from "../../auth/useAuth";
 import routes from "../../navigation/routes";
- 
+import logger from "../../utility/logger"; 
 
 const SelectPlayersScreen = ({ route, navigation }) => {
   const leaguePlayers = route.params.leaguePlayers;
@@ -79,7 +79,7 @@ const SelectPlayersScreen = ({ route, navigation }) => {
         if (result.data) setError(result.data.error);
         else {
           setError("An unexpected error occurred.");
-          console.log(result);
+          logger.log(result);
         }
         return;
       }

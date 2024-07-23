@@ -10,6 +10,7 @@ import AppButton from "../../components/AppButton";
 import gameApi from "../../api/game";
 import useApi from "../../hooks/useApi";
 import routes from "../../navigation/routes";
+import logger from "../../utility/logger";
 
 const AddRemovePlayers = ({ route, navigation }) => {
   const leaguePlayers = route.params.leaguePlayersFromApi;
@@ -52,7 +53,7 @@ const continueGame =  async () => {
     if (result.data) setError(result.data.error);
     else {
       setError("An unexpected error occurred.");
-      console.log(result);
+      logger.log(result);
     }
     return;
   }

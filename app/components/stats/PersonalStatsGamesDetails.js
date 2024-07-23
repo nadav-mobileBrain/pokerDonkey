@@ -10,7 +10,7 @@ const PersonalStatsGamesDetails = ({ game, index }) => {
 
   return (
     <View style={[styles.container, isOddLine && styles.oddLine]}>
-      <AppText style={styles.league}>{game.League.league_name}</AppText>
+      <AppText style={styles.league}>{game.league.league_name}</AppText>
       <AppText style={styles.others}> {formattedDate}</AppText>
       <AppText
         style={[styles.others, { color: game.profit > 0 ? "green" : "red" }]}>
