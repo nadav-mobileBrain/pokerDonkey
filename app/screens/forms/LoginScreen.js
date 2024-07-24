@@ -17,15 +17,16 @@ import colors from "../../config/colors";
 
 const vaslidationSchema = Yup.object().shape({
   nickName: Yup.string().required().min(2).label("Nick Name"),
-  password: Yup.string().required().min(4).label("Password"),
+  //password: Yup.string().required().min(4).label("Password"),
 });
 
 const LoginScreen = () => {
   const { logIn } = useAuth();
   const [loginFailed, setLoginFailed] = useState(false);
 
-  const handleSubmit = async ({ nickName, password }) => {
-    const result = await authApi.login({ nickName, password });
+  const handleSubmit = async ({ nickName}) => {
+    console.log("🚀 ~ handleSubmit ~ nickName:", nickName)
+    const result = await authApi.login({ nickName });
 
     if (!result.ok) return setLoginFailed(true);
     setLoginFailed(false);
@@ -39,7 +40,7 @@ const LoginScreen = () => {
         >
       <AppLogo />
       <AppForm
-        initialValues={{ nickName: "", password: "" }}
+        initialValues={{ nickName: "" }}
         onSubmit={handleSubmit}
         validationSchema={vaslidationSchema}>
         <ErrorMessage
@@ -52,16 +53,6 @@ const LoginScreen = () => {
           icon="account"
           autoCapitalize="none"
           autoCorrect={false}
-        />
-
-        <AppFormField
-          placeholder="Password"
-          icon="lock"
-          autoCapitalize="none"
-          autoCorrect={false}
-          textContentType="password"
-          secureTextEntry
-          name="password"
         />
         <SubmitButton title="Login" color="gold" />
       </AppForm>

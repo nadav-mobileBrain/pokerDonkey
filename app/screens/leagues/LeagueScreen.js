@@ -16,23 +16,32 @@ import routes from "../../navigation/routes";
 import Screen from "../../components/Screen";
 import useApi from "../../hooks/useApi";
 import AppLogo from "../../components/AppLogo";
+import useAuth from "../../auth/useAuth";
+import { useIsFocused } from '@react-navigation/native';
 
 const LeagueScreen = ({ navigation }) => {
+  const isFocused = useIsFocused(); // Add this line
   const [refreshing, setRefreshing] = useState(false);
   const getLeaguesApi = useApi(leaguesApi.getLeagues);
   const [leagues, setLeagues] = useState([]);
-  console.log("🚀 ~ LeagueScreen ~ leagues:", getLeaguesApi.data?.leagues)
+  const { user } = useAuth();
 
+  const fetchLeagues = async () => {
+    const userLeagues = await getLeaguesApi.request(user?.userId);
+    if (!userLeagues.ok) {
+      return;
+    }
+    setLeagues(userLeagues?.data);
+  };
+
+
+   
   useEffect(() => {
-    const fetchLeagues = async () => {
-      const userLeagues = await getLeaguesApi.request();
-      setLeagues(userLeagues?.data?.leaguePlayers);
-    };
+    if (isFocused) {
+      fetchLeagues();// Refresh data when the screen is focused
+    }
+  }, [isFocused]);
 
-    setTimeout(() => {
-      fetchLeagues();
-    }, 1000);
-  }, []);
 
   return (
     <>
@@ -53,17 +62,17 @@ const LeagueScreen = ({ navigation }) => {
               <AppButton title="Retry" onPress={getLeaguesApi.request} />
             </>
           )}
-          {getLeaguesApi.data?.leagues?.length === 0 && (
+          {leagues?.leagues?.length === 0 && (
             <NoLeagues navigation={navigation} />
           )}
 
-            {getLeaguesApi.data?.leagues?.length > 0 && (
+            {leagues?.leagues?.length > 0 && (
               <CreatejoinLeagues navigation={navigation} />
             )}
 
-          {getLeaguesApi.data?.leagues?.length > 0 && (
+          {leagues?.leagues?.length > 0 && (
             <FlatList
-              data={getLeaguesApi.data.leagues}
+              data={leagues.leagues}
               keyExtractor={(league) => league.id.toString()}
               renderItem={({ item }) => (
                 <Card
@@ -73,7 +82,7 @@ const LeagueScreen = ({ navigation }) => {
                   onPress={() =>
                     navigation.navigate(routes.LEAGUE_DETAILS, {
                       item,
-                      data: getLeaguesApi.data,
+                      data: leagues,
                     })
                   }
                 />
@@ -81,7 +90,7 @@ const LeagueScreen = ({ navigation }) => {
               refreshing={refreshing}
               onRefresh={() => {
                 setRefreshing(true);
-                getLeaguesApi.request();
+                fetchLeagues();
                 setRefreshing(false);
               }}
             />

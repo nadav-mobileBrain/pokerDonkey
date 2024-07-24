@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import AppText from "../AppText";
-import HeaderText from "../HeaderText";
+ 
 import colors from "../../config/colors";
 import config from "../../config/config";
 import AppButton from "../AppButton";
@@ -11,6 +11,7 @@ import { AppForm, AppFormField, ErrorMessage, SubmitButton } from "../forms";
 import * as Yup from "yup";
 import ActivityIndicator from "../ActivityIndicator";
 import { removeLastBuyIn, addBuyIn } from "../../utils/gameUtils";
+import logger from "../../utility/logger";
 
 const validationSchema = Yup.object().shape({
   cashOutAmount: Yup.number().required().label("Cash Out Amount"),
@@ -79,7 +80,7 @@ const PlayerGameCardModal = ({
       if (result.data) setError(result.data.error);
       else {
         setError("An unexpected error occurred.");
-        console.log(result);
+        logger.log(result);
       }
       return;
     }
@@ -98,6 +99,7 @@ const PlayerGameCardModal = ({
           style={styles.image}
         />
         <AppText style={styles.nickName}>{playerData?.User?.nickName}</AppText>
+        {error && <AppText>{error}</AppText>}
       </View>
       <View style={styles.form}>
         <AppButton

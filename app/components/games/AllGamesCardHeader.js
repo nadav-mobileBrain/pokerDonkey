@@ -16,11 +16,11 @@ const AllGamesCardHeader = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     width: "100%",
     padding: 10,
     justifyContent: "space-around",
-    backgroundColor: colors.AccentPurple,
+    backgroundColor: colors.gold,
   },
   headline: {
     fontSize: 15,

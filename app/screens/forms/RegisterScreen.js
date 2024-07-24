@@ -15,10 +15,11 @@ import usersApi from "../../api/users";
 import useApi from "../../hooks/useApi";
 import useAuth from "../../auth/useAuth";
 import colors from "../../config/colors";
+import logger from "../../utility/logger";
 
 const validationSchema = Yup.object().shape({
   nickName: Yup.string().required().label("Nick Name"),
-  password: Yup.string().required().min(4).label("Password"),
+  //password: Yup.string().required().min(4).label("Password"),
   image: Yup.string().label("Image"),
 });
 
@@ -41,7 +42,7 @@ const RegisterScreen = () => {
       if (result.data) setError(result.data.error);
       else {
         setError("An unexpected error occurred.");
-        console.log(result);
+        logger.log(result);
       }
       return;
     }
@@ -70,7 +71,7 @@ const RegisterScreen = () => {
             name="nickName"
             placeholder="Nick Name"
           />
-          <AppFormField
+          {/* <AppFormField
             autoCapitalize="none"
             autoCorrect={false}
             icon="lock"
@@ -78,8 +79,8 @@ const RegisterScreen = () => {
             placeholder="Password"
             secureTextEntry
             textContentType="password"
-          />
-          <View style={{ alignItems: "flex-start" }}>
+          /> */}
+          <View style={{ alignItems: "flex-end" }}>
             <ImageInput
               imageUri={imageUri}
               onChangeImage={(uri) => setImageUri(uri)}

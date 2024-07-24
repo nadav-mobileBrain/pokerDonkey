@@ -7,10 +7,9 @@ import PlayersList from "../../components/stats/PlayerList";
 import useApi from "../../hooks/useApi";
 import statsApi from "../../api/stats";
 import ActivityIndicator from "../../components/ActivityIndicator";
-import AppLogo from "../../components/AppLogo";
-
+ 
 const CardStatsScreen = ({ route }) => {
-  console.log("🚀 ~ CardStatsScreen ~ route:", route)
+ 
   const [cardPlayers, setCardPlayers] = useState([]);
   const [leader, setLeader] = useState({});
   const [loading, setLoading] = useState(false);

@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "pokerDonkey",
+    "name": "pokerDonk",
     "slug": "pokerdonkey",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "orientation": "portrait",
-    "icon": "./app/assets/icon.png",
+    "icon": "./app/assets/appLogo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./app/assets/splash.png",
@@ -20,10 +20,15 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/adaptive-icon.png",
+        "foregroundImage": "./app/assets/appLogo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.nadavg.pokerdonkey"
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-2640391750032066~8921874991" // real  App ID
+      },
+      "package": "com.nadavg.pokerdonkey",
+      "versionCode": 1,
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./app//assets/favicon.png"
@@ -31,12 +36,22 @@
     "extra": {
       "eas": {
         "projectId": "0ebf019a-7956-4454-b254-c8aa62144cb4"
+      },
+      "bugsnag": {
+        "apiKey": "62021bda5a532116d0e251352fba9ed0"
       }
     },
     "owner": "nadavg",
     "plugins": [
       "expo-font",
-      "expo-secure-store"
-    ]
+      "expo-secure-store",
+      "@bugsnag/plugin-expo-eas-sourcemaps"
+    ],
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/0ebf019a-7956-4454-b254-c8aa62144cb4"
+    }
   }
 }

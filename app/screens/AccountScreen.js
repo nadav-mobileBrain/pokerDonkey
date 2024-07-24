@@ -21,13 +21,6 @@ const menuItems = [
     },
     targetScreen: "EditProfile",
   },
-  // {
-  //   title: "My Leagues",
-  //   icon: {
-  //     name: "format-list-bulleted",
-  //     backgroundColor: colors.PrimaryBlue,
-  //   },
-  // },
   {
     title: "My Messages-Coming soon...",
     icon: {
@@ -43,49 +36,46 @@ const AccountScreen = ({ navigation }) => {
 
   return (
     <>
-    <ActivityIndicator visible={!user} />
-    <Screen style={styles.screen}>
-    <LinearGradient
+      <ActivityIndicator visible={!user} />
+      <Screen style={styles.screen}>
+        <LinearGradient
           colors={colors.secondaryGradientArray}
           style={styles.background}
         >
-      <View style={styles.container}>
-        <PlayerDetails
-          title={user.nickName}
-          subTitle="Go To Personal Stats"
-          //subTitle="Joined at 2019-09-09"
-          image={{ uri: `${config.s3.baseUrl}${user.image}` }}
-          onPress={() => navigation.navigate(routes.PERSONAL_STATS)}
-        />
-      </View>
-      <View style={styles.container}>
-        <FlatList
-          data={menuItems}
-          keyExtractor={(menuItem) => menuItem.title}
-          renderItem={({ item }) => (
+          <View style={styles.container}>
             <PlayerDetails
-              title={item.title}
-              IconComponent={
-                <Icon
-                  name={item.icon.name}
-                  backgroundColor={item.icon.backgroundColor}
-                />
-              }
-              onPress={() =>
-                navigation.navigate(item.targetScreen, { user, navigation })
-              }
-              ItemsSeperatorComponent={ListitemSeperator}
+              title={user.nickName}
+              subTitle="Go To Personal Stats"
+              image={{ uri: `${config.s3.baseUrl}${user.image}` }}
+              onPress={() => navigation.navigate(routes.PERSONAL_STATS)}
             />
-          )}
-        />
-      </View>
-      <PlayerDetails
-        title="Log Out"
-        IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
-        onPress={() => logOut()}
-      />
-      </LinearGradient>
-    </Screen>
+          </View>
+          <View style={styles.container}>
+            <FlatList
+              data={menuItems}
+              keyExtractor={(menuItem) => menuItem.title}
+              renderItem={({ item }) => (
+                <PlayerDetails
+                  title={item.title}
+                  IconComponent={
+                    <Icon
+                      name={item.icon.name}
+                      backgroundColor={item.icon.backgroundColor}
+                    />
+                  }
+                  onPress={() => navigation.navigate(item.targetScreen, { user })}
+                  ItemsSeperatorComponent={ListitemSeperator}
+                />
+              )}
+            />
+          </View>
+          <PlayerDetails
+            title="Log Out"
+            IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+            onPress={() => logOut()}
+          />
+        </LinearGradient>
+      </Screen>
     </>
   );
 };
@@ -100,7 +90,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   screen: {
-flex:1
+    flex: 1,
   },
 });
 

@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 
   },
   allGamesContainer:{
-    flexDirection: "row",
+    // flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     padding:5,

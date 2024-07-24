@@ -12,13 +12,15 @@ import gameApi from "../../api/game";
 import useApi from "../../hooks/useApi";
 import useAuth from "../../auth/useAuth";
 import routes from "../../navigation/routes";
- 
+import logger from "../../utility/logger"; 
 
 const SelectPlayersScreen = ({ route, navigation }) => {
   const leaguePlayers = route.params.leaguePlayers;
 
+
   const league = route.params.league;
   const { user } = useAuth();
+
   const gameAdminId = user.userId;
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const isFocused = useIsFocused(); // Add this line
@@ -67,19 +69,21 @@ const SelectPlayersScreen = ({ route, navigation }) => {
   };
 
   const startNewGame = async () => {
- 
+
+    
     const result = await createNewGameApi.request({
         selectedPlayers,
         leagueId: league.id,
         gameAdminId,
       });
+    console.log("🚀 ~ startNewGame ~ result:", result.data)
  
   
       if (!result.ok) {
         if (result.data) setError(result.data.error);
         else {
           setError("An unexpected error occurred.");
-          console.log(result);
+          logger.log(result);
         }
         return;
       }

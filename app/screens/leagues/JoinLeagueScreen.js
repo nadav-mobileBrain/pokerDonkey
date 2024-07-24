@@ -15,6 +15,7 @@ import Screen from "../../components/Screen";
 import SubmitButton from "../../components/forms/SubmitButton";
 import useAuth from "../../auth/useAuth";
 import routes from "../../navigation/routes";
+import logger from "../../utility/logger";
 
 const validationSchema = Yup.object().shape({
   leagueNumber: Yup.string().required().min(4).max(5).label("League Number"),
@@ -39,7 +40,7 @@ const JoinLeagueScreen = ({ navigation }) => {
       if (result.data.error) setError(result.data.error);
       else {
         setError("An unexpected error occurred.");
-        console.log(result);
+        logger.log(result);
       }
       return;
     }

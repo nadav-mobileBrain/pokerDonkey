@@ -15,11 +15,11 @@ const GameHeader = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     width: "100%",
     justifyContent: "space-between",
     padding: 10,
-    backgroundColor: colors.white,
+    backgroundColor: colors.gold,
 
   },
   title: {

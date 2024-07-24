@@ -5,7 +5,6 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { AppForm, AppFormField, SubmitButton } from "../../components/forms";
 import ActivityIndicator from "../../components/ActivityIndicator";
-import authApi from "../../api/auth";
 import usersApi from "../../api/users";
 import useApi from "../../hooks/useApi";
 import config from "../../config/config";
@@ -13,6 +12,7 @@ import colors from "../../config/colors";
 import useAuth from "../../auth/useAuth";
 import authStorage from "../../auth/storage";
 import AuthContext from "../../auth/context";
+import logger from "../../utility/logger";
 import ErrorMessage from "../../components/forms/ErrorMessage";
 import ImageInput from "../../components/forms/ImageInput";
 import routes from "../../navigation/routes";
@@ -22,6 +22,7 @@ const validationSchema = Yup.object().shape({
   nickName: Yup.string().required().label("Nick Name"),
   image: Yup.string().label("Image"),
 });
+
 const EditProfileScreen = ({ navigation }) => {
   const { setUser } = useContext(AuthContext);
   const restoreUser = async () => {
@@ -29,14 +30,12 @@ const EditProfileScreen = ({ navigation }) => {
     if (user) setUser(user);
   };
 
-  const registerApi = useApi(usersApi.register);
-  const loginApi = useApi(authApi.login);
   const updatePersonaldetailsApi = useApi(usersApi.updatePersonaldetails);
-
   const auth = useAuth();
   const { user } = useAuth();
+  console.log("🚀 ~ EditProfileScreen ~ user:", user)
   const [error, setError] = useState();
-  const [imageUri, setImageUri] = useState(`${config.s3.baseUrl}${user.image}`); // New state for image URI
+  const [imageUri, setImageUri] = useState(`${config.s3.baseUrl}${user.image}`);
 
   const handleSubmit = async (userInfo) => {
     const completeUserInfo = {
@@ -46,13 +45,12 @@ const EditProfileScreen = ({ navigation }) => {
     };
 
     const result = await updatePersonaldetailsApi.request(completeUserInfo);
-    console.log("🚀 ~ handleSubmit ~ result:", result);
 
     if (!result.ok) {
       if (result.data) setError(result.data.error);
       else {
         setError("An unexpected error occurred.");
-        console.log(result);
+        logger.log(result);
       }
       return;
     }
@@ -67,33 +65,30 @@ const EditProfileScreen = ({ navigation }) => {
 
   return (
     <>
-      <ActivityIndicator visible={registerApi.loading || loginApi.loading} />
+      <ActivityIndicator visible={updatePersonaldetailsApi.loading} />
       <Screen style={styles.container}>
-      <LinearGradient
-          colors={colors.primaryGradientArray}
-          style={styles.background}
-        >
-        <AppForm
-          initialValues={{ nickName: user.nickName }}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}>
-          <ErrorMessage error={error} visible={error} />
-          <AppFormField
-            autoCorrect={false}
-            icon="account"
-            name="nickName"
-            placeholder={user.nickName}
-          />
-
-          <View style={{ alignItems: "flex-start" }}>
-            <ImageInput
-              imageUri={imageUri}
-              onChangeImage={(uri) => setImageUri(uri)}
+        <LinearGradient colors={colors.primaryGradientArray} style={styles.background}>
+          <AppForm
+            initialValues={{ nickName: user?.nickName }}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}>
+            <ErrorMessage error={error} visible={error} />
+            <AppFormField
+              autoCorrect={false}
+              icon="account"
+              name="nickName"
+              //placeholder="Nick Name"
+             // value={user.nickName}
             />
-          </View>
-          <SubmitButton title="Edit Details" icon="account-edit" color="gold" />
-        </AppForm>
-      </LinearGradient>
+            <View style={{ alignItems: "flex-end" }}>
+              <ImageInput
+                imageUri={imageUri}
+                onChangeImage={(uri) => setImageUri(uri)}
+              />
+            </View>
+            <SubmitButton title="Edit Details" icon="account-edit" color="gold" />
+          </AppForm>
+        </LinearGradient>
       </Screen>
     </>
   );

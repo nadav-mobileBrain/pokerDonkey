@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import logger from "../../utility/logger";
 
 import colors from "../../config/colors";
 
@@ -39,7 +40,7 @@ function ImageInput({ imageUri, onChangeImage }) {
 
       if (!result.canceled) onChangeImage(result.assets[0].uri);
     } catch (error) {
-      console.log("Error reading an image", error);
+      logger.log("Error reading an image", error);
     }
   };
 

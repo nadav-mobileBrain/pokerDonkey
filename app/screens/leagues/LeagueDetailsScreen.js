@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, Alert } from "react-native";
 import dayjs from "dayjs";
 
 import ActivityIndicator from "../../components/ActivityIndicator";
@@ -68,6 +68,10 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
           <AppText style={styles.leagueInfo}>League Name : {league.league_name}</AppText>
           <AppText style={styles.leagueInfo}>League Number : {league.league_number}</AppText>
           <AppText style={styles.leagueInfo}>Admin : {league.leagueAdmin?.nickName}</AppText>
+          <AppText style={styles.edit}
+            onPress={() => navigation.navigate(routes.EDIT_LEAGUE, { league })}
+           >Edit league name or image</AppText>
+        
         </View>
         <PlayerInfo leaguePlayers={leaguePlayers} /> 
         <View style={styles.buttonContainer}>
@@ -113,6 +117,12 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+  },
+  edit: {
+    color: colors.PrimaryBlue,
+    fontSize: 15,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   detailsContainer: {
     padding: 10,
