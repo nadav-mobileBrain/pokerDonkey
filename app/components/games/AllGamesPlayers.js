@@ -36,7 +36,7 @@ const AllGamesPlayers = ({ player }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     width: "100%",
     padding: 5,
     justifyContent: "space-around",

@@ -1,5 +1,3 @@
- 
-
 import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import * as Font from "expo-font";
@@ -11,17 +9,17 @@ import navigationTheme from "./app/navigation/navigationTheme";
 import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 import { navigationRef } from "./app/navigation/rootNavigation";
-import {  Roboto_400Regular, Roboto_700Bold,Roboto_500Medium } from "@expo-google-fonts/roboto";
+import { Roboto_400Regular, Roboto_700Bold, Roboto_500Medium } from "@expo-google-fonts/roboto";
 import logger from "./app/utility/logger";
-
+// import AdBanner from './AdBanner';
 
 logger.start();
-// // This is an async function that loads the font
+
 
 export default function App() {
- 
   const [user, setUser] = useState();
   const [fontsLoaded, setFontsLoaded] = useState(false);
+
   const restoreUser = async () => {
     const user = await authStorage.getUser();
     if (user) setUser(user);
@@ -38,20 +36,19 @@ export default function App() {
     });
     setFontsLoaded(true);
   };
+
   useEffect(() => {
     restoreUser();
     loadFonts();
   }, []);
 
-  
   if (!fontsLoaded) {
     return <ActivityIndicator visible={true} />;
   }
 
-
- 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
+        {/* <AdBanner /> */}
       <NavigationContainer theme={navigationTheme} ref={navigationRef}>
         {user ? <AppNavigator /> : <AuthNavigator />}
       </NavigationContainer>

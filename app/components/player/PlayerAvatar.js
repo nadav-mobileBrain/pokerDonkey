@@ -29,7 +29,7 @@ const PlayerAvatar = () => {
 const styles = StyleSheet.create({
   container: {
     margin: 10,
-    alignItems: "flex-start",
+    alignItems: "flex-end",
   },
   avatarContainer: {
     alignItems: "center",

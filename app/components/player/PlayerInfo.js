@@ -49,7 +49,7 @@ const PlayerInfo = ({
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flexDirection: 'row-reverse',
     flexWrap: 'wrap',
     justifyContent: 'center',
     padding: 5,

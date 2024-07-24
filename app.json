@@ -23,6 +23,9 @@
         "foregroundImage": "./app/assets/appLogo.png",
         "backgroundColor": "#ffffff"
       },
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-2640391750032066~8921874991" // real  App ID
+      },
       "package": "com.nadavg.pokerdonkey",
       "versionCode": 1,
       "googleServicesFile": "./google-services.json"

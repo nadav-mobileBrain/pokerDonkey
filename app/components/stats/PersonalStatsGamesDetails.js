@@ -26,7 +26,7 @@ const PersonalStatsGamesDetails = ({ game, index }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     justifyContent: "space-between",
     paddingVertical: 5,
     backgroundColor: colors.white,

@@ -80,7 +80,7 @@ const EditProfileScreen = ({ navigation }) => {
               //placeholder="Nick Name"
              // value={user.nickName}
             />
-            <View style={{ alignItems: "flex-start" }}>
+            <View style={{ alignItems: "flex-end" }}>
               <ImageInput
                 imageUri={imageUri}
                 onChangeImage={(uri) => setImageUri(uri)}

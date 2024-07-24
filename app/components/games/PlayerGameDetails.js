@@ -30,7 +30,7 @@ const PlayerGameDetails = ({ image, nickName, onPress, playerData }) => {
         <View style={styles.detailsContainer}>
           <AppText>{playerData.buy_ins_amount}</AppText>
           <MaterialCommunityIcons
-            name="chevron-right"
+            name="chevron-left"
             size={25}
             color={colors.medium}
             style={{ marginRight: 30 }}
@@ -43,7 +43,7 @@ const PlayerGameDetails = ({ image, nickName, onPress, playerData }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     justifyContent: "space-between",
     padding: 5,
     backgroundColor: colors.white,
@@ -55,10 +55,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   detailsContainer: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
   },
   innerContainer: {
     flexDirection: "column",
+    
     alignItems: "center",
     width: 70,
     textAlign: "center",

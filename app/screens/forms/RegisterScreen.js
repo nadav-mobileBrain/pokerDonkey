@@ -80,7 +80,7 @@ const RegisterScreen = () => {
             secureTextEntry
             textContentType="password"
           /> */}
-          <View style={{ alignItems: "flex-start" }}>
+          <View style={{ alignItems: "flex-end" }}>
             <ImageInput
               imageUri={imageUri}
               onChangeImage={(uri) => setImageUri(uri)}

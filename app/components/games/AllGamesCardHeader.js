@@ -16,7 +16,7 @@ const AllGamesCardHeader = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     width: "100%",
     padding: 10,
     justifyContent: "space-around",

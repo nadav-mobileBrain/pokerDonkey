@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
   totalStatsContainer: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     padding: 10,
     justifyContent: "space-between",
     textAlignVertical: "center",

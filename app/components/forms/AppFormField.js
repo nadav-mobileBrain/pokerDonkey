@@ -25,7 +25,7 @@ function AppFormField({ name, width, ...otherProps }) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
   },
 });
 

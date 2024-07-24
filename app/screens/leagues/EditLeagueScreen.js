@@ -71,7 +71,7 @@ const updateLeagueDetailsApi = useApi(leagueApi.updateLeagueDetails);
             placeholder={leageName}
           />
 
-          <View style={{ alignItems: "flex-start" }}>
+          <View style={{ alignItems: "flex-end" }}>
             <ImageInput
               imageUri={imageUri}
               onChangeImage={(uri) => setImageUri(uri)}
