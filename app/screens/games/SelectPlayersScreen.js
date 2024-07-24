@@ -20,7 +20,7 @@ const SelectPlayersScreen = ({ route, navigation }) => {
 
   const league = route.params.league;
   const { user } = useAuth();
-  console.log("🚀 ~ SelectPlayersScreen ~ user:", user)
+
   const gameAdminId = user.userId;
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const isFocused = useIsFocused(); // Add this line

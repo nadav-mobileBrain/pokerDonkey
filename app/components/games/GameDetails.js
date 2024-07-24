@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderTopRightRadius:15,
     borderTopLeftRadius:15,
-    backgroundColor: colors.surface,
+    backgroundColor: colors.gold,
     overflow: "hidden",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },

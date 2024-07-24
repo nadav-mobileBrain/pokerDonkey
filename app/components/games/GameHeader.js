@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-between",
     padding: 10,
-    backgroundColor: colors.white,
+    backgroundColor: colors.gold,
 
   },
   title: {

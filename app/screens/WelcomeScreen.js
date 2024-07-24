@@ -3,22 +3,26 @@ import { View, StyleSheet, ImageBackground, Text } from "react-native";
 import AppButton from "../components/AppButton";
 import colors from "../config/colors";
 import AppLogo from "../components/AppLogo";
-import useAuth from "../auth/useAuth"; // Assuming this is the correct import
+import useAuth from "../auth/useAuth"; 
+import authApi from "../api/auth"; 
 
 const WelcomeScreen = ({ navigation }) => {
-  const auth = useAuth();
+  const { logIn, logOut} = useAuth();
 
-  const takeATour = () => {
-    const authToken = {};
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2Niwibmlja05hbWUiOiJCaWJzIiwiaW1hZ2UiOiJ1cGxvYWRzLzE3MTY2MjUwNTM2OTdfQmlicy5qcGVnIiwiaWF0IjoxNzIxNzQzNTkyfQ.tsjUtuAXusp9OfvEoYkt1J0yeGYhI_SGXO16u8l3Qf0'
-    authToken.token = token;
-    auth.logIn(authToken);
+  const takeATour = async () => {
+    logOut();
+    try {
+      const result = await authApi.login({ nickName: "Test user" });
+      logIn(result.data);
+    } catch (error) {
+      console.error("Error during guest login", error);
+    }
   }
 
   return (
     <ImageBackground
       style={styles.container}
-      source={require("../assets/appLogo.png")}// Change to a more suitable background image
+      source={require("../assets/appLogo.png")}
       blurRadius={6}>
       <View style={styles.logoContainer}>
         <AppLogo />
@@ -32,7 +36,7 @@ const WelcomeScreen = ({ navigation }) => {
         <AppButton
           title="Take A Tour"
           color="primary"
-          onPress={takeATour}
+          onPress={()=>takeATour()}
           icon="arrow-right-bold-outline"
         />
         <AppButton

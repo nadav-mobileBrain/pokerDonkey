@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 10,
     justifyContent: "space-around",
-    backgroundColor: colors.AccentPurple,
+    backgroundColor: colors.gold,
   },
   headline: {
     fontSize: 15,

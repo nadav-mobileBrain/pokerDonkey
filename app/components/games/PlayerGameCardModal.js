@@ -99,6 +99,7 @@ const PlayerGameCardModal = ({
           style={styles.image}
         />
         <AppText style={styles.nickName}>{playerData?.User?.nickName}</AppText>
+        {error && <AppText>{error}</AppText>}
       </View>
       <View style={styles.form}>
         <AppButton

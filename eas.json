@@ -5,15 +5,22 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "channel": "development"
     },
     "preview": {
       "distribution": "internal",
-      "android":{
-        "buildType": "apk"
+      "android": {
+        "buildType": "apk",
+        "channel": "preview"
+      },
+      "env": {
+        "GOOGLE_SERVICES_JSON": "@project:GOOGLE_SERVICES_JSON"
       }
     },
-    "production": {}
+    "production": {
+      "channel": "production"
+    }
   },
   "submit": {
     "production": {}

@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "pokerDonkey",
+    "name": "pokerDonk",
     "slug": "pokerdonkey",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "orientation": "portrait",
     "icon": "./app/assets/appLogo.png",
     "userInterfaceStyle": "light",
@@ -20,11 +20,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/adaptive-icon.png",
+        "foregroundImage": "./app/assets/appLogo.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.nadavg.pokerdonkey",
-      "versionCode": 1
+      "versionCode": 1,
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./app//assets/favicon.png"

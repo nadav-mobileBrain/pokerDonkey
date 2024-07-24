@@ -9,7 +9,7 @@ const meirIp = "192.168.1.152";
 
 const settings = {
     dev:{
-         baseURL: `http://${homeIp}:3030/`,
+         baseURL: `http://${workIp}:3030/`,
         },
     production:{
         baseURL: `https://backend-donk-ae6a3b674658.herokuapp.com/`,
@@ -17,7 +17,7 @@ const settings = {
 };
 
 const getCurrentSettings = () => {
-    if(__DEV__) return settings.dev;
+   //  if(__DEV__) return settings.dev;
     return settings.production;
 };
 
