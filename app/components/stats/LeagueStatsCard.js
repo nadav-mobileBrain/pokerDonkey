@@ -22,10 +22,8 @@ const LeagueStatsCard = ({ league }) => {
   }, []);
 
   return (
-    <ImageBackground
-      style={styles.card}
-      source={require("../../assets/bg56.webp")}>
-      <View style={styles.overlay} />
+    
+      <View style={styles.card}>
       <View style={styles.imageContainer}>
         <Image
           source={{ uri: `${config.s3.baseUrl}${league.league_image}` }}
@@ -50,7 +48,8 @@ const LeagueStatsCard = ({ league }) => {
           Last Game: {leagueStats?.lastGame?.created_at}
         </Text>
       </View>
-    </ImageBackground>
+      </View>
+  
   );
 };
 
@@ -58,9 +57,10 @@ const styles = StyleSheet.create({
   card: {
     padding: 10,
     borderRadius: 10,
-    flexDirection: "row-reverse",
+   flexDirection: "row-reverse",
     alignItems: "center",
     overflow: "hidden",
+    backgroundColor: colors.AccentPurple,
   },
   image: {
     width: 50,
@@ -74,16 +74,16 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   leagueName: {
-    color: colors.white,
+    color: colors.gold,
   },
 
   number: {
     fontSize: 12,
-    color: colors.white,
+    color: colors.gold,
   },
   stat: {
-    fontSize: 14,
-    color: colors.white,
+    fontSize: 13,
+    color: colors.gold,
     fontFamily:'Roboto_700Bold'
   },
 

@@ -2,7 +2,7 @@
   "expo": {
     "name": "pokerDonk",
     "slug": "pokerdonkey",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "orientation": "portrait",
     "icon": "./app/assets/appLogo.png",
     "userInterfaceStyle": "light",

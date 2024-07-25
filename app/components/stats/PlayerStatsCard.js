@@ -4,13 +4,19 @@ import React, { useState, useEffect } from "react";
 import useApi from "../../hooks/useApi";
 import ActivityIndicator from "../ActivityIndicator";
 import statsApi from "../../api/stats";
-import StatsCard from "./StatsCard";
+import PlayerDetails from "../player/PlayerDetails";
 import LeagueStatsCard from "./LeagueStatsCard";
 import HeaderText from "../HeaderText";
 import AppText from "../AppText";
 import colors from "../../config/colors";
+import config from "../../config/config";
+import { useNavigation } from "@react-navigation/native";
+import routes from "../../navigation/routes";
+
+
 
 const PlayerStatsCard = ({ league }) => {
+  const navigation = useNavigation();
   const getCardsInfo = useApi(statsApi.getMainCardsStats);
   const [cardsData, setCardsData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -47,7 +53,15 @@ const PlayerStatsCard = ({ league }) => {
         data={cardsData}
         keyExtractor={(card) => card.id.toString()}
         renderItem={({ item }) => (
-          <StatsCard data={item} leagueId={league?.id} />
+          <PlayerDetails
+          title={item.title}
+          subTitle={item.subTitle}
+          image={{ uri: `${config.s3.baseUrl}${item.values.image}` }}
+          onPress={() =>
+            navigation.navigate(routes.CARD_STATS, { data: item, leagueId: league?.id })
+          }
+          
+          />  
         )}
         ListHeaderComponent={() => <LeagueStatsCard league={league} />}
         // refreshing={true}

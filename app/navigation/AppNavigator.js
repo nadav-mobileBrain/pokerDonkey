@@ -13,22 +13,23 @@ const AppNavigator = () => {
 
   return (
     <Tab.Navigator>
-      <Tab.Screen
-        name="MyLeagues"
-        component={FeedNavigator}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" size={size} color={color} />
-          ),
-          headerShown: false,
-        }}
-      />
+     
       <Tab.Screen
         name="Account"
         component={AccountNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="account" size={size} color={color} />
+          ),
+          headerShown: false,
+        }}
+      />
+       <Tab.Screen
+        name="MyLeagues"
+        component={FeedNavigator}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="home" size={size} color={color} />
           ),
           headerShown: false,
         }}

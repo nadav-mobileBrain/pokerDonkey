@@ -9,4 +9,5 @@ export default Object.freeze({
   PERSONAL_STATS: "PersonalStats",
   ADD_REMOVE_PLAYERS: "AddRemovePlayers",
   EDIT_PROFILE: "EditProfile", 
+  CARD_STATS:"CardStats",
 });

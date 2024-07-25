@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, FlatList } from "react-native";
+import { StyleSheet, FlatList , ImageBackground, View } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import ActivityIndicator from "../../components/ActivityIndicator";
 import AppText from "../../components/AppText";
@@ -47,10 +47,10 @@ const LeagueScreen = ({ navigation }) => {
     <>
       <ActivityIndicator visible={getLeaguesApi.loading} />
       <Screen style={styles.screen}>
-        <LinearGradient
-          colors={colors.primaryGradientArray}
-          style={styles.background}
-        >
+      <ImageBackground
+      style={styles.background}
+      source={require("../../assets/bg56.webp")}>
+          <View style={styles.overlay} />
             <PlayerAvatar />
             <AppLogo />
           <HeaderText style={styles.headerText}>My Leagues</HeaderText>
@@ -95,7 +95,7 @@ const LeagueScreen = ({ navigation }) => {
               }}
             />
           )}
-        </LinearGradient>
+        </ImageBackground>
       </Screen>
     </>
   );
@@ -113,15 +113,19 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 32,
     fontWeight: "bold",
-    color: colors.textOnPrimary,
+    color: colors.gold,
     fontFamily: "Roboto_700Bold",
-    marginBottom: 20,
   },
   errorText: {
     color: colors.error,
     textAlign: "center",
     marginVertical: 10,
     fontFamily: "Roboto_400Regular",
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: colors.black,
+    opacity: 0.35,
   },
 });
 

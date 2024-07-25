@@ -1,4 +1,4 @@
-import { StyleSheet ,View} from "react-native";
+import { StyleSheet ,View,ImageBackground} from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
@@ -6,7 +6,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import AppLogo from "../../components/AppLogo";
 import AppText from "../../components/AppText";
 import colors from "../../config/colors";
-import Icon from "../../components/Icon";
 import PlayerAvatar from "../../components/player/PlayerAvatar";
 import PlayerStatsCard from "../../components/stats/PlayerStatsCard";
 import Screen from "../../components/Screen";
@@ -19,20 +18,20 @@ const MainStatsScreen = ({ route }) => {
  
   return (
     <Screen>
-       <LinearGradient
-          colors={colors.primaryGradientArray}
-          style={styles.background}
-        >
+      <ImageBackground
+      style={styles.background}
+      source={require("../../assets/bg56.webp")}>
+          <View style={styles.overlay} />
       <PlayerAvatar />
       <AppLogo />
-      <AppText style={styles.remark}>
+      {/* <AppText style={styles.remark}>
         * press on a card to see full stats
-      </AppText>
+      </AppText> */}
       <PlayerStatsCard league={league} />
       <View style={styles.allGamesContainer}>
         <AppButton title="All Games" color="gold" onPress={() => navigation.navigate("AllGames", { league })} />
       </View>
-      </LinearGradient>
+      </ImageBackground>
     </Screen>
   );
 };
@@ -59,6 +58,11 @@ const styles = StyleSheet.create({
     color: colors.light,
     fontSize: 10,
     textAlign: "center",
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: colors.black,
+    opacity: 0.30,
   },
 });
 export default MainStatsScreen;

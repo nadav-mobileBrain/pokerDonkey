@@ -33,7 +33,7 @@ function PlayerDetails({
               )}
             </View>
             <MaterialCommunityIcons
-              name="chevron-right"
+              name="chevron-left"
               size={25}
               color={colors.medium}
             />

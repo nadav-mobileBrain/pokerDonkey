@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: "Roboto_700Bold",
     margin: 10,
-    color:colors.gold,
+    color:colors.light,
     textDecorationLine: "underline",
   },
 });
