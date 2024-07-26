@@ -3,7 +3,6 @@ import { View, StyleSheet, Image, ImageBackground } from "react-native";
 import dayjs from "dayjs";
 
 import ActivityIndicator from "../../components/ActivityIndicator";
-import { LinearGradient } from 'expo-linear-gradient';
 import AppButton from "../../components/AppButton";
 import AppLogo from "../../components/AppLogo";
 import AppText from "../../components/AppText";
@@ -54,8 +53,9 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
     <ActivityIndicator visible={getLeaguePlayersApi.loading || loading} />
     <Screen style={styles.container}>
     <ImageBackground
+    blurRadius={3}
       style={styles.background}
-      source={require("../../assets/bg56.webp")}>
+      source={require("../../assets/appLogo.png")}>
           <View style={styles.overlay} />
       <PlayerAvatar />
       <AppLogo />
@@ -157,7 +157,7 @@ leagueInfo:{
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
-    opacity: 0.35,
+    opacity: 0.20,
   },
 });
 

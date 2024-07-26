@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet,ImageBackground } from "react-native";
 
-import { LinearGradient } from 'expo-linear-gradient';
 import ActivityIndicator from "../../components/ActivityIndicator";
 import AllGamesCard from "../../components/games/AllGamesCard";
 import AppLogo from "../../components/AppLogo";
@@ -43,17 +42,18 @@ const AllGamesScreen = ({ route,leagueIdForPushNotifications = null }) => {
     <>
     <ActivityIndicator visible={isLoading} />
     <Screen style={styles.container}>
-    <LinearGradient
-          colors={colors.primaryGradientArray}
-          style={styles.background}
-        >
+    <ImageBackground
+    blurRadius={3}
+      style={styles.background}
+      source={require("../../assets/appLogo.png")}>
+          <View style={styles.overlay} />
       <AppLogo />
       {games.length === 0 ? (
         <Text style={styles.noGames}>
           No games found! start a game to see stats
         </Text>
       ) : null}
-      <HeaderText>{league?.league_name}</HeaderText>
+      <HeaderText style={styles.header}>{league?.league_name}</HeaderText>
       <FlatList
         data={games}
         keyExtractor={(item) => item.id.toString()}
@@ -67,7 +67,7 @@ const AllGamesScreen = ({ route,leagueIdForPushNotifications = null }) => {
         onEndReachedThreshold={0.1}
       />
       {error ? <Text>Error: {error}</Text> : null}
-      </LinearGradient>
+    </ImageBackground>
     </Screen>
     </> 
   );
@@ -88,6 +88,23 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1,
     padding: 100,
+  },
+  header: {
+    fontSize: 25,
+    color: colors.gold,
+    fontFamily: "Roboto_700Bold",
+    textAlign: "center",
+    marginVertical: 10,
+    padding: 20,
+    alignItems: "center",
+    // backgroundColor: "rgba(0, 0, 0, 0.4)", // semi-transparent background for better readability
+    borderRadius: 10,
+    marginVertical: 20,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: colors.black,
+    opacity: 0.20,
   },
   noGames: {
     fontSize: 15,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, View, StyleSheet, FlatList } from "react-native";
+import { Button, Modal, View, StyleSheet, FlatList, ScrollView } from "react-native";
 import { useIsFocused } from '@react-navigation/native';
 import Dialog from "react-native-dialog";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -114,7 +114,6 @@ const NewGame = ({ route, navigation }) => {
           colors={colors.primaryGradientArray}
           style={styles.background}
         >
-          <HeaderText>New Game</HeaderText>
           <Dialog.Container visible={dialogVisible}>
             <Dialog.Title>Take Control of Game</Dialog.Title>
             <Dialog.Description>
@@ -220,7 +219,8 @@ const styles = StyleSheet.create({
   addRemove: {
     color: colors.gold,
     textAlign: "center",
-    fontSize: 13,
+    fontSize: 17,
+    fontFamily: "Roboto_700Bold",
     paddingVertical: 10,
     textDecorationLine: "underline",
   },
@@ -231,13 +231,14 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   flatListContainer: {
-    // flex: 1,
-    //borderTopLeftRadius: 15,
-    //borderTopRightRadius: 15,
     borderBottomLeftRadius: 15, // Added this line
     borderBottomRightRadius: 15, // Added this line
     overflow: 'hidden', // Ensure the FlatList items respect the border radius
     backgroundColor: colors.white, // Match the FlatList background to the container
+    flex: 1, // Allow FlatList to take up remaining space
+  },
+  endGameButtonContainer: {
+    padding: 10,
   },
 });
 

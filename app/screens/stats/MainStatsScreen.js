@@ -2,9 +2,7 @@ import { StyleSheet ,View,ImageBackground} from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
-import { LinearGradient } from 'expo-linear-gradient';
 import AppLogo from "../../components/AppLogo";
-import AppText from "../../components/AppText";
 import colors from "../../config/colors";
 import PlayerAvatar from "../../components/player/PlayerAvatar";
 import PlayerStatsCard from "../../components/stats/PlayerStatsCard";
@@ -20,7 +18,7 @@ const MainStatsScreen = ({ route }) => {
     <Screen>
       <ImageBackground
       style={styles.background}
-      source={require("../../assets/bg56.webp")}>
+      source={require("../../assets/appLogo.png")}>
           <View style={styles.overlay} />
       <PlayerAvatar />
       <AppLogo />

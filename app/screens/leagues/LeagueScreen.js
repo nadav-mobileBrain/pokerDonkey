@@ -48,8 +48,9 @@ const LeagueScreen = ({ navigation }) => {
       <ActivityIndicator visible={getLeaguesApi.loading} />
       <Screen style={styles.screen}>
       <ImageBackground
+      blurRadius={3}
       style={styles.background}
-      source={require("../../assets/bg56.webp")}>
+      source={require("../../assets/appLogo.png")}>
           <View style={styles.overlay} />
             <PlayerAvatar />
             <AppLogo />
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
-    opacity: 0.35,
+    opacity: 0.20,
   },
 });
 

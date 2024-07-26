@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   image: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     borderColor: colors.gold,
     borderWidth: 2,
   },
