@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
    flexDirection: "row-reverse",
     alignItems: "center",
     overflow: "hidden",
-    backgroundColor: colors.AccentPurple,
+    backgroundColor: colors.lighterBlue,
   },
   image: {
     width: 50,
@@ -74,16 +74,16 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   leagueName: {
-    color: colors.gold,
+    color: colors.light,
   },
 
   number: {
     fontSize: 12,
-    color: colors.gold,
+    color: colors.light,
   },
   stat: {
     fontSize: 13,
-    color: colors.gold,
+    color: colors.light,
     fontFamily:'Roboto_700Bold'
   },
 

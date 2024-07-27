@@ -48,7 +48,7 @@ const LeagueScreen = ({ navigation }) => {
       <ActivityIndicator visible={getLeaguesApi.loading} />
       <Screen style={styles.screen}>
       <ImageBackground
-      blurRadius={3}
+      blurRadius={7}
       style={styles.background}
       source={require("../../assets/appLogo.png")}>
           <View style={styles.overlay} />

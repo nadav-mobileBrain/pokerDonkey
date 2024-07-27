@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 
 import colors from "../../config/colors";
-import apiClient from "../../api/client";
 import config from "../../config/config";
 
 const LeaderStatsHeader = ({ leader, titles }) => {

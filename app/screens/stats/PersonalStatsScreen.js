@@ -62,19 +62,22 @@ const PersonalStatsScreen = ({route}) => {
     <>
       <ActivityIndicator visible={getPersonalStatsApi.loading} />
     <Screen style={styles.screen}>
-    <LinearGradient
-          colors={colors.primaryGradientArray}
-          style={styles.background}
-        >
+    <ImageBackground
+      style={styles.background}
+      source={require("../../assets/personalDonkey.jpeg")}>
+      <View style={styles.overlay} />
      
-      <ImageBackground
+      {/* <ImageBackground
         source={require("../../assets/personalDonkey.jpeg")}
-        style={styles.card}>
-        <View style={styles.overlay} />
+        style={styles.card}
+        blurRadius={3}
+        
+        > */}
+   
          <View style={styles.imageContainer}>
           <Image style={styles.image} source={{ uri: url }} />
         </View>
-        <AppText style={styles.name}>{user.nickName} </AppText>
+        <AppText style={styles.nickname}>{user.nickName} </AppText>
         {personalStats?.games?.length < 1 && (
           <View>
             <AppText style={styles.noGames}>No Games Played Yet</AppText>
@@ -150,7 +153,7 @@ const PersonalStatsScreen = ({route}) => {
             </View>
           </>
         )} 
-      </ImageBackground>
+      {/* </ImageBackground> */}
       {personalStats?.games?.length > 0  && (
             <>
             <AppText style={styles.rank}>G.rank = rank in this game</AppText>
@@ -168,7 +171,7 @@ const PersonalStatsScreen = ({route}) => {
             />  
           </>
       )}
-      </LinearGradient>  
+      </ImageBackground>  
     </Screen>
     </>
   );
@@ -179,7 +182,15 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  
+  background: {
+    flex: 1,
+    padding: 20,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: colors.black,
+    opacity: 0.30,
+  },
   card: {
     borderRadius: 15,
     height: 400,
@@ -208,11 +219,18 @@ const styles = StyleSheet.create({
   },
 
   name: {
-    marginBottom: 5,
+    // marginBottom: 5,
     textAlign: "center",
     textDecorationLine: "underline",
     color: colors.white,
+    backgroundColor: "rgba(0,0,0,0.5)",
     fontSize: 25,
+  },
+  nickname: {
+    color: colors.gold,
+    textAlign: "center",
+    fontSize: 25,
+    fontWeight: "bold",
   },
   screen: {
  flex:1
@@ -228,14 +246,15 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
-    opacity: 0.4,
+    opacity: 0.1,
   },
   totalStatsContainer: {
     flexDirection: "row-reverse",
-    padding: 10,
+    padding: 15,
     justifyContent: "space-between",
     textAlignVertical: "center",
     flexWrap: "wrap",
+    backgroundColor:"rgba(0,0,0,0.5)",
   },
   rank: {
     fontSize: 10,

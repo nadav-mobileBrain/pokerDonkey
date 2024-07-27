@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row-reverse",
     justifyContent: "space-evenly",
+    backgroundColor:"rgba(0,0,0,0.3)",
   },
   text: {
     fontSize: 15,

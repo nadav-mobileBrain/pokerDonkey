@@ -46,7 +46,7 @@ function PlayerDetails({
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     padding: 15,
     backgroundColor: colors.white,
     alignItems: "center",

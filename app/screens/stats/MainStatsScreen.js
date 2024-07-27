@@ -19,12 +19,9 @@ const MainStatsScreen = ({ route }) => {
       <ImageBackground
       style={styles.background}
       source={require("../../assets/appLogo.png")}>
-          <View style={styles.overlay} />
+      <View style={styles.overlay} />
       <PlayerAvatar />
       <AppLogo />
-      {/* <AppText style={styles.remark}>
-        * press on a card to see full stats
-      </AppText> */}
       <PlayerStatsCard league={league} />
       <View style={styles.allGamesContainer}>
         <AppButton title="All Games" color="gold" onPress={() => navigation.navigate("AllGames", { league })} />
