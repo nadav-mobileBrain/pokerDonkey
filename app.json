@@ -16,17 +16,23 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.nadavg.pokerdonkey"
+      "bundleIdentifier": "com.nadavg.pokerdonkey",
+      "infoPlist":{
+       "CFBundleURLTypes":[
+        {
+          "CFBundleURLSchemes":[
+            "com.googleusercontent.apps.959357331447-a7eq0ljslvpgt642e658o3etc9s8g3vl"
+          ]
+        }
+       ] 
+      }
     },
     "android": {
+      "package": "com.nadavg.pokerdonkey",
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/appLogo.png",
         "backgroundColor": "#ffffff"
       },
-      "config": {
-        "googleMobileAdsAppId": "ca-app-pub-2640391750032066~8921874991" // real  App ID
-      },
-      "package": "com.nadavg.pokerdonkey",
       "versionCode": 1,
       "googleServicesFile": "./google-services.json"
     },
@@ -45,7 +51,8 @@
     "plugins": [
       "expo-font",
       "expo-secure-store",
-      "@bugsnag/plugin-expo-eas-sourcemaps"
+      "@bugsnag/plugin-expo-eas-sourcemaps",
+      "@react-native-google-signin/google-signin"
     ],
     "runtimeVersion": {
       "policy": "appVersion"
