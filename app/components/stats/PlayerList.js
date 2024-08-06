@@ -10,7 +10,7 @@ const PlayerItem = ({ player, index, title }) => (
     <AppText style={styles.position}>{index}</AppText>
     <View style={styles.imageContainer}>
       <Image
-        source={{ uri: `${config.s3.baseUrl}${player.image}` }}
+        source={{ uri:player?.image?.startsWith('https') ? player.image : `${config.s3.baseUrl}${player.image}` }}
         style={styles.playerImage}
       />
       <Text style={styles.playerName}>{player.nickName}</Text>

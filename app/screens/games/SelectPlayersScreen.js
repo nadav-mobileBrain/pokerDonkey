@@ -69,16 +69,11 @@ const SelectPlayersScreen = ({ route, navigation }) => {
   };
 
   const startNewGame = async () => {
-
-    
     const result = await createNewGameApi.request({
         selectedPlayers,
         leagueId: league.id,
         gameAdminId,
       });
-    console.log("🚀 ~ startNewGame ~ result:", result.data)
- 
-  
       if (!result.ok) {
         if (result.data) setError(result.data.error);
         else {
@@ -112,7 +107,6 @@ const SelectPlayersScreen = ({ route, navigation }) => {
           width={40}
           height={40}
         />
-
         {selectedPlayers.length > 0 && (
           <View style={styles.selectedPlayersContainer}>
             <AppText style={styles.inTheGame}> In The Game </AppText>
@@ -134,17 +128,16 @@ const SelectPlayersScreen = ({ route, navigation }) => {
               icon="cards-playing-club-multiple-outline"
               onPress={() =>startNewGame()}
             />
-
-
-
           </View>
         )}
+         {selectedPlayers.length < 1 &&  (
         <View style={styles.imageContainer}>
           <Image
             source={require("../../assets/selectPlayers.png")}
             style={styles.image}
           />
         </View>
+      )}
       </View>
     </Screen>
   );

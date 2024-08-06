@@ -29,8 +29,11 @@ const PersonalStatsScreen = ({route}) => {
       user.userId = route.params.userDetails.id;
     }
  
-
-  const url = config.s3.baseUrl + user.image;
+    let url = user.image;
+    //if url is not a full url, add the base url
+    if (!url.includes("http")) {
+      url = config.s3.baseUrl + user.image;
+    }
   const getPersonalStatsApi = useApi(usersApi.getPersonalStats);
  // const [refreshing, setRefreshing] = useState(false);
   const [personalStats, setPersonalStats] = useState([]);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, FlatList } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
+import { StyleSheet, FlatList,View, ImageBackground } from "react-native";
+
 import ActivityIndicator from "../../components/ActivityIndicator";
 import AppText from "../../components/AppText";
 import AppButton from "../../components/AppButton";
@@ -47,10 +47,11 @@ const LeagueScreen = ({ navigation }) => {
     <>
       <ActivityIndicator visible={getLeaguesApi.loading} />
       <Screen style={styles.screen}>
-        <LinearGradient
-          colors={colors.primaryGradientArray}
+          <ImageBackground
           style={styles.background}
-        >
+          blurRadius={7}
+          source={require("../../assets/cardstats.jpg")}>
+          <View style={styles.overlay} />
             <PlayerAvatar />
             <AppLogo />
           <HeaderText style={styles.headerText}>My Leagues</HeaderText>
@@ -95,7 +96,7 @@ const LeagueScreen = ({ navigation }) => {
               }}
             />
           )}
-        </LinearGradient>
+        </ImageBackground>
       </Screen>
     </>
   );
@@ -108,6 +109,11 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     padding: 20,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: colors.black,
+    opacity: 0.3,
   },
 
   headerText: {

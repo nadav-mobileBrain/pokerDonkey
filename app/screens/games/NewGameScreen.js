@@ -231,9 +231,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   flatListContainer: {
-    // flex: 1,
-    //borderTopLeftRadius: 15,
-    //borderTopRightRadius: 15,
     borderBottomLeftRadius: 15, // Added this line
     borderBottomRightRadius: 15, // Added this line
     overflow: 'hidden', // Ensure the FlatList items respect the border radius

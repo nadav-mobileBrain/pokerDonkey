@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image, Alert } from "react-native";
+import { View, StyleSheet, Image, ImageBackground } from "react-native";
 import dayjs from "dayjs";
 
 import ActivityIndicator from "../../components/ActivityIndicator";
-import { LinearGradient } from 'expo-linear-gradient';
 import AppButton from "../../components/AppButton";
 import AppLogo from "../../components/AppLogo";
 import AppText from "../../components/AppText";
@@ -53,10 +52,11 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
     <>
     <ActivityIndicator visible={getLeaguePlayersApi.loading || loading} />
     <Screen style={styles.container}>
-    <LinearGradient
-          colors={colors.primaryGradientArray}
-          style={styles.background}
-        >
+    <ImageBackground
+    blurRadius={6}
+      style={styles.background}
+      source={require("../../assets/appLogo.png")}>
+          <View style={styles.overlay} />
       <PlayerAvatar />
       <AppLogo />
       <View style={styles.playerContainer}>
@@ -97,7 +97,7 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
           Created At: {dayjs(league?.created_at).format("DD/MM/YYYY")}
         </AppText>
       </View>
- </LinearGradient>
+ </ImageBackground>
     </Screen>
     </>
   );
@@ -153,6 +153,11 @@ leagueInfo:{
     flexGrow: 1,
     justifyContent: "center",
     paddingBottom: 30,  // Add paddingBottom here
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: colors.black,
+    opacity: 0.20,
   },
 });
 

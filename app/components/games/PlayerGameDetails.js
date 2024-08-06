@@ -18,7 +18,7 @@ const PlayerGameDetails = ({ image, nickName, onPress, playerData }) => {
           {image && (
             <Image
               style={styles.image}
-              source={{ uri: `${config.s3.baseUrl}${image}` }}
+              source={{ uri:image.startsWith('https')? image : `${config.s3.baseUrl}${image}` }}
             />
           )}
 

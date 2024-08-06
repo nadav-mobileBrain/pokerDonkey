@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet,ImageBackground } from "react-native";
 
-import { LinearGradient } from 'expo-linear-gradient';
+
 import ActivityIndicator from "../../components/ActivityIndicator";
 import AllGamesCard from "../../components/games/AllGamesCard";
 import AppLogo from "../../components/AppLogo";
@@ -43,10 +43,11 @@ const AllGamesScreen = ({ route,leagueIdForPushNotifications = null }) => {
     <>
     <ActivityIndicator visible={isLoading} />
     <Screen style={styles.container}>
-    <LinearGradient
-          colors={colors.primaryGradientArray}
-          style={styles.background}
-        >
+    <ImageBackground
+    blurRadius={4}
+      style={styles.background}
+      source={require("../../assets/cardstats.jpg")}>
+      <View style={styles.overlay} />
       <AppLogo />
       {games.length === 0 ? (
         <Text style={styles.noGames}>
@@ -67,7 +68,7 @@ const AllGamesScreen = ({ route,leagueIdForPushNotifications = null }) => {
         onEndReachedThreshold={0.1}
       />
       {error ? <Text>Error: {error}</Text> : null}
-      </LinearGradient>
+      </ImageBackground>
     </Screen>
     </> 
   );
@@ -81,6 +82,11 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     padding: 20,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: colors.black,
+    opacity: 0.5,
   },
   gameText: {
     fontSize: 16,

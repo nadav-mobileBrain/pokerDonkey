@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     alignItems: "center",
     borderRadius: 15,
-    marginVertical: 10,
+    marginVertical: 7,
   },
   detailsContainer: {
     flex: 1,

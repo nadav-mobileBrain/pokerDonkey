@@ -1,5 +1,6 @@
 import { View, ImageBackground, StyleSheet, FlatList } from "react-native";
 import React from "react";
+import { LinearGradient } from "expo-linear-gradient";
 
 import AppText from "../AppText";
 import AllGamesCardHeader from "./AllGamesCardHeader";
@@ -11,9 +12,9 @@ import ListitemSeperator from "../ListitemSeperator";
 const AllGamesCard = ({ game }) => {
   return (
     <View style={styles.container}>
-      <ImageBackground source={require("../../assets/appLogo.png")}>
-        <View style={styles.overlay} />
-
+     <LinearGradient
+     colors={colors.purpleGradientArray}
+     >
         <AppText style={styles.gameDetails}>
           {dayjs(game.created_at).format("DD/MM/YYYY")}
         </AppText>
@@ -26,7 +27,7 @@ const AllGamesCard = ({ game }) => {
           {game?.game_manager?.nickName}
         </AppText>
         {game.isOpen && <AppText style={styles.isOpen}>Live Game</AppText>}
-      </ImageBackground>
+    </LinearGradient>
       <FlatList
         data={game.user_games}
         keyExtractor={(item) => item.user_id.toString()}
@@ -64,19 +65,19 @@ const styles = StyleSheet.create({
     width: "100%",
     textAlign: "center",
     padding: 5,
-    color: colors.white,
+    color: colors.surface,
     height: 40,
   },
   gameManager: {
     width: "100%",
     textAlign: "center",
-    color: colors.white,
+    color: colors.surface,
   },
 
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
-    opacity: 0.4,
+    opacity: 0.5,
   },
 });
 

@@ -9,10 +9,10 @@ import routes from "../../navigation/routes";
 const NoLeagues = ({ navigation }) => {
   return (
     <View style={styles.noLeaguesContainer}>
-      <Image
+      {/* <Image
         source={require("../../assets/noLeagues.png")}
         style={styles.image}
-      />
+      /> */}
       <AppText style={{color:colors.gold}}>You dont belong to any leagues yet...😳</AppText>
       <AppButton
         title="Join private league"
@@ -32,7 +32,7 @@ const NoLeagues = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   noLeaguesContainer: {
-    flex: 1,
+    // flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },

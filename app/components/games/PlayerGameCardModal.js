@@ -95,7 +95,7 @@ const PlayerGameCardModal = ({
       {/* <HeaderText>Player Details</HeaderText> */}
       <View style={styles.imageContainer}>
         <Image
-          source={{ uri: `${config.s3.baseUrl}${playerData?.User?.image}` }}
+          source={{ uri:playerData?.User?.image.startsWith('https')? playerData?.User?.image: `${config.s3.baseUrl}${playerData?.User?.image}` }}
           style={styles.image}
         />
         <AppText style={styles.nickName}>{playerData?.User?.nickName}</AppText>

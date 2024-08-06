@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import * as Yup from "yup";
 import { LinearGradient } from "expo-linear-gradient";
@@ -33,9 +33,12 @@ const EditProfileScreen = ({ navigation }) => {
   const updatePersonaldetailsApi = useApi(usersApi.updatePersonaldetails);
   const auth = useAuth();
   const { user } = useAuth();
-  console.log("🚀 ~ EditProfileScreen ~ user:", user)
   const [error, setError] = useState();
-  const [imageUri, setImageUri] = useState(`${config.s3.baseUrl}${user.image}`);
+  const [imageUri, setImageUri] = useState('');
+  
+      useEffect(() => {
+        user.image.startsWith('https')? setImageUri(user.image) : setImageUri(`${config.s3.baseUrl}${user.image}`);
+      }, []);
 
   const handleSubmit = async (userInfo) => {
     const completeUserInfo = {
@@ -77,8 +80,7 @@ const EditProfileScreen = ({ navigation }) => {
               autoCorrect={false}
               icon="account"
               name="nickName"
-              //placeholder="Nick Name"
-             // value={user.nickName}
+
             />
             <View style={{ alignItems: "flex-end" }}>
               <ImageInput

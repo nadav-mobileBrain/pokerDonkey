@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet , ImageBackground} from "react-native";
 import * as Yup from "yup";
 
-import { LinearGradient } from 'expo-linear-gradient';
+
 import ActivityIndicator from "../../components/ActivityIndicator";
 import AppText from "../../components/AppText";
 import AppLogo from "../../components/AppLogo";
@@ -58,10 +58,11 @@ const CreateLeagueScreen = ({ navigation }) => {
     <>
       <ActivityIndicator visible={createLeagueApi.loading} />
       <Screen style={styles.screen}>
-      <LinearGradient
-          colors={colors.primaryGradientArray}
+      <ImageBackground
+          blurRadius={4}
           style={styles.background}
-        >
+          source={require("../../assets/newLogo.jpeg")}>
+          <View style={styles.overlay} />
           <AppLogo/>  
         <HeaderText>Create League</HeaderText>
         <AppForm
@@ -91,7 +92,7 @@ const CreateLeagueScreen = ({ navigation }) => {
           * An anonymos player will be added to the league automaticly. you can remove it later or use it if you have occasional players. 
           </AppText>
         </AppForm>
-        </LinearGradient>
+        </ImageBackground>
       </Screen>
     </>
   );
@@ -109,8 +110,13 @@ const styles = StyleSheet.create({
   remark: {
     color: colors.gold,
     fontSize: 15,
-
     marginTop: 10,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: colors.black,
+    opacity: 0.5,
+
   },
 });
 

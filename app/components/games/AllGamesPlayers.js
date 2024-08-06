@@ -14,7 +14,7 @@ const AllGamesPlayers = ({ player }) => {
       </AppText>
       <View style={[styles.imageContainer, styles.player]}>
         <Image
-          source={{ uri: `${config.s3.baseUrl}${playerDetails?.image}` }}
+          source={{ uri:playerDetails?.image.startsWith('https')? playerDetails?.image: `${config.s3.baseUrl}${playerDetails?.image}` }}
           style={styles.playerImage}
         />
         <AppText style={styles.playerName}>{playerDetails.nickName}</AppText>

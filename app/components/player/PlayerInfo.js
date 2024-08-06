@@ -20,6 +20,7 @@ const PlayerInfo = ({
   height = 30,
   borderColor = "AccentPurple",
 }) => {
+  console.log(leaguePlayers[1]);
   if(!onPress) onPress = (item) => navigationRef.current.navigate(routes.PERSONAL_STATS, { userDetails: item.User});
   return (
     <View style={styles.container}>
@@ -37,7 +38,7 @@ const PlayerInfo = ({
                 styles.image,
                 { width, height, borderColor: colors[borderColor] },
               ]}
-              source={{ uri: `${config.s3.baseUrl}${item.User.image}` }}
+              source={{ uri: item.User.image.startsWith('http') ? item.User.image : `${config.s3.baseUrl}${item.User.image}` }}
             />
             <AppText style={styles.playerName}>{item.User.nickName}</AppText>
           </TouchableOpacity>

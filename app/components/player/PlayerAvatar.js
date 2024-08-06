@@ -10,7 +10,12 @@ import AppText from "../AppText";
 
 const PlayerAvatar = () => {
   const { user } = useAuth();
-  const url = config.s3.baseUrl + user.image;
+  // const url = config.s3.baseUrl + user.image;
+  let url = user.image;
+  //if url is not a full url, add the base url
+  if (!url.includes("http")) {
+    url = config.s3.baseUrl + user.image;
+  }
   const navigation = useNavigation();
 
   return (

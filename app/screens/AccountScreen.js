@@ -21,18 +21,27 @@ const menuItems = [
     },
     targetScreen: "EditProfile",
   },
+  // {
+  //   title: "My Messages-Coming soon...",
+  //   icon: {
+  //     name: "email",
+  //     backgroundColor: colors.AccentPurple,
+  //   },
+  //   targetScreen: "Messages",
+  // },
   {
-    title: "My Messages-Coming soon...",
+    title: "Notifications",
     icon: {
-      name: "email",
+      name: "bell",
       backgroundColor: colors.AccentPurple,
     },
-    targetScreen: "Messages",
+    targetScreen: "Notifications",
   },
 ];
 
 const AccountScreen = ({ navigation }) => {
   const { user, logOut } = useAuth();
+  console.log("🚀 ~ AccountScreen ~ user:", user)
 
   return (
     <>
@@ -46,7 +55,7 @@ const AccountScreen = ({ navigation }) => {
             <PlayerDetails
               title={user.nickName}
               subTitle="Go To Personal Stats"
-              image={{ uri: `${config.s3.baseUrl}${user.image}` }}
+              image={{ uri:user?.image.startsWith('https')? user.image : `${config.s3.baseUrl}${user.image}` }}
               onPress={() => navigation.navigate(routes.PERSONAL_STATS)}
             />
           </View>
@@ -68,6 +77,8 @@ const AccountScreen = ({ navigation }) => {
                 />
               )}
             />
+          </View>
+          <View>
           </View>
           <PlayerDetails
             title="Log Out"
