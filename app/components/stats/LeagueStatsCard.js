@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
     alignItems: "center",
     overflow: "hidden",
-    backgroundColor: colors.bg,
+    backgroundColor: colors.gold,
   },
   image: {
     width: 50,

@@ -50,7 +50,7 @@ const LeagueScreen = ({ navigation }) => {
           <ImageBackground
           style={styles.background}
           blurRadius={7}
-          source={require("../../assets/cardstats.jpg")}>
+          source={require("../../assets/appLogo.png")}>
           <View style={styles.overlay} />
             <PlayerAvatar />
             <AppLogo />
@@ -108,20 +108,20 @@ const styles = StyleSheet.create({
   },
   background: {
     flex: 1,
-    padding: 20,
+    padding: 10,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
-    opacity: 0.3,
+    opacity: 0.25,
   },
 
   headerText: {
-    fontSize: 32,
+    fontSize: 30,
     fontWeight: "bold",
-    color: colors.textOnPrimary,
+    color: colors.light,
     fontFamily: "Roboto_700Bold",
-    marginBottom: 20,
+    // marginBottom: 20,
   },
   errorText: {
     color: colors.error,

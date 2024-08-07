@@ -41,7 +41,6 @@ const menuItems = [
 
 const AccountScreen = ({ navigation }) => {
   const { user, logOut } = useAuth();
-  console.log("🚀 ~ AccountScreen ~ user:", user)
 
   return (
     <>
@@ -82,7 +81,7 @@ const AccountScreen = ({ navigation }) => {
           </View>
           <PlayerDetails
             title="Log Out"
-            IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+            IconComponent={<Icon name="logout" backgroundColor={colors.secondary} />}
             onPress={() => logOut()}
           />
         </LinearGradient>

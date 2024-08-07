@@ -12,9 +12,9 @@ import ListitemSeperator from "../ListitemSeperator";
 const AllGamesCard = ({ game }) => {
   return (
     <View style={styles.container}>
-     <LinearGradient
-     colors={colors.purpleGradientArray}
-     >
+     {/* <LinearGradient
+     colors={colors.secondaryPurpleGradientArray}
+     > */}
         <AppText style={styles.gameDetails}>
           {dayjs(game.created_at).format("DD/MM/YYYY")}
         </AppText>
@@ -27,7 +27,7 @@ const AllGamesCard = ({ game }) => {
           {game?.game_manager?.nickName}
         </AppText>
         {game.isOpen && <AppText style={styles.isOpen}>Live Game</AppText>}
-    </LinearGradient>
+    {/* </LinearGradient> */}
       <FlatList
         data={game.user_games}
         keyExtractor={(item) => item.user_id.toString()}
@@ -42,7 +42,6 @@ const AllGamesCard = ({ game }) => {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 15,
-    backgroundColor: colors.surface,
     marginBottom: 20,
     overflow: "hidden",
     shadowColor: "#000",
@@ -50,6 +49,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 10,
     elevation: 5,
+    backgroundColor: colors.AccentPurple,
   },
   isOpen: {
     width: "100%",

@@ -11,6 +11,11 @@ const checkNotification = (userId) => {
   return client.get(`${endpoint}/checkNotification/${userId}`);
 }
 
+const updateNotificationSettings = (userId, isEnabled) => {
+  return client.put(`${endpoint}/updateNotificationSettings/${userId}`, {isEnabled});
+
+}
+
 // const register = (userInfo) => {
 //   if (userInfo.image) {
 //     const data = new FormData();
@@ -84,4 +89,5 @@ export default {
   updateExpoPushToken,
   googleSignin,
   checkNotification,
+  updateNotificationSettings,
 };

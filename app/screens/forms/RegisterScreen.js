@@ -90,14 +90,7 @@ const signIn = async () => {
               *You can add/change your image and name later
             </AppText>
             {error && <AppText style={{color:'red'}}>{error}</AppText>}
-          {/* {userInfo && <AppText style={{color:'white'}}>{JSON.stringify(userInfo.user)}</AppText>} */}
-       
-        {/* <Button title="Logout" onPress={logout} /> */}
-    
-      
         <GoogleSigninButton size={GoogleSigninButton.Size.Wide} color={GoogleSigninButton.Color.Dark} onPress={signIn} style={styles.googleButton}/>
-      
-
        </ImageBackground>
       </Screen>
     </>

@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGrey,
   },
   league: {
-    fontSize: 12,
+    fontSize: 10,
     width: "15%",
     textAlign: "center",
   },

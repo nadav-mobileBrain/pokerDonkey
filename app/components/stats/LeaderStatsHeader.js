@@ -44,11 +44,11 @@ const styles = StyleSheet.create({
   },
   leaderName: {
     fontSize: 20,
-    color: colors.LightSkyBlue,
+    color: colors.secondary,
   },
   leaderStats: {
     fontSize: 16,
-    color: colors.white,
+    color: colors.gold,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,

@@ -24,6 +24,7 @@ export default {
   tertiaryGradientArray:['#4f97ef', '#4cc9f0'],
   ///purple gradient
   purpleGradientArray:['#8530d1', '#a981ea'],
+  secondaryPurpleGradientArray:   ['#03dac6', '#029b83'],
 
 
   primary: "#6200ea",
@@ -37,5 +38,6 @@ export default {
   textOnSecondary: "#000000",
   border: "#e0e0e0",
   gold: "#ffd700",
-  bg:'#215cff'
+  bg:'#215cff',
+  navy:'#000080'
 };

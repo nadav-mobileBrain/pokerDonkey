@@ -103,12 +103,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 10,
     width: 45,
-    color: colors.white,
+    color: colors.gold,
   },
   playerTitle: {
     fontSize: 10,
     width: 50,
-    color: colors.white,
+    color: colors.gold,
   },
 });
 

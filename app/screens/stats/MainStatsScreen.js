@@ -31,13 +31,7 @@ const MainStatsScreen = ({ route }) => {
   );
 };
 const styles = StyleSheet.create({
-  allGames: {
-    color: colors.PrimaryBlue,
-    textAlign: "center",
-    fontSize: 25,
-    textDecorationLine: "underline",
 
-  },
   allGamesContainer:{
     // flexDirection: "row",
     justifyContent: "center",
@@ -57,7 +51,7 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
-    opacity: 0.30,
+    opacity: 0.45,
   },
 });
 export default MainStatsScreen;

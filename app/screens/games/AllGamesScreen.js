@@ -54,7 +54,7 @@ const AllGamesScreen = ({ route,leagueIdForPushNotifications = null }) => {
           No games found! start a game to see stats
         </Text>
       ) : null}
-      <HeaderText>{league?.league_name}</HeaderText>
+      <HeaderText style={{color:colors.secondary}}>{league?.league_name}</HeaderText>
       <FlatList
         data={games}
         keyExtractor={(item) => item.id.toString()}

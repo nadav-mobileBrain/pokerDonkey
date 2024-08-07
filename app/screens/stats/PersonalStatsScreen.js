@@ -65,7 +65,7 @@ const PersonalStatsScreen = ({route}) => {
     <>
       <ActivityIndicator visible={getPersonalStatsApi.loading} />
     <Screen style={styles.screen}>
-    <LinearGradient
+     <LinearGradient
           colors={colors.primaryGradientArray}
           style={styles.background}
         >
@@ -180,7 +180,7 @@ const PersonalStatsScreen = ({route}) => {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    padding: 20,
+    padding: 5,
   },
   
   card: {

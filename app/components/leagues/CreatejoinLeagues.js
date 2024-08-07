@@ -22,9 +22,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row-reverse",
     justifyContent: "space-evenly",
+    // padding: 20,
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.6)", // semi-transparent background for better readability
+    borderRadius: 10,
+    marginVertical: 20,
   },
   text: {
-    fontSize: 15,
+    fontSize: 20,
     fontFamily: "Roboto_700Bold",
     margin: 10,
     color:colors.gold,

@@ -5,6 +5,7 @@ import colors from "../config/colors";
 import AppLogo from "../components/AppLogo";
 import useAuth from "../auth/useAuth"; 
 import authApi from "../api/auth"; 
+import AppText from "../components/AppText";
 
 const WelcomeScreen = ({ navigation }) => {
   const { logIn, logOut} = useAuth();
@@ -23,7 +24,7 @@ const WelcomeScreen = ({ navigation }) => {
     <ImageBackground
       style={styles.container}
       source={require("../assets/appLogo.png")}
-      blurRadius={6}>
+      blurRadius={7}>
       <View style={styles.logoContainer}>
         <AppLogo />
         <Text style={styles.tagLine}>Manage Your Home Poker Games</Text>
@@ -35,22 +36,23 @@ const WelcomeScreen = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         <AppButton
           title="Take A Tour"
-          color="primary"
+         color="secondary"
           onPress={()=>takeATour()}
           icon="arrow-right-bold-outline"
         />
-        <AppButton
+        {/* <AppButton
           title="Login"
           onPress={() => navigation.navigate("Login")}
           color="secondary"
           icon="login"
-        />
+        /> */}
         <AppButton
-          title="Register"
+          title="Register/Login"
           color="gold"
           onPress={() => navigation.navigate("Register")}
           icon="account-plus"
         />
+        <AppText style={{color: colors.gold, textAlign:'center'}}>Developed By Nadav Galili 🧙‍♂️ </AppText>
       </View>
     </ImageBackground>
   );
