@@ -46,7 +46,6 @@ const CreateLeagueScreen = ({ navigation }) => {
       return;
     }
 
-
         navigation.navigate("Leagues", {
           league: result.data.league,
           message: "League created successfully.",

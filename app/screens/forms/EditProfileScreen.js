@@ -80,7 +80,6 @@ const EditProfileScreen = ({ navigation }) => {
               autoCorrect={false}
               icon="account"
               name="nickName"
-
             />
             <View style={{ alignItems: "flex-end" }}>
               <ImageInput

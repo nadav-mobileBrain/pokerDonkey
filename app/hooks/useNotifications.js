@@ -51,6 +51,8 @@ export default useNotifications = (notificationListener) => {
               importance: Notifications.AndroidImportance.MAX,
               vibrationPattern: [0, 250, 250, 250],
               lightColor: '#FF231F7C',
+              ///image
+              image: require('../assets/appLogo.png'),
             });
           }
         

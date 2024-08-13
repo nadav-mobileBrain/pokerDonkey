@@ -20,7 +20,6 @@ const PlayerInfo = ({
   height = 30,
   borderColor = "AccentPurple",
 }) => {
-  console.log(leaguePlayers[1]);
   if(!onPress) onPress = (item) => navigationRef.current.navigate(routes.PERSONAL_STATS, { userDetails: item.User});
   return (
     <View style={styles.container}>

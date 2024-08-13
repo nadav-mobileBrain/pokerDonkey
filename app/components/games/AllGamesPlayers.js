@@ -12,7 +12,7 @@ const AllGamesPlayers = ({ player }) => {
       <AppText style={[styles.rank, styles.playerData]}>
         {player.game_rank}
       </AppText>
-      <View style={[styles.imageContainer, styles.player]}>
+      <View style={styles.imageContainer}>
         <Image
           source={{ uri:playerDetails?.image.startsWith('https')? playerDetails?.image: `${config.s3.baseUrl}${playerDetails?.image}` }}
           style={styles.playerImage}
@@ -41,8 +41,6 @@ const styles = StyleSheet.create({
     padding: 5,
     justifyContent: "space-around",
     backgroundColor: colors.white,
-    
-    
   },
   playerData: {
     fontSize: 14,

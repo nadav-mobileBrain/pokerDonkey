@@ -30,7 +30,7 @@ const PlayerGameDetails = ({ image, nickName, onPress, playerData }) => {
         <View style={styles.detailsContainer}>
           <AppText>{playerData.buy_ins_amount}</AppText>
           <MaterialCommunityIcons
-            name="chevron-left"
+            name="chevron-right"
             size={25}
             color={colors.medium}
             style={{ marginRight: 30 }}

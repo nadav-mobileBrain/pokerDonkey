@@ -1,27 +1,38 @@
-import React, { useState, useEffect } from "react";
-import { Button, Modal, View, StyleSheet, FlatList } from "react-native";
+import React, { useState, useEffect } from 'react';
+import {
+  Button,
+  Modal,
+  View,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
-import Dialog from "react-native-dialog";
+import Dialog from 'react-native-dialog';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import AppText from "../../components/AppText";
-import AppButton from "../../components/AppButton";
-import colors from "../../config/colors";
-import gameApi from "../../api/game";
-import GameDetails from "../../components/games/GameDetails";
-import GameHeader from "../../components/games/GameHeader";
-import HeaderText from "../../components/HeaderText";
-import ListitemSeperator from "../../components/ListitemSeperator";
-import PlayerGameDetails from "../../components/games/PlayerGameDetails";
-import PlayerGameCardModal from "../../components/games/PlayerGameCardModal";
-import useApi from "../../hooks/useApi";
-import Screen from "../../components/Screen";
-import { onAddBuyIn, onRemoveBuyIn, checkIfAllPlayersCashedOut } from "../../utils/gameUtils";
-import routes from "../../navigation/routes";
-import getLeaguePlayers from "../../api/leagues";
-import ActivityIndicator from "../../components/ActivityIndicator";
-import useAuth from "../../auth/useAuth";
-import logger from "../../utility/logger";
+import AppText from '../../components/AppText';
+import AppButton from '../../components/AppButton';
+import colors from '../../config/colors';
+import gameApi from '../../api/game';
+import GameDetails from '../../components/games/GameDetails';
+import GameHeader from '../../components/games/GameHeader';
+import HeaderText from '../../components/HeaderText';
+import ListitemSeperator from '../../components/ListitemSeperator';
+import PlayerGameDetails from '../../components/games/PlayerGameDetails';
+import PlayerGameCardModal from '../../components/games/PlayerGameCardModal';
+import useApi from '../../hooks/useApi';
+import Screen from '../../components/Screen';
+import {
+  onAddBuyIn,
+  onRemoveBuyIn,
+  checkIfAllPlayersCashedOut,
+} from '../../utils/gameUtils';
+import routes from '../../navigation/routes';
+import getLeaguePlayers from '../../api/leagues';
+import ActivityIndicator from '../../components/ActivityIndicator';
+import useAuth from '../../auth/useAuth';
+import logger from '../../utility/logger';
 
 const NewGame = ({ route, navigation }) => {
   const isFocused = useIsFocused(); // Add this line
@@ -29,6 +40,7 @@ const NewGame = ({ route, navigation }) => {
   const [selectedPlayer, setSelectedPlayer] = useState();
   const [loading, setLoading] = useState(false);
   const [userGamesData, setUserGamesData] = useState(route.params.userGames);
+  console.log('🚀 ~ NewGame ~ userGamesData:', userGamesData);
   const [error, setError] = useState();
   const [dialogVisible, setDialogVisible] = useState(false);
 
@@ -49,7 +61,7 @@ const NewGame = ({ route, navigation }) => {
   const endGame = async () => {
     const isAllCashedOut = checkIfAllPlayersCashedOut(userGamesData);
     if (!isAllCashedOut) {
-      alert("Not all players cashed out");
+      alert('Not all players cashed out');
       return;
     }
 
@@ -57,7 +69,7 @@ const NewGame = ({ route, navigation }) => {
     if (!result.ok) {
       if (result.data) setError(result.data.error);
       else {
-        setError("An unexpected error occurred.");
+        setError('An unexpected error occurred.');
         logger.log(result);
       }
       return;
@@ -91,21 +103,22 @@ const NewGame = ({ route, navigation }) => {
 
   const handleConfirm = async () => {
     setLoading(true);
-    const replaceGameAdmin = await takeControllOfGameApi.request(game.id, user.userId);
+    const replaceGameAdmin = await takeControllOfGameApi.request(
+      game.id,
+      user.userId,
+    );
     if (!replaceGameAdmin.ok) {
       if (replaceGameAdmin.data) setError(replaceGameAdmin.data.error);
       else {
-        setError("An unexpected error occurred.");
+        setError('An unexpected error occurred.');
         logger.log(replaceGameAdmin);
       }
       return;
     }
     setGame(replaceGameAdmin.data.updatedGame);
-
     setDialogVisible(false);
     setLoading(false);
   };
-
   return (
     <>
       <ActivityIndicator visible={!isFocused} />
@@ -118,7 +131,8 @@ const NewGame = ({ route, navigation }) => {
           <Dialog.Container visible={dialogVisible}>
             <Dialog.Title>Take Control of Game</Dialog.Title>
             <Dialog.Description>
-              Do you want to take control of the game and replace the game admin?
+              Do you want to take control of the game and replace the game
+              admin?
             </Dialog.Description>
             <Dialog.Button label="No" onPress={handleCancel} />
             <Dialog.Button label="Yes" onPress={handleConfirm} />
@@ -126,13 +140,18 @@ const NewGame = ({ route, navigation }) => {
 
           {error && <AppText>{error}</AppText>}
           <ActivityIndicator visible={loading} />
+          <GameDetails
+            game={game}
+            league={league}
+            userGameData={userGamesData}
+          />
           {game?.gameManager?.id === user.userId && (
-            <AppText style={styles.addRemove} onPress={addRemovePlayersFromGame}>
-              +Add/Remove players from game
-            </AppText>
+            <TouchableOpacity onPress={addRemovePlayersFromGame}>
+              <AppText style={styles.addRemoveButton}>
+                +Add/Remove players from game
+              </AppText>
+            </TouchableOpacity>
           )}
-
-          <GameDetails game={game} league={league} />
           {game?.gameManager?.id != user.userId && (
             <View>
               <AppText style={styles.noAdmin}>
@@ -160,16 +179,17 @@ const NewGame = ({ route, navigation }) => {
                           setModalVisible(true);
                           setSelectedPlayer(item);
                         }}
+                        contentContainerStyle={styles.flatListContent}
                       />
                     ) : null
                   }
                   ItemSeparatorComponent={ListitemSeperator}
-                  ListHeaderComponent={() => <GameHeader />}
+                  ListHeaderComponent={() => (
+                    <GameHeader userGamesData={userGamesData} />
+                  )}
                 />
               </View>
-
               <AppButton title="End Game" color="gold" onPress={endGame} />
-
               <Modal visible={modalVisible} animationType="slide">
                 <Button title="Cancel" onPress={() => setModalVisible(false)} />
                 <Screen>
@@ -178,15 +198,25 @@ const NewGame = ({ route, navigation }) => {
                       playerData={selectedPlayer}
                       onClose={() => setModalVisible(false)}
                       onAddBuyIn={(amount, userId) => {
-                        onAddBuyIn(amount, userId, userGamesData, setUserGamesData);
+                        onAddBuyIn(
+                          amount,
+                          userId,
+                          userGamesData,
+                          setUserGamesData,
+                        );
                       }}
                       onRemoveBuyIn={(amount, userId) => {
-                        onRemoveBuyIn(amount, userId, userGamesData, setUserGamesData);
+                        onRemoveBuyIn(
+                          amount,
+                          userId,
+                          userGamesData,
+                          setUserGamesData,
+                        );
                       }}
                       onCashOut={(amount, userId) => {
                         const updatedUserGames = [...userGamesData];
                         const playerIndex = updatedUserGames.findIndex(
-                          (p) => p.user_id === userId
+                          (p) => p.user_id === userId,
                         );
                         updatedUserGames[playerIndex].cash_out_amount = amount;
                         updatedUserGames[playerIndex].is_cashed_out = true;
@@ -219,14 +249,21 @@ const styles = StyleSheet.create({
   },
   addRemove: {
     color: colors.gold,
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 13,
     paddingVertical: 10,
-    textDecorationLine: "underline",
+    textDecorationLine: 'underline',
+  },
+  addRemoveButton: {
+    color: colors.PrimaryBlue,
+    backgroundColor: colors.gold,
+    textAlign: 'center',
+    fontSize: 15,
+    textDecorationLine: 'underline',
   },
   noAdmin: {
-    color: "red",
-    textAlign: "center",
+    color: 'red',
+    textAlign: 'center',
     fontSize: 13,
     paddingVertical: 10,
   },
@@ -235,6 +272,12 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15, // Added this line
     overflow: 'hidden', // Ensure the FlatList items respect the border radius
     backgroundColor: colors.white, // Match the FlatList background to the container
+    maxHeight: 400, // Adjust the height as needed
+    flexGrow: 0,
+    marginBottom: 5,
+  },
+  flatListContent: {
+    flexGrow: 1,
   },
 });
 

@@ -18,7 +18,6 @@ const NotificationsScreen = (props) => {
   const updateNotificationSettingsApi = useApi(usersApi.updateNotificationSettings);
 
   const [isEnabled, setIsEnabled] = useState(false);
-  console.log("🚀 ~ NotificationsScreen ~ isEnabled:", isEnabled);
 
   useEffect(() => {
     checkUsersNotificationSettings(userId);

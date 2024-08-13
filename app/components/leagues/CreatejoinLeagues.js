@@ -7,12 +7,17 @@ import colors from "../../config/colors";
 const CreatejoinLeagues = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate(routes.JOIN_LEAGUE)}>
-        <AppText style={styles.text}>Join Leagues</AppText>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate(routes.JOIN_LEAGUE)}
+      >
+        <AppText style={styles.text}>Join a private league</AppText>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate(routes.CREATE_LEAGUE)}>
-        <AppText style={styles.text}>Create New League</AppText>
+        style={styles.button}
+        onPress={() => navigation.navigate(routes.CREATE_LEAGUE)}
+      >
+        <AppText style={styles.text}>+Create a league</AppText>
       </TouchableOpacity>
     </View>
   );
@@ -20,20 +25,26 @@ const CreatejoinLeagues = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row-reverse",
-    justifyContent: "space-evenly",
-    // padding: 20,
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.6)", // semi-transparent background for better readability
-    borderRadius: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginVertical: 20,
   },
+  button: {
+    backgroundColor: colors.AccentPurple,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+    marginHorizontal: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 3,
+  },
   text: {
-    fontSize: 20,
+    fontSize: 12,
     fontFamily: "Roboto_700Bold",
-    margin: 10,
-    color:colors.gold,
-    textDecorationLine: "underline",
+    color: colors.light,
   },
 });
 

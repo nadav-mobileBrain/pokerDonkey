@@ -1,6 +1,6 @@
-import client from "./client";
+import client from './client';
 
-const endpoint = "/api/games";
+const endpoint = '/api/games';
 
 const newGame = ({ selectedPlayers, leagueId, gameAdminId }) => {
   return client.post(`${endpoint}/newGame`, {
@@ -44,7 +44,7 @@ const getAllGamesForLeague = (leagueId, continuationToken = 0) => {
   // Include the continuationToken in the API request
   // Default the continuationToken to 0 to get the first page if not provided
   return client.get(
-    `${endpoint}/getAllGamesForLeague?leagueId=${leagueId}&continuationToken=${continuationToken}`
+    `${endpoint}/getAllGamesForLeague?leagueId=${leagueId}&continuationToken=${continuationToken}`,
   );
 };
 
@@ -52,20 +52,31 @@ const checkIfOpenGameExist = (leagueId) => {
   return client.get(`${endpoint}/checkIfOpenGameExist?leagueId=${leagueId}`);
 };
 
-
 const addREmovePlayersFromGame = (gameId, selectedPlayers, leagueId) => {
   return client.put(`${endpoint}/addRemovePlayersFromGame`, {
     gameId,
     selectedPlayers,
     leagueId,
   });
+};
 
-}
-
-const takeControllOfGame = (gameId,newAdminId) => {
+const takeControllOfGame = (gameId, newAdminId) => {
   return client.put(`${endpoint}/takeControllOfGame`, {
     gameId,
     newAdminId,
+  });
+};
+
+const deleteGame = (gameId) => {
+  return client.delete(`${endpoint}/deleteGame`, {
+    gameId,
+  });
+};
+
+const updateGameDetails = (gameId, gameDetails) => {
+  return client.put(`${endpoint}/updateGameDetails`, {
+    gameId,
+    gameDetails,
   });
 };
 
@@ -78,5 +89,7 @@ export default {
   getAllGamesForLeague,
   checkIfOpenGameExist,
   addREmovePlayersFromGame,
-  takeControllOfGame
+  takeControllOfGame,
+  deleteGame,
+  updateGameDetails,
 };

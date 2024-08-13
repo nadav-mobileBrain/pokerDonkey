@@ -58,7 +58,6 @@ const signIn = async () => {
       if (result.data) setError(result.data.error);
       else {
         setError("An unexpected error occurred.");
-        console.log("🚀 ~ signIn ~ result:", result)
         logger.log(result);
       }
       return;
@@ -68,7 +67,6 @@ const signIn = async () => {
     const { data: authToken } = await loginApi.request(user);
     auth.logIn(authToken);
   } catch (e) {
-    console.log("🚀 ~ signIn ~ e:", e)
     setError(e);
     logger.log(e);
   }

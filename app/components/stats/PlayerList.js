@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   playerDetails: {
     justifyContent: "space-around",
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     flex: 1,
   },
   playerName: {

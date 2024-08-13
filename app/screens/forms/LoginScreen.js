@@ -25,7 +25,6 @@ const LoginScreen = () => {
   const [loginFailed, setLoginFailed] = useState(false);
 
   const handleSubmit = async ({ nickName}) => {
-    console.log("🚀 ~ handleSubmit ~ nickName:", nickName)
     const result = await authApi.login({ nickName });
 
     if (!result.ok) return setLoginFailed(true);

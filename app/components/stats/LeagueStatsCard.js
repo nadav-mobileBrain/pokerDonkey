@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
-import AppText from "../AppText";
-import colors from "../../config/colors";
-import useApi from "../../hooks/useApi";
-import statsApi from "../../api/stats";
-import config from "../../config/config";
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
+import AppText from '../AppText';
+import colors from '../../config/colors';
+import useApi from '../../hooks/useApi';
+import statsApi from '../../api/stats';
+import config from '../../config/config';
 
 const LeagueStatsCard = ({ league }) => {
   const getLeagueStatsApi = useApi(statsApi.getLeagueStats);
@@ -22,7 +22,7 @@ const LeagueStatsCard = ({ league }) => {
   }, []);
 
   return (
- <View style={styles.card}>
+    <View style={styles.card}>
       <View style={styles.imageContainer}>
         <Image
           source={{ uri: `${config.s3.baseUrl}${league.league_image}` }}
@@ -38,11 +38,9 @@ const LeagueStatsCard = ({ league }) => {
           Total Cash Played: {leagueStats?.totalCashPlayed} $
         </Text>
         <Text style={styles.stat}>
-          Total Hours Played: {leagueStats?.totalHours} 
+          Total Hours Played: {leagueStats?.totalHours}
         </Text>
-        <Text style={styles.stat}>
-          Total Games: {leagueStats?.gamesCount}
-        </Text>
+        <Text style={styles.stat}>Total Games: {leagueStats?.gamesCount}</Text>
         <Text style={styles.stat}>
           Last Game: {leagueStats?.lastGame?.created_at}
         </Text>
@@ -55,9 +53,9 @@ const styles = StyleSheet.create({
   card: {
     padding: 10,
     borderRadius: 10,
-    flexDirection: "row-reverse",
-    alignItems: "center",
-    overflow: "hidden",
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    overflow: 'hidden',
     backgroundColor: colors.gold,
   },
   image: {
@@ -67,25 +65,21 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   imageContainer: {
-    alignItems: "center",
+    alignItems: 'center',
     marginRight: 15,
-    overflow: "hidden",
+    overflow: 'hidden',
     padding: 8,
-  },
-  leagueName: {
-    color: colors.white,
   },
 
   number: {
     fontSize: 12,
-    color: colors.white,
+    // color: colors.white,
   },
   stat: {
     fontSize: 14,
-    color: colors.white,
-    fontFamily:'Roboto_700Bold'
+    // color: colors.white,
+    fontFamily: 'Roboto_700Bold',
   },
-
 });
 
 export default LeagueStatsCard;
