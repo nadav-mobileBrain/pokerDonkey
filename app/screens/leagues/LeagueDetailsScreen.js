@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image, ImageBackground } from "react-native";
-import dayjs from "dayjs";
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Image, ImageBackground, Button } from 'react-native';
+import dayjs from 'dayjs';
 
-import ActivityIndicator from "../../components/ActivityIndicator";
-import AppButton from "../../components/AppButton";
-import AppLogo from "../../components/AppLogo";
-import AppText from "../../components/AppText";
-import colors from "../../config/colors";
-import config from "../../config/config";
-import gameApi from "../../api/game";
-import getLeaguePlayers from "../../api/leagues";
-import PlayerAvatar from "../../components/player/PlayerAvatar";
-import PlayerInfo from "../../components/player/PlayerInfo"; // Add this import statement
-import Screen from "../../components/Screen";
-import routes from "../../navigation/routes";
-import useApi from "../../hooks/useApi";
+import ActivityIndicator from '../../components/ActivityIndicator';
+import AppButton from '../../components/AppButton';
+import AppLogo from '../../components/AppLogo';
+import AppText from '../../components/AppText';
+import colors from '../../config/colors';
+import config from '../../config/config';
+import gameApi from '../../api/game';
+import getLeaguePlayers from '../../api/leagues';
+import PlayerAvatar from '../../components/player/PlayerAvatar';
+import PlayerInfo from '../../components/player/PlayerInfo'; // Add this import statement
+import Screen from '../../components/Screen';
+import routes from '../../navigation/routes';
+import useApi from '../../hooks/useApi';
 
 const LeagueDetailsScreen = ({ route, navigation }) => {
   const league = route.params.item.league;
@@ -27,7 +27,7 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
   useEffect(() => {
     const getLeaguePlayers = async () => {
       setLoading(true);
-      
+
       const result = await getLeaguePlayersApi.request(league.id);
       if (!result.ok) {
         setLoading(false);
@@ -50,55 +50,81 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
 
   return (
     <>
-    <ActivityIndicator visible={getLeaguePlayersApi.loading || loading} />
-    <Screen style={styles.container}>
-    <ImageBackground
-    blurRadius={6}
-      style={styles.background}
-      source={require("../../assets/appLogo.png")}>
+      <ActivityIndicator visible={getLeaguePlayersApi.loading || loading} />
+      <Screen style={styles.container}>
+        <ImageBackground
+          blurRadius={6}
+          style={styles.background}
+          source={require('../../assets/appLogo.png')}
+        >
           <View style={styles.overlay} />
-      <PlayerAvatar />
-      <AppLogo />
-      <View style={styles.playerContainer}>
-        <Image
-          style={styles.image}
-          source={{ uri: `${config.s3.baseUrl}${league.league_image}` }}
-        />
-        <View style={styles.detailsContainer}>
-          <AppText style={styles.leagueInfo}>League Name : {league.league_name}</AppText>
-          <AppText style={styles.leagueInfo}>League Number : {league.league_number}</AppText>
-          <AppText style={styles.leagueInfo}>Admin : {league.leagueAdmin?.nickName}</AppText>
-          <AppText style={styles.edit}
-            onPress={() => navigation.navigate(routes.EDIT_LEAGUE, { league })}
-           >Edit league name or image</AppText>
-        
-        </View>
-        <PlayerInfo leaguePlayers={leaguePlayers} /> 
-        <View style={styles.buttonContainer}>
-          <AppButton
-            title="League Stats"
-            icon="chart-box-outline"
-            color="gold"
-            onPress={() => navigation.navigate(routes.STATS, { league })}
-          />
-          <AppButton
-            title={isLiveGameOn ? "Join Live Game" : "Start A New Game"}
-            color="secondary"
-            icon="cards-playing-spade-multiple-outline"
-            onPress={() =>
-              navigation.navigate(routes.SELECT_PLAYERS, {
-                leaguePlayers,
-                league,
-              })
-            }
-          />
-        </View>
-        <AppText style={styles.created}>
-          Created At: {dayjs(league?.created_at).format("DD/MM/YYYY")}
-        </AppText>
-      </View>
- </ImageBackground>
-    </Screen>
+          <PlayerAvatar />
+          <AppLogo />
+          <View style={styles.playerContainer}>
+            <Image
+              style={styles.image}
+              source={{ uri: `${config.s3.baseUrl}${league.league_image}` }}
+            />
+            <View style={styles.detailsContainer}>
+              <AppText style={styles.leagueInfo}>
+                League Name : {league.league_name}
+              </AppText>
+              <AppText style={styles.leagueInfo}>
+                League Number : {league.league_number}
+              </AppText>
+              <AppText style={styles.leagueInfo}>
+                Admin : {league.leagueAdmin?.nickName}
+              </AppText>
+              <View
+                style={{
+                  width: '50%',
+                  alignSelf: 'flex-end',
+                  marginVertical: 5,
+                }}
+              >
+                <Button
+                  title="Edit league details"
+                  width="50%"
+                  onPress={() =>
+                    navigation.navigate(routes.EDIT_LEAGUE, { league })
+                  }
+                />
+              </View>
+              {/* <AppText
+                style={styles.edit}
+                onPress={() =>
+                  navigation.navigate(routes.EDIT_LEAGUE, { league })
+                }
+              >
+                Edit league details
+              </AppText> */}
+            </View>
+            <PlayerInfo leaguePlayers={leaguePlayers} />
+            <View style={styles.buttonContainer}>
+              <AppButton
+                title="League Stats"
+                icon="chart-box-outline"
+                color="gold"
+                onPress={() => navigation.navigate(routes.STATS, { league })}
+              />
+              <AppButton
+                title={isLiveGameOn ? 'Join Live Game' : 'Start A New Game'}
+                color="secondary"
+                icon="cards-playing-spade-multiple-outline"
+                onPress={() =>
+                  navigation.navigate(routes.SELECT_PLAYERS, {
+                    leaguePlayers,
+                    league,
+                  })
+                }
+              />
+            </View>
+            <AppText style={styles.created}>
+              Created At: {dayjs(league?.created_at).format('DD/MM/YYYY')}
+            </AppText>
+          </View>
+        </ImageBackground>
+      </Screen>
     </>
   );
 };
@@ -121,43 +147,43 @@ const styles = StyleSheet.create({
   edit: {
     color: colors.PrimaryBlue,
     fontSize: 15,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 10,
   },
   detailsContainer: {
     padding: 10,
   },
   image: {
-    width: "100%",
+    width: '100%',
     height: 120,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     marginBottom: 3,
   },
-leagueInfo:{
-  fontSize:15
-},
+  leagueInfo: {
+    fontSize: 15,
+  },
   playerContainer: {
     borderRadius: 15,
     backgroundColor: colors.surface,
     marginBottom: 20,
-    overflow: "hidden",
-    shadowColor: "#000",
+    overflow: 'hidden',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
     elevation: 5,
-    paddingBottom: 20,  // Add paddingBottom here
+    paddingBottom: 20, // Add paddingBottom here
   },
-    scrollContainer: {
+  scrollContainer: {
     flexGrow: 1,
-    justifyContent: "center",
-    paddingBottom: 30,  // Add paddingBottom here
+    justifyContent: 'center',
+    paddingBottom: 30, // Add paddingBottom here
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
-    opacity: 0.20,
+    opacity: 0.2,
   },
 });
 

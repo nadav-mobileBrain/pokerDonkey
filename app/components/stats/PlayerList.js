@@ -1,16 +1,20 @@
-import React from "react";
-import { View, FlatList, Image, Text, StyleSheet } from "react-native";
-import ListitemSeperator from "../ListitemSeperator";
-import AppText from "../AppText";
-import colors from "../../config/colors";
-import config from "../../config/config";
+import React from 'react';
+import { View, FlatList, Image, Text, StyleSheet } from 'react-native';
+import ListitemSeperator from '../ListitemSeperator';
+import AppText from '../AppText';
+import colors from '../../config/colors';
+import config from '../../config/config';
 
 const PlayerItem = ({ player, index, title }) => (
   <View style={styles.itemContainer}>
     <AppText style={styles.position}>{index}</AppText>
     <View style={styles.imageContainer}>
       <Image
-        source={{ uri:player?.image?.startsWith('https') ? player.image : `${config.s3.baseUrl}${player.image}` }}
+        source={{
+          uri: player?.image?.startsWith('https')
+            ? player.image
+            : `${config.s3.baseUrl}${player.image}`,
+        }}
         style={styles.playerImage}
       />
       <Text style={styles.playerName}>{player.nickName}</Text>
@@ -20,13 +24,14 @@ const PlayerItem = ({ player, index, title }) => (
         style={[
           styles.playerStats,
           player.title > 0 &&
-            title === "totalProfit" && { color: "green", fontWeight: "bold" },
+            title === 'totalProfit' && { color: 'green', fontWeight: 'bold' },
           player.title < 0 &&
-            title === "totalProfit" && {
-              color: "red",
-              fontWeight: "bold",
+            title === 'totalProfit' && {
+              color: 'red',
+              fontWeight: 'bold',
             },
-        ]}>
+        ]}
+      >
         {player.title}
       </Text>
       <Text style={styles.playerStats}> {player.subTitle}</Text>
@@ -58,21 +63,21 @@ const PlayersList = ({ players, titles }) => {
 
 const styles = StyleSheet.create({
   itemContainer: {
-    flexDirection: "row-reverse",
+    flexDirection: 'row-reverse',
     paddingVertical: 5,
     paddingHorizontal: 10,
-    alignItems: "center",
+    alignItems: 'center',
   },
 
   header: {
-    flexDirection: "row-reverse",
-    justifyContent: "space-around",
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-around',
     padding: 8,
     backgroundColor: colors.AccentPurple,
   },
   imageContainer: {
-    flexDirection: "column",
-    alignItems: "center",
+    flexDirection: 'column',
+    alignItems: 'center',
     width: 70,
   },
 
@@ -82,8 +87,8 @@ const styles = StyleSheet.create({
     borderRadius: 17,
   },
   playerDetails: {
-    justifyContent: "space-around",
-    flexDirection: "row-reverse",
+    justifyContent: 'space-around',
+    flexDirection: 'row-reverse',
     flex: 1,
   },
   playerName: {
@@ -93,12 +98,12 @@ const styles = StyleSheet.create({
   playerStats: {
     fontSize: 12,
     width: 60,
-    textAlign: "center",
+    textAlign: 'center',
   },
   position: {
     fontSize: 10,
     width: 16,
-    textDecorationLine: "underline",
+    textDecorationLine: 'underline',
   },
   title: {
     fontSize: 10,

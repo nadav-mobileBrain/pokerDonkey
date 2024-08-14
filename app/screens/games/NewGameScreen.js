@@ -8,12 +8,13 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
-import Dialog from 'react-native-dialog';
 import { LinearGradient } from 'expo-linear-gradient';
+import Container, { Toast } from 'toastify-react-native';
 
 import AppText from '../../components/AppText';
 import AppButton from '../../components/AppButton';
 import colors from '../../config/colors';
+import DialogComponent from '../../components/forms/DialogComponent';
 import gameApi from '../../api/game';
 import GameDetails from '../../components/games/GameDetails';
 import GameHeader from '../../components/games/GameHeader';
@@ -40,10 +41,10 @@ const NewGame = ({ route, navigation }) => {
   const [selectedPlayer, setSelectedPlayer] = useState();
   const [loading, setLoading] = useState(false);
   const [userGamesData, setUserGamesData] = useState(route.params.userGames);
-  console.log('🚀 ~ NewGame ~ userGamesData:', userGamesData);
   const [error, setError] = useState();
   const [dialogVisible, setDialogVisible] = useState(false);
-
+  const [endDialogVisible, setEndDialogVisible] = useState(false);
+  const [moneyLeft, setMoneyLeft] = useState(0);
   const getLeaguePlayersApi = useApi(getLeaguePlayers.getLeaguePlayers);
   const [game, setGame] = useState(route.params.game);
 
@@ -58,10 +59,23 @@ const NewGame = ({ route, navigation }) => {
     }
   }, [isFocused]);
 
+  const moneyLeftInBank = () => {
+    if (moneyLeft != 0) {
+      const isAllCashedOut = checkIfAllPlayersCashedOut(userGamesData);
+      if (!isAllCashedOut) {
+        Toast.warn('All Players must cash out');
+        return;
+      }
+      setEndDialogVisible(true);
+      return;
+    }
+    endGame();
+  };
+
   const endGame = async () => {
     const isAllCashedOut = checkIfAllPlayersCashedOut(userGamesData);
     if (!isAllCashedOut) {
-      alert('Not all players cashed out');
+      Toast.warn('All Players must cash out');
       return;
     }
 
@@ -119,8 +133,10 @@ const NewGame = ({ route, navigation }) => {
     setDialogVisible(false);
     setLoading(false);
   };
+
   return (
     <>
+      <Container position="top" width="100%" />
       <ActivityIndicator visible={!isFocused} />
       <Screen style={styles.container}>
         <LinearGradient
@@ -128,22 +144,32 @@ const NewGame = ({ route, navigation }) => {
           style={styles.background}
         >
           <HeaderText>New Game</HeaderText>
-          <Dialog.Container visible={dialogVisible}>
-            <Dialog.Title>Take Control of Game</Dialog.Title>
-            <Dialog.Description>
-              Do you want to take control of the game and replace the game
-              admin?
-            </Dialog.Description>
-            <Dialog.Button label="No" onPress={handleCancel} />
-            <Dialog.Button label="Yes" onPress={handleConfirm} />
-          </Dialog.Container>
-
+          {dialogVisible && (
+            <DialogComponent
+              titleText="Take Control of Game"
+              descriptionText="Do you want to take control of the game and replace the game
+              admin?"
+              handleCancel={handleCancel}
+              handleConfirm={handleConfirm}
+            />
+          )}
+          {endDialogVisible && (
+            <DialogComponent
+              titleText="Money in the bank is not zero"
+              descriptionText="Are you sure you want to end game?"
+              handleCancel={() => setEndDialogVisible(false)}
+              handleConfirm={() => endGame()}
+            />
+          )}
           {error && <AppText>{error}</AppText>}
           <ActivityIndicator visible={loading} />
           <GameDetails
             game={game}
             league={league}
             userGameData={userGamesData}
+            onCalculateMoneyInTheBank={(moneyLeft) => {
+              setMoneyLeft(moneyLeft);
+            }}
           />
           {game?.gameManager?.id === user.userId && (
             <TouchableOpacity onPress={addRemovePlayersFromGame}>
@@ -189,7 +215,11 @@ const NewGame = ({ route, navigation }) => {
                   )}
                 />
               </View>
-              <AppButton title="End Game" color="gold" onPress={endGame} />
+              <AppButton
+                title="End Game"
+                color="gold"
+                onPress={() => moneyLeftInBank()}
+              />
               <Modal visible={modalVisible} animationType="slide">
                 <Button title="Cancel" onPress={() => setModalVisible(false)} />
                 <Screen>

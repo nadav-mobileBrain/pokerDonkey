@@ -1,15 +1,14 @@
-import { StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
-import Screen from "../../components/Screen";
-import LeaderStatsHeader from "../../components/stats/LeaderStatsHeader";
-import PlayersList from "../../components/stats/PlayerList";
+import { StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import Screen from '../../components/Screen';
+import LeaderStatsHeader from '../../components/stats/LeaderStatsHeader';
+import PlayersList from '../../components/stats/PlayerList';
 
-import useApi from "../../hooks/useApi";
-import statsApi from "../../api/stats";
-import ActivityIndicator from "../../components/ActivityIndicator";
- 
+import useApi from '../../hooks/useApi';
+import statsApi from '../../api/stats';
+import ActivityIndicator from '../../components/ActivityIndicator';
+
 const CardStatsScreen = ({ route }) => {
- 
   const [cardPlayers, setCardPlayers] = useState([]);
   const [leader, setLeader] = useState({});
   const [loading, setLoading] = useState(false);
@@ -46,7 +45,6 @@ const CardStatsScreen = ({ route }) => {
       <ActivityIndicator visible={loading} />
       <LeaderStatsHeader leader={leader} titles={data} />
       <PlayersList players={cardPlayers} titles={data} />
- 
     </Screen>
   );
 };
