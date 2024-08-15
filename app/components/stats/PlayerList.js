@@ -45,7 +45,7 @@ const PlayersList = ({ players, titles }) => {
     <View style={{ flex: 1 }}>
       <View style={styles.header}>
         <AppText style={styles.playerTitle}>Player</AppText>
-        <AppText style={styles.title}>{titles.title}</AppText>
+        <AppText style={styles.title}>{titles.cardTitle}</AppText>
         <AppText style={styles.title}>{titles.subTitle}</AppText>
         <AppText style={styles.title}>{titles.subTitle2}</AppText>
       </View>

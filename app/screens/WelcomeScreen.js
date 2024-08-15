@@ -1,43 +1,50 @@
-import React from "react";
-import { View, StyleSheet, ImageBackground, Text } from "react-native";
-import AppButton from "../components/AppButton";
-import colors from "../config/colors";
-import AppLogo from "../components/AppLogo";
-import useAuth from "../auth/useAuth"; 
-import authApi from "../api/auth"; 
-import AppText from "../components/AppText";
+import React from 'react';
+import { View, StyleSheet, ImageBackground, Text } from 'react-native';
+import AppButton from '../components/AppButton';
+import colors from '../config/colors';
+import AppLogo from '../components/AppLogo';
+import useAuth from '../auth/useAuth';
+import authApi from '../api/auth';
+import AppText from '../components/AppText';
 
 const WelcomeScreen = ({ navigation }) => {
-  const { logIn, logOut} = useAuth();
+  const { logIn, logOut } = useAuth();
 
   const takeATour = async () => {
     logOut();
     try {
-      const result = await authApi.login({ nickName: "Test user" });
+      const result = await authApi.login({
+        google_id: '100975266796150070789',
+      });
       logIn(result.data);
     } catch (error) {
-      console.error("Error during guest login", error);
+      console.error('Error during guest login', error);
     }
-  }
+  };
 
   return (
     <ImageBackground
       style={styles.container}
-      source={require("../assets/appLogo.png")}
-      blurRadius={7}>
+      source={require('../assets/appLogo.png')}
+      blurRadius={7}
+    >
       <View style={styles.logoContainer}>
         <AppLogo />
         <Text style={styles.tagLine}>Manage Your Home Poker Games</Text>
       </View>
       <View style={styles.info}>
-        <Text style={styles.infoTagLine}>Collect and display stats of your league's games.</Text>
-        <Text style={styles.infoTagLine}>Who is the best player in your league?</Text>
+        <Text style={styles.infoTagLine}>
+          Collect and display stats of your league's games.
+        </Text>
+        <Text style={styles.infoTagLine}>
+          Who is the best player in your league?
+        </Text>
       </View>
       <View style={styles.buttonContainer}>
         <AppButton
           title="Take A Tour"
-         color="secondary"
-          onPress={()=>takeATour()}
+          color="secondary"
+          onPress={() => takeATour()}
           icon="arrow-right-bold-outline"
         />
         {/* <AppButton
@@ -49,10 +56,12 @@ const WelcomeScreen = ({ navigation }) => {
         <AppButton
           title="Register/Login"
           color="gold"
-          onPress={() => navigation.navigate("Register")}
+          onPress={() => navigation.navigate('Register')}
           icon="account-plus"
         />
-        <AppText style={{color: colors.gold, textAlign:'center'}}>Developed By Nadav Galili 🧙‍♂️ </AppText>
+        <AppText style={{ color: colors.gold, textAlign: 'center' }}>
+          Developed By Nadav Galili 🧙‍♂️{' '}
+        </AppText>
       </View>
     </ImageBackground>
   );
@@ -61,38 +70,38 @@ const WelcomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
+    justifyContent: 'flex-end',
+    alignItems: 'center',
     padding: 20,
   },
   logoContainer: {
-    position: "absolute",
+    position: 'absolute',
     top: 120,
-    alignItems: "center",
+    alignItems: 'center',
   },
   tagLine: {
     fontSize: 26,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     paddingVertical: 20,
     color: colors.gold,
-    textAlign: "center",
+    textAlign: 'center',
   },
   info: {
     padding: 20,
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.6)", // semi-transparent background for better readability
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)', // semi-transparent background for better readability
     borderRadius: 10,
     marginVertical: 20,
   },
   infoTagLine: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: colors.gold,
-    textAlign: "center",
+    textAlign: 'center',
     marginBottom: 10,
   },
   buttonContainer: {
-    width: "100%",
+    width: '100%',
   },
 });
 

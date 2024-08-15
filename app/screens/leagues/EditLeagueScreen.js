@@ -1,85 +1,154 @@
-import React, { useState} from "react";
-import { StyleSheet, View } from "react-native";
-import * as Yup from "yup";
-import { LinearGradient } from "expo-linear-gradient";
+import React, { useState } from 'react';
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import * as Yup from 'yup';
+import { LinearGradient } from 'expo-linear-gradient';
 
-import { AppForm, AppFormField, SubmitButton } from "../../components/forms";
-import ActivityIndicator from "../../components/ActivityIndicator";
-import useApi from "../../hooks/useApi";
-import leagueApi from "../../api/leagues";
-import config from "../../config/config";
-import colors from "../../config/colors";
-import logger from "../../utility/logger";
-import ErrorMessage from "../../components/forms/ErrorMessage";
-import ImageInput from "../../components/forms/ImageInput";
-import routes from "../../navigation/routes";
-import Screen from "../../components/Screen";
+import { AppForm, AppFormField, SubmitButton } from '../../components/forms';
+import AppText from '../../components/AppText';
+import ActivityIndicator from '../../components/ActivityIndicator';
+import config from '../../config/config';
+import colors from '../../config/colors';
+import ErrorMessage from '../../components/forms/ErrorMessage';
+import ImageInput from '../../components/forms/ImageInput';
+import Icon from '../../components/Icon';
+import leagueApi from '../../api/leagues';
+import logger from '../../utility/logger';
+import useApi from '../../hooks/useApi';
+import useAuth from '../../auth/useAuth';
+import routes from '../../navigation/routes';
+import Screen from '../../components/Screen';
 
 const validationSchema = Yup.object().shape({
-  leagueName: Yup.string().required().label("League Name"),
-  image: Yup.string().label("Image"),
+  leagueName: Yup.string().required().label('League Name'),
+  image: Yup.string().label('Image'),
 });
-const EditLeagueScreen = ({ navigation,route }) => {
+const EditLeagueScreen = ({ navigation, route }) => {
+  const leagueName = route.params?.league?.league_name;
+  const leagueImage = route.params?.league?.league_image;
+  const leagueId = route.params?.league?.id;
+  const league = route.params?.league;
 
-const leageName = route.params?.league?.league_name
-const leagueImage = route.params?.league?.league_image
-const leagueId = route.params?.league?.id
+  const [leaguePlayers, setLeaguePlayers] = useState(
+    route.params?.leaguePlayers.filter(
+      (player) => player.User.id !== league.admin_id,
+    ),
+  );
+  const leagueAdminId = route.params?.league?.admin_id;
+  const { user } = useAuth();
 
-const updateLeagueDetailsApi = useApi(leagueApi.updateLeagueDetails);
+  const updateLeagueDetailsApi = useApi(leagueApi.updateLeagueDetails);
 
   const [error, setError] = useState();
-  const [imageUri, setImageUri] = useState(`${config.s3.baseUrl}${leagueImage}`); // New state for image URI
+  const [imageUri, setImageUri] = useState(
+    `${config.s3.baseUrl}${leagueImage}`,
+  );
 
   const handleSubmit = async (leagueInfo) => {
     const completeLeagueInfo = {
-        ...leagueInfo,
-        image: imageUri,
-        leagueId,
+      ...leagueInfo,
+      image: imageUri,
+      leagueId,
+      leaguePlayers,
     };
 
     const result = await updateLeagueDetailsApi.request(completeLeagueInfo);
     if (!result.ok) {
       if (result.data) setError(result.data.error);
       else {
-        setError("An unexpected error occurred.");
+        setError('An unexpected error occurred.');
         logger.log(result);
       }
       return;
     }
 
+    navigation.navigate('Leagues');
     navigation.navigate(routes.LEAGUE_DETAILS, { item: result.data });
+  };
 
+  const deletePlayers = (player) => {
+    setLeaguePlayers((prevPlayers) =>
+      prevPlayers.filter((p) => p.User.id !== player.User.id),
+    );
   };
 
   return (
     <>
-   <ActivityIndicator visible={updateLeagueDetailsApi.loading } /> 
+      <ActivityIndicator visible={updateLeagueDetailsApi.loading} />
       <Screen style={styles.container}>
-      <LinearGradient
+        <LinearGradient
           colors={colors.primaryGradientArray}
           style={styles.background}
         >
-        <AppForm
-          initialValues={{ leagueName:leageName }}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}>
-          <ErrorMessage error={error} visible={error} />
-          <AppFormField
-            autoCorrect={false}
-            icon="account"
-            name="leagueName"
-            placeholder={leageName}
-          />
-
-          <View style={{ alignItems: "flex-end" }}>
-            <ImageInput
-              imageUri={imageUri}
-              onChangeImage={(uri) => setImageUri(uri)}
+          <AppForm
+            initialValues={{ leagueName: leagueName }}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          >
+            <ErrorMessage error={error} visible={error} />
+            <AppFormField
+              autoCorrect={false}
+              icon="account-group"
+              name="leagueName"
+              placeholder={leagueName}
+              style={styles.input}
             />
-          </View>
-          <SubmitButton title="Edit Details" icon="account-edit" color="gold" />
-        </AppForm>
-      </LinearGradient>
+
+            <View style={styles.imageContainer}>
+              <ImageInput
+                imageUri={imageUri}
+                onChangeImage={(uri) => setImageUri(uri)}
+              />
+            </View>
+            {user.userId === leagueAdminId && (
+              <View>
+                <AppText style={styles.removePlayersText}>
+                  Remove players from league
+                </AppText>
+                <FlatList
+                  data={leaguePlayers}
+                  keyExtractor={(item) => item.id.toString()}
+                  numColumns={3}
+                  renderItem={({ item }) => (
+                    <TouchableOpacity
+                      style={styles.playerContainer}
+                      onPress={() => deletePlayers(item)}
+                    >
+                      <Image
+                        source={{
+                          uri: item.User.image.startsWith('https')
+                            ? item.User.image
+                            : `${config.s3.baseUrl}${item.User.image}`,
+                        }}
+                        style={styles.image}
+                      />
+                      <AppText style={styles.playerName}>
+                        {item.User.nickName}
+                      </AppText>
+                      <Icon
+                        name="trash-can"
+                        backgroundColor="red"
+                        size={25}
+                        iconColor="white"
+                      />
+                    </TouchableOpacity>
+                  )}
+                />
+              </View>
+            )}
+            <SubmitButton
+              title="Edit Details"
+              icon="account-edit"
+              color="gold"
+              style={styles.submitButton}
+            />
+          </AppForm>
+        </LinearGradient>
       </Screen>
     </>
   );
@@ -92,6 +161,26 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     padding: 20,
+  },
+  playerContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: 10,
+  },
+  playerName: {
+    color: colors.gold,
+    fontSize: 15,
+  },
+  image: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
+  removePlayersText: {
+    color: colors.white,
+    fontSize: 20,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
   },
 });
 

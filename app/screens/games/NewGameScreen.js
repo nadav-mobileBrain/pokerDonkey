@@ -9,11 +9,11 @@ import {
 } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
-import Container, { Toast } from 'toastify-react-native';
 
 import AppText from '../../components/AppText';
 import AppButton from '../../components/AppButton';
 import colors from '../../config/colors';
+import Container, { Toast } from 'toastify-react-native';
 import DialogComponent from '../../components/forms/DialogComponent';
 import gameApi from '../../api/game';
 import GameDetails from '../../components/games/GameDetails';
@@ -188,7 +188,6 @@ const NewGame = ({ route, navigation }) => {
               </AppText>
             </View>
           )}
-
           {game?.gameManager?.id === user.userId && (
             <>
               <View style={styles.flatListContainer}>
@@ -234,6 +233,9 @@ const NewGame = ({ route, navigation }) => {
                           userGamesData,
                           setUserGamesData,
                         );
+                        Toast.success(
+                          `${amount} added for ${selectedPlayer?.User?.nickName}`,
+                        );
                       }}
                       onRemoveBuyIn={(amount, userId) => {
                         onRemoveBuyIn(
@@ -241,6 +243,9 @@ const NewGame = ({ route, navigation }) => {
                           userId,
                           userGamesData,
                           setUserGamesData,
+                        );
+                        Toast.success(
+                          `${amount} removed for ${selectedPlayer?.User?.nickName}`,
                         );
                       }}
                       onCashOut={(amount, userId) => {
@@ -252,6 +257,9 @@ const NewGame = ({ route, navigation }) => {
                         updatedUserGames[playerIndex].is_cashed_out = true;
 
                         setUserGamesData(updatedUserGames);
+                        Toast.success(
+                          ` ${selectedPlayer?.User?.nickName} cashed out ${amount}`,
+                        );
                       }}
                     />
                   )}

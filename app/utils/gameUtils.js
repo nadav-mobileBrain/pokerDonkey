@@ -1,4 +1,4 @@
-import logger from "../utility/logger";
+import logger from '../utility/logger';
 
 export const removeLastBuyIn = async (
   buyInNumber,
@@ -8,21 +8,21 @@ export const removeLastBuyIn = async (
   setBuyInAmount,
   setBuyInNumber,
   onRemoveBuyIn,
-  onClose
+  onClose,
 ) => {
   if (buyInNumber < 1) {
-    alert("No buy ins to remove");
+    alert('No buy ins to remove');
     return;
   }
   const result = await removeLastBuyInToPlayer.request(
     playerData.game_id,
     playerData.user_id,
     -50,
-    playerData.league_id
+    playerData.league_id,
   );
 
   if (!result.ok) {
-    logger.log("🚀 ~ removeLastBuyIn ~ rjhgjhgjhgesult", result.data);
+    logger.log('🚀 ~ removeLastBuyIn ~ rjhgjhgjhgesult', result.data);
     return;
   }
   setBuyInAmount(buyInAmount - result.data[1]);
@@ -41,7 +41,7 @@ export const addBuyIn = async (
   onAddBuyIn,
   buyInAmount,
   buyInNumber,
-  onClose
+  onClose,
 ) => {
   setBuyInAmount(buyInAmount + amount);
   setBuyInNumber(buyInNumber + 1);
@@ -49,10 +49,10 @@ export const addBuyIn = async (
     playerData.game_id,
     playerData.user_id,
     amount,
-    playerData.league_id
+    playerData.league_id,
   );
   if (!result.ok) {
-    logger.log("🚀 ~ addBuyIn ~ result", result.data);
+    logger.log('🚀 ~ addBuyIn ~ result', result.data);
     return;
   }
   onAddBuyIn(amount, playerData.user_id);
@@ -60,8 +60,7 @@ export const addBuyIn = async (
   onClose();
 };
 
-
-export const  onAddBuyIn = (amount, userId,userGamesData,setUserGamesData) => {
+export const onAddBuyIn = (amount, userId, userGamesData, setUserGamesData) => {
   const updatedUserGames = [...userGamesData];
   const playerIndex = updatedUserGames.findIndex((p) => p.user_id === userId);
   updatedUserGames[playerIndex].buy_ins_amount += amount;
@@ -69,7 +68,12 @@ export const  onAddBuyIn = (amount, userId,userGamesData,setUserGamesData) => {
   setUserGamesData(updatedUserGames);
 };
 
-export const onRemoveBuyIn = (amount, userId,userGamesData,setUserGamesData) => {
+export const onRemoveBuyIn = (
+  amount,
+  userId,
+  userGamesData,
+  setUserGamesData,
+) => {
   const updatedUserGames = [...userGamesData];
   const playerIndex = updatedUserGames.findIndex((p) => p.user_id === userId);
   updatedUserGames[playerIndex].buy_ins_amount -= amount;

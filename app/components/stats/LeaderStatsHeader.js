@@ -1,26 +1,31 @@
-import React from "react";
-import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
+import React from 'react';
+import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
 
-import colors from "../../config/colors";
-import config from "../../config/config";
+import colors from '../../config/colors';
+import config from '../../config/config';
 
 const LeaderStatsHeader = ({ leader, titles }) => {
   return (
     <ImageBackground
-      source={require("../../assets/cardstats.jpg")}
-      style={styles.headerContainer}>
+      source={require('../../assets/cardstats.jpg')}
+      style={styles.headerContainer}
+    >
       <View style={styles.overlay} />
 
       <Image
-        source={{ uri:leader?.image?.startsWith('https')?  leader.image : `${config.s3.baseUrl}${leader.image}` }}
+        source={{
+          uri: leader?.image?.startsWith('https')
+            ? leader.image
+            : `${config.s3.baseUrl}${leader.image}`,
+        }}
         style={styles.leaderImage}
       />
       <Text style={styles.leaderName}>{leader.nickName}</Text>
       <Text style={styles.leaderStats}>
-        {titles.title} :{leader.title}
+        {titles.cardTitle} :{leader.title}
       </Text>
       <Text style={styles.leaderStats}>
-        {" "}
+        {' '}
         {titles.subTitle}: {leader.subTitle}
       </Text>
       <Text style={styles.leaderStats}>
@@ -32,7 +37,7 @@ const LeaderStatsHeader = ({ leader, titles }) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    alignItems: "center",
+    alignItems: 'center',
     padding: 5,
   },
   leaderImage: {

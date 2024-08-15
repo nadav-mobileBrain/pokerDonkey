@@ -80,24 +80,19 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
                   width: '50%',
                   alignSelf: 'flex-end',
                   marginVertical: 5,
+                  borderRadius: 15,
                 }}
               >
                 <Button
                   title="Edit league details"
-                  width="50%"
                   onPress={() =>
-                    navigation.navigate(routes.EDIT_LEAGUE, { league })
+                    navigation.navigate(routes.EDIT_LEAGUE, {
+                      league,
+                      leaguePlayers,
+                    })
                   }
                 />
               </View>
-              {/* <AppText
-                style={styles.edit}
-                onPress={() =>
-                  navigation.navigate(routes.EDIT_LEAGUE, { league })
-                }
-              >
-                Edit league details
-              </AppText> */}
             </View>
             <PlayerInfo leaguePlayers={leaguePlayers} />
             <View style={styles.buttonContainer}>
@@ -144,11 +139,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  edit: {
-    color: colors.PrimaryBlue,
-    fontSize: 15,
-    fontWeight: 'bold',
-    marginBottom: 10,
+  editLeague: {
+    borderRadius: 15,
   },
   detailsContainer: {
     padding: 10,

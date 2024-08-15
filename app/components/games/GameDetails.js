@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import colors from '../../config/colors';
 import AppText from '../AppText';
@@ -21,7 +21,10 @@ const GameDetails = ({
       : acc;
   }, 0);
 
-  onCalculateMoneyInTheBank(totalBuyIn - cashInHand);
+  // Move the setState logic into useEffect
+  useEffect(() => {
+    onCalculateMoneyInTheBank(totalBuyIn - cashInHand);
+  }, [totalBuyIn, cashInHand, onCalculateMoneyInTheBank]);
 
   return (
     <View style={styles.gameDetailsContainer}>
@@ -55,9 +58,6 @@ const GameDetails = ({
           </>
         )}
       </View>
-      {/* <AppText style={styles.gameDate}>
-        Updated At: {dayjs(game.updated_at).format("DD/MM/YYYY hh:mm:ss")}
-      </AppText> */}
     </View>
   );
 };
@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 10,
     elevation: 5,
-    // padding: 10,
   },
   gameDate: {
     fontSize: 14,
