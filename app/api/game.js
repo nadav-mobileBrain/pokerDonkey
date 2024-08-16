@@ -73,10 +73,11 @@ const deleteGame = (gameId) => {
   });
 };
 
-const updateGameDetails = (gameId, gameDetails) => {
+const updateGameDetails = (gameId, gameDetails, editorId) => {
   return client.put(`${endpoint}/updateGameDetails`, {
     gameId,
     gameDetails,
+    editorId,
   });
 };
 

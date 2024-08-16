@@ -7,6 +7,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
+import Container from 'toastify-react-native';
 
 import ActivityIndicator from '../../components/ActivityIndicator';
 import AllGamesCard from '../../components/games/AllGamesCard';
@@ -51,6 +52,13 @@ const AllGamesScreen = ({ route, leagueIdForPushNotifications = null }) => {
   return (
     <>
       <ActivityIndicator visible={getAllGamesForLeagueApi.loading} />
+      <Container
+        position="top"
+        width="100%"
+        height={120}
+        duration={2000}
+        textStyle={{ fontSize: 20 }}
+      />
       <Screen style={styles.container}>
         <ImageBackground
           blurRadius={4}

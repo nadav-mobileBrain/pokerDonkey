@@ -1,44 +1,63 @@
 import React from 'react';
-import { View, FlatList, Image, Text, StyleSheet } from 'react-native';
-import ListitemSeperator from '../ListitemSeperator';
+import {
+  View,
+  FlatList,
+  Image,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+
+import { navigationRef } from '../../navigation/rootNavigation';
 import AppText from '../AppText';
 import colors from '../../config/colors';
 import config from '../../config/config';
+import ListitemSeperator from '../ListitemSeperator';
+import routes from '../../navigation/routes';
 
-const PlayerItem = ({ player, index, title }) => (
-  <View style={styles.itemContainer}>
-    <AppText style={styles.position}>{index}</AppText>
-    <View style={styles.imageContainer}>
-      <Image
-        source={{
-          uri: player?.image?.startsWith('https')
-            ? player.image
-            : `${config.s3.baseUrl}${player.image}`,
-        }}
-        style={styles.playerImage}
-      />
-      <Text style={styles.playerName}>{player.nickName}</Text>
-    </View>
-    <View style={styles.playerDetails}>
-      <Text
-        style={[
-          styles.playerStats,
-          player.title > 0 &&
-            title === 'totalProfit' && { color: 'green', fontWeight: 'bold' },
-          player.title < 0 &&
-            title === 'totalProfit' && {
-              color: 'red',
-              fontWeight: 'bold',
-            },
-        ]}
+const PlayerItem = ({ player, index, title }) => {
+  return (
+    <View style={styles.itemContainer}>
+      <AppText style={styles.position}>{index}</AppText>
+      <TouchableOpacity
+        style={styles.imageContainer}
+        onPress={() =>
+          navigationRef.current.navigate(routes.PERSONAL_STATS, {
+            userDetails: player,
+          })
+        }
       >
-        {player.title}
-      </Text>
-      <Text style={styles.playerStats}> {player.subTitle}</Text>
-      <Text style={styles.playerStats}> {player.subTitle2}</Text>
+        <Image
+          source={{
+            uri: player?.image?.startsWith('https')
+              ? player.image
+              : `${config.s3.baseUrl}${player.image}`,
+          }}
+          style={styles.playerImage}
+        />
+        <Text style={styles.playerName}>{player.nickName}</Text>
+      </TouchableOpacity>
+      <View style={styles.playerDetails}>
+        <Text
+          style={[
+            styles.playerStats,
+            player.title > 0 &&
+              title === 'totalProfit' && { color: 'green', fontWeight: 'bold' },
+            player.title < 0 &&
+              title === 'totalProfit' && {
+                color: 'red',
+                fontWeight: 'bold',
+              },
+          ]}
+        >
+          {player.title}
+        </Text>
+        <Text style={styles.playerStats}> {player.subTitle}</Text>
+        <Text style={styles.playerStats}> {player.subTitle2}</Text>
+      </View>
     </View>
-  </View>
-);
+  );
+};
 
 const PlayersList = ({ players, titles }) => {
   return (

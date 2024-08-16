@@ -1,5 +1,11 @@
-import React from 'react';
-import { View, StyleSheet, ImageBackground, Text } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import AppButton from '../components/AppButton';
 import colors from '../config/colors';
 import AppLogo from '../components/AppLogo';
@@ -9,6 +15,7 @@ import AppText from '../components/AppText';
 
 const WelcomeScreen = ({ navigation }) => {
   const { logIn, logOut } = useAuth();
+  const [readMore, setReadMore] = useState(false);
 
   const takeATour = async () => {
     logOut();
@@ -22,6 +29,10 @@ const WelcomeScreen = ({ navigation }) => {
     }
   };
 
+  const toggleReadMore = () => {
+    setReadMore(!readMore);
+  };
+
   return (
     <ImageBackground
       style={styles.container}
@@ -33,11 +44,13 @@ const WelcomeScreen = ({ navigation }) => {
         <Text style={styles.tagLine}>Manage Your Home Poker Games</Text>
       </View>
       <View style={styles.info}>
-        <Text style={styles.infoTagLine}>
+        <Text style={styles.headerInfoTagLine}>
           Collect and display stats of your league's games.
         </Text>
         <Text style={styles.infoTagLine}>
-          Who is the best player in your league?
+          Create or join a league with your friends and track every hand played.
+          See who comes out on top and who needs to sharpen their poker skills.
+          Share your results and challenge each other to be the best!
         </Text>
       </View>
       <View style={styles.buttonContainer}>
@@ -47,12 +60,6 @@ const WelcomeScreen = ({ navigation }) => {
           onPress={() => takeATour()}
           icon="arrow-right-bold-outline"
         />
-        {/* <AppButton
-          title="Login"
-          onPress={() => navigation.navigate("Login")}
-          color="secondary"
-          icon="login"
-        /> */}
         <AppButton
           title="Register/Login"
           color="gold"
@@ -86,6 +93,13 @@ const styles = StyleSheet.create({
     color: colors.gold,
     textAlign: 'center',
   },
+  headerInfoTagLine: {
+    fontSize: 19,
+    color: colors.gold,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
   info: {
     padding: 20,
     alignItems: 'center',
@@ -95,10 +109,22 @@ const styles = StyleSheet.create({
   },
   infoTagLine: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: colors.gold,
+    color: colors.white,
     textAlign: 'center',
     marginBottom: 10,
+  },
+  infoText: {
+    fontSize: 16,
+    color: colors.gold,
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  readMoreText: {
+    fontSize: 16,
+    color: colors.secondary,
+    fontWeight: 'bold',
+    marginTop: 5,
+    textAlign: 'center',
   },
   buttonContainer: {
     width: '100%',

@@ -1,26 +1,30 @@
-import React from "react";
+import React from 'react';
 import {
   Image,
   View,
   StyleSheet,
   FlatList,
   TouchableOpacity,
-} from "react-native";
+} from 'react-native';
 
-import AppText from "../AppText";
-import colors from "../../config/colors";
-import config from "../../config/config";
-import { navigationRef } from "../../navigation/rootNavigation";
-import routes from "../../navigation/routes";
+import AppText from '../AppText';
+import colors from '../../config/colors';
+import config from '../../config/config';
+import { navigationRef } from '../../navigation/rootNavigation';
+import routes from '../../navigation/routes';
 
 const PlayerInfo = ({
   leaguePlayers,
   onPress,
   width = 30,
   height = 30,
-  borderColor = "AccentPurple",
+  borderColor = 'AccentPurple',
 }) => {
-  if(!onPress) onPress = (item) => navigationRef.current.navigate(routes.PERSONAL_STATS, { userDetails: item.User});
+  if (!onPress)
+    onPress = (item) =>
+      navigationRef.current.navigate(routes.PERSONAL_STATS, {
+        userDetails: item.User,
+      });
   return (
     <View style={styles.container}>
       <FlatList
@@ -37,7 +41,11 @@ const PlayerInfo = ({
                 styles.image,
                 { width, height, borderColor: colors[borderColor] },
               ]}
-              source={{ uri: item.User.image.startsWith('http') ? item.User.image : `${config.s3.baseUrl}${item.User.image}` }}
+              source={{
+                uri: item.User.image.startsWith('http')
+                  ? item.User.image
+                  : `${config.s3.baseUrl}${item.User.image}`,
+              }}
             />
             <AppText style={styles.playerName}>{item.User.nickName}</AppText>
           </TouchableOpacity>
@@ -62,15 +70,15 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   playerContainer: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 5,
     //  margin: 5,
   },
   playerName: {
     color: colors.AccentPurple,
     fontSize: 8,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });
 

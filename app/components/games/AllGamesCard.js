@@ -1,5 +1,6 @@
 import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { Toast } from 'toastify-react-native';
 
 import AppText from '../AppText';
 import AllGamesCardHeader from './AllGamesCardHeader';
@@ -19,11 +20,10 @@ const AllGamesCard = ({ game }) => {
     const userId = user.userId;
     const gameAdmin = game.game_manager_id;
     if (userId !== gameAdmin) {
-      alert('Only the game manager can edit the game');
+      Toast.warn('Only game manager can edit the game');
       return;
     }
-
-    navigation.navigate(routes.EDIT_GAME, { gameDetails: game });
+    navigation.navigate(routes.EDIT_GAME, { gameDetails: game, user });
   };
 
   return (
@@ -37,6 +37,7 @@ const AllGamesCard = ({ game }) => {
         />
         <AppText style={styles.iconText}>Edit Game</AppText>
       </TouchableOpacity>
+
       <AppText style={styles.gameDetails}>
         {dayjs(game.created_at).format('DD/MM/YYYY')}
       </AppText>
@@ -48,6 +49,11 @@ const AllGamesCard = ({ game }) => {
         Game Manager:
         {game?.game_manager?.nickName}
       </AppText>
+      {game.was_edited && (
+        <AppText style={styles.edited}>
+          Game was edited on {dayjs(game.updated_at).format('DD/MM/YYYY')}
+        </AppText>
+      )}
       {game.isOpen && <AppText style={styles.isOpen}>Live Game</AppText>}
       <FlatList
         data={game.user_games}
@@ -71,6 +77,13 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 5,
     backgroundColor: colors.AccentPurple,
+  },
+  edited: {
+    width: '100%',
+    textAlign: 'center',
+    padding: 5,
+    color: colors.secondary,
+    fontSize: 12,
   },
   icon: {
     top: 10,

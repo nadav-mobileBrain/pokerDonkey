@@ -19,6 +19,7 @@ import useApi from '../../hooks/useApi';
 
 const EditGameScreen = ({ route }) => {
   const game = route.params;
+  const editorId = route.params.user.userId;
   const navigation = useNavigation();
   const [players, setPlayers] = useState(game.gameDetails.user_games);
   const [deleteDialog, setDeleteDialog] = useState(false);
@@ -43,10 +44,10 @@ const EditGameScreen = ({ route }) => {
   };
 
   const handleConfirm = async () => {
-    // setLoading(true);
     const result = await updateGameDetailsApi.request(
       game.gameDetails.id,
       players,
+      editorId,
     );
     if (!result.ok) {
       console.log('Error:', result.data);

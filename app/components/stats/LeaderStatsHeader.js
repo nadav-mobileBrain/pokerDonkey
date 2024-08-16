@@ -1,8 +1,17 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
+import { navigationRef } from '../../navigation/rootNavigation';
 
 import colors from '../../config/colors';
 import config from '../../config/config';
+import routes from '../../navigation/routes';
 
 const LeaderStatsHeader = ({ leader, titles }) => {
   return (
@@ -11,15 +20,22 @@ const LeaderStatsHeader = ({ leader, titles }) => {
       style={styles.headerContainer}
     >
       <View style={styles.overlay} />
-
-      <Image
-        source={{
-          uri: leader?.image?.startsWith('https')
-            ? leader.image
-            : `${config.s3.baseUrl}${leader.image}`,
-        }}
-        style={styles.leaderImage}
-      />
+      <TouchableOpacity
+        onPress={() =>
+          navigationRef.current.navigate(routes.PERSONAL_STATS, {
+            userDetails: leader,
+          })
+        }
+      >
+        <Image
+          source={{
+            uri: leader?.image?.startsWith('https')
+              ? leader.image
+              : `${config.s3.baseUrl}${leader.image}`,
+          }}
+          style={styles.leaderImage}
+        />
+      </TouchableOpacity>
       <Text style={styles.leaderName}>{leader.nickName}</Text>
       <Text style={styles.leaderStats}>
         {titles.cardTitle} :{leader.title}

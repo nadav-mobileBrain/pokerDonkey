@@ -1,10 +1,10 @@
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import colors from "../config/colors";
+import colors from '../config/colors';
 
-const AppButton = ({ title, onPress, color = "PrimaryBlue", icon = "" }) => {
+const AppButton = ({ title, onPress, color = 'PrimaryBlue', icon = '' }) => {
   return (
     <TouchableOpacity
       style={[styles.button, { backgroundColor: colors[color] }]}
@@ -15,7 +15,7 @@ const AppButton = ({ title, onPress, color = "PrimaryBlue", icon = "" }) => {
           <MaterialCommunityIcons
             name={icon}
             size={24}
-            color={colors.white}
+            color={colors.black}
             style={styles.icon}
           />
         )}
@@ -29,14 +29,14 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: colors.PrimaryBlue,
     borderRadius: 25,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingVertical: 15,
     paddingHorizontal: 25,
-    width: "100%",
+    width: '100%',
     marginVertical: 10,
-    flexDirection: "row",
-    shadowColor: "#000",
+    flexDirection: 'row',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -46,17 +46,17 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   content: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   icon: {
     marginRight: 10,
   },
   text: {
-    color: colors.white,
+    // color: colors.white,
     fontSize: 18,
-    textTransform: "uppercase",
-    fontWeight: "bold",
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
   },
 });
 
