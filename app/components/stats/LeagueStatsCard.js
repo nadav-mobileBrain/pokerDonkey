@@ -44,6 +44,9 @@ const LeagueStatsCard = ({ league }) => {
         <Text style={styles.stat}>
           Last Game: {leagueStats?.lastGame?.created_at}
         </Text>
+        <Text style={styles.small}>
+          Avg Buy Ins Per Game : {leagueStats?.avgTotalBuyInsPerGameForLeague}
+        </Text>
       </View>
     </View>
   );
@@ -79,6 +82,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
     // color: colors.white,
     fontFamily: 'Roboto_700Bold',
+  },
+  small: {
+    fontSize: 11,
+    fontFamily: 'Roboto_700Bold',
+    // color: colors.white,
   },
 });
 
