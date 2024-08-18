@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  StyleSheet,
-  FlatList,
-  View,
-  ImageBackground,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, FlatList, View, ImageBackground } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 
 import ActivityIndicator from '../../components/ActivityIndicator';
@@ -25,12 +19,50 @@ import Screen from '../../components/Screen';
 import useApi from '../../hooks/useApi';
 import useAuth from '../../auth/useAuth';
 
+import {
+  TestIds,
+  useInterstitialAd,
+  useRewardedInterstitialAd,
+} from 'react-native-google-mobile-ads';
+
 const LeagueScreen = ({ navigation }) => {
-  const isFocused = useIsFocused(); // Add this line
+  const isFocused = useIsFocused();
   const [refreshing, setRefreshing] = useState(false);
   const getLeaguesApi = useApi(leaguesApi.getLeagues);
   const [leagues, setLeagues] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedLeagues, setSelectedLeagues] = useState(null);
   const { user } = useAuth();
+
+  const { isLoaded, isClosed, load, show, reward } = useRewardedInterstitialAd(
+    TestIds.REWARDED_INTERSTITIAL,
+  );
+
+  console.log('🚀 ~ LeagueScreen ~ reward:', reward);
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  useEffect(() => {
+    if (isClosed && selectedItem && selectedLeagues) {
+      console.log('Interstitial ad closed.');
+      navigation.navigate(routes.LEAGUE_DETAILS, {
+        item: selectedItem,
+        data: selectedLeagues,
+      });
+
+      // Reset the selected item and leagues after navigating
+      setSelectedItem(null);
+      setSelectedLeagues(null);
+      load();
+    }
+  }, [isClosed, selectedItem, selectedLeagues, navigation]);
+
+  useEffect(() => {
+    if (isFocused) {
+      fetchLeagues(); // Refresh data when the screen is focused
+    }
+  }, [isFocused]);
 
   const fetchLeagues = async () => {
     const userLeagues = await getLeaguesApi.request(user?.userId);
@@ -40,11 +72,19 @@ const LeagueScreen = ({ navigation }) => {
     setLeagues(userLeagues?.data);
   };
 
-  useEffect(() => {
-    if (isFocused) {
-      fetchLeagues(); // Refresh data when the screen is focused
+  const handleCardPress = (item, leagues) => {
+    setSelectedItem(item); // Store selected item
+    setSelectedLeagues(leagues); // Store selected leagues
+
+    if (isLoaded) {
+      show();
+    } else {
+      navigation.navigate(routes.LEAGUE_DETAILS, {
+        item,
+        data: leagues,
+      });
     }
-  }, [isFocused]);
+  };
 
   return (
     <>
@@ -74,9 +114,6 @@ const LeagueScreen = ({ navigation }) => {
           {leagues?.leagues?.length > 0 && (
             <CreatejoinLeagues navigation={navigation} />
           )}
-          {/* <View style={{ width: '50%' }}>
-            <AppButton title="Global League Stats" color="gold" />
-          </View> */}
 
           {leagues?.leagues?.length > 0 && (
             <FlatList
@@ -87,12 +124,7 @@ const LeagueScreen = ({ navigation }) => {
                   title={item.league.league_name}
                   subTitle={`League Number: ${item.league.league_number}`}
                   imageUrl={`${config.s3.baseUrl}${item.league.league_image}`}
-                  onPress={() =>
-                    navigation.navigate(routes.LEAGUE_DETAILS, {
-                      item,
-                      data: leagues,
-                    })
-                  }
+                  onPress={() => handleCardPress(item, leagues)}
                 />
               )}
               refreshing={refreshing}
