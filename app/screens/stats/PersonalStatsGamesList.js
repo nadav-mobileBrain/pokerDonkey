@@ -10,10 +10,6 @@ import PersonalStatsGamesDetails from '../../components/stats/PersonalStatsGames
 import ListitemSeperator from '../../components/ListitemSeperator';
 
 const PersonalStatsGamesList = ({ route }) => {
-  console.log(
-    '🚀 ~ PersonalStatsGamesList ~ personalStats:',
-    route.params.personalStats,
-  );
   const personalStats = route.params.personalStats;
   return (
     <Screen style={styles.screen}>
