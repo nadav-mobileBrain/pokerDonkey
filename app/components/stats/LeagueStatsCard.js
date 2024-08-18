@@ -76,17 +76,14 @@ const styles = StyleSheet.create({
 
   number: {
     fontSize: 12,
-    // color: colors.white,
   },
   stat: {
     fontSize: 14,
-    // color: colors.white,
     fontFamily: 'Roboto_700Bold',
   },
   small: {
     fontSize: 11,
     fontFamily: 'Roboto_700Bold',
-    // color: colors.white,
   },
 });
 
