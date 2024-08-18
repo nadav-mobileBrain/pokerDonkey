@@ -1,7 +1,7 @@
-import { View, StyleSheet } from "react-native";
-import React from "react";
-import AppText from "../AppText";
-import colors from "../../config/colors";
+import { View, StyleSheet } from 'react-native';
+import React from 'react';
+import AppText from '../AppText';
+import colors from '../../config/colors';
 
 const PersonalStatsGamesHeader = () => {
   return (
@@ -18,10 +18,12 @@ const PersonalStatsGamesHeader = () => {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: "row-reverse",
-    justifyContent: "space-between",
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
     backgroundColor: colors.gold,
     padding: 8,
+    borderTopEndRadius: 15,
+    borderTopStartRadius: 15,
   },
   headerTitle: {
     fontSize: 12,

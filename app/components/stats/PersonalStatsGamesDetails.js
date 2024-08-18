@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row-reverse',
     justifyContent: 'space-between',
-    paddingVertical: 5,
+    paddingVertical: 15,
     backgroundColor: colors.white,
   },
   oddLine: {
@@ -41,9 +41,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   others: {
-    fontSize: 10,
+    fontSize: 12,
     textAlign: 'center',
-    width: '12%',
+    width: '15%',
   },
 });
 

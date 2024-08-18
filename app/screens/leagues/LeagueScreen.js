@@ -1,23 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, FlatList,View, ImageBackground } from "react-native";
-
-import ActivityIndicator from "../../components/ActivityIndicator";
-import AppText from "../../components/AppText";
-import AppButton from "../../components/AppButton";
-import config from "../../config/config";
-import Card from "../../components/Card";
-import CreatejoinLeagues from "../../components/leagues/CreatejoinLeagues";
-import colors from "../../config/colors";
-import HeaderText from "../../components/HeaderText";
-import leaguesApi from "../../api/leagues";
-import NoLeagues from "../../components/leagues/NoLeagues";
-import PlayerAvatar from "../../components/player/PlayerAvatar";
-import routes from "../../navigation/routes";
-import Screen from "../../components/Screen";
-import useApi from "../../hooks/useApi";
-import AppLogo from "../../components/AppLogo";
-import useAuth from "../../auth/useAuth";
+import React, { useEffect, useState } from 'react';
+import {
+  StyleSheet,
+  FlatList,
+  View,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
+
+import ActivityIndicator from '../../components/ActivityIndicator';
+import AppButton from '../../components/AppButton';
+import AppLogo from '../../components/AppLogo';
+import AppText from '../../components/AppText';
+import config from '../../config/config';
+import Card from '../../components/Card';
+import CreatejoinLeagues from '../../components/leagues/CreatejoinLeagues';
+import colors from '../../config/colors';
+import HeaderText from '../../components/HeaderText';
+import leaguesApi from '../../api/leagues';
+import NoLeagues from '../../components/leagues/NoLeagues';
+import PlayerAvatar from '../../components/player/PlayerAvatar';
+import routes from '../../navigation/routes';
+import Screen from '../../components/Screen';
+import useApi from '../../hooks/useApi';
+import useAuth from '../../auth/useAuth';
 
 const LeagueScreen = ({ navigation }) => {
   const isFocused = useIsFocused(); // Add this line
@@ -34,26 +40,24 @@ const LeagueScreen = ({ navigation }) => {
     setLeagues(userLeagues?.data);
   };
 
-
-   
   useEffect(() => {
     if (isFocused) {
-      fetchLeagues();// Refresh data when the screen is focused
+      fetchLeagues(); // Refresh data when the screen is focused
     }
   }, [isFocused]);
-
 
   return (
     <>
       <ActivityIndicator visible={getLeaguesApi.loading} />
       <Screen style={styles.screen}>
-          <ImageBackground
+        <ImageBackground
           style={styles.background}
           blurRadius={7}
-          source={require("../../assets/appLogo.png")}>
+          source={require('../../assets/appLogo.png')}
+        >
           <View style={styles.overlay} />
-            <PlayerAvatar />
-            <AppLogo />
+          <PlayerAvatar />
+          <AppLogo />
           <HeaderText style={styles.headerText}>My Leagues</HeaderText>
           {getLeaguesApi.error && (
             <>
@@ -67,9 +71,12 @@ const LeagueScreen = ({ navigation }) => {
             <NoLeagues navigation={navigation} />
           )}
 
-            {leagues?.leagues?.length > 0 && (
-              <CreatejoinLeagues navigation={navigation} />
-            )}
+          {leagues?.leagues?.length > 0 && (
+            <CreatejoinLeagues navigation={navigation} />
+          )}
+          {/* <View style={{ width: '50%' }}>
+            <AppButton title="Global League Stats" color="gold" />
+          </View> */}
 
           {leagues?.leagues?.length > 0 && (
             <FlatList
@@ -103,6 +110,11 @@ const LeagueScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  allApps: {
+    color: colors.gold,
+    textAlign: 'center',
+    fontFamily: 'Roboto_400Regular',
+  },
   screen: {
     flex: 1,
   },
@@ -118,16 +130,15 @@ const styles = StyleSheet.create({
 
   headerText: {
     fontSize: 30,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: colors.light,
-    fontFamily: "Roboto_700Bold",
-    // marginBottom: 20,
+    fontFamily: 'Roboto_700Bold',
   },
   errorText: {
     color: colors.error,
-    textAlign: "center",
+    textAlign: 'center',
     marginVertical: 10,
-    fontFamily: "Roboto_400Regular",
+    fontFamily: 'Roboto_400Regular',
   },
 });
 

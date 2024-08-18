@@ -1,12 +1,17 @@
-import React from "react";
-import { View, StyleSheet, Image, Platform } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import colors from "../config/colors";
-import AppText from "./AppText";
+import React from 'react';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
+import colors from '../config/colors';
+import AppText from './AppText';
 
 const Card = ({ title, subTitle, imageUrl, onPress, height = 200 }) => {
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
       <View style={styles.card}>
         <Image
           style={[styles.image, { height: height }]}
@@ -17,7 +22,7 @@ const Card = ({ title, subTitle, imageUrl, onPress, height = 200 }) => {
           <AppText style={styles.subTitle}>{subTitle}</AppText>
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 };
 
@@ -26,31 +31,38 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: colors.surface,
     marginBottom: 20,
-    overflow: "hidden",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    elevation: 5,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
+    elevation: 10,
+    transform: [{ scale: 1 }],
+    transition: 'transform 0.2s',
+  },
+  cardHovered: {
+    transform: [{ scale: 1.02 }],
   },
   detailsContainer: {
-    padding: 15,
+    padding: 20,
   },
   image: {
-    width: "100%",
-    height: 200,
+    width: '100%',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   subTitle: {
     color: colors.textSecondary,
-    fontSize: 15,
+    fontSize: 16,
     marginVertical: 5,
-    fontFamily: "Roboto_400Regular",
+    fontFamily: 'Roboto_400Regular',
+    opacity: 0.8,
   },
   title: {
     marginBottom: 7,
     color: colors.textPrimary,
-    fontSize: 20,
-    fontFamily: "Roboto_700Bold",
+    fontSize: 22,
+    fontFamily: 'Roboto_700Bold',
   },
 });
 

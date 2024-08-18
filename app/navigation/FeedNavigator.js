@@ -1,19 +1,20 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import LeagueScreen from "../screens/leagues/LeagueScreen";
-import LeagueDetailsScreen from "../screens/leagues/LeagueDetailsScreen";
-import CreateLeagueScreen from "../screens/leagues/CreateLeagueScreen";
-import JoinLeagueScreen from "../screens/leagues/JoinLeagueScreen";
-import EditLeagueScreen from "../screens/leagues/EditLeagueScreen";
-import SelectPlayersScreen from "../screens/games/SelectPlayersScreen";
-import NewGameScreen from "../screens/games/NewGameScreen";
-import MainStatsScreen from "../screens/stats/MainStatsScreen";
-import AllGamesScreen from "../screens/games/AllGamesScreen";
-import CardStatsScreen from "../screens/stats/CardStatsScreen";
-import PersonalStatsScreen from "../screens/stats/PersonalStatsScreen";
-import EditProfileScreen from "../screens/forms/EditProfileScreen";
-import AddRemovePlayers from "../screens/games/addRemovePlayers";
-import EditGameScreen from "../screens/games/EditGameScreen";
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import LeagueScreen from '../screens/leagues/LeagueScreen';
+import LeagueDetailsScreen from '../screens/leagues/LeagueDetailsScreen';
+import CreateLeagueScreen from '../screens/leagues/CreateLeagueScreen';
+import JoinLeagueScreen from '../screens/leagues/JoinLeagueScreen';
+import EditLeagueScreen from '../screens/leagues/EditLeagueScreen';
+import SelectPlayersScreen from '../screens/games/SelectPlayersScreen';
+import NewGameScreen from '../screens/games/NewGameScreen';
+import MainStatsScreen from '../screens/stats/MainStatsScreen';
+import AllGamesScreen from '../screens/games/AllGamesScreen';
+import CardStatsScreen from '../screens/stats/CardStatsScreen';
+import PersonalStatsScreen from '../screens/stats/PersonalStatsScreen';
+import EditProfileScreen from '../screens/forms/EditProfileScreen';
+import AddRemovePlayers from '../screens/games/addRemovePlayers';
+import EditGameScreen from '../screens/games/EditGameScreen';
+import PersonalStatsGamesList from '../screens/stats/PersonalStatsGamesList';
 
 const Stack = createStackNavigator();
 
@@ -48,11 +49,15 @@ const FeedNavigator = () => (
       name="CardStats"
       component={CardStatsScreen}
       options={({ route }) => ({
-        title: "Stats for " + route.params.data.title,
+        title: 'Stats for ' + route.params.data.title,
       })}
     />
     <Stack.Screen name="AllGames" component={AllGamesScreen} />
     <Stack.Screen name="PersonalStats" component={PersonalStatsScreen} />
+    <Stack.Screen
+      name="PersonalStatsGamesList"
+      component={PersonalStatsGamesList}
+    />
     <Stack.Screen name="EditProfile" component={EditProfileScreen} />
     <Stack.Screen name="EditGame" component={EditGameScreen} />
   </Stack.Navigator>
