@@ -48,8 +48,8 @@ const WelcomeScreen = ({ navigation }) => {
           Collect and display stats of your league's games.
         </Text>
         <Text style={styles.infoTagLine}>
-          Create or join a league with your friends and track every hand played.
-          See who comes out on top and who needs to sharpen their poker skills.
+          Create or join a league with your friends and track every game. See
+          who comes out on top and who needs to sharpen their poker skills.
           Share your results and challenge each other to be the best!
         </Text>
       </View>
@@ -66,6 +66,10 @@ const WelcomeScreen = ({ navigation }) => {
           onPress={() => navigation.navigate('Register')}
           icon="account-plus"
         />
+        <TouchableOpacity onPress={() => navigation.navigate('HowToPlay')}>
+          <Text style={styles.helpLink}>How To Play?</Text>
+        </TouchableOpacity>
+
         <AppText style={{ color: colors.gold, textAlign: 'center' }}>
           Developed By Nadav Galili 🧙‍♂️{' '}
         </AppText>
@@ -80,6 +84,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     padding: 20,
+  },
+  helpLink: {
+    color: colors.secondary,
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+    marginVertical: 10,
   },
   logoContainer: {
     position: 'absolute',
