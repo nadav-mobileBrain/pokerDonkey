@@ -10,6 +10,7 @@ import colors from '../../config/colors';
 import config from '../../config/config';
 import gameApi from '../../api/game';
 import getLeaguePlayers from '../../api/leagues';
+import HowToPlay from '../../components/HowToPlay';
 import PlayerAvatar from '../../components/player/PlayerAvatar';
 import PlayerInfo from '../../components/player/PlayerInfo'; // Add this import statement
 import Screen from '../../components/Screen';
@@ -93,6 +94,11 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
                   }
                 />
               </View>
+              <HowToPlay
+                navigation={navigation}
+                textColor="PrimaryBlue"
+                align="start"
+              />
             </View>
             <PlayerInfo leaguePlayers={leaguePlayers} />
             <View style={styles.buttonContainer}>
@@ -145,6 +151,7 @@ const styles = StyleSheet.create({
   detailsContainer: {
     padding: 10,
   },
+
   image: {
     width: '100%',
     height: 120,

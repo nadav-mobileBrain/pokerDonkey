@@ -1,4 +1,5 @@
 import logger from '../utility/logger';
+import { Toast } from 'toastify-react-native';
 
 export const removeLastBuyIn = async (
   buyInNumber,
@@ -11,7 +12,7 @@ export const removeLastBuyIn = async (
   onClose,
 ) => {
   if (buyInNumber < 1) {
-    alert('No buy ins to remove');
+    Toast.error('No buy ins to remove');
     return;
   }
   const result = await removeLastBuyInToPlayer.request(

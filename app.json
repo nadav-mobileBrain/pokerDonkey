@@ -2,7 +2,7 @@
   "expo": {
     "name": "pokerDonk",
     "slug": "pokerdonkey",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "orientation": "portrait",
     "icon": "./app/assets/appLogo.png",
     "userInterfaceStyle": "light",
@@ -54,7 +54,7 @@
       [
         "react-native-google-mobile-ads",
         {
-          "androidAppId": "ca-app-pub-2640391750032066~6683558618",
+          "androidAppId": "ca-app-pub-2640391750032066~8921874991",
           "iosAppId": "ca-app-pub-2640391750032066~6683558618"
         }
       ]

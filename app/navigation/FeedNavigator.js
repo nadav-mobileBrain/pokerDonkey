@@ -15,6 +15,7 @@ import EditProfileScreen from '../screens/forms/EditProfileScreen';
 import AddRemovePlayers from '../screens/games/addRemovePlayers';
 import EditGameScreen from '../screens/games/EditGameScreen';
 import PersonalStatsGamesList from '../screens/stats/PersonalStatsGamesList';
+import HowToPlayScreen from '../screens/HowToPlayScreen';
 
 const Stack = createStackNavigator();
 
@@ -60,6 +61,7 @@ const FeedNavigator = () => (
     />
     <Stack.Screen name="EditProfile" component={EditProfileScreen} />
     <Stack.Screen name="EditGame" component={EditGameScreen} />
+    <Stack.Screen name="HowToPlay" component={HowToPlayScreen} />
   </Stack.Navigator>
 );
 

@@ -7,12 +7,16 @@
       "developmentClient": true,
       "distribution": "internal",
       "channel": "development",
-      "ios":{
+      "ios": {
         "resourceClass": "m-medium",
         "simulator": true
-      } ,
+      },
       "env": {
-        "GOOGLE_SERVICES_JSON": "./google-services.json"
+        "GOOGLE_SERVICES_JSON": "@project:GOOGLE_SERVICES_JSON"
+      },
+      "android": {
+        "buildType": "apk",
+        "channel": "development"
       }
     },
     "preview": {
@@ -26,7 +30,14 @@
       }
     },
     "production": {
-      "channel": "production"
+      "channel": "production",
+      "env": {
+        "GOOGLE_SERVICES_JSON": "@project:GOOGLE_SERVICES_JSON"
+      },
+      "android": {
+        "buildType": "apk",
+        "channel": "production"
+      }
     }
   },
   "submit": {

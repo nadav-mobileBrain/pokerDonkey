@@ -1,7 +1,7 @@
-import { View, StyleSheet } from "react-native";
-import React from "react";
-import AppText from "../AppText";
-import colors from "../../config/colors";
+import { View, StyleSheet } from 'react-native';
+import React from 'react';
+import AppText from '../AppText';
+import colors from '../../config/colors';
 
 const AllGamesCardHeader = () => {
   return (
@@ -16,27 +16,27 @@ const AllGamesCardHeader = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row-reverse",
-    width: "100%",
+    flexDirection: 'row-reverse',
+    width: '100%',
     padding: 10,
-    justifyContent: "space-around",
+    justifyContent: 'space-around',
     backgroundColor: colors.gold,
   },
   headline: {
     fontSize: 15,
-    color: colors.white,
+    // color: colors.white,
   },
   rank: {
     flex: 1,
-    textAlign: "center",
+    textAlign: 'center',
   },
   player: {
     flex: 2,
-    textAlign: "center",
+    textAlign: 'center',
   },
   data: {
     flex: 1,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });
 

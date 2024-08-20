@@ -78,7 +78,7 @@ const NewGame = ({ route, navigation }) => {
       Toast.warn('All Players must cash out');
       return;
     }
-
+    setEndDialogVisible(false);
     const result = await endGameApi.request(game.id, userGamesData, league);
     if (!result.ok) {
       if (result.data) setError(result.data.error);

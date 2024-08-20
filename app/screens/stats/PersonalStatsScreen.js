@@ -1,5 +1,5 @@
-import { View, Image, StyleSheet, ImageBackground } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import { View, Image, StyleSheet, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import AppText from '../../components/AppText';
@@ -13,35 +13,110 @@ import usersApi from '../../api/users';
 import routes from '../../navigation/routes';
 import Screen from '../../components/Screen';
 
+const StatItem = ({ title, value }) => (
+  <View style={styles.statItem}>
+    <AppText style={styles.statTitle}>{title}</AppText>
+    <AppText style={styles.statValue}>{value}</AppText>
+  </View>
+);
+
+const StatsSection = ({ title, stats }) => (
+  <>
+    <AppText style={styles.name}>{title}</AppText>
+    <View style={styles.statsContainer}>
+      {stats.map(({ title, value }) => (
+        <StatItem key={title} title={title} value={value} />
+      ))}
+    </View>
+  </>
+);
+
 const PersonalStatsScreen = ({ route }) => {
   const navigation = useNavigation();
-  let { user } = useAuth();
-  if (route?.params?.userDetails) {
-    user = route.params.userDetails;
-    user.userId = route.params.userDetails.id;
-  }
+  const { user: authUser } = useAuth();
+  const user = route?.params?.userDetails || authUser;
+  const userId = user.id || user.userId;
 
-  let url = user.image;
-  if (!url.includes('http')) {
-    url = config.s3.baseUrl + user.image;
-  }
+  const imageUrl = user.image.includes('http')
+    ? user.image
+    : `${config.s3.baseUrl}${user.image}`;
+
   const getPersonalStatsApi = useApi(usersApi.getPersonalStats);
-  const [personalStats, setPersonalStats] = useState([]);
+  const [personalStats, setPersonalStats] = useState(null);
 
   useEffect(() => {
-    const getPersonalStats = async () => {
-      const result = await getPersonalStatsApi.request(user.userId);
-
-      if (!result.ok) {
+    const fetchPersonalStats = async () => {
+      const result = await getPersonalStatsApi.request(userId);
+      if (result.ok) {
+        setPersonalStats(result.data);
+      } else {
         console.error('Failed to fetch personal stats:', result.problem);
-        return;
       }
-
-      setPersonalStats(result.data);
     };
 
-    getPersonalStats();
-  }, []);
+    fetchPersonalStats();
+  }, [userId]);
+
+  const renderTotalStats = () => {
+    if (!personalStats?.totalStats) return null;
+    const stats = [
+      { title: 'Total Games', value: personalStats.totalStats[0].totalGames },
+      { title: 'Total Profit', value: personalStats.totalStats[0].totalProfit },
+      {
+        title: 'Total Hours',
+        value: personalStats.totalStats[0].totalHoursPlayed,
+      },
+      {
+        title: 'Total Buy In',
+        value: personalStats.totalStats[0].totalBuyInsAmount,
+      },
+      {
+        title: 'Current Win Streak',
+        value: personalStats.streaksData[0].title,
+      },
+      { title: 'Max Win Streak', value: personalStats.streaksData[0].subTitle },
+      {
+        title: 'Total Games With Profit',
+        value: personalStats.totalStats[0].gamesWithProfit,
+      },
+      {
+        title: 'Success Rate %',
+        value: personalStats.totalStats[0].successRate,
+      },
+      { title: 'Max Win', value: personalStats.totalStats[0].maxProfit },
+      { title: 'Max Loss', value: personalStats.totalStats[0].minProfit },
+      {
+        title: 'Best League Rank',
+        value: personalStats.totalStats[0].maxSeasonRank,
+      },
+    ];
+    return <StatsSection title="Total Stats" stats={stats} />;
+  };
+
+  const renderAvgStats = () => {
+    if (!personalStats?.avgStats) return null;
+    const stats = [
+      { title: 'Avg Profit', value: personalStats.avgStats[0].avgProfit },
+      {
+        title: 'Avg Buy Ins',
+        value: personalStats.avgStats[0].avgBuyInsAmount,
+      },
+      {
+        title: 'Avg Cash In Hand',
+        value: personalStats.avgStats[0].avgCashInHand,
+      },
+      {
+        title: 'Avg Hours Played',
+        value: personalStats.avgStats[0].avgHoursPlayed,
+      },
+      { title: 'Avg Game Rank', value: personalStats.avgStats[0].avgGameRank },
+      {
+        title: 'Avg Season Rank',
+        value: personalStats.avgStats[0].avgSeasonRank,
+      },
+    ];
+    return <StatsSection title="Average Stats" stats={stats} />;
+  };
 
   return (
     <>
@@ -54,168 +129,34 @@ const PersonalStatsScreen = ({ route }) => {
         >
           <View style={styles.overlay} />
           <View style={styles.imageContainer}>
-            <Image style={styles.image} source={{ uri: url }} />
+            <Image style={styles.image} source={{ uri: imageUrl }} />
           </View>
           <AppText style={styles.name}>{user.nickName}</AppText>
-          {!personalStats?.games?.length && (
+
+          {!personalStats?.games?.length ? (
             <View style={styles.noGamesContainer}>
               <AppText style={styles.noGames}>No Games Played Yet</AppText>
               <AppText style={styles.noGames}>
                 Play a game to see your stats
               </AppText>
             </View>
-          )}
-
-          <View style={styles.totalStatsContainer}>
-            {personalStats?.totalStats && (
-              <>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Total Games</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.totalStats[0]?.totalGames}
-                  </AppText>
-                </View>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Total Profit</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.totalStats[0]?.totalProfit}
-                  </AppText>
-                </View>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Total Hours</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.totalStats[0]?.totalHoursPlayed}
-                  </AppText>
-                </View>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Total Buy In</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.totalStats[0]?.totalBuyInsAmount}
-                  </AppText>
-                </View>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Current Win Streak</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.streaksData[0]?.title}
-                  </AppText>
-                </View>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Max Win Streak</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.streaksData[0]?.subTitle}
-                  </AppText>
-                </View>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>
-                    Total Games With Profit
-                  </AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.totalStats[0]?.gamesWithProfit}
-                  </AppText>
-                </View>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Success Rate %</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.totalStats[0]?.successRate}
-                  </AppText>
-                </View>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Max Win</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.totalStats[0]?.maxProfit}
-                  </AppText>
-                </View>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Max Loss</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.totalStats[0]?.minProfit}
-                  </AppText>
-                </View>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Best League Rank</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.totalStats[0]?.maxSeasonRank}
-                  </AppText>
-                </View>
-              </>
-            )}
-          </View>
-
-          {personalStats?.avgStats && (
+          ) : (
             <>
-              <AppText style={styles.name}>Avg Stats</AppText>
-              <View style={styles.totalStatsContainer}>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Avg Profit</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.avgStats[0]?.avgProfit}
-                  </AppText>
-                </View>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Avg Buy Ins</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.avgStats[0]?.avgBuyInsAmount}
-                  </AppText>
-                </View>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Avg Cash In Hand</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.avgStats[0]?.avgCashInHand}
-                  </AppText>
-                </View>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Avg Hours Played</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.avgStats[0]?.avgHoursPlayed}
-                  </AppText>
-                </View>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Avg Game Rank</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.avgStats[0]?.avgGameRank}
-                  </AppText>
-                </View>
-                <View style={styles.statItem}>
-                  <AppText style={styles.statTitle}>Avg Season Rank</AppText>
-                  <AppText style={styles.statValue}>
-                    {personalStats?.avgStats[0]?.avgSeasonRank}
-                  </AppText>
-                </View>
-              </View>
-            </>
-          )}
-          {personalStats?.games?.length > 0 && (
-            <AppButton
-              title="Games History"
-              color="gold"
-              icon="view-list-outline"
-              onPress={() =>
-                navigation.navigate(routes.PERSONAL_STATS_GAMES_LIST, {
-                  personalStats,
-                })
-              }
-            />
-          )}
-        </ImageBackground>
-        {/* 
-          {personalStats?.games?.length > 0 && (
-            <>
-              <AppText style={styles.rank}>G.rank = rank in this game</AppText>
-              <AppText style={styles.rank}>
-                S.rank = total season rank on this date
-              </AppText>
-              <PersonalStatsGamesHeader />
-              <FlatList
-                data={personalStats.games}
-                keyExtractor={(game) => game.id.toString()}
-                renderItem={({ item, index }) => (
-                  <PersonalStatsGamesDetails game={item} index={index} />
-                )}
-                ItemSeparatorComponent={ListitemSeperator}
+              {renderTotalStats()}
+              {renderAvgStats()}
+              <AppButton
+                title="Games History"
+                color="gold"
+                icon="view-list-outline"
+                onPress={() =>
+                  navigation.navigate(routes.PERSONAL_STATS_GAMES_LIST, {
+                    personalStats,
+                  })
+                }
               />
             </>
-          )} */}
-        {/* </LinearGradient> */}
+          )}
+        </ImageBackground>
       </Screen>
     </>
   );
@@ -226,12 +167,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
-  card: {
-    borderRadius: 15,
-    height: 360,
-    overflow: 'hidden',
-    marginVertical: 10,
-  },
+
   imageContainer: {
     width: 60,
     height: 60,
@@ -251,6 +187,7 @@ const styles = StyleSheet.create({
     color: colors.secondary,
     fontSize: 15,
     fontWeight: 'bold',
+    marginVertical: 5,
   },
   noGamesContainer: {
     alignItems: 'center',
@@ -262,9 +199,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginVertical: 5,
   },
-  totalStatsContainer: {
-    padding: 5,
-  },
+
   statItem: {
     flexDirection: 'row-reverse',
     justifyContent: 'space-between',

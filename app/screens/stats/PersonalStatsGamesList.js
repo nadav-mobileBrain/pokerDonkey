@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   rank: {
-    color: colors.light,
+    color: colors.secondary,
     textAlign: 'center',
   },
   overlay: {

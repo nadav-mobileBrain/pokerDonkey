@@ -104,6 +104,8 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
     borderRadius: 17,
+    borderWidth: 2,
+    borderColor: colors.AccentPurple,
   },
   playerDetails: {
     justifyContent: 'space-around',
@@ -118,6 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     width: 60,
     textAlign: 'center',
+    fontFamily: 'Roboto_700Bold',
   },
   position: {
     fontSize: 10,

@@ -1,20 +1,21 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Image } from "react-native";
-import AppText from "../AppText";
- 
-import colors from "../../config/colors";
-import config from "../../config/config";
-import AppButton from "../AppButton";
-import useApi from "../../hooks/useApi";
-import gameApi from "../../api/game";
-import { AppForm, AppFormField, ErrorMessage, SubmitButton } from "../forms";
-import * as Yup from "yup";
-import ActivityIndicator from "../ActivityIndicator";
-import { removeLastBuyIn, addBuyIn } from "../../utils/gameUtils";
-import logger from "../../utility/logger";
+import React, { useState } from 'react';
+import { View, StyleSheet, Image } from 'react-native';
+import AppText from '../AppText';
+
+import colors from '../../config/colors';
+import config from '../../config/config';
+import AppButton from '../AppButton';
+import useApi from '../../hooks/useApi';
+import gameApi from '../../api/game';
+import { AppForm, AppFormField, ErrorMessage, SubmitButton } from '../forms';
+import * as Yup from 'yup';
+import ActivityIndicator from '../ActivityIndicator';
+import { removeLastBuyIn, addBuyIn } from '../../utils/gameUtils';
+import logger from '../../utility/logger';
+import Container, { Toast } from 'toastify-react-native';
 
 const validationSchema = Yup.object().shape({
-  cashOutAmount: Yup.number().required().label("Cash Out Amount"),
+  cashOutAmount: Yup.number().required().label('Cash Out Amount'),
 });
 
 const PlayerGameCardModal = ({
@@ -28,7 +29,7 @@ const PlayerGameCardModal = ({
   const [buyInNumber, setBuyInNumber] = useState(playerData.buy_ins_number);
   const [error, setError] = useState();
   const [cashOutAmount, setCashOutAmount] = useState(
-    playerData.cash_out_amount
+    playerData.cash_out_amount,
   );
 
   const [isLoading, setIsLoading] = useState(false);
@@ -45,7 +46,7 @@ const PlayerGameCardModal = ({
       setBuyInAmount,
       setBuyInNumber,
       onRemoveBuyIn,
-      onClose
+      onClose,
     );
   };
 
@@ -59,13 +60,13 @@ const PlayerGameCardModal = ({
       onAddBuyIn,
       buyInAmount,
       buyInNumber,
-      onClose
+      onClose,
     );
   };
 
   const handleSubmit = async (values) => {
     if (buyInAmount < 1) {
-      alert("Buy In amount must be greater than 0");
+      Toast.error('Buy In amount must be greater than 0');
       return;
     }
     setIsLoading(true);
@@ -74,12 +75,12 @@ const PlayerGameCardModal = ({
       playerData.game_id,
       playerData.user_id,
       values.cashOutAmount,
-      playerData.league_id
+      playerData.league_id,
     );
     if (!result.ok) {
       if (result.data) setError(result.data.error);
       else {
-        setError("An unexpected error occurred.");
+        setError('An unexpected error occurred.');
         logger.log(result);
       }
       return;
@@ -91,11 +92,15 @@ const PlayerGameCardModal = ({
 
   return (
     <View style={styles.container}>
+      <Container position="top" width="100%" />
       {isLoading && <ActivityIndicator visible={isLoading} />}
-      {/* <HeaderText>Player Details</HeaderText> */}
       <View style={styles.imageContainer}>
         <Image
-          source={{ uri:playerData?.User?.image.startsWith('https')? playerData?.User?.image: `${config.s3.baseUrl}${playerData?.User?.image}` }}
+          source={{
+            uri: playerData?.User?.image.startsWith('https')
+              ? playerData?.User?.image
+              : `${config.s3.baseUrl}${playerData?.User?.image}`,
+          }}
           style={styles.image}
         />
         <AppText style={styles.nickName}>{playerData?.User?.nickName}</AppText>
@@ -129,7 +134,8 @@ const PlayerGameCardModal = ({
       <AppForm
         initialValues={{ cashOutAmount }}
         onSubmit={handleSubmit}
-        validationSchema={validationSchema}>
+        validationSchema={validationSchema}
+      >
         <ErrorMessage
           error={addBuyInToPlayer.error}
           visible={addBuyInToPlayer.error}
@@ -138,7 +144,7 @@ const PlayerGameCardModal = ({
           name="cashOutAmount"
           icon="cash"
           placeholder={
-            cashOutAmount ? cashOutAmount.toString() : "Cash Out Amount"
+            cashOutAmount ? cashOutAmount.toString() : 'Cash Out Amount'
           }
           keyboardType="number-pad"
           width={250}
@@ -152,7 +158,7 @@ const PlayerGameCardModal = ({
           <>
             <AppText>Player Cashed Out Already</AppText>
             <AppText>Cash Out Amount: {cashOutAmount}</AppText>
-            <AppText style={{ color: "red" }}>Cash Out Again?</AppText>
+            <AppText style={{ color: 'red' }}>Cash Out Again?</AppText>
             <View style={styles.form}>
               <SubmitButton title="Update Cash Out" icon="cash" />
             </View>
@@ -167,16 +173,16 @@ const PlayerGameCardModal = ({
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   form: {
     marginVertical: 20,
-    width: "75%",
+    width: '75%',
   },
   imageContainer: {
-    alignItems: "center",
+    alignItems: 'center',
   },
 
   image: {
@@ -189,8 +195,8 @@ const styles = StyleSheet.create({
   },
   nickName: {
     fontSize: 20,
-    fontWeight: "bold",
-    textDecorationLine: "underline",
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
   },
 });
 

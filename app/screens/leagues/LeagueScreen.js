@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, FlatList, View, ImageBackground } from 'react-native';
+import {
+  StyleSheet,
+  FlatList,
+  View,
+  ImageBackground,
+  Platform,
+} from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 
 import ActivityIndicator from '../../components/ActivityIndicator';
@@ -21,7 +27,6 @@ import useAuth from '../../auth/useAuth';
 
 import {
   TestIds,
-  useInterstitialAd,
   useRewardedInterstitialAd,
 } from 'react-native-google-mobile-ads';
 
@@ -34,8 +39,16 @@ const LeagueScreen = ({ navigation }) => {
   const [selectedLeagues, setSelectedLeagues] = useState(null);
   const { user } = useAuth();
 
+  let adUnitId = Platform.select({
+    android: 'ca-app-pub-2640391750032066/5559651383',
+    ios: 'ca-app-pub-2640391750032066/3655542771',
+  });
+
   const { isLoaded, isClosed, load, show, reward } = useRewardedInterstitialAd(
-    TestIds.REWARDED_INTERSTITIAL,
+    __DEV__ ? TestIds.REWARDED_INTERSTITIAL : adUnitId,
+    {
+      requestNonPersonalizedAdsOnly: true,
+    },
   );
 
   console.log('🚀 ~ LeagueScreen ~ reward:', reward);

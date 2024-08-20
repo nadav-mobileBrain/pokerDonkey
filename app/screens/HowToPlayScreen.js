@@ -1,10 +1,17 @@
 import React from 'react';
-import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  View,
+  Linking,
+} from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import Screen from '../components/Screen';
 import AppText from '../components/AppText';
+import AppLogo from '../components/AppLogo';
 import colors from '../config/colors';
+import Screen from '../components/Screen';
 
 const FeatureItem = ({ icon, title, description }) => (
   <View style={styles.featureItem}>
@@ -20,14 +27,14 @@ const HowToPlayScreen = () => {
   return (
     <Screen style={styles.screen}>
       <ImageBackground
-        source={require('../assets/newLogo.jpeg')}
+        source={require('../assets/appLogo.png')}
         style={styles.background}
-        blurRadius={5}
+        blurRadius={4}
       >
         <View style={styles.overlay} />
         <ScrollView>
+          <AppLogo />
           <AppText style={styles.title}>How to Use Poker Donkey</AppText>
-
           <AppText style={styles.subtitle}>Getting Started</AppText>
           <FeatureItem
             icon="account-plus"
@@ -56,8 +63,8 @@ const HowToPlayScreen = () => {
           <FeatureItem
             icon="cash-multiple"
             title="Record Buy-ins and Profits"
-            description="Enter the buy-in for every player during the game
-            and the cash every player has at the end of the game."
+            description="Enter EVERY buy-in for every player during the game
+                    and at the end of the game, record the cash-out amount."
           />
 
           <AppText style={styles.subtitle}>Stats and Analysis</AppText>
@@ -82,6 +89,19 @@ const HowToPlayScreen = () => {
           <AppText style={styles.tip}>
             3. Engage with your league to make the most of the social features.
           </AppText>
+          <View style={styles.contact}>
+            <MaterialCommunityIcons name="mail" size={24} color={colors.gold} />
+            <AppText
+              style={styles.mailTo}
+              onPress={() =>
+                Linking.openURL(
+                  'mailto:nadavg1000@gmail.com?subject=Issue or Suggestion on Poker Donkey App',
+                )
+              }
+            >
+              Contact me for any issues or suggestions.
+            </AppText>
+          </View>
         </ScrollView>
       </ImageBackground>
     </Screen>
@@ -91,18 +111,23 @@ const HowToPlayScreen = () => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    // padding: 20,
-    // backgroundColor: colors.background,
   },
   background: {
     flex: 1,
     padding: 20,
   },
+  contact: {
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 15,
+  },
   title: {
     fontSize: 26,
     fontWeight: 'bold',
     color: colors.gold,
-    marginBottom: 20,
+    marginBottom: 10,
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 20,
@@ -114,7 +139,7 @@ const styles = StyleSheet.create({
   featureItem: {
     flexDirection: 'row-reverse',
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: 10,
   },
   featureText: {
     marginRight: 10,
@@ -129,15 +154,21 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.light,
   },
+  mailTo: {
+    fontSize: 16,
+    color: colors.secondary,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+  },
   tip: {
     fontSize: 14,
-    color: colors.light,
+    color: colors.gold,
     marginBottom: 5,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
-    opacity: 0.55,
+    opacity: 0.6,
   },
 });
 

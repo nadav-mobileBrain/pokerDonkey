@@ -51,7 +51,8 @@ const AllGamesCard = ({ game }) => {
       </AppText>
       {game.was_edited && (
         <AppText style={styles.edited}>
-          Game was edited on {dayjs(game.updated_at).format('DD/MM/YYYY')}
+          Game details were edited on{' '}
+          {dayjs(game.updated_at).format('DD/MM/YYYY')}
         </AppText>
       )}
       {game.isOpen && <AppText style={styles.isOpen}>Live Game</AppText>}
@@ -113,13 +114,13 @@ const styles = StyleSheet.create({
     width: '100%',
     textAlign: 'center',
     padding: 5,
-    color: colors.surface,
+    color: colors.gold,
     height: 40,
   },
   gameManager: {
     width: '100%',
     textAlign: 'center',
-    color: colors.surface,
+    color: colors.gold,
   },
 
   overlay: {

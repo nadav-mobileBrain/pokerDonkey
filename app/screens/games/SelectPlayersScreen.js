@@ -1,36 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { Image, View, StyleSheet } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { Image, View, StyleSheet } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 
-import HeaderText from "../../components/HeaderText";
-import Screen from "../../components/Screen";
-import PlayerInfo from "../../components/player/PlayerInfo";
-import AppText from "../../components/AppText";
-import colors from "../../config/colors";
-import AppButton from "../../components/AppButton";
-import gameApi from "../../api/game";
-import useApi from "../../hooks/useApi";
-import useAuth from "../../auth/useAuth";
-import routes from "../../navigation/routes";
-import logger from "../../utility/logger"; 
+import AppButton from '../../components/AppButton';
+import AppText from '../../components/AppText';
+import colors from '../../config/colors';
+import gameApi from '../../api/game';
+import HeaderText from '../../components/HeaderText';
+import HowToPlay from '../../components/HowToPlay';
+import logger from '../../utility/logger';
+import Screen from '../../components/Screen';
+import PlayerInfo from '../../components/player/PlayerInfo';
+import useApi from '../../hooks/useApi';
+import useAuth from '../../auth/useAuth';
+import routes from '../../navigation/routes';
 
 const SelectPlayersScreen = ({ route, navigation }) => {
   const leaguePlayers = route.params.leaguePlayers;
-
 
   const league = route.params.league;
   const { user } = useAuth();
 
   const gameAdminId = user.userId;
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+
   const isFocused = useIsFocused(); // Add this line
   const [error, setError] = useState();
   const [unselectedPlayers, setUnselectedPlayers] = useState(leaguePlayers);
-  // const [addRemovePlayers, setAddRemovePlayers] = useState(route.params.addRemovePlayers);
   const checkIfOpenGameExist = useApi(gameApi.checkIfOpenGameExist);
   const createNewGameApi = useApi(gameApi.newGame);
-
- 
 
   useEffect(() => {
     if (isFocused) {
@@ -38,7 +36,6 @@ const SelectPlayersScreen = ({ route, navigation }) => {
         const result = await checkIfOpenGameExist.request(league.id);
         if (result.ok) {
           if (result.data) {
-     
             navigation.navigate(routes.NEW_GAME, {
               game: result.data.game,
               gameDetails: result.data.gameDetails,
@@ -51,9 +48,6 @@ const SelectPlayersScreen = ({ route, navigation }) => {
       checkIfOpenGames();
     }
   }, [isFocused]);
-
-
-
 
   const onSelectedPlayer = (player) => {
     const playerIndex = selectedPlayers.findIndex((p) => p.id === player.id);
@@ -70,18 +64,19 @@ const SelectPlayersScreen = ({ route, navigation }) => {
 
   const startNewGame = async () => {
     const result = await createNewGameApi.request({
-        selectedPlayers,
-        leagueId: league.id,
-        gameAdminId,
-      });
-      if (!result.ok) {
-        if (result.data) setError(result.data.error);
-        else {
-          setError("An unexpected error occurred.");
-          logger.log(result);
-        }
-        return;
+      selectedPlayers,
+      leagueId: league.id,
+      gameAdminId,
+    });
+
+    if (!result.ok) {
+      if (result.data) setError(result.data.error);
+      else {
+        setError('An unexpected error occurred.');
+        logger.log(result);
       }
+      return;
+    }
 
     navigation.navigate(routes.NEW_GAME, {
       game: result.data.game,
@@ -91,16 +86,18 @@ const SelectPlayersScreen = ({ route, navigation }) => {
     });
   };
 
-
-
   return (
     <Screen style={styles.container}>
       <View style={styles.selectContainer}>
-        <HeaderText> Select Players </HeaderText>
+        <HeaderText style={styles.title}> Select Players </HeaderText>
+        <HowToPlay navigation={navigation} />
         {error && <AppText>{error}</AppText>}
-        <AppText style={styles.addRemove}>
-          *Press on a player to add to the game
-        </AppText>
+        {unselectedPlayers.length > 0 && (
+          <AppText style={styles.addRemove}>
+            *Press on a player to add to the game
+          </AppText>
+        )}
+
         <PlayerInfo
           leaguePlayers={unselectedPlayers}
           onPress={onSelectedPlayer}
@@ -123,21 +120,21 @@ const SelectPlayersScreen = ({ route, navigation }) => {
             />
 
             <AppButton
-              title= "Start New Game"
-              color= "LimeGreen"
+              title="Start New Game"
+              color="LimeGreen"
               icon="cards-playing-club-multiple-outline"
-              onPress={() =>startNewGame()}
+              onPress={() => startNewGame()}
             />
           </View>
         )}
-         {selectedPlayers.length < 1 &&  (
-        <View style={styles.imageContainer}>
-          <Image
-            source={require("../../assets/selectPlayers.png")}
-            style={styles.image}
-          />
-        </View>
-      )}
+        {selectedPlayers.length < 1 && (
+          <View style={styles.imageContainer}>
+            <Image
+              source={require('../../assets/selectPlayers.png')}
+              style={styles.image}
+            />
+          </View>
+        )}
       </View>
     </Screen>
   );
@@ -148,36 +145,38 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   container: {
-    backgroundColor: colors.light,
+    backgroundColor: colors.AccentPurple,
   },
   inTheGame: {
     color: colors.LimeGreen,
     fontSize: 30,
-    textDecorationLine: "underline",
-    fontWeight: "bold",
-    alignSelf: "center",
+    textDecorationLine: 'underline',
+    fontWeight: 'bold',
+    alignSelf: 'center',
   },
   image: {
-    height: "100%",
-    width: "100%",
+    height: '100%',
+    width: '100%',
     borderRadius: 20,
   },
   imageContainer: {
-    marginTop: 20,
-    height: 250,
-    width: "100%",
-    alignSelf: "center",
-    overflow: "hidden",
+    flex: 1,
   },
   selectedPlayersContainer: {
     padding: 10,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   selectContainer: {
     padding: 10,
     backgroundColor: colors.white,
     borderRadius: 20,
+    flex: 1,
     margin: 10,
+  },
+  title: {
+    color: colors.gold,
+    fontSize: 30,
+    textAlign: 'center',
   },
 });
 

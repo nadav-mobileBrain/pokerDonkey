@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  ImageBackground,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import { View, StyleSheet, ImageBackground, Text } from 'react-native';
 import AppButton from '../components/AppButton';
 import colors from '../config/colors';
 import AppLogo from '../components/AppLogo';
 import useAuth from '../auth/useAuth';
 import authApi from '../api/auth';
 import AppText from '../components/AppText';
+import HowToPlay from '../components/HowToPlay';
 
 const WelcomeScreen = ({ navigation }) => {
   const { logIn, logOut } = useAuth();
@@ -66,10 +61,7 @@ const WelcomeScreen = ({ navigation }) => {
           onPress={() => navigation.navigate('Register')}
           icon="account-plus"
         />
-        <TouchableOpacity onPress={() => navigation.navigate('HowToPlay')}>
-          <Text style={styles.helpLink}>How To Play?</Text>
-        </TouchableOpacity>
-
+        <HowToPlay navigation={navigation} />
         <AppText style={{ color: colors.gold, textAlign: 'center' }}>
           Developed By Nadav Galili 🧙‍♂️{' '}
         </AppText>
@@ -85,14 +77,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
-  helpLink: {
-    color: colors.secondary,
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    textDecorationLine: 'underline',
-    marginVertical: 10,
-  },
+
   logoContainer: {
     position: 'absolute',
     top: 120,
@@ -131,13 +116,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
   },
-  readMoreText: {
-    fontSize: 16,
-    color: colors.secondary,
-    fontWeight: 'bold',
-    marginTop: 5,
-    textAlign: 'center',
-  },
+
   buttonContainer: {
     width: '100%',
   },
