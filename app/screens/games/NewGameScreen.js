@@ -35,7 +35,7 @@ import ActivityIndicator from '../../components/ActivityIndicator';
 import useAuth from '../../auth/useAuth';
 import logger from '../../utility/logger';
 
-const NewGame = ({ route, navigation }) => {
+const NewGameScreen = ({ route, navigation }) => {
   const isFocused = useIsFocused(); // Add this line
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState();
@@ -69,16 +69,18 @@ const NewGame = ({ route, navigation }) => {
       setEndDialogVisible(true);
       return;
     }
+    setEndDialogVisible(false);
     endGame();
   };
 
   const endGame = async () => {
-    const isAllCashedOut = checkIfAllPlayersCashedOut(userGamesData);
-    if (!isAllCashedOut) {
-      Toast.warn('All Players must cash out');
-      return;
-    }
-    setEndDialogVisible(false);
+    // const isAllCashedOut = checkIfAllPlayersCashedOut(userGamesData);
+    // console.log('🚀 ~ endGame ~ isAllCashedOut:', isAllCashedOut);
+    // if (!isAllCashedOut) {
+    //   Toast.warn('All Players must cash out');
+    //   return;
+    // }
+    // setEndDialogVisible(false);
     const result = await endGameApi.request(game.id, userGamesData, league);
     if (!result.ok) {
       if (result.data) setError(result.data.error);
@@ -319,4 +321,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewGame;
+export default NewGameScreen;

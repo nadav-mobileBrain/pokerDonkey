@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   image: {
-    borderRadius: 50,
+    borderRadius: 60,
     height: 30,
     width: 30,
     borderColor: colors.AccentPurple,
@@ -73,11 +73,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 5,
-    //  margin: 5,
   },
   playerName: {
     color: colors.AccentPurple,
-    fontSize: 8,
+    fontSize: 7,
     textAlign: 'center',
   },
 });

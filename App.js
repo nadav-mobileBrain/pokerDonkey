@@ -15,16 +15,6 @@ import {
   Roboto_500Medium,
 } from '@expo-google-fonts/roboto';
 import logger from './app/utility/logger';
-import {
-  AdMobBanner,
-  PublisherBanner,
-  AdMobInterstitial,
-  AdMobRewarded,
-  setTestDeviceIDAsync,
-  BannerAd,
-  BannerAdSize,
-  TestIds,
-} from 'react-native-google-mobile-ads';
 
 logger.start();
 
@@ -60,7 +50,6 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      {/* <BannerAd unitId={TestIds.BANNER} size={BannerAdSize.LARGE_BANNER} /> */}
       <NavigationContainer theme={navigationTheme} ref={navigationRef}>
         {user ? <AppNavigator /> : <AuthNavigator />}
       </NavigationContainer>

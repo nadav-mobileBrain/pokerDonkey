@@ -62,14 +62,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.gold,
   },
   image: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     marginRight: 10,
   },
   imageContainer: {
     alignItems: 'center',
-    marginRight: 15,
+    marginRight: 10,
     overflow: 'hidden',
     padding: 8,
   },
@@ -78,11 +78,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   stat: {
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'Roboto_700Bold',
   },
   small: {
-    fontSize: 11,
+    fontSize: 10,
     fontFamily: 'Roboto_700Bold',
   },
 });

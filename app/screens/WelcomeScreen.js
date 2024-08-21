@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ImageBackground, Text } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  Text,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AppButton from '../components/AppButton';
 import colors from '../config/colors';
 import AppLogo from '../components/AppLogo';
@@ -7,10 +15,12 @@ import useAuth from '../auth/useAuth';
 import authApi from '../api/auth';
 import AppText from '../components/AppText';
 import HowToPlay from '../components/HowToPlay';
+import Screen from '../components/Screen';
 
 const WelcomeScreen = ({ navigation }) => {
   const { logIn, logOut } = useAuth();
   const [readMore, setReadMore] = useState(false);
+  const insets = useSafeAreaInsets();
 
   const takeATour = async () => {
     logOut();
@@ -29,96 +39,101 @@ const WelcomeScreen = ({ navigation }) => {
   };
 
   return (
-    <ImageBackground
-      style={styles.container}
-      source={require('../assets/appLogo.png')}
-      blurRadius={7}
-    >
-      <View style={styles.logoContainer}>
-        <AppLogo />
-        <Text style={styles.tagLine}>Manage Your Home Poker Games</Text>
-      </View>
-      <View style={styles.info}>
-        <Text style={styles.headerInfoTagLine}>
-          Collect and display stats of your league's games.
-        </Text>
-        <Text style={styles.infoTagLine}>
-          Create or join a league with your friends and track every game. See
-          who comes out on top and who needs to sharpen their poker skills.
-          Share your results and challenge each other to be the best!
-        </Text>
-      </View>
-      <View style={styles.buttonContainer}>
-        <AppButton
-          title="Take A Tour"
-          color="secondary"
-          onPress={() => takeATour()}
-          icon="arrow-right-bold-outline"
-        />
-        <AppButton
-          title="Register/Login"
-          color="gold"
-          onPress={() => navigation.navigate('Register')}
-          icon="account-plus"
-        />
-        <HowToPlay navigation={navigation} />
-        <AppText style={{ color: colors.gold, textAlign: 'center' }}>
-          Developed By Nadav Galili 🧙‍♂️{' '}
-        </AppText>
-      </View>
-    </ImageBackground>
+    <Screen>
+      <ImageBackground
+        style={styles.background}
+        source={require('../assets/appLogo.png')}
+        blurRadius={7}
+      >
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <View style={styles.logoContainer}>
+            <AppLogo />
+            <Text style={styles.tagLine}>Manage Your Home Poker Games</Text>
+          </View>
+          <View style={styles.info}>
+            <Text style={styles.headerInfoTagLine}>
+              Collect and display stats of your league's games.
+            </Text>
+            <Text style={styles.infoTagLine}>
+              Create or join a league with your friends and track every game.
+              See who comes out on top and who needs to sharpen their poker
+              skills. Share your results and challenge each other to be the
+              best!
+            </Text>
+          </View>
+          <View style={styles.buttonContainer}>
+            <AppButton
+              title="Take A Tour"
+              color="secondary"
+              onPress={takeATour}
+              icon="arrow-right-bold-outline"
+            />
+            <AppButton
+              title="Register/Login"
+              color="gold"
+              onPress={() => navigation.navigate('Register')}
+              icon="account-plus"
+            />
+            <HowToPlay navigation={navigation} />
+            <AppText style={styles.developerText}>
+              Developed By Nadav Galili 🧙‍♂️
+            </AppText>
+          </View>
+        </ScrollView>
+      </ImageBackground>
+    </Screen>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+  },
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'space-between',
     padding: 20,
   },
-
   logoContainer: {
-    position: 'absolute',
-    top: 120,
     alignItems: 'center',
+    marginTop: '10%',
   },
   tagLine: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: 'bold',
     paddingVertical: 20,
     color: colors.gold,
     textAlign: 'center',
   },
+  info: {
+    padding: 20,
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    borderRadius: 10,
+    marginVertical: 20,
+  },
   headerInfoTagLine: {
-    fontSize: 19,
+    fontSize: 13,
     color: colors.gold,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 10,
   },
-  info: {
-    padding: 20,
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.6)', // semi-transparent background for better readability
-    borderRadius: 10,
-    marginVertical: 20,
-  },
   infoTagLine: {
-    fontSize: 16,
+    fontSize: 11,
     color: colors.white,
     textAlign: 'center',
     marginBottom: 10,
   },
-  infoText: {
-    fontSize: 16,
+  buttonContainer: {
+    width: '100%',
+    marginTop: 'auto',
+    paddingBottom: 20,
+  },
+  developerText: {
     color: colors.gold,
     textAlign: 'center',
     marginTop: 10,
-  },
-
-  buttonContainer: {
-    width: '100%',
   },
 });
 

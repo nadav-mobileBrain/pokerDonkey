@@ -28,6 +28,7 @@ import useAuth from '../../auth/useAuth';
 import {
   TestIds,
   useRewardedInterstitialAd,
+  useInterstitialAd,
 } from 'react-native-google-mobile-ads';
 
 const LeagueScreen = ({ navigation }) => {
@@ -40,18 +41,17 @@ const LeagueScreen = ({ navigation }) => {
   const { user } = useAuth();
 
   let adUnitId = Platform.select({
-    android: 'ca-app-pub-2640391750032066/5559651383',
-    ios: 'ca-app-pub-2640391750032066/3655542771',
+    android: 'ca-app-pub-2640391750032066/5726639519',
+    ios: 'ca-app-pub-2640391750032066/9067118729',
   });
 
-  const { isLoaded, isClosed, load, show, reward } = useRewardedInterstitialAd(
-    __DEV__ ? TestIds.REWARDED_INTERSTITIAL : adUnitId,
+  const { isLoaded, isClosed, load, show, reward } = useInterstitialAd(
+    __DEV__ ? TestIds.INTERSTITIAL : adUnitId,
     {
       requestNonPersonalizedAdsOnly: true,
     },
   );
 
-  console.log('🚀 ~ LeagueScreen ~ reward:', reward);
   useEffect(() => {
     load();
   }, [load]);

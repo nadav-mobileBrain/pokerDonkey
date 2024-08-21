@@ -1,25 +1,26 @@
-import React from "react";
-import { StyleSheet, View, FlatList } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import React from 'react';
+import { StyleSheet, View, FlatList } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
-import ActivityIndicator from "../components/ActivityIndicator";
-import Screen from "../components/Screen";
-import PlayerDetails from "../components/player/PlayerDetails";
-import ListitemSeperator from "../components/ListitemSeperator";
-import Icon from "../components/Icon";
-import colors from "../config/colors";
-import useAuth from "../auth/useAuth";
-import config from "../config/config";
-import routes from "../navigation/routes";
+import ActivityIndicator from '../components/ActivityIndicator';
+import Screen from '../components/Screen';
+import PlayerDetails from '../components/player/PlayerDetails';
+import ListitemSeperator from '../components/ListitemSeperator';
+import Icon from '../components/Icon';
+import colors from '../config/colors';
+import useAuth from '../auth/useAuth';
+import config from '../config/config';
+import routes from '../navigation/routes';
+import Container, { Toast } from 'toastify-react-native';
 
 const menuItems = [
   {
-    title: "Edit Profile",
+    title: 'Edit Profile',
     icon: {
-      name: "account",
+      name: 'account',
       backgroundColor: colors.PrimaryBlue,
     },
-    targetScreen: "EditProfile",
+    targetScreen: 'EditProfile',
   },
   // {
   //   title: "My Messages-Coming soon...",
@@ -30,12 +31,12 @@ const menuItems = [
   //   targetScreen: "Messages",
   // },
   {
-    title: "Notifications",
+    title: 'Notifications',
     icon: {
-      name: "bell",
+      name: 'bell',
       backgroundColor: colors.AccentPurple,
     },
-    targetScreen: "Notifications",
+    targetScreen: 'Notifications',
   },
 ];
 
@@ -44,6 +45,7 @@ const AccountScreen = ({ navigation }) => {
 
   return (
     <>
+      <Container position="center" width="100%" style={{ top: 20 }} />
       <ActivityIndicator visible={!user} />
       <Screen style={styles.screen}>
         <LinearGradient
@@ -54,8 +56,14 @@ const AccountScreen = ({ navigation }) => {
             <PlayerDetails
               title={user.nickName}
               subTitle="Go To Personal Stats"
-              image={{ uri:user?.image.startsWith('https')? user.image : `${config.s3.baseUrl}${user.image}` }}
-              onPress={() => navigation.navigate(routes.PERSONAL_STATS)}
+              image={{
+                uri: user?.image.startsWith('https')
+                  ? user.image
+                  : `${config.s3.baseUrl}${user.image}`,
+              }}
+              onPress={() => {
+                navigation.navigate(routes.PERSONAL_STATS);
+              }}
             />
           </View>
           <View style={styles.container}>
@@ -71,17 +79,28 @@ const AccountScreen = ({ navigation }) => {
                       backgroundColor={item.icon.backgroundColor}
                     />
                   }
-                  onPress={() => navigation.navigate(item.targetScreen, { user })}
+                  onPress={() => {
+                    if (
+                      (item.title === 'Edit Profile' ||
+                        item.title === 'Notifications') &&
+                      user.nickName === 'test user'
+                    ) {
+                      Toast.error('You cannot edit the test user', 'error');
+                      return;
+                    }
+                    navigation.navigate(item.targetScreen, { user });
+                  }}
                   ItemsSeperatorComponent={ListitemSeperator}
                 />
               )}
             />
           </View>
-          <View>
-          </View>
+          <View></View>
           <PlayerDetails
             title="Log Out"
-            IconComponent={<Icon name="logout" backgroundColor={colors.secondary} />}
+            IconComponent={
+              <Icon name="logout" backgroundColor={colors.secondary} />
+            }
             onPress={() => logOut()}
           />
         </LinearGradient>

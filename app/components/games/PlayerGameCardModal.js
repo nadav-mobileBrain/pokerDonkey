@@ -92,7 +92,6 @@ const PlayerGameCardModal = ({
 
   return (
     <View style={styles.container}>
-      <Container position="top" width="100%" />
       {isLoading && <ActivityIndicator visible={isLoading} />}
       <View style={styles.imageContainer}>
         <Image

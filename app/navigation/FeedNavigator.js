@@ -51,8 +51,13 @@ const FeedNavigator = () => (
       component={CardStatsScreen}
       options={({ route }) => ({
         title: 'Stats for ' + route.params.data.title,
+        // headerTitleStyle: { fontSize: 16 },
+        headerStyle: {
+          height: 60, // Adjust this value to make the header shorter
+        },
       })}
     />
+
     <Stack.Screen name="AllGames" component={AllGamesScreen} />
     <Stack.Screen name="PersonalStats" component={PersonalStatsScreen} />
     <Stack.Screen

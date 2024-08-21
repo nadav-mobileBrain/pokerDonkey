@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Image, ImageBackground, Button } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  ImageBackground,
+  Button,
+  FlatList,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import dayjs from 'dayjs';
 
 import ActivityIndicator from '../../components/ActivityIndicator';
@@ -12,42 +22,98 @@ import gameApi from '../../api/game';
 import getLeaguePlayers from '../../api/leagues';
 import HowToPlay from '../../components/HowToPlay';
 import PlayerAvatar from '../../components/player/PlayerAvatar';
-import PlayerInfo from '../../components/player/PlayerInfo'; // Add this import statement
+import PlayerInfo from '../../components/player/PlayerInfo';
 import Screen from '../../components/Screen';
 import routes from '../../navigation/routes';
 import useApi from '../../hooks/useApi';
 
 const LeagueDetailsScreen = ({ route, navigation }) => {
   const league = route.params.item.league;
+  console.log('🚀 ~ LeagueDetailsScreen ~ league:', league);
   const [leaguePlayers, setLeaguePlayers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isLiveGameOn, setIsLiveGameOn] = useState(false);
   const getLeaguePlayersApi = useApi(getLeaguePlayers.getLeaguePlayers);
   const checkIfOpenGameExist = useApi(gameApi.checkIfOpenGameExist);
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
-    const getLeaguePlayers = async () => {
+    const fetchData = async () => {
       setLoading(true);
+      const playersResult = await getLeaguePlayersApi.request(league.id);
+      const gameResult = await checkIfOpenGameExist.request(league.id);
 
-      const result = await getLeaguePlayersApi.request(league.id);
-      if (!result.ok) {
-        setLoading(false);
-        return;
+      if (playersResult.ok) {
+        setLeaguePlayers(playersResult.data?.leaguePlayers);
+      }
+      if (gameResult.ok && gameResult.data) {
+        setIsLiveGameOn(true);
       }
       setLoading(false);
-      setLeaguePlayers(result.data?.leaguePlayers);
     };
-    const checkIfOpenGames = async () => {
-      const result = await checkIfOpenGameExist.request(league.id);
-      if (result.ok) {
-        if (result.data) {
-          setIsLiveGameOn(true);
-        }
-      }
-    };
-    checkIfOpenGames();
-    getLeaguePlayers();
+    fetchData();
   }, []);
+
+  const renderContent = () => (
+    <View style={styles.playerContainer}>
+      <Image
+        style={styles.image}
+        source={{ uri: `${config.s3.baseUrl}${league.league_image}` }}
+      />
+      <View style={styles.detailsContainer}>
+        <AppText style={styles.leagueInfo}>
+          League Name: {league.league_name}
+        </AppText>
+        <AppText style={styles.leagueInfo}>
+          League Number: {league.league_number}
+        </AppText>
+        <AppText style={styles.leagueInfo}>
+          Admin: {league.leagueAdmin?.nickName}
+        </AppText>
+        {league?.league_name !== 'demo league' && (
+          <View style={styles.editButtonContainer}>
+            <Button
+              title="Edit league details"
+              onPress={() =>
+                navigation.navigate(routes.EDIT_LEAGUE, {
+                  league,
+                  leaguePlayers,
+                })
+              }
+            />
+          </View>
+        )}
+        <HowToPlay
+          navigation={navigation}
+          textColor="PrimaryBlue"
+          align="start"
+        />
+      </View>
+      <PlayerInfo leaguePlayers={leaguePlayers} width={20} height={20} />
+      <View style={styles.buttonContainer}>
+        <AppButton
+          title="League Stats"
+          icon="chart-box-outline"
+          color="gold"
+          onPress={() => navigation.navigate(routes.STATS, { league })}
+        />
+        <AppButton
+          title={isLiveGameOn ? 'Join Live Game' : 'Start A New Game'}
+          color="secondary"
+          icon="cards-playing-spade-multiple-outline"
+          onPress={() =>
+            navigation.navigate(routes.SELECT_PLAYERS, {
+              leaguePlayers,
+              league,
+            })
+          }
+        />
+      </View>
+      <AppText style={styles.created}>
+        Created At: {dayjs(league?.created_at).format('DD/MM/YYYY')}
+      </AppText>
+    </View>
+  );
 
   return (
     <>
@@ -59,71 +125,31 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
           source={require('../../assets/appLogo.png')}
         >
           <View style={styles.overlay} />
-          <PlayerAvatar />
-          <AppLogo />
-          <View style={styles.playerContainer}>
-            <Image
-              style={styles.image}
-              source={{ uri: `${config.s3.baseUrl}${league.league_image}` }}
-            />
-            <View style={styles.detailsContainer}>
-              <AppText style={styles.leagueInfo}>
-                League Name : {league.league_name}
-              </AppText>
-              <AppText style={styles.leagueInfo}>
-                League Number : {league.league_number}
-              </AppText>
-              <AppText style={styles.leagueInfo}>
-                Admin : {league.leagueAdmin?.nickName}
-              </AppText>
-              <View
-                style={{
-                  width: '50%',
-                  alignSelf: 'flex-end',
-                  marginVertical: 5,
-                  borderRadius: 15,
-                }}
-              >
-                <Button
-                  title="Edit league details"
-                  onPress={() =>
-                    navigation.navigate(routes.EDIT_LEAGUE, {
-                      league,
-                      leaguePlayers,
-                    })
-                  }
-                />
-              </View>
-              <HowToPlay
-                navigation={navigation}
-                textColor="PrimaryBlue"
-                align="start"
-              />
-            </View>
-            <PlayerInfo leaguePlayers={leaguePlayers} />
-            <View style={styles.buttonContainer}>
-              <AppButton
-                title="League Stats"
-                icon="chart-box-outline"
-                color="gold"
-                onPress={() => navigation.navigate(routes.STATS, { league })}
-              />
-              <AppButton
-                title={isLiveGameOn ? 'Join Live Game' : 'Start A New Game'}
-                color="secondary"
-                icon="cards-playing-spade-multiple-outline"
-                onPress={() =>
-                  navigation.navigate(routes.SELECT_PLAYERS, {
-                    leaguePlayers,
-                    league,
-                  })
-                }
-              />
-            </View>
-            <AppText style={styles.created}>
-              Created At: {dayjs(league?.created_at).format('DD/MM/YYYY')}
+          <FlatList
+            data={[{ key: 'dummy' }]}
+            renderItem={() => null}
+            ListHeaderComponent={
+              <>
+                <PlayerAvatar />
+                <AppLogo />
+              </>
+            }
+            ListFooterComponent={renderContent}
+            contentContainerStyle={[
+              styles.contentContainer,
+              { paddingBottom: insets.bottom + 10 },
+            ]}
+          />
+          <TouchableOpacity
+            onPress={() =>
+              Linking.openURL('https://buymeacoffee.com/nadavg1000m')
+            }
+          >
+            <AppText style={styles.developerText}>
+              Developed By Nadav Galili 🧙‍♂️
             </AppText>
-          </View>
+            <AppText style={styles.buyMeCoffe}>Buy Me A Coffee ☕️</AppText>
+          </TouchableOpacity>
         </ImageBackground>
       </Screen>
     </>
@@ -131,36 +157,26 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    paddingHorizontal: 20,
-  },
-  background: {
-    flex: 1,
-    padding: 20,
-  },
-  created: {
-    paddingHorizontal: 20,
-    fontSize: 10,
-  },
   container: {
     flex: 1,
   },
-  editLeague: {
-    borderRadius: 15,
+  background: {
+    flex: 1,
   },
-  detailsContainer: {
-    padding: 10,
+  buyMeCoffe: {
+    color: colors.gold,
+    textAlign: 'center',
+    fontSize: 10,
+    marginBottom: 5,
   },
-
-  image: {
-    width: '100%',
-    height: 120,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    marginBottom: 3,
+  contentContainer: {
+    flexGrow: 1,
+    padding: 20,
   },
-  leagueInfo: {
-    fontSize: 15,
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: colors.black,
+    opacity: 0.2,
   },
   playerContainer: {
     borderRadius: 15,
@@ -172,17 +188,36 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 10,
     elevation: 5,
-    paddingBottom: 20, // Add paddingBottom here
   },
-  scrollContainer: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    paddingBottom: 30, // Add paddingBottom here
+  developerText: {
+    color: colors.gold,
+    textAlign: 'center',
+    fontSize: 10,
   },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: colors.black,
-    opacity: 0.2,
+  image: {
+    width: '100%',
+    height: 120,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+  },
+  detailsContainer: {
+    padding: 7,
+  },
+  leagueInfo: {
+    fontSize: 13,
+    color: colors.dark,
+  },
+  editButtonContainer: {
+    alignSelf: 'flex-end',
+  },
+  buttonContainer: {
+    paddingHorizontal: 10,
+  },
+  created: {
+    padding: 10,
+    textAlign: 'right',
+    fontSize: 9,
+    color: colors.medium,
   },
 });
 
