@@ -90,7 +90,7 @@ const SelectPlayersScreen = ({ route, navigation }) => {
     <Screen style={styles.container}>
       <View style={styles.selectContainer}>
         <HeaderText style={styles.title}> Select Players </HeaderText>
-        <HowToPlay navigation={navigation} />
+        <HowToPlay navigation={navigation} textColor="PrimaryBlue" />
         {error && <AppText>{error}</AppText>}
         {unselectedPlayers.length > 0 && (
           <AppText style={styles.addRemove}>
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   title: {
-    color: colors.gold,
+    color: colors.AccentPurple,
     fontSize: 30,
     textAlign: 'center',
   },

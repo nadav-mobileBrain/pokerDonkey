@@ -144,6 +144,7 @@ const PersonalStatsScreen = ({ route }) => {
             <>
               {renderTotalStats()}
               {renderAvgStats()}
+
               <AppButton
                 title="Games History"
                 color="gold"

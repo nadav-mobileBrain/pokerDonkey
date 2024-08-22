@@ -70,9 +70,14 @@ const updateLeagueDetails = (leagueInfo) => {
   }
 };
 
+const deleteLeague = (leagueId) => {
+  return client.delete(`${endpoint}/deleteLeague/${leagueId}`);
+};
+
 export default {
   getLeagues,
   createLeague,
+  deleteLeague,
   joinLeague,
   getLeaguePlayers,
   updateLeagueDetails,

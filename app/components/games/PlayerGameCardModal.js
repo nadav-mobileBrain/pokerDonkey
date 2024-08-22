@@ -66,7 +66,7 @@ const PlayerGameCardModal = ({
 
   const handleSubmit = async (values) => {
     if (buyInAmount < 1) {
-      Toast.error('Buy In amount must be greater than 0');
+      alert('Buy In amount must be greater than 0');
       return;
     }
     setIsLoading(true);

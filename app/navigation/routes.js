@@ -12,4 +12,5 @@ export default Object.freeze({
   CARD_STATS: 'CardStats',
   EDIT_GAME: 'EditGame',
   PERSONAL_STATS_GAMES_LIST: 'PersonalStatsGamesList',
+  LEAGUES: 'Leagues',
 });

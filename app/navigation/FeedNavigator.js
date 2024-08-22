@@ -51,10 +51,6 @@ const FeedNavigator = () => (
       component={CardStatsScreen}
       options={({ route }) => ({
         title: 'Stats for ' + route.params.data.title,
-        // headerTitleStyle: { fontSize: 16 },
-        headerStyle: {
-          height: 60, // Adjust this value to make the header shorter
-        },
       })}
     />
 

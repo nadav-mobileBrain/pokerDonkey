@@ -27,13 +27,13 @@ const PersonalStatsGamesList = ({ route }) => {
               S.rank = total season rank on this date
             </AppText>
             <View style={styles.detailsContainer}>
+              <PersonalStatsGamesHeader />
               <FlatList
                 data={personalStats.games}
                 keyExtractor={(game) => game.id.toString()}
                 renderItem={({ item, index }) => (
                   <PersonalStatsGamesDetails game={item} index={index} />
                 )}
-                ListHeaderComponent={PersonalStatsGamesHeader}
                 ItemSeparatorComponent={ListitemSeperator}
               />
             </View>
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     borderBottomEndRadius: 15,
     borderBottomStartRadius: 15,
     overflow: 'hidden',
+    maxHeight: '80%',
   },
   screen: {
     flex: 1,

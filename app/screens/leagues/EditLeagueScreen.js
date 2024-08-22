@@ -14,6 +14,7 @@ import AppText from '../../components/AppText';
 import ActivityIndicator from '../../components/ActivityIndicator';
 import config from '../../config/config';
 import colors from '../../config/colors';
+import DialogComponent from '../../components/forms/DialogComponent';
 import ErrorMessage from '../../components/forms/ErrorMessage';
 import ImageInput from '../../components/forms/ImageInput';
 import Icon from '../../components/Icon';
@@ -33,6 +34,7 @@ const EditLeagueScreen = ({ navigation, route }) => {
   const leagueImage = route.params?.league?.league_image;
   const leagueId = route.params?.league?.id;
   const league = route.params?.league;
+  const [dialogVisible, setDialogVisible] = useState(false);
 
   const [leaguePlayers, setLeaguePlayers] = useState(
     route.params?.leaguePlayers.filter(
@@ -43,6 +45,7 @@ const EditLeagueScreen = ({ navigation, route }) => {
   const { user } = useAuth();
 
   const updateLeagueDetailsApi = useApi(leagueApi.updateLeagueDetails);
+  const deleteLeagueApi = useApi(leagueApi.deleteLeague);
 
   const [error, setError] = useState();
   const [imageUri, setImageUri] = useState(
@@ -67,7 +70,7 @@ const EditLeagueScreen = ({ navigation, route }) => {
       return;
     }
 
-    navigation.navigate('Leagues');
+    navigation.navigate(routes.LEAGUES);
     navigation.navigate(routes.LEAGUE_DETAILS, { item: result.data });
   };
 
@@ -75,6 +78,21 @@ const EditLeagueScreen = ({ navigation, route }) => {
     setLeaguePlayers((prevPlayers) =>
       prevPlayers.filter((p) => p.User.id !== player.User.id),
     );
+  };
+
+  const deleteLeague = async (leagueId) => {
+    setDialogVisible(false);
+    const result = await deleteLeagueApi.request(leagueId);
+    console.log('🚀 ~ deleteLeague ~ result:', result.data);
+    if (!result.ok) {
+      if (result.data) setError(result.data.error);
+      else {
+        setError('An unexpected error occurred.');
+        logger.log(result);
+      }
+      return;
+    }
+    navigation.navigate(routes.LEAGUES);
   };
 
   return (
@@ -139,6 +157,23 @@ const EditLeagueScreen = ({ navigation, route }) => {
                     </TouchableOpacity>
                   )}
                 />
+                <TouchableOpacity
+                  style={styles.deleteLeague}
+                  onPress={() => setDialogVisible(true)}
+                >
+                  <AppText style={styles.deleteLeagueText}>
+                    Delete League
+                  </AppText>
+                  <Icon name="trash-can" backgroundColor="red" size={25} />
+                </TouchableOpacity>
+                {dialogVisible && (
+                  <DialogComponent
+                    titleText="Delete League"
+                    descriptionText="Are you sure you want to delete this league? This cannot be undone."
+                    handleConfirm={() => deleteLeague(leagueId)}
+                    handleCancel={() => setDialogVisible(false)}
+                  />
+                )}
               </View>
             )}
             <SubmitButton
@@ -161,6 +196,19 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     padding: 20,
+  },
+  deleteLeague: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    flexDirection: 'row-reverse',
+  },
+  deleteLeagueText: {
+    color: colors.white,
+    fontSize: 13,
+    padding: 5,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
   },
   playerContainer: {
     flexDirection: 'column',

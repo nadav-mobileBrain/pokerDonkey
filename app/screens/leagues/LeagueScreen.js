@@ -25,11 +25,7 @@ import Screen from '../../components/Screen';
 import useApi from '../../hooks/useApi';
 import useAuth from '../../auth/useAuth';
 
-import {
-  TestIds,
-  useRewardedInterstitialAd,
-  useInterstitialAd,
-} from 'react-native-google-mobile-ads';
+import { TestIds, useInterstitialAd } from 'react-native-google-mobile-ads';
 
 const LeagueScreen = ({ navigation }) => {
   const isFocused = useIsFocused();
@@ -53,12 +49,11 @@ const LeagueScreen = ({ navigation }) => {
   );
 
   useEffect(() => {
-    load();
+    // load();
   }, [load]);
 
   useEffect(() => {
     if (isClosed && selectedItem && selectedLeagues) {
-      console.log('Interstitial ad closed.');
       navigation.navigate(routes.LEAGUE_DETAILS, {
         item: selectedItem,
         data: selectedLeagues,
@@ -67,7 +62,7 @@ const LeagueScreen = ({ navigation }) => {
       // Reset the selected item and leagues after navigating
       setSelectedItem(null);
       setSelectedLeagues(null);
-      load();
+      // load();
     }
   }, [isClosed, selectedItem, selectedLeagues, navigation]);
 

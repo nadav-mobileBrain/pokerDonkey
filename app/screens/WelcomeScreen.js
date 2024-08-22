@@ -5,7 +5,6 @@ import {
   ImageBackground,
   Text,
   ScrollView,
-  SafeAreaView,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AppButton from '../components/AppButton';
@@ -45,6 +44,7 @@ const WelcomeScreen = ({ navigation }) => {
         source={require('../assets/appLogo.png')}
         blurRadius={7}
       >
+        <View style={styles.overlay} />
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.logoContainer}>
             <AppLogo />
@@ -75,6 +75,18 @@ const WelcomeScreen = ({ navigation }) => {
               icon="account-plus"
             />
             <HowToPlay navigation={navigation} />
+            <AppText
+              style={styles.tAndC}
+              onPress={() => navigation.navigate('TermsAndConditions')}
+            >
+              Terms & Conditions
+            </AppText>
+            <AppText
+              style={styles.tAndC}
+              onPress={() => navigation.navigate('PrivacyPolicy')}
+            >
+              Privacy Policy
+            </AppText>
             <AppText style={styles.developerText}>
               Developed By Nadav Galili 🧙‍♂️
             </AppText>
@@ -97,6 +109,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     alignItems: 'center',
     marginTop: '10%',
+    flex: 1,
   },
   tagLine: {
     fontSize: 24,
@@ -108,22 +121,21 @@ const styles = StyleSheet.create({
   info: {
     padding: 20,
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    borderRadius: 10,
     marginVertical: 20,
   },
   headerInfoTagLine: {
-    fontSize: 13,
+    fontSize: 15,
     color: colors.gold,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 10,
   },
   infoTagLine: {
-    fontSize: 11,
+    fontSize: 13,
     color: colors.white,
     textAlign: 'center',
     marginBottom: 10,
+    fontWeight: 'bold',
   },
   buttonContainer: {
     width: '100%',
@@ -134,6 +146,18 @@ const styles = StyleSheet.create({
     color: colors.gold,
     textAlign: 'center',
     marginTop: 10,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: colors.black,
+    opacity: 0.5,
+  },
+  tAndC: {
+    color: colors.light,
+    fontSize: 12,
+    textAlign: 'center',
+    marginTop: 5,
+    textDecorationLine: 'underline',
   },
 });
 

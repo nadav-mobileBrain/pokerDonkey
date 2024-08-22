@@ -29,7 +29,6 @@ import useApi from '../../hooks/useApi';
 
 const LeagueDetailsScreen = ({ route, navigation }) => {
   const league = route.params.item.league;
-  console.log('🚀 ~ LeagueDetailsScreen ~ league:', league);
   const [leaguePlayers, setLeaguePlayers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isLiveGameOn, setIsLiveGameOn] = useState(false);

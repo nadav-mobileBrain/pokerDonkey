@@ -13,7 +13,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import AppText from '../../components/AppText';
 import AppButton from '../../components/AppButton';
 import colors from '../../config/colors';
-import Container, { Toast } from 'toastify-react-native';
+import ToastContainer, { Toast } from 'toastify-react-native';
 import DialogComponent from '../../components/forms/DialogComponent';
 import gameApi from '../../api/game';
 import GameDetails from '../../components/games/GameDetails';
@@ -55,7 +55,7 @@ const NewGameScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     if (isFocused) {
-      setUserGamesData(route.params.userGames); // Refresh data when the screen is focused
+      setUserGamesData(route.params.userGames);
     }
   }, [isFocused]);
 
@@ -63,7 +63,8 @@ const NewGameScreen = ({ route, navigation }) => {
     if (moneyLeft != 0) {
       const isAllCashedOut = checkIfAllPlayersCashedOut(userGamesData);
       if (!isAllCashedOut) {
-        Toast.warn('All Players must cash out');
+        Toast.error('All Players must cash out');
+        alert('All Players must cash out');
         return;
       }
       setEndDialogVisible(true);
@@ -74,13 +75,13 @@ const NewGameScreen = ({ route, navigation }) => {
   };
 
   const endGame = async () => {
-    // const isAllCashedOut = checkIfAllPlayersCashedOut(userGamesData);
-    // console.log('🚀 ~ endGame ~ isAllCashedOut:', isAllCashedOut);
-    // if (!isAllCashedOut) {
-    //   Toast.warn('All Players must cash out');
-    //   return;
-    // }
-    // setEndDialogVisible(false);
+    const isAllCashedOut = checkIfAllPlayersCashedOut(userGamesData);
+    if (!isAllCashedOut) {
+      Toast.warn('All Players must cash out');
+      alert('All Players must cash out');
+      return;
+    }
+    setEndDialogVisible(false);
     const result = await endGameApi.request(game.id, userGamesData, league);
     if (!result.ok) {
       if (result.data) setError(result.data.error);
@@ -138,7 +139,7 @@ const NewGameScreen = ({ route, navigation }) => {
 
   return (
     <>
-      <Container position="top" width="100%" />
+      <ToastContainer position="top" width="100%" />
       <ActivityIndicator visible={!isFocused} />
       <Screen style={styles.container}>
         <LinearGradient
@@ -163,7 +164,7 @@ const NewGameScreen = ({ route, navigation }) => {
               handleConfirm={() => endGame()}
             />
           )}
-          {error && <AppText>{error}</AppText>}
+          {error && <AppText style={{ color: colors.danger }}>{error}</AppText>}
           <ActivityIndicator visible={loading} />
           <GameDetails
             game={game}
@@ -237,6 +238,7 @@ const NewGameScreen = ({ route, navigation }) => {
                         );
                         Toast.success(
                           `${amount} added for ${selectedPlayer?.User?.nickName}`,
+                          'top',
                         );
                       }}
                       onRemoveBuyIn={(amount, userId) => {
@@ -248,6 +250,7 @@ const NewGameScreen = ({ route, navigation }) => {
                         );
                         Toast.success(
                           `${amount} removed for ${selectedPlayer?.User?.nickName}`,
+                          'top',
                         );
                       }}
                       onCashOut={(amount, userId) => {
@@ -261,6 +264,7 @@ const NewGameScreen = ({ route, navigation }) => {
                         setUserGamesData(updatedUserGames);
                         Toast.success(
                           ` ${selectedPlayer?.User?.nickName} cashed out ${amount}`,
+                          'top',
                         );
                       }}
                     />
@@ -290,7 +294,7 @@ const styles = StyleSheet.create({
   addRemove: {
     color: colors.gold,
     textAlign: 'center',
-    fontSize: 13,
+    fontSize: 17,
     paddingVertical: 10,
     textDecorationLine: 'underline',
   },
@@ -302,7 +306,8 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   noAdmin: {
-    color: 'red',
+    color: colors.danger,
+    backgroundColor: colors.gold,
     textAlign: 'center',
     fontSize: 13,
     paddingVertical: 10,
@@ -312,7 +317,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15, // Added this line
     overflow: 'hidden', // Ensure the FlatList items respect the border radius
     backgroundColor: colors.white, // Match the FlatList background to the container
-    maxHeight: 400, // Adjust the height as needed
+    maxHeight: 350, // Adjust the height as needed
     flexGrow: 0,
     marginBottom: 5,
   },

@@ -22,6 +22,7 @@ const menuItems = [
     },
     targetScreen: 'EditProfile',
   },
+
   // {
   //   title: "My Messages-Coming soon...",
   //   icon: {

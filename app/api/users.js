@@ -1,20 +1,21 @@
-import client from "./client";
-import { Platform } from "react-native";
+import client from './client';
+import { Platform } from 'react-native';
 
-const endpoint = "api/users";
+const endpoint = 'api/users';
 
 const googleSignin = (userInfo) => {
   return client.post(`${endpoint}/googleSignin`, userInfo);
-}
+};
 
 const checkNotification = (userId) => {
   return client.get(`${endpoint}/checkNotification/${userId}`);
-}
+};
 
 const updateNotificationSettings = (userId, isEnabled) => {
-  return client.put(`${endpoint}/updateNotificationSettings/${userId}`, {isEnabled});
-
-}
+  return client.put(`${endpoint}/updateNotificationSettings/${userId}`, {
+    isEnabled,
+  });
+};
 
 // const register = (userInfo) => {
 //   if (userInfo.image) {
@@ -46,21 +47,21 @@ const updatePersonaldetails = (userInfo) => {
     const data = new FormData();
 
     function getFileExtension(filePath) {
-      return filePath.substring(filePath.lastIndexOf("."));
+      return filePath.substring(filePath.lastIndexOf('.'));
     }
 
-    data.append("nickName", userInfo.nickName);
-    data.append("userId", userInfo.userId);
+    data.append('nickName', userInfo.nickName);
+    data.append('userId', userInfo.userId);
 
-    data.append("image", {
+    data.append('image', {
       name: userInfo.nickName + getFileExtension(userInfo.image), /// Add the extension to the file name
-      type: "image/jpeg",
+      type: 'image/jpeg',
       uri:
-        Platform.OS === "android"
+        Platform.OS === 'android'
           ? userInfo.image
-          : userInfo.image.replace("file://", ""),
+          : userInfo.image.replace('file://', ''),
     });
-    client.headers["Content-Type"] = "multipart/form-data";
+    client.headers['Content-Type'] = 'multipart/form-data';
 
     return client.put(`${endpoint}/updatePersonaldetails`, data);
   } else {
@@ -69,18 +70,18 @@ const updatePersonaldetails = (userInfo) => {
 };
 
 const updateExpoPushToken = (userId, expoPushToken) => {
-
-   return client.put(`${endpoint}/updateExpoPushToken/${userId}`, {
-     expoPushToken,
-   });
-
-}
-
+  return client.put(`${endpoint}/updateExpoPushToken/${userId}`, {
+    expoPushToken,
+  });
+};
 
 const getPersonalStats = (userId) => {
   return client.get(`${endpoint}/personalStats/${userId}`);
 };
 
+const deleteAccount = (userId) => {
+  return client.delete(`${endpoint}/deleteAccount/${userId}`);
+};
 
 export default {
   // register,
@@ -90,4 +91,5 @@ export default {
   googleSignin,
   checkNotification,
   updateNotificationSettings,
+  deleteAccount,
 };
