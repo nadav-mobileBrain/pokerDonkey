@@ -49,7 +49,7 @@ const LeagueScreen = ({ navigation }) => {
   );
 
   useEffect(() => {
-    // load();
+    load();
   }, [load]);
 
   useEffect(() => {

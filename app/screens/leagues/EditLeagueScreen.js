@@ -83,7 +83,6 @@ const EditLeagueScreen = ({ navigation, route }) => {
   const deleteLeague = async (leagueId) => {
     setDialogVisible(false);
     const result = await deleteLeagueApi.request(leagueId);
-    console.log('🚀 ~ deleteLeague ~ result:', result.data);
     if (!result.ok) {
       if (result.data) setError(result.data.error);
       else {

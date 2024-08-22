@@ -121,20 +121,13 @@ const EditProfileScreen = ({ navigation }) => {
               handleConfirm={() => deleteAccount()}
             />
           )}
-          <View
-            style={{
-              alignSelf: 'center',
-              position: 'absolute',
-              bottom: 50,
-            }}
-          >
-            <AppButton
-              title="delete account"
-              color="danger"
-              onPress={() => setDeleteDialog(true)}
-              icon="account-remove"
-            />
-          </View>
+
+          <AppButton
+            title="delete account"
+            color="danger"
+            onPress={() => setDeleteDialog(true)}
+            icon="account-remove"
+          />
         </LinearGradient>
       </Screen>
     </>
