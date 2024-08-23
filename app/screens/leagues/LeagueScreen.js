@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: colors.light,
+    color: colors.gold,
     fontFamily: 'Roboto_700Bold',
   },
   errorText: {

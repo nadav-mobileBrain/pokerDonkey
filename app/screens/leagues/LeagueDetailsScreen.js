@@ -70,17 +70,15 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
           Admin: {league.leagueAdmin?.nickName}
         </AppText>
         {league?.league_name !== 'demo league' && (
-          <View style={styles.editButtonContainer}>
-            <Button
-              title="Edit league details"
-              onPress={() =>
-                navigation.navigate(routes.EDIT_LEAGUE, {
-                  league,
-                  leaguePlayers,
-                })
-              }
-            />
-          </View>
+          <Button
+            title="Edit league details"
+            onPress={() =>
+              navigation.navigate(routes.EDIT_LEAGUE, {
+                league,
+                leaguePlayers,
+              })
+            }
+          />
         )}
         <HowToPlay
           navigation={navigation}
@@ -88,6 +86,7 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
           align="start"
         />
       </View>
+
       <PlayerInfo leaguePlayers={leaguePlayers} width={20} height={20} />
       <View style={styles.buttonContainer}>
         <AppButton
@@ -200,15 +199,15 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
   },
   detailsContainer: {
-    padding: 7,
+    padding: 10,
+    width: '60%',
+    gap: 7,
   },
   leagueInfo: {
     fontSize: 13,
     color: colors.dark,
   },
-  editButtonContainer: {
-    alignSelf: 'flex-end',
-  },
+
   buttonContainer: {
     paddingHorizontal: 10,
   },

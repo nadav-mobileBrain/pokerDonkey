@@ -7,6 +7,7 @@ import AppText from '../../components/AppText';
 import colors from '../../config/colors';
 import gameApi from '../../api/game';
 import HeaderText from '../../components/HeaderText';
+import Container, { Toast } from 'toastify-react-native';
 import HowToPlay from '../../components/HowToPlay';
 import logger from '../../utility/logger';
 import Screen from '../../components/Screen';
@@ -63,6 +64,10 @@ const SelectPlayersScreen = ({ route, navigation }) => {
   };
 
   const startNewGame = async () => {
+    if (selectedPlayers.length < 3) {
+      Toast.error('At least 3 players to start a game');
+      return;
+    }
     const result = await createNewGameApi.request({
       selectedPlayers,
       leagueId: league.id,
@@ -88,6 +93,7 @@ const SelectPlayersScreen = ({ route, navigation }) => {
 
   return (
     <Screen style={styles.container}>
+      <Container position="top" width="100%" />
       <View style={styles.selectContainer}>
         <HeaderText style={styles.title}> Select Players </HeaderText>
         <HowToPlay navigation={navigation} textColor="PrimaryBlue" />

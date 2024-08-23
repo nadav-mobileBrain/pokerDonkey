@@ -1,8 +1,8 @@
-import React from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
-import AppText from "../AppText";
-import routes from "../../navigation/routes";
-import colors from "../../config/colors";
+import React from 'react';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import AppText from '../AppText';
+import routes from '../../navigation/routes';
+import colors from '../../config/colors';
 
 const CreatejoinLeagues = ({ navigation }) => {
   return (
@@ -25,8 +25,8 @@ const CreatejoinLeagues = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginVertical: 20,
   },
   button: {
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 25,
     marginHorizontal: 10,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 2,
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 12,
-    fontFamily: "Roboto_700Bold",
+    fontFamily: 'Roboto_700Bold',
     color: colors.light,
   },
 });

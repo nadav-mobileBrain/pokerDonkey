@@ -78,7 +78,7 @@ const NewGameScreen = ({ route, navigation }) => {
     const isAllCashedOut = checkIfAllPlayersCashedOut(userGamesData);
     if (!isAllCashedOut) {
       Toast.warn('All Players must cash out');
-      alert('All Players must cash out');
+      //alert('All Players must cash out');
       return;
     }
     setEndDialogVisible(false);

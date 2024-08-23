@@ -74,61 +74,51 @@ const EditGameScreen = ({ route }) => {
     }
   };
 
+  const renderHeader = () => (
+    <>
+      <HeaderText style={{ color: colors.secondary }}>
+        Edit Game Details
+      </HeaderText>
+      <TouchableOpacity
+        style={styles.delete}
+        onPress={() => setDeleteDialog(true)}
+      >
+        <AppText style={{ color: colors.danger, paddingStart: 10 }}>
+          Delete Game
+        </AppText>
+        <Icon
+          name="trash-can"
+          size={30}
+          backgroundColor={colors.danger}
+          iconColor={colors.white}
+        />
+      </TouchableOpacity>
+      <View>
+        <AppText style={styles.gameDetails}>
+          {dayjs(game.gameDetails.created_at).format('DD/MM/YYYY')}
+        </AppText>
+        <AppText style={styles.gameDetails}>
+          {dayjs(game.gameDetails.created_at).format('HH:mm')}-
+          {dayjs(game.gameDetails.updated_at).format('HH:mm')}
+        </AppText>
+        <AppText style={styles.gameManager}>
+          Game Manager: {game?.gameDetails?.game_manager?.nickName}
+        </AppText>
+      </View>
+      <AllGamesCardHeader />
+    </>
+  );
+
   return (
-    <Screen>
+    <Screen style={styles.screen}>
       <ActivityIndicator
         visible={deleteGameApi.loading || updateGameDetailsApi.loading}
       />
       <View style={styles.container}>
-        <HeaderText style={{ color: colors.secondary }}>
-          Edit Game Details
-        </HeaderText>
-        <TouchableOpacity
-          style={styles.delete}
-          onPress={() => setDeleteDialog(true)}
-        >
-          <AppText style={{ color: colors.danger, paddingStart: 10 }}>
-            Delete Game
-          </AppText>
-          <Icon
-            name="trash-can"
-            size={30}
-            backgroundColor={colors.danger}
-            iconColor={colors.white}
-          />
-        </TouchableOpacity>
-        {deleteDialog && (
-          <DialogComponent
-            handleCancel={() => setDeleteDialog(false)}
-            handleConfirm={() => deleteGame(game)}
-            titleText="Delete this game?"
-            descriptionText="This can't be undone"
-          />
-        )}
-        {dialogVisible && (
-          <DialogComponent
-            handleCancel={handleCancel}
-            handleConfirm={handleConfirm}
-            titleText="Save Changes?"
-            descriptionText="Are you sure you want to save the changes?"
-          />
-        )}
-        <View>
-          <AppText style={styles.gameDetails}>
-            {dayjs(game.gameDetails.created_at).format('DD/MM/YYYY')}
-          </AppText>
-          <AppText style={styles.gameDetails}>
-            {dayjs(game.gameDetails.created_at).format('HH:mm')}-
-            {dayjs(game.gameDetails.updated_at).format('HH:mm')}
-          </AppText>
-          <AppText style={styles.gameManager}>
-            Game Manager: {game?.gameDetails?.game_manager?.nickName}
-          </AppText>
-        </View>
         <FlatList
+          ListHeaderComponent={renderHeader}
           data={players}
           keyExtractor={(item) => item.user_id.toString()}
-          ListHeaderComponent={<AllGamesCardHeader />}
           renderItem={({ item }) => (
             <AllGamesPlayersEditForm
               player={item}
@@ -136,37 +126,54 @@ const EditGameScreen = ({ route }) => {
             />
           )}
           ItemSeparatorComponent={ListitemSeperator}
+          contentContainerStyle={styles.listContent}
         />
         <View style={styles.buttonContainer}>
           <AppButton title="Save Changes" onPress={handleSave} color="gold" />
         </View>
       </View>
+      {deleteDialog && (
+        <DialogComponent
+          handleCancel={() => setDeleteDialog(false)}
+          handleConfirm={() => deleteGame(game)}
+          titleText="Delete this game?"
+          descriptionText="This can't be undone"
+        />
+      )}
+      {dialogVisible && (
+        <DialogComponent
+          handleCancel={handleCancel}
+          handleConfirm={handleConfirm}
+          titleText="Save Changes?"
+          descriptionText="Are you sure you want to save the changes?"
+        />
+      )}
     </Screen>
   );
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    marginHorizontal: 30,
+  screen: {
+    flex: 1,
   },
   container: {
-    borderRadius: 15,
-    marginBottom: 20,
-    overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    elevation: 5,
-    margin: 10,
+    maxHeight: '100%', // Adjust the height as needed
+    flexGrow: 0,
     backgroundColor: colors.AccentPurple,
+  },
+  listContent: {
+    padding: 10,
+    paddingBottom: 80, // Ensure space for the button
+  },
+  buttonContainer: {
+    padding: 10,
   },
   delete: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 10,
   },
-
   gameDetails: {
     width: '100%',
     textAlign: 'center',
@@ -178,6 +185,7 @@ const styles = StyleSheet.create({
     width: '100%',
     textAlign: 'center',
     color: colors.surface,
+    marginBottom: 10,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
