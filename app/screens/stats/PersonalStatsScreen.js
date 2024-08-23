@@ -10,6 +10,7 @@ import config from '../../config/config';
 import useAuth from '../../auth/useAuth';
 import useApi from '../../hooks/useApi';
 import usersApi from '../../api/users';
+import { useAptabase } from '../../hooks/useAptabase';
 import routes from '../../navigation/routes';
 import Screen from '../../components/Screen';
 
@@ -36,6 +37,7 @@ const PersonalStatsScreen = ({ route }) => {
   const { user: authUser } = useAuth();
   const user = route?.params?.userDetails || authUser;
   const userId = user.id || user.userId;
+  const { trackEvent } = useAptabase();
 
   const imageUrl = user.image.includes('http')
     ? user.image
@@ -149,11 +151,15 @@ const PersonalStatsScreen = ({ route }) => {
                 title="Games History"
                 color="gold"
                 icon="view-list-outline"
-                onPress={() =>
+                onPress={() => {
+                  trackEvent('Personal Stats Games History Viewed', {
+                    userId,
+                    userName: user.nickName,
+                  });
                   navigation.navigate(routes.PERSONAL_STATS_GAMES_LIST, {
                     personalStats,
-                  })
-                }
+                  });
+                }}
               />
             </>
           )}

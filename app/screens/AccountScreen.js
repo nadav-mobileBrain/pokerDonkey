@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useAptabase } from '../hooks/useAptabase';
 
 import ActivityIndicator from '../components/ActivityIndicator';
 import Screen from '../components/Screen';
@@ -43,6 +44,7 @@ const menuItems = [
 
 const AccountScreen = ({ navigation }) => {
   const { user, logOut } = useAuth();
+  const { trackEvent } = useAptabase();
 
   return (
     <>
@@ -81,6 +83,10 @@ const AccountScreen = ({ navigation }) => {
                     />
                   }
                   onPress={() => {
+                    trackEvent('Account Screen', {
+                      item: item.title,
+                      userId: user.userId,
+                    });
                     if (
                       (item.title === 'Edit Profile' ||
                         item.title === 'Notifications') &&

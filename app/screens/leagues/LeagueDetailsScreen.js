@@ -26,6 +26,7 @@ import PlayerInfo from '../../components/player/PlayerInfo';
 import Screen from '../../components/Screen';
 import routes from '../../navigation/routes';
 import useApi from '../../hooks/useApi';
+import { useAptabase } from '../../hooks/useAptabase';
 
 const LeagueDetailsScreen = ({ route, navigation }) => {
   const league = route.params.item.league;
@@ -35,6 +36,7 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
   const getLeaguePlayersApi = useApi(getLeaguePlayers.getLeaguePlayers);
   const checkIfOpenGameExist = useApi(gameApi.checkIfOpenGameExist);
   const insets = useSafeAreaInsets();
+  const { trackEvent } = useAptabase();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -93,18 +95,28 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
           title="League Stats"
           icon="chart-box-outline"
           color="gold"
-          onPress={() => navigation.navigate(routes.STATS, { league })}
+          onPress={() => {
+            trackEvent('League Stats Viewed', {
+              leagueId: league.id,
+              leagueName: league.league_name,
+            });
+            navigation.navigate(routes.STATS, { league });
+          }}
         />
         <AppButton
           title={isLiveGameOn ? 'Join Live Game' : 'Start A New Game'}
           color="secondary"
           icon="cards-playing-spade-multiple-outline"
-          onPress={() =>
+          onPress={() => {
+            trackEvent('New Game StartScreen', {
+              leagueId: league.id,
+              leagueName: league.league_name,
+            });
             navigation.navigate(routes.SELECT_PLAYERS, {
               leaguePlayers,
               league,
-            })
-          }
+            });
+          }}
         />
       </View>
       <AppText style={styles.created}>

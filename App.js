@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import * as Font from 'expo-font';
 import ActivityIndicator from './app/components/ActivityIndicator';
+import Aptabase from '@aptabase/react-native';
 
 import AuthNavigator from './app/navigation/AuthNavigator';
 import AppNavigator from './app/navigation/AppNavigator';
@@ -18,6 +19,8 @@ import logger from './app/utility/logger';
 
 logger.start();
 
+Aptabase.init('A-EU-6948664941'); // 👈 this is where you enter your App Key
+
 export default function App() {
   const [user, setUser] = useState();
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -25,6 +28,7 @@ export default function App() {
   const restoreUser = async () => {
     const user = await authStorage.getUser();
     if (user) setUser(user);
+    Aptabase.trackEvent('User Restored', { userId: user?.userId });
   };
 
   const loadFonts = async () => {

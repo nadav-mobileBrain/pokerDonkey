@@ -7,10 +7,11 @@ import useAuth from '../../auth/useAuth';
 import routes from '../../navigation/routes';
 import config from '../../config/config';
 import AppText from '../AppText';
+import { useAptabase } from '../../hooks/useAptabase';
 
 const PlayerAvatar = () => {
   const { user } = useAuth();
-  // const url = config.s3.baseUrl + user.image;
+  const { trackEvent } = useAptabase();
   let url = user.image;
   //if url is not a full url, add the base url
   if (!url.includes('http')) {
@@ -21,7 +22,10 @@ const PlayerAvatar = () => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate(routes.PERSONAL_STATS)}
+      onPress={() => {
+        trackEvent('Player Avatar Clicked', { userId: user.userId });
+        navigation.navigate(routes.PERSONAL_STATS);
+      }}
     >
       <View style={styles.avatarContainer}>
         <Image style={styles.image} source={{ uri: url }} />

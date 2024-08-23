@@ -14,6 +14,7 @@ import Screen from '../../components/Screen';
 import PlayerInfo from '../../components/player/PlayerInfo';
 import useApi from '../../hooks/useApi';
 import useAuth from '../../auth/useAuth';
+import { useAptabase } from '@aptabase/react-native';
 import routes from '../../navigation/routes';
 
 const SelectPlayersScreen = ({ route, navigation }) => {
@@ -21,6 +22,7 @@ const SelectPlayersScreen = ({ route, navigation }) => {
 
   const league = route.params.league;
   const { user } = useAuth();
+  const { trackEvent } = useAptabase();
 
   const gameAdminId = user.userId;
   const [selectedPlayers, setSelectedPlayers] = useState([]);
@@ -68,6 +70,7 @@ const SelectPlayersScreen = ({ route, navigation }) => {
       Toast.error('At least 3 players to start a game');
       return;
     }
+    trackEvent('started a new game', { newGameForLeague: league.id });
     const result = await createNewGameApi.request({
       selectedPlayers,
       leagueId: league.id,

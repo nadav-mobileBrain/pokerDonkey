@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useAptabase } from '../../hooks/useAptabase';
 
 import AppLogo from '../../components/AppLogo';
 import AppText from '../../components/AppText';
@@ -19,6 +20,7 @@ import AppButton from '../../components/AppButton';
 const MainStatsScreen = ({ route }) => {
   const { league } = route.params;
   const navigation = useNavigation();
+  const { trackEvent } = useAptabase();
 
   return (
     <Screen>
@@ -34,7 +36,10 @@ const MainStatsScreen = ({ route }) => {
           <AppButton
             title="All Games"
             color="gold"
-            onPress={() => navigation.navigate('AllGames', { league })}
+            onPress={() => {
+              trackEvent('All Games Button Pressed', { league: league.name });
+              navigation.navigate('AllGames', { league });
+            }}
           />
         </View>
         <TouchableOpacity

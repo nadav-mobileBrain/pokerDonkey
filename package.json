@@ -10,6 +10,7 @@
     "eas-build-pre-install": "./eas-build-pre-install.sh"
   },
   "dependencies": {
+    "@aptabase/react-native": "^0.3.10",
     "@bugsnag/expo": "^51.0.0",
     "@expo-google-fonts/roboto": "^0.2.3",
     "@react-native-community/netinfo": "11.3.1",
