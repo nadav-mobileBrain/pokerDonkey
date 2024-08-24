@@ -72,20 +72,22 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
           Admin: {league.leagueAdmin?.nickName}
         </AppText>
         {league?.league_name !== 'demo league' && (
-          <Button
-            title="Edit league details"
+          <AppText
+            style={styles.editLeague}
             onPress={() =>
               navigation.navigate(routes.EDIT_LEAGUE, {
                 league,
                 leaguePlayers,
               })
             }
-          />
+          >
+            Edit league details
+          </AppText>
         )}
         <HowToPlay
           navigation={navigation}
           textColor="PrimaryBlue"
-          align="start"
+          align="center"
         />
       </View>
 
@@ -183,6 +185,12 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 20,
   },
+  editLeague: {
+    color: colors.PrimaryBlue,
+    fontSize: 14,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+  },
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
@@ -212,12 +220,12 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     padding: 10,
-    width: '60%',
-    gap: 7,
+    gap: 2,
   },
   leagueInfo: {
     fontSize: 13,
     color: colors.dark,
+    textAlign: 'center',
   },
 
   buttonContainer: {

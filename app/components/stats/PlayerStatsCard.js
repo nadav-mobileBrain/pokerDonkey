@@ -53,7 +53,6 @@ const PlayerStatsCard = ({ league }) => {
       )}
       {cardsData.length > 0 && (
         <>
-          <LeagueStatsCard league={league} />
           <FlatList
             data={cardsData}
             keyExtractor={(card) => card.id.toString()}
@@ -83,6 +82,7 @@ const PlayerStatsCard = ({ league }) => {
                 />
               );
             }}
+            ListHeaderComponent={<LeagueStatsCard league={league} />}
           />
         </>
       )}

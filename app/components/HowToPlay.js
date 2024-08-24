@@ -29,7 +29,7 @@ const styles = {
     fontWeight: 'bold',
     textAlign: 'center',
     textDecorationLine: 'underline',
-    marginVertical: 5,
+    marginVertical: 2,
   },
 };
 export default HowToPlay;
