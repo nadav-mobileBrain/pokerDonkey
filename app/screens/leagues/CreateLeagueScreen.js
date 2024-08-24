@@ -57,7 +57,7 @@ const CreateLeagueScreen = ({ navigation }) => {
         <ImageBackground
           blurRadius={4}
           style={styles.background}
-          source={require('../../assets/newLogo.jpeg')}
+          source={require('../../assets/newLogo.webp')}
         >
           <View style={styles.overlay} />
           <AppLogo />

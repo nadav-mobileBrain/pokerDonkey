@@ -3,6 +3,7 @@ import { ImageBackground, FlatList, View, StyleSheet } from 'react-native';
 
 import AppText from '../../components/AppText';
 import colors from '../../config/colors';
+import ActivityIndicator from '../../components/ActivityIndicator';
 import Screen from '../../components/Screen';
 import HeaderText from '../../components/HeaderText';
 import PersonalStatsGamesHeader from '../../components/stats/PersonalStatsGamesHeader';
@@ -13,8 +14,9 @@ const PersonalStatsGamesList = ({ route }) => {
   const personalStats = route.params.personalStats;
   return (
     <Screen style={styles.screen}>
+      <ActivityIndicator visible={!personalStats} />
       <ImageBackground
-        source={require('../../assets/personalDonkey.jpeg')}
+        source={require('../../assets/personalDonkey.webp')}
         style={styles.background}
         blurRadius={5}
       >

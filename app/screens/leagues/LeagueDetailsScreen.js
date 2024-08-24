@@ -132,7 +132,7 @@ const LeagueDetailsScreen = ({ route, navigation }) => {
         <ImageBackground
           blurRadius={6}
           style={styles.background}
-          source={require('../../assets/appLogo.png')}
+          source={require('../../assets/appLogo.webp')}
         >
           <View style={styles.overlay} />
           <FlatList

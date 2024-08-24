@@ -26,7 +26,7 @@ const MainStatsScreen = ({ route }) => {
     <Screen>
       <ImageBackground
         style={styles.background}
-        source={require('../../assets/appLogo.png')}
+        source={require('../../assets/appLogo.webp')}
       >
         <View style={styles.overlay} />
         <PlayerAvatar />

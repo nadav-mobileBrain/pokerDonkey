@@ -139,7 +139,7 @@ const SelectPlayersScreen = ({ route, navigation }) => {
         {selectedPlayers.length < 1 && (
           <View style={styles.imageContainer}>
             <Image
-              source={require('../../assets/selectPlayers.png')}
+              source={require('../../assets/selectPlayers.webp')}
               style={styles.image}
             />
           </View>

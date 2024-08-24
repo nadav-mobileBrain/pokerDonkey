@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   StyleSheet,
   FlatList,
@@ -7,6 +7,7 @@ import {
   Platform,
 } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
+import { TestIds, useInterstitialAd } from 'react-native-google-mobile-ads';
 
 import ActivityIndicator from '../../components/ActivityIndicator';
 import AppButton from '../../components/AppButton';
@@ -25,8 +26,6 @@ import Screen from '../../components/Screen';
 import useApi from '../../hooks/useApi';
 import useAuth from '../../auth/useAuth';
 
-import { TestIds, useInterstitialAd } from 'react-native-google-mobile-ads';
-
 const LeagueScreen = ({ navigation }) => {
   const isFocused = useIsFocused();
   const [refreshing, setRefreshing] = useState(false);
@@ -35,22 +34,34 @@ const LeagueScreen = ({ navigation }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedLeagues, setSelectedLeagues] = useState(null);
   const { user } = useAuth();
+  const [isAdLoading, setIsAdLoading] = useState(true);
 
   let adUnitId = Platform.select({
     android: 'ca-app-pub-2640391750032066/5726639519',
     ios: 'ca-app-pub-2640391750032066/9067118729',
   });
 
-  const { isLoaded, isClosed, load, show, reward } = useInterstitialAd(
+  const { isLoaded, isClosed, load, show } = useInterstitialAd(
     __DEV__ ? TestIds.INTERSTITIAL : adUnitId,
     {
       requestNonPersonalizedAdsOnly: true,
     },
   );
 
-  useEffect(() => {
+  const loadAd = useCallback(() => {
+    setIsAdLoading(true);
     load();
   }, [load]);
+
+  useEffect(() => {
+    loadAd();
+  }, [loadAd]);
+
+  useEffect(() => {
+    if (isLoaded) {
+      setIsAdLoading(false);
+    }
+  }, [isLoaded]);
 
   useEffect(() => {
     if (isClosed && selectedItem && selectedLeagues) {
@@ -58,17 +69,15 @@ const LeagueScreen = ({ navigation }) => {
         item: selectedItem,
         data: selectedLeagues,
       });
-
-      // Reset the selected item and leagues after navigating
       setSelectedItem(null);
       setSelectedLeagues(null);
-      // load();
+      loadAd();
     }
-  }, [isClosed, selectedItem, selectedLeagues, navigation]);
+  }, [isClosed, selectedItem, selectedLeagues, navigation, loadAd]);
 
   useEffect(() => {
     if (isFocused) {
-      fetchLeagues(); // Refresh data when the screen is focused
+      fetchLeagues();
     }
   }, [isFocused]);
 
@@ -81,8 +90,8 @@ const LeagueScreen = ({ navigation }) => {
   };
 
   const handleCardPress = (item, leagues) => {
-    setSelectedItem(item); // Store selected item
-    setSelectedLeagues(leagues); // Store selected leagues
+    setSelectedItem(item);
+    setSelectedLeagues(leagues);
 
     if (isLoaded) {
       show();
@@ -91,17 +100,20 @@ const LeagueScreen = ({ navigation }) => {
         item,
         data: leagues,
       });
+      loadAd();
     }
   };
 
+  const isLoading = getLeaguesApi.loading || isAdLoading;
+
   return (
     <>
-      <ActivityIndicator visible={getLeaguesApi.loading} />
+      <ActivityIndicator visible={isLoading} />
       <Screen style={styles.screen}>
         <ImageBackground
           style={styles.background}
           blurRadius={7}
-          source={require('../../assets/appLogo.png')}
+          source={require('../../assets/appLogo.webp')}
         >
           <View style={styles.overlay} />
           <PlayerAvatar />

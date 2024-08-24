@@ -8,7 +8,7 @@ const AppLogo = () => {
     <View style={styles.container}>
       <Image
         style={styles.image}
-        source={require('../assets/newLogoV2.jpeg')}
+        source={require('../assets/newLogoV2.webp')}
       />
       <AppText style={[defaultStyles.text, styles.title]}>Poker Donkey</AppText>
     </View>

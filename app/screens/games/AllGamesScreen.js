@@ -63,7 +63,7 @@ const AllGamesScreen = ({ route, leagueIdForPushNotifications = null }) => {
         <ImageBackground
           blurRadius={4}
           style={styles.background}
-          source={require('../../assets/cardstats.jpg')}
+          source={require('../../assets/cardstats.webp')}
         >
           <View style={styles.overlay} />
           <AppLogo />

@@ -13,6 +13,7 @@ export const removeLastBuyIn = async (
 ) => {
   if (buyInNumber < 1) {
     Toast.error('No buy ins to remove');
+    alert('No buy ins to remove');
     return;
   }
   const result = await removeLastBuyInToPlayer.request(

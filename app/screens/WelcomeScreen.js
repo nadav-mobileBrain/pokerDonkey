@@ -41,7 +41,7 @@ const WelcomeScreen = ({ navigation }) => {
     <Screen>
       <ImageBackground
         style={styles.background}
-        source={require('../assets/appLogo.png')}
+        source={require('../assets/appLogo.webp')}
         blurRadius={7}
       >
         <View style={styles.overlay} />

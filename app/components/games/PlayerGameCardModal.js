@@ -12,7 +12,6 @@ import * as Yup from 'yup';
 import ActivityIndicator from '../ActivityIndicator';
 import { removeLastBuyIn, addBuyIn } from '../../utils/gameUtils';
 import logger from '../../utility/logger';
-import Container, { Toast } from 'toastify-react-native';
 
 const validationSchema = Yup.object().shape({
   cashOutAmount: Yup.number().required().label('Cash Out Amount'),

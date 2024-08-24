@@ -16,7 +16,7 @@ import routes from '../../navigation/routes';
 const LeaderStatsHeader = ({ leader, titles }) => {
   return (
     <ImageBackground
-      source={require('../../assets/cardstats.jpg')}
+      source={require('../../assets/cardstats.webp')}
       style={styles.headerContainer}
     >
       <View style={styles.overlay} />

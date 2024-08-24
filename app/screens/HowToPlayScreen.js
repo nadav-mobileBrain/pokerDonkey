@@ -27,7 +27,7 @@ const HowToPlayScreen = () => {
   return (
     <Screen style={styles.screen}>
       <ImageBackground
-        source={require('../assets/appLogo.png')}
+        source={require('../assets/appLogo.webp')}
         style={styles.background}
         blurRadius={4}
       >
@@ -35,6 +35,19 @@ const HowToPlayScreen = () => {
         <ScrollView>
           <AppLogo />
           <AppText style={styles.title}>How to Use Poker Donkey</AppText>
+          <AppText
+            style={{
+              color: colors.LightSkyBlue,
+              fontSize: 14,
+              textDecorationLine: 'underline',
+              textAlign: 'center',
+            }}
+            onPress={() =>
+              Linking.openURL('https://www.youtube.com/@pokerdonkey')
+            }
+          >
+            See video tutorials on my youtube channel
+          </AppText>
           <AppText style={styles.subtitle}>Getting Started</AppText>
           <FeatureItem
             icon="account-plus"

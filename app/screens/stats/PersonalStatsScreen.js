@@ -125,7 +125,7 @@ const PersonalStatsScreen = ({ route }) => {
       <ActivityIndicator visible={getPersonalStatsApi.loading} />
       <Screen style={styles.screen}>
         <ImageBackground
-          source={require('../../assets/personalDonkey.jpeg')}
+          source={require('../../assets/personalDonkey.webp')}
           style={styles.background}
           blurRadius={5}
         >
