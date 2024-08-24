@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   StyleSheet,
@@ -6,7 +6,6 @@ import {
   Text,
   ScrollView,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AppButton from '../components/AppButton';
 import colors from '../config/colors';
 import AppLogo from '../components/AppLogo';
@@ -15,11 +14,11 @@ import authApi from '../api/auth';
 import AppText from '../components/AppText';
 import HowToPlay from '../components/HowToPlay';
 import Screen from '../components/Screen';
+import { useAptabase } from '../hooks/useAptabase';
 
 const WelcomeScreen = ({ navigation }) => {
+  const { trackEvent } = useAptabase();
   const { logIn, logOut } = useAuth();
-  const [readMore, setReadMore] = useState(false);
-  const insets = useSafeAreaInsets();
 
   const takeATour = async () => {
     logOut();
@@ -27,14 +26,11 @@ const WelcomeScreen = ({ navigation }) => {
       const result = await authApi.login({
         google_id: '100975266796150070789',
       });
+      trackEvent('login as guest');
       logIn(result.data);
     } catch (error) {
       console.error('Error during guest login', error);
     }
-  };
-
-  const toggleReadMore = () => {
-    setReadMore(!readMore);
   };
 
   return (
@@ -65,7 +61,7 @@ const WelcomeScreen = ({ navigation }) => {
             <AppButton
               title="Take A Tour"
               color="secondary"
-              onPress={takeATour}
+              onPress={() => takeATour()}
               icon="arrow-right-bold-outline"
             />
             <AppButton

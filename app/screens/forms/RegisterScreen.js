@@ -44,6 +44,7 @@ const RegisterScreen = () => {
   useEffect(() => {
     configureGoogleSignin();
   }, []);
+
   const signIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
@@ -89,7 +90,7 @@ const RegisterScreen = () => {
           <GoogleSigninButton
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Dark}
-            onPress={signIn}
+            onPress={() => signIn()}
             style={styles.googleButton}
           />
         </ImageBackground>

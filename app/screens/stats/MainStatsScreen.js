@@ -12,6 +12,8 @@ import { useAptabase } from '../../hooks/useAptabase';
 import AppLogo from '../../components/AppLogo';
 import AppText from '../../components/AppText';
 import colors from '../../config/colors';
+import Container from 'toastify-react-native';
+
 import PlayerAvatar from '../../components/player/PlayerAvatar';
 import PlayerStatsCard from '../../components/stats/PlayerStatsCard';
 import Screen from '../../components/Screen';
@@ -29,6 +31,7 @@ const MainStatsScreen = ({ route }) => {
         source={require('../../assets/appLogo.webp')}
       >
         <View style={styles.overlay} />
+        <Container position="top" width="100%" />
         <PlayerAvatar />
         <AppLogo />
         <PlayerStatsCard league={league} />

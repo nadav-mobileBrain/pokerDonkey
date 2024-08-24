@@ -154,7 +154,6 @@ const PersonalStatsScreen = ({ route }) => {
                 onPress={() => {
                   trackEvent('Personal Stats Games History Viewed', {
                     userId,
-                    userName: user.nickName,
                   });
                   navigation.navigate(routes.PERSONAL_STATS_GAMES_LIST, {
                     personalStats,

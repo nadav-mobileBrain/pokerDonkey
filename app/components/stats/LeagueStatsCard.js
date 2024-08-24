@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import AppText from '../AppText';
 import colors from '../../config/colors';
 import useApi from '../../hooks/useApi';
 import statsApi from '../../api/stats';
 import config from '../../config/config';
+import { Toast } from 'toastify-react-native';
+import { useAptabase } from '../../hooks/useAptabase';
 
 const LeagueStatsCard = ({ league }) => {
   const getLeagueStatsApi = useApi(statsApi.getLeagueStats);
   const [leagueStats, setLeagueStats] = useState([]);
-
+  const { trackEvent } = useAptabase();
   const getLeagueStats = async () => {
     const result = await getLeagueStatsApi.request(league.id);
     if (!result.ok) return;
@@ -22,7 +24,13 @@ const LeagueStatsCard = ({ league }) => {
   }, []);
 
   return (
-    <View style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => {
+        trackEvent('Pressed On League Stats Card');
+        Toast.success('Coming soon...');
+      }}
+    >
       <View style={styles.imageContainer}>
         <Image
           source={{ uri: `${config.s3.baseUrl}${league.league_image}` }}
@@ -48,7 +56,7 @@ const LeagueStatsCard = ({ league }) => {
           Avg Buy Ins Per Game : {leagueStats?.avgTotalBuyInsPerGameForLeague}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

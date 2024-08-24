@@ -42,6 +42,7 @@ const PlayerStatsCard = ({ league }) => {
   return (
     <View style={styles.container}>
       <ActivityIndicator visible={loading} />
+
       {noGames && (
         <>
           <HeaderText>No games played yet</HeaderText>
@@ -51,37 +52,39 @@ const PlayerStatsCard = ({ league }) => {
         </>
       )}
       {cardsData.length > 0 && (
-        <FlatList
-          data={cardsData}
-          keyExtractor={(card) => card.id.toString()}
-          renderItem={({ item }) => {
-            if (!item || !item.values) {
-              return <AppText>bla</AppText>; // or render a placeholder
-            }
-            return (
-              <PlayerDetails
-                title={item.title}
-                subTitle={item.subTitle}
-                image={{
-                  uri: item?.values?.image.startsWith('https')
-                    ? item?.values?.image
-                    : `${config.s3.baseUrl}${item?.values?.image}`,
-                }}
-                onPress={() => {
-                  trackEvent('Player Stats Card Pressed', {
-                    cardTitle: item.title,
-                    leagueId: league.id,
-                  });
-                  navigation.navigate(routes.CARD_STATS, {
-                    data: item,
-                    leagueId: league.id,
-                  });
-                }}
-              />
-            );
-          }}
-          ListHeaderComponent={() => <LeagueStatsCard league={league} />}
-        />
+        <>
+          <LeagueStatsCard league={league} />
+          <FlatList
+            data={cardsData}
+            keyExtractor={(card) => card.id.toString()}
+            renderItem={({ item }) => {
+              if (!item || !item.values) {
+                return <AppText>bla</AppText>; // or render a placeholder
+              }
+              return (
+                <PlayerDetails
+                  title={item.title}
+                  subTitle={item.subTitle}
+                  image={{
+                    uri: item?.values?.image.startsWith('https')
+                      ? item?.values?.image
+                      : `${config.s3.baseUrl}${item?.values?.image}`,
+                  }}
+                  onPress={() => {
+                    trackEvent('Player Stats Card Pressed', {
+                      cardTitle: item.title,
+                      leagueId: league.id,
+                    });
+                    navigation.navigate(routes.CARD_STATS, {
+                      data: item,
+                      leagueId: league.id,
+                    });
+                  }}
+                />
+              );
+            }}
+          />
+        </>
       )}
     </View>
   );
