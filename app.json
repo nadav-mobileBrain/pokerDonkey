@@ -4,7 +4,7 @@
     "slug": "pokerdonkey",
     "version": "1.1.6",
     "orientation": "portrait",
-    "icon": "./app/assets/appLogo.webp",
+    "icon": "./app/assets/appLogo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./app/assets/splash.png",
@@ -28,7 +28,7 @@
     "android": {
       "package": "com.nadavg.pokerdonkey",
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/appLogo.webp",
+        "foregroundImage": "./app/assets/appLogo.png",
         "backgroundColor": "#ffffff"
       },
       "versionCode": 1,
