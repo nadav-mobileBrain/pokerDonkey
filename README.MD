@@ -19,7 +19,7 @@ To set up the development environment:
 1. Clone the repository:
 
    ```
-   git clone https://github.com/your-username/pokerdonkey.git
+   git clone https://https://github.com/nadav-mobileBrain/pokerDonkey.git
    cd pokerdonkey
    ```
 
