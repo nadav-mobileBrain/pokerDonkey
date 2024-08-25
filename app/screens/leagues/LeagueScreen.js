@@ -25,6 +25,7 @@ import routes from '../../navigation/routes';
 import Screen from '../../components/Screen';
 import useApi from '../../hooks/useApi';
 import useAuth from '../../auth/useAuth';
+import HowToPlay from '../../components/HowToPlay';
 
 const LeagueScreen = ({ navigation }) => {
   const isFocused = useIsFocused();
@@ -112,12 +113,14 @@ const LeagueScreen = ({ navigation }) => {
       <Screen style={styles.screen}>
         <ImageBackground
           style={styles.background}
-          blurRadius={7}
+          blurRadius={5}
           source={require('../../assets/appLogo.webp')}
         >
           <View style={styles.overlay} />
           <PlayerAvatar />
           <AppLogo />
+
+          <HowToPlay navigation={navigation} />
           <HeaderText style={styles.headerText}>My Leagues</HeaderText>
           {getLeaguesApi.error && (
             <>
@@ -177,7 +180,7 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.black,
-    opacity: 0.25,
+    opacity: 0.45,
   },
 
   headerText: {

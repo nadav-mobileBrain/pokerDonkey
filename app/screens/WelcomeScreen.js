@@ -51,10 +51,10 @@ const WelcomeScreen = ({ navigation }) => {
               Collect and display stats of your league's games.
             </Text>
             <Text style={styles.infoTagLine}>
-              Create or join a league with your friends and track every game.
-              See who comes out on top and who needs to sharpen their poker
-              skills. Share your results and challenge each other to be the
-              best!
+              Create or join a league with your friends and track every home
+              cash game . See who comes out on top and who needs to sharpen
+              their poker skills. Share your results and challenge each other to
+              be the best!
             </Text>
           </View>
           <View style={styles.buttonContainer}>
@@ -130,8 +130,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.white,
     textAlign: 'center',
-    marginBottom: 10,
     fontWeight: 'bold',
+    lineHeight: 20,
   },
   buttonContainer: {
     width: '100%',

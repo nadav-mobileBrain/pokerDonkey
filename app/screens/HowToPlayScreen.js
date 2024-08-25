@@ -43,7 +43,7 @@ const HowToPlayScreen = () => {
               textAlign: 'center',
             }}
             onPress={() =>
-              Linking.openURL('https://www.youtube.com/@pokerdonkey')
+              Linking.openURL('https://www.youtube.com/@pokerdonkey/shorts')
             }
           >
             See video tutorials on my youtube channel
@@ -71,12 +71,13 @@ const HowToPlayScreen = () => {
           <FeatureItem
             icon="poker-chip"
             title="Start a Live Game"
-            description="Begin tracking a new poker session within a league."
+            description="Choose one player to be the game admin. he will enter the league screen and 'Start A New Game'.
+                         game admin will select the players that will play in the game and the game will start."
           />
           <FeatureItem
             icon="cash-multiple"
             title="Record Buy-ins and Profits"
-            description="Enter EVERY buy-in for every player during the game
+            description="Game admin should enter EVERY buy-in for every player during the game
                     and at the end of the game, record the cash-out amount."
           />
 

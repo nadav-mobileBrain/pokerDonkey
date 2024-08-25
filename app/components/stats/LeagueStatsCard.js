@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
 import AppText from '../AppText';
 import colors from '../../config/colors';
 import useApi from '../../hooks/useApi';
@@ -24,7 +24,7 @@ const LeagueStatsCard = ({ league }) => {
   }, []);
 
   return (
-    <TouchableOpacity
+    <Pressable
       style={styles.card}
       onPress={() => {
         trackEvent('Pressed On League Stats Card');
@@ -56,7 +56,7 @@ const LeagueStatsCard = ({ league }) => {
           Avg Buy Ins Per Game : {leagueStats?.avgTotalBuyInsPerGameForLeague}
         </Text>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 
