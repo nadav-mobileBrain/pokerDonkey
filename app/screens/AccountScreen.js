@@ -2,6 +2,11 @@ import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAptabase } from '../hooks/useAptabase';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 
 import ActivityIndicator from '../components/ActivityIndicator';
 import Screen from '../components/Screen';
@@ -45,6 +50,22 @@ const menuItems = [
 const AccountScreen = ({ navigation }) => {
   const { user, logOut } = useAuth();
   const { trackEvent } = useAptabase();
+
+  const configureGoogleSignin = () => {
+    GoogleSignin.configure({
+      webClientId:
+        '959357331447-c7n207hsvgjj8sg1il9dufetvid1h1oa.apps.googleusercontent.com',
+      androidClientId:
+        '959357331447-6i9t65ceb4hdscse55scicb5v4vj3uud.apps.googleusercontent.com',
+      iosClientId:
+        '959357331447-a7eq0ljslvpgt642e658o3etc9s8g3vl.apps.googleusercontent.com',
+    });
+  };
+
+  const handleLogout = async () => {
+    configureGoogleSignin();
+    logOut();
+  };
 
   return (
     <>
@@ -108,7 +129,7 @@ const AccountScreen = ({ navigation }) => {
             IconComponent={
               <Icon name="logout" backgroundColor={colors.secondary} />
             }
-            onPress={() => logOut()}
+            onPress={() => handleLogout()}
           />
         </LinearGradient>
       </Screen>
