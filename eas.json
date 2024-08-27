@@ -12,7 +12,7 @@
         "simulator": true
       },
       "env": {
-        "GOOGLE_SERVICES_JSON": "@project:MY_NEW_POKER_DONK"
+        "GOOGLE_SERVICES_JSON": "./google-services.json"
       },
       "android": {
         "channel": "development"
