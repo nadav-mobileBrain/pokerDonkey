@@ -26,6 +26,7 @@ const RegisterScreen = () => {
   const loginApi = useApi(authApi.login);
   const auth = useAuth();
   const [error, setError] = useState();
+  console.log('🚀 ~ RegisterScreen ~ error:', JSON.stringify(error));
   // const [imageUri, setImageUri] = useState(null); // New state for image URI
   const [userInfo, setUserInfo] = useState(null);
 

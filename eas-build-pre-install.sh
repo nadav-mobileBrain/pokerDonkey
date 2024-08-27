@@ -1,9 +1,9 @@
 #!/bin/sh
 
-if [ -n "$GOOGLE_SERVICES_JSON" ]; then
-  echo "$GOOGLE_SERVICES_JSON" | base64 --decode --ignore-garbage > google-services.json
+if [ -n "$MY_NEW_POKER_DONK" ]; then
+  echo "$MY_NEW_POKER_DONK" | base64 --decode --ignore-garbage > google-services.json
   echo "google-services.json created successfully"
 else
-  echo "GOOGLE_SERVICES_JSON is not set"
+  echo "MY_NEW_POKER_DONK is not set"
 fi
 

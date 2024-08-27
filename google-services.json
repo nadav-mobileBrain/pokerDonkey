@@ -1,47 +1,31 @@
 {
   "project_info": {
-    "project_number": "959357331447",
-    "project_id": "pokerdonkey-2ba74",
-    "storage_bucket": "pokerdonkey-2ba74.appspot.com"
+    "project_number": "415662565868",
+    "project_id": "new-poker-donk",
+    "storage_bucket": "new-poker-donk.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:959357331447:android:2c8121d23cd477759ab0f2",
+        "mobilesdk_app_id": "1:415662565868:android:ec60f0a7ff8ef3ade078c9",
         "android_client_info": {
-          "package_name": "com.nadavg.pokerdonkey"
+          "package_name": "com.nadavg.pokerdonk"
         }
       },
       "oauth_client": [
         {
-          "client_id": "959357331447-6i9t65ceb4hdscse55scicb5v4vj3uud.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.nadavg.pokerdonkey",
-            "certificate_hash": "8b87f5d16ba1f94ef23b6055b865fdb6aabe9785"
-          }
+          "client_id": "4290183455-5voja0uu1dm88quek47bal5cv7e3198g.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCxbW5ppqiS3N7BGisGOfnXFVigHCqxWW4"
+          "current_key": "AIzaSyBnywN9byFTGJOTcK8ENAD7IsYecaKtjYY"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "959357331447-c7n207hsvgjj8sg1il9dufetvid1h1oa.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "959357331447-a7eq0ljslvpgt642e658o3etc9s8g3vl.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.nadavg.pokerdonkey"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
