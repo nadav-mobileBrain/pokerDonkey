@@ -33,8 +33,7 @@
         "GOOGLE_SERVICES_JSON": "@project:LATEST_SERVICES_JSON"
       },
       "android": {
-        "channel": "production",
-        "buildType": "apk"
+        "channel": "production"
       }
     }
   },
