@@ -90,7 +90,9 @@ const RegisterScreen = () => {
           <AppText style={styles.comment}>
             *You can add/change your image and name later
           </AppText>
-          {/* {error && <AppText style={{ color: 'red' }}>{error}</AppText>} */}
+          {error && (
+            <AppText style={{ color: 'red' }}>{JSON.stringify(error)}</AppText>
+          )}
           <GoogleSigninButton
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Dark}
