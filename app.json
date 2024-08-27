@@ -11,22 +11,24 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.nadavg.pokerdonk",
+      "bundleIdentifier": "com.nadavgalili.donkpoker",
       "infoPlist": {
         "CFBundleURLTypes": [
           {
             "CFBundleURLSchemes": [
-              "com.googleusercontent.apps.4290183455-lob683p8mug8m32duf15i3tjcg244dp8"
+              "com.googleusercontent.apps.361923508778-a81if2uqd0856hnvrr5i6n88k65joh2d"
             ]
           }
         ]
       }
     },
     "android": {
-      "package": "com.nadavg.pokerdonk",
+      "package": "com.nadavgalili.donkpoker",
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/appLogo.png",
         "backgroundColor": "#ffffff"
@@ -38,11 +40,11 @@
       "favicon": "./app//assets/favicon.png"
     },
     "extra": {
-      "eas": {
-        "projectId": "0ebf019a-7956-4454-b254-c8aa62144cb4"
-      },
       "bugsnag": {
         "apiKey": "62021bda5a532116d0e251352fba9ed0"
+      },
+      "eas": {
+        "projectId": "0ebf019a-7956-4454-b254-c8aa62144cb4"
       }
     },
     "owner": "nadavg",

@@ -1,6 +1,6 @@
-//ios 94290183455-lob683p8mug8m32duf15i3tjcg244dp8.apps.googleusercontent.com
-///android 4290183455-5voja0uu1dm88quek47bal5cv7e3198g.apps.googleusercontent.com
-//web 94290183455-id1rfsbjqqk5sehm4uc495a8cmhdfk5n.apps.googleusercontent.com
+//ios
+///android
+//web
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, ImageBackground, View, Button } from 'react-native';
 
@@ -33,11 +33,11 @@ const RegisterScreen = () => {
   const configureGoogleSignin = () => {
     GoogleSignin.configure({
       webClientId:
-        '4290183455-id1rfsbjqqk5sehm4uc495a8cmhdfk5n.apps.googleusercontent.com',
+        '361923508778-v1unr1s4ju5lp50oqc4heac78d4slnoj.apps.googleusercontent.com',
       androidClientId:
-        '4290183455-5voja0uu1dm88quek47bal5cv7e3198g.apps.googleusercontent.com',
+        '361923508778-onejl65evp7e2soh3koc9tdh42afjpj9.apps.googleusercontent.com',
       iosClientId:
-        '4290183455-lob683p8mug8m32duf15i3tjcg244dp8.apps.googleusercontent.com',
+        '361923508778-a81if2uqd0856hnvrr5i6n88k65joh2d.apps.googleusercontent.com',
     });
   };
 

@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "415662565868",
-    "project_id": "new-poker-donk",
-    "storage_bucket": "new-poker-donk.appspot.com"
+    "project_number": "1068179051502",
+    "project_id": "donkpoker-83d15",
+    "storage_bucket": "donkpoker-83d15.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:415662565868:android:ec60f0a7ff8ef3ade078c9",
+        "mobilesdk_app_id": "1:1068179051502:android:a6d1561aceaa757c1bf4ff",
         "android_client_info": {
-          "package_name": "com.nadavg.pokerdonk"
+          "package_name": "com.nadavgalili.donkpoker"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "415662565868-c85dtvji24tt1lfhlj4666l5adtvnb3u.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBnywN9byFTGJOTcK8ENAD7IsYecaKtjYY"
+          "current_key": "AIzaSyDz63JIT-9S9rknzUZAMel7cBxgj-YKrh4"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "415662565868-c85dtvji24tt1lfhlj4666l5adtvnb3u.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
