@@ -63,7 +63,9 @@ const RegisterScreen = () => {
       }
 
       const user = result?.data?.user;
+
       const { data: authToken } = await loginApi.request(user);
+
       auth.logIn(authToken);
     } catch (e) {
       setError(e);
