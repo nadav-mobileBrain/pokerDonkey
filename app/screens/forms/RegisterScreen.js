@@ -22,7 +22,6 @@ import {
 } from '@react-native-google-signin/google-signin';
 
 const RegisterScreen = () => {
-  // const registerApi = useApi(usersApi.register);
   const signinWithGoogleApi = useApi(usersApi.googleSignin);
   const loginApi = useApi(authApi.login);
   const auth = useAuth();
@@ -51,6 +50,8 @@ const RegisterScreen = () => {
       const userInfo = await GoogleSignin.signIn();
       setUserInfo(userInfo);
       setError(null);
+      console.log('🚀 ~ signIn ~ setUserInfo:', setUserInfo);
+
       const result = await signinWithGoogleApi.request(userInfo);
       if (!result.ok) {
         if (result.data) setError(result.data.error);
@@ -66,6 +67,7 @@ const RegisterScreen = () => {
       auth.logIn(authToken);
     } catch (e) {
       setError(e);
+      console.error('Google Sign-In Error:', e);
       logger.log(e);
     }
   };
@@ -86,7 +88,7 @@ const RegisterScreen = () => {
           <AppText style={styles.comment}>
             *You can add/change your image and name later
           </AppText>
-          {error && <AppText style={{ color: 'red' }}>{error}</AppText>}
+          {/* {error && <AppText style={{ color: 'red' }}>{error}</AppText>} */}
           <GoogleSigninButton
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Dark}

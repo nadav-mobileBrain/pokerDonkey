@@ -14,15 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "959357331447-6i9t65ceb4hdscse55scicb5v4vj3uud.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.nadavg.pokerdonkey",
-            "certificate_hash": "8b87f5d16ba1f94ef23b6055b865fdb6aabe9785"
-          }
-        },
-        {
-          "client_id": "959357331447-l2t0r2o04j0sgm5ipa9mpdi02dh2m5cn.apps.googleusercontent.com",
+          "client_id": "959357331447-k0npnc61fs9m577o0k5el8hihr5uuh80.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -35,11 +27,11 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "959357331447-c7n207hsvgjj8sg1il9dufetvid1h1oa.apps.googleusercontent.com",
+              "client_id": "959357331447-k0npnc61fs9m577o0k5el8hihr5uuh80.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "959357331447-a7eq0ljslvpgt642e658o3etc9s8g3vl.apps.googleusercontent.com",
+              "client_id": "959357331447-e0ntispaog6ak5tfe4l853t6msplpog0.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.nadavg.pokerdonkey"

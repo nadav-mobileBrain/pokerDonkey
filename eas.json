@@ -12,7 +12,7 @@
         "simulator": true
       },
       "env": {
-        "GOOGLE_SERVICES_JSON": "@project:GOOGLE_SERVICES_JSON"
+        "GOOGLE_SERVICES_JSON": "@project:NEWNEW_GOOGLE_SERVICES_JSON"
       },
       "android": {
         "channel": "development"
@@ -25,13 +25,13 @@
         "channel": "preview"
       },
       "env": {
-        "GOOGLE_SERVICES_JSON": "@project:GOOGLE_SERVICES_JSON"
+        "GOOGLE_SERVICES_JSON": "@project:NEWNEW_GOOGLE_SERVICES_JSON"
       }
     },
     "production": {
       "channel": "production",
       "env": {
-        "GOOGLE_SERVICES_JSON": "@project:GOOGLE_SERVICES_JSON"
+        "GOOGLE_SERVICES_JSON": "@project:NEWNEW_GOOGLE_SERVICES_JSON"
       },
       "android": {
         "channel": "production"
