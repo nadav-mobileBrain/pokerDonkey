@@ -14,19 +14,19 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.nadavg.pokerdonkey",
+      "bundleIdentifier": "com.nadavg.pokerdonk",
       "infoPlist": {
         "CFBundleURLTypes": [
           {
             "CFBundleURLSchemes": [
-              "com.googleusercontent.apps.959357331447-a7eq0ljslvpgt642e658o3etc9s8g3vl"
+              "com.googleusercontent.apps.4290183455-lob683p8mug8m32duf15i3tjcg244dp8"
             ]
           }
         ]
       }
     },
     "android": {
-      "package": "com.nadavg.pokerdonkey",
+      "package": "com.nadavg.pokerdonk",
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/appLogo.png",
         "backgroundColor": "#ffffff"

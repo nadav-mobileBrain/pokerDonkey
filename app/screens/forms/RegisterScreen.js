@@ -1,6 +1,6 @@
-//ios 959357331447-a7eq0ljslvpgt642e658o3etc9s8g3vl.apps.googleusercontent.com
-///android 959357331447-6i9t65ceb4hdscse55scicb5v4vj3uud.apps.googleusercontent.com
-//web 959357331447-c7n207hsvgjj8sg1il9dufetvid1h1oa.apps.googleusercontent.com
+//ios 94290183455-lob683p8mug8m32duf15i3tjcg244dp8.apps.googleusercontent.com
+///android 4290183455-5voja0uu1dm88quek47bal5cv7e3198g.apps.googleusercontent.com
+//web 94290183455-id1rfsbjqqk5sehm4uc495a8cmhdfk5n.apps.googleusercontent.com
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, ImageBackground, View, Button } from 'react-native';
 
@@ -32,11 +32,11 @@ const RegisterScreen = () => {
   const configureGoogleSignin = () => {
     GoogleSignin.configure({
       webClientId:
-        '959357331447-c7n207hsvgjj8sg1il9dufetvid1h1oa.apps.googleusercontent.com',
+        '4290183455-id1rfsbjqqk5sehm4uc495a8cmhdfk5n.apps.googleusercontent.com',
       androidClientId:
-        '959357331447-6i9t65ceb4hdscse55scicb5v4vj3uud.apps.googleusercontent.com',
+        '4290183455-5voja0uu1dm88quek47bal5cv7e3198g.apps.googleusercontent.com',
       iosClientId:
-        '959357331447-a7eq0ljslvpgt642e658o3etc9s8g3vl.apps.googleusercontent.com',
+        '4290183455-lob683p8mug8m32duf15i3tjcg244dp8.apps.googleusercontent.com',
     });
   };
 
@@ -94,7 +94,7 @@ const RegisterScreen = () => {
           <GoogleSigninButton
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Dark}
-            onPress={() => signIn()}
+            onPress={signIn}
             style={styles.googleButton}
           />
         </ImageBackground>
