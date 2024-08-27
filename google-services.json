@@ -12,7 +12,12 @@
           "package_name": "com.nadavgalili.donkpoker"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1068179051502-2enlfmtp95v8eq7ipla3cnc1s5sbmm1e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDz63JIT-9S9rknzUZAMel7cBxgj-YKrh4"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1068179051502-2enlfmtp95v8eq7ipla3cnc1s5sbmm1e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
