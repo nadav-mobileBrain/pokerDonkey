@@ -49,9 +49,9 @@ const RegisterScreen = () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
+
       setUserInfo(userInfo);
       setError(null);
-      console.log('🚀 ~ signIn ~ setUserInfo:', setUserInfo);
 
       const result = await signinWithGoogleApi.request(userInfo);
       if (!result.ok) {
