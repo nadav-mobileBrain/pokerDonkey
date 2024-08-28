@@ -49,7 +49,12 @@
       "expo-font",
       "expo-secure-store",
       "@bugsnag/plugin-expo-eas-sourcemaps",
-      "@react-native-google-signin/google-signin",
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.361923508778-a81if2uqd0856hnvrr5i6n88k65joh2d"
+        }
+      ],
       [
         "react-native-google-mobile-ads",
         {
