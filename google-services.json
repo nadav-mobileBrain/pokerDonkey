@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "361923508778",
+    "project_id": "donkpoker",
+    "storage_bucket": "donkpoker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361923508778:android:5a910e54fc39f8c91fa153",
+        "android_client_info": {
+          "package_name": "com.nadavgalili.donkpoker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361923508778-onejl65evp7e2soh3koc9tdh42afjpj9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nadavgalili.donkpoker",
+            "certificate_hash": "21d09c7388c39b26628958415d04b46c7992c412"
+          }
+        },
+        {
+          "client_id": "361923508778-v1unr1s4ju5lp50oqc4heac78d4slnoj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ9R_p3sWtpopsyjnDZ7fCH4edDxcu4bs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361923508778-v1unr1s4ju5lp50oqc4heac78d4slnoj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "361923508778-a81if2uqd0856hnvrr5i6n88k65joh2d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.nadavgalili.donkpoker"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

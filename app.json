@@ -31,6 +31,7 @@
         "foregroundImage": "./app/assets/appLogo.png",
         "backgroundColor": "#ffffff"
       },
+      "googleServicesFile": "./google-services.json",
       "versionCode": 1
     },
     "web": {
