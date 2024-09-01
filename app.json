@@ -3,7 +3,7 @@
     "name": "pokerDonk",
     "scheme": "pokerdonk",
     "slug": "pokerdonkey",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "orientation": "portrait",
     "icon": "./app/assets/appLogo.png",
     "userInterfaceStyle": "light",
@@ -12,6 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,

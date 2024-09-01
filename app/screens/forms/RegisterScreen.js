@@ -19,6 +19,7 @@ import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
+  isErrorWithCode,
 } from "@react-native-google-signin/google-signin";
 
 const RegisterScreen = () => {
@@ -34,7 +35,7 @@ const RegisterScreen = () => {
   const configureGoogleSignin = () => {
     GoogleSignin.configure({
       webClientId:
-        "361923508778-v1unr1s4ju5lp50oqc4heac78d4slnoj.apps.googleusercontent.com",
+        "361923508778-48lih5g7k2okddannot66ebkkl2ele7f.apps.googleusercontent.com",
       androidClientId:
         "361923508778-onejl65evp7e2soh3koc9tdh42afjpj9.apps.googleusercontent.com",
       iosClientId:
@@ -50,11 +51,13 @@ const RegisterScreen = () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
+      console.log("🚀 ~ signIn ~ userInfo:", userInfo);
 
       setUserInfo(userInfo);
       setError(null);
 
       const result = await signinWithGoogleApi.request(userInfo);
+      console.log("🚀 ~ signIn ~ result:", result.data);
       if (!result.ok) {
         if (result.data) setError(result.data.error);
         else {
@@ -70,9 +73,27 @@ const RegisterScreen = () => {
 
       auth.logIn(authToken);
     } catch (e) {
+      if (isErrorWithCode(error)) {
+        switch (error.code) {
+          case statusCodes.SIGN_IN_CANCELLED:
+            // user cancelled the login flow
+            break;
+          case statusCodes.IN_PROGRESS:
+            // operation (eg. sign in) already in progress
+            break;
+          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+            console.log("sdsd", e);
+            // play services not available or outdated
+            break;
+          default:
+          // some other error happened
+        }
+      } else {
+        // an error that's not related to google sign in occurred
+        console.error("Google Sign-In Error:", e);
+      }
       setError(e);
-      console.error("Google Sign-In Error:", e);
-      logger.log(e);
+      //logger.log(e);
     }
   };
 
