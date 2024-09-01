@@ -22,7 +22,7 @@
     "production": {
       "channel": "production",
       "android": {
-        "buildType": "apk"
+        "buildType": "app-bundle"
       },
       "env": {
         "GOOGLE_SERVIECES_JSON": "@project:GOOGLE_SERVICES_JSON_FROM_DOCS"
