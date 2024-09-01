@@ -3,7 +3,8 @@
     "name": "pokerDonk",
     "scheme": "pokerdonk",
     "slug": "pokerdonkey",
-    "version": "1.0.8",
+    "runtimeVersion": "1.0.0",
+    "version": "1.0.9",
     "orientation": "portrait",
     "icon": "./app/assets/appLogo.png",
     "userInterfaceStyle": "light",
@@ -66,9 +67,7 @@
         }
       ]
     ],
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
+
     "updates": {
       "url": "https://u.expo.dev/0ebf019a-7956-4454-b254-c8aa62144cb4"
     }
