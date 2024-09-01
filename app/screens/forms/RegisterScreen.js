@@ -1,43 +1,44 @@
 //ios
 ///android
 //web
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, ImageBackground, View, Button } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, ImageBackground, View } from "react-native";
 
-import Screen from '../../components/Screen';
-import AppText from '../../components/AppText';
-import AppLogo from '../../components/AppLogo';
-import ActivityIndicator from '../../components/ActivityIndicator';
-import authApi from '../../api/auth';
-import usersApi from '../../api/users';
-import useApi from '../../hooks/useApi';
-import useAuth from '../../auth/useAuth';
-import colors from '../../config/colors';
-import logger from '../../utility/logger';
+import Screen from "../../components/Screen";
+import AppText from "../../components/AppText";
+import AppLogo from "../../components/AppLogo";
+import ActivityIndicator from "../../components/ActivityIndicator";
+import authApi from "../../api/auth";
+import usersApi from "../../api/users";
+import useApi from "../../hooks/useApi";
+import useAuth from "../../auth/useAuth";
+import colors from "../../config/colors";
+import logger from "../../utility/logger";
 
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
-} from '@react-native-google-signin/google-signin';
+} from "@react-native-google-signin/google-signin";
 
 const RegisterScreen = () => {
   const signinWithGoogleApi = useApi(usersApi.googleSignin);
   const loginApi = useApi(authApi.login);
   const auth = useAuth();
   const [error, setError] = useState();
-  console.log('🚀 ~ RegisterScreen ~ error:', JSON.stringify(error));
+  console.log("🚀 ~ RegisterScreen ~ error:", JSON.stringify(error));
   // const [imageUri, setImageUri] = useState(null); // New state for image URI
   const [userInfo, setUserInfo] = useState(null);
+  console.log("🚀 ~ RegisterScreen ~ userInfo:", userInfo);
 
   const configureGoogleSignin = () => {
     GoogleSignin.configure({
       webClientId:
-        '361923508778-v1unr1s4ju5lp50oqc4heac78d4slnoj.apps.googleusercontent.com',
+        "361923508778-v1unr1s4ju5lp50oqc4heac78d4slnoj.apps.googleusercontent.com",
       androidClientId:
-        '361923508778-onejl65evp7e2soh3koc9tdh42afjpj9.apps.googleusercontent.com',
+        "361923508778-onejl65evp7e2soh3koc9tdh42afjpj9.apps.googleusercontent.com",
       iosClientId:
-        '361923508778-a81if2uqd0856hnvrr5i6n88k65joh2d.apps.googleusercontent.com',
+        "361923508778-a81if2uqd0856hnvrr5i6n88k65joh2d.apps.googleusercontent.com",
     });
   };
 
@@ -57,7 +58,7 @@ const RegisterScreen = () => {
       if (!result.ok) {
         if (result.data) setError(result.data.error);
         else {
-          setError('An unexpected error occurred.');
+          setError("An unexpected error occurred.");
           logger.log(result);
         }
         return;
@@ -70,7 +71,7 @@ const RegisterScreen = () => {
       auth.logIn(authToken);
     } catch (e) {
       setError(e);
-      console.error('Google Sign-In Error:', e);
+      console.error("Google Sign-In Error:", e);
       logger.log(e);
     }
   };
@@ -83,16 +84,15 @@ const RegisterScreen = () => {
       <Screen style={styles.container}>
         <ImageBackground
           style={styles.background}
-          source={require('../../assets/appLogo.webp')}
-          blurRadius={10}
-        >
+          source={require("../../assets/appLogo.webp")}
+          blurRadius={10}>
           <View style={styles.overlay} />
           <AppLogo />
           <AppText style={styles.comment}>
             *You can add/change your image and name later
           </AppText>
           {error && (
-            <AppText style={{ color: 'red' }}>{JSON.stringify(error)}</AppText>
+            <AppText style={{ color: "red" }}>{JSON.stringify(error)}</AppText>
           )}
           <GoogleSigninButton
             size={GoogleSigninButton.Size.Wide}
@@ -114,16 +114,16 @@ const styles = StyleSheet.create({
     color: colors.gold,
     fontSize: 20,
     margin: 20,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   background: {
     flex: 1,
     padding: 20,
   },
   googleButton: {
-    width: '80%',
+    width: "80%",
     height: 60,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
