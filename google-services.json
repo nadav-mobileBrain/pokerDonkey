@@ -14,11 +14,27 @@
       },
       "oauth_client": [
         {
+          "client_id": "361923508778-d7qudrd7r820lf0nnd069trfgbqud4p3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nadavgalili.donkpoker",
+            "certificate_hash": "21d09c7388c39b26628958415d04b46c7992c412"
+          }
+        },
+        {
           "client_id": "361923508778-onejl65evp7e2soh3koc9tdh42afjpj9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.nadavgalili.donkpoker",
             "certificate_hash": "2f0a0fe28fb458f1fee29a4edaf13fe016c0f89c"
+          }
+        },
+        {
+          "client_id": "361923508778-qac7ejh9nbf4hk6d1p9jrb7608dkqq3j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nadavgalili.donkpoker",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {
